@@ -7,7 +7,6 @@ import { documents, chunks } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import { hash } from './hash';
 import { chunkMarkdown } from './chunk';
-import { embed } from './embed';
 
 // --- Types ---
 
@@ -118,7 +117,7 @@ function buildFileList(contentDir: string): IndexableFile[] {
   return files;
 }
 
-export async function reindex(opts: { openaiKey: string }): Promise<ReindexResult> {
+export async function reindex(): Promise<ReindexResult> {
   const contentDir = path.join(process.cwd(), 'content');
   const allFiles = buildFileList(contentDir);
 
@@ -154,10 +153,8 @@ export async function reindex(opts: { openaiKey: string }): Promise<ReindexResul
       continue;
     }
 
-    // Chunk and embed
+    // Chunk (no embeddings needed — FTS only)
     const chunkList = chunkMarkdown(contentMd);
-    const chunkContents = chunkList.map(c => c.content);
-    const embeddings = await embed(chunkContents, opts.openaiKey);
 
     // Delete existing chunks if doc existed
     let documentId: string;
@@ -194,23 +191,18 @@ export async function reindex(opts: { openaiKey: string }): Promise<ReindexResul
       documentId = inserted[0].id;
     }
 
-    // Insert chunks with raw SQL for tsv column
+    // Insert chunks with raw SQL for tsv column (no embedding)
     let chunksCreated = 0;
-    for (let i = 0; i < chunkList.length; i++) {
-      const chunk = chunkList[i];
-      const embedding = embeddings[i];
-      const embeddingStr = `[${embedding.join(',')}]`;
-
+    for (const chunk of chunkList) {
       await db.execute(
         neonSql`
-          INSERT INTO chunks (id, document_id, chunk_index, content, heading, embedding, tsv, metadata)
+          INSERT INTO chunks (id, document_id, chunk_index, content, heading, tsv, metadata)
           VALUES (
             gen_random_uuid(),
             ${documentId},
             ${chunk.chunk_index},
             ${chunk.content},
             ${chunk.heading ?? null},
-            ${embeddingStr}::vector,
             to_tsvector('simple', ${chunk.content}),
             NULL
           )

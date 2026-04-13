@@ -10,24 +10,6 @@ import {
 
 // --- Custom types ---
 
-// pgvector vector(dim)
-const vectorType = customType<{ data: number[]; driverData: string }>({
-  dataType() {
-    return 'vector(1536)';
-  },
-  toDriver(v: number[]): string {
-    return `[${v.join(',')}]`;
-  },
-  fromDriver(v: string): number[] {
-    // driver returns a string like "[0.1,0.2,...]"
-    return v
-      .replace('[', '')
-      .replace(']', '')
-      .split(',')
-      .map(Number);
-  },
-});
-
 // tsvector — generated/read-only column
 const tsvectorType = customType<{ data: string; driverData: string }>({
   dataType() {
@@ -55,7 +37,6 @@ export const chunks = pgTable('chunks', {
   chunk_index: integer('chunk_index').notNull(),
   content: text('content').notNull(),
   heading: text('heading'),
-  embedding: vectorType('embedding'),
   tsv: tsvectorType('tsv'),
   metadata: jsonb('metadata'),
 });
@@ -75,20 +56,4 @@ export const countries = pgTable('countries', {
   local_specifics: text('local_specifics'),
   sap_effort: text('sap_effort'),
   key_note: text('key_note'),
-});
-
-export const chats = pgTable('chats', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  title: text('title').notNull(),
-  created_at: timestamp('created_at', { withTimezone: true }).defaultNow(),
-  updated_at: timestamp('updated_at', { withTimezone: true }).defaultNow(),
-});
-
-export const messages = pgTable('messages', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  chat_id: uuid('chat_id').references(() => chats.id, { onDelete: 'cascade' }),
-  role: text('role').notNull(), // 'user' | 'assistant'
-  content: text('content').notNull(),
-  sources: jsonb('sources'), // array of {chunk_id, doc_slug, heading}
-  created_at: timestamp('created_at', { withTimezone: true }).defaultNow(),
 });

@@ -9,19 +9,6 @@ export default auth((req) => {
   if (!isAuth && !isPublic) {
     return Response.redirect(new URL("/login", req.nextUrl))
   }
-
-  // After auth check succeeds, check if path needs API keys
-  if (isAuth) {
-    const keysRequiredPaths = ["/chat", "/admin"]
-    const needsKeys = keysRequiredPaths.some((p) => pathname.startsWith(p))
-    if (needsKeys) {
-      const hasAnth = req.cookies.get("ak_anth")
-      const hasOai = req.cookies.get("ak_oai")
-      if (!hasAnth || !hasOai) {
-        return Response.redirect(new URL("/settings?reason=missing-keys", req.nextUrl))
-      }
-    }
-  }
 })
 
 export const config = {

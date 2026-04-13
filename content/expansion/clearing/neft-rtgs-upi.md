@@ -2,7 +2,7 @@
 name: India NEFT / RTGS / IMPS / UPI Payment Systems
 abkuerzung: NEFT/RTGS/IMPS/UPI
 region: Indien
-typ: Multi-System: DNS (NEFT) + RTGS + 24/7 Interbank (IMPS) + Instant Mobile Payments (UPI)
+typ: "Multi-System: DNS (NEFT) + RTGS + 24/7 Interbank (IMPS) + Instant Mobile Payments (UPI)"
 waehrung: INR
 betreiber: Reserve Bank of India (NEFT, RTGS, IMPS) + NPCI — National Payments Corporation of India (IMPS, UPI)
 status: RTGS seit 2004, NEFT seit 2005, IMPS seit 2010, UPI seit 2016; alle 24/7 operativ seit 2019–2021

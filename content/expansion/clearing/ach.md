@@ -4,7 +4,7 @@ abkuerzung: US ACH
 region: USA
 typ: Deferred Net Settlement (Batch)
 waehrung: USD
-betreiber: Nacha (National Automated Clearing House Association); Betrieb über zwei Operatoren: Federal Reserve (FedACH) und The Clearing House (EPN)
+betreiber: "Nacha (National Automated Clearing House Association); Betrieb über zwei Operatoren: Federal Reserve (FedACH) und The Clearing House (EPN)"
 status: Operativ, seit 1972; Same-Day ACH seit 2016
 beschreibung_experte: |
   Das US ACH Network ist das standardisierte Batch-Zahlungssystem für Kleinbetragszahlungen in den USA. Es verarbeitet täglich Milliarden von Transaktionen in standardisierten Nacha-Dateien (NACHA Operating Rules, CTX- und CCD-Formate für Corporate-Zahlungen). ACH wird für Gehaltszahlungen (Direct Deposit), B2B-Zahlungen (CCD/CTX), Lastschriften (PPD, CCD Debit) und Government-Zahlungen eingesetzt. Das Netz settlement erfolgt in Batches über die Federal Reserve oder The Clearing House (EPN). Same-Day ACH (eingeführt 2016, erweitert 2022) erlaubt Beträge bis 1 Mio. USD taggleich. Standard-ACH settelt am nächsten Geschäftstag. Die Nacha Operating Rules (jährlich aktualisiert) legen Haftung, Rückgabefristen und Corporate-Entry-Typen fest.

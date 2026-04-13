@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.002.001.03"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.002.001.03 pain.002.001.03.xsd">
+  <CstmrPmtStsRpt>
+    <GrpHdr>
+      <MsgId>STSRPT-20260413-001</MsgId>
+      <CreDtTm>2026-04-13T10:15:00</CreDtTm>
+      <InitgPty>
+        <Nm>COMMERZBANK AG</Nm>
+        <Id>
+          <OrgId>
+            <BICOrBEI>COBADEFFXXX</BICOrBEI>
+          </OrgId>
+        </Id>
+      </InitgPty>
+    </GrpHdr>
+    <OrgnlGrpInfAndSts>
+      <OrgnlMsgId>MSGID-20260413-001</OrgnlMsgId>
+      <OrgnlMsgNmId>pain.001.001.03</OrgnlMsgNmId>
+      <OrgnlCreDtTm>2026-04-13T10:00:00</OrgnlCreDtTm>
+      <OrgnlNbOfTxs>1</OrgnlNbOfTxs>
+      <OrgnlCtrlSum>100.00</OrgnlCtrlSum>
+      <GrpSts>ACCP</GrpSts>
+    </OrgnlGrpInfAndSts>
+    <OrgnlPmtInfAndSts>
+      <OrgnlPmtInfId>PMTINF-20260413-001</OrgnlPmtInfId>
+      <PmtInfSts>ACCP</PmtInfSts>
+      <TxInfAndSts>
+        <OrgnlEndToEndId>E2EID-20260413-001</OrgnlEndToEndId>
+        <TxSts>ACCP</TxSts>
+        <AcctSvcrRef>BANKREF20260413001</AcctSvcrRef>
+      </TxInfAndSts>
+    </OrgnlPmtInfAndSts>
+  </CstmrPmtStsRpt>
+</Document>

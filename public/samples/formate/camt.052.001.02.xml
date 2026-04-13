@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.052.001.02"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:camt.052.001.02 camt.052.001.02.xsd">
+  <BkToCstmrAcctRpt>
+    <GrpHdr>
+      <MsgId>ACCRPT-20260413-001</MsgId>
+      <CreDtTm>2026-04-13T08:00:00</CreDtTm>
+      <MsgPgntn>
+        <PgNb>1</PgNb>
+        <LastPgInd>true</LastPgInd>
+      </MsgPgntn>
+    </GrpHdr>
+    <Rpt>
+      <Id>RPTID-20260413-001</Id>
+      <ElctrncSeqNb>1</ElctrncSeqNb>
+      <CreDtTm>2026-04-13T08:00:00</CreDtTm>
+      <FrToDt>
+        <FrDtTm>2026-04-13T00:00:00</FrDtTm>
+        <ToDtTm>2026-04-13T07:59:59</ToDtTm>
+      </FrToDt>
+      <Acct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+        <Ccy>EUR</Ccy>
+        <Ownr>
+          <Nm>Test Debtor GmbH</Nm>
+        </Ownr>
+        <Svcr>
+          <FinInstnId>
+            <BIC>COBADEFFXXX</BIC>
+            <Nm>COMMERZBANK AG</Nm>
+          </FinInstnId>
+        </Svcr>
+      </Acct>
+      <Bal>
+        <Tp>
+          <CdOrPrtry>
+            <Cd>OPBD</Cd>
+          </CdOrPrtry>
+        </Tp>
+        <Amt Ccy="EUR">5000.00</Amt>
+        <CdtDbtInd>CRDT</CdtDbtInd>
+        <Dt>
+          <Dt>2026-04-13</Dt>
+        </Dt>
+      </Bal>
+      <Ntry>
+        <Amt Ccy="EUR">100.00</Amt>
+        <CdtDbtInd>CRDT</CdtDbtInd>
+        <Sts>BOOK</Sts>
+        <BookgDt>
+          <Dt>2026-04-13</Dt>
+        </BookgDt>
+        <ValDt>
+          <Dt>2026-04-13</Dt>
+        </ValDt>
+        <AcctSvcrRef>BANKREF20260413001</AcctSvcrRef>
+        <BkTxCd>
+          <Domn>
+            <Cd>PMTS</Cd>
+            <Fmly>
+              <Cd>ICDT</Cd>
+              <SubFmlyCd>ESCT</SubFmlyCd>
+            </Fmly>
+          </Domn>
+        </BkTxCd>
+        <NtryDtls>
+          <TxDtls>
+            <Refs>
+              <EndToEndId>E2EID-20260413-001</EndToEndId>
+            </Refs>
+            <RmtInf>
+              <Ustrd>Rechnung 2026-001 vom 2026-04-01</Ustrd>
+            </RmtInf>
+          </TxDtls>
+        </NtryDtls>
+      </Ntry>
+    </Rpt>
+  </BkToCstmrAcctRpt>
+</Document>

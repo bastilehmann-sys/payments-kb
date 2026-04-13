@@ -1,5 +1,6 @@
 import { getFormatEntries } from '@/lib/queries/entries';
 import { SplitView, type Column } from '@/components/browse/split-view';
+import { FormatSampleCard } from '@/components/browse/formate-sample-card';
 import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
@@ -53,6 +54,9 @@ export default async function FormatePage() {
         filterField="familie_standard"
         filterLabel="Alle Familien"
         summaryField="beschreibung_einsteiger"
+        extraDetailHeader={(item) => (
+          <FormatSampleCard formatName={String(item['format_name'] ?? '')} />
+        )}
       />
     </Suspense>
   );

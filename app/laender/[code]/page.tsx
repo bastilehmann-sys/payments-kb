@@ -1,6 +1,7 @@
 import { getCountry } from '@/lib/queries/documents';
 import { Markdown } from '@/components/browse/markdown';
-import { Toc, extractToc } from '@/components/browse/toc';
+import { Toc } from '@/components/browse/toc';
+import { extractToc } from '@/lib/browse/toc';
 import { auth } from '@/auth';
 import { redirect, notFound } from 'next/navigation';
 import Link from 'next/link';

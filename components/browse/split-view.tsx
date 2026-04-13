@@ -4,7 +4,9 @@ import * as React from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { DocumentDetail } from '@/components/browse/document-detail';
+import { CountryBlocksView } from '@/components/browse/country-blocks-view';
 import { splitToBullets, splitIntoSubtopics } from '@/lib/text/split-to-bullets';
+import type { CountryBlockGroup } from '@/lib/queries/documents';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -38,6 +40,12 @@ export type SplitViewProps<T extends Record<string, unknown>> = {
   extraDetailHeader?: (item: T) => React.ReactNode;
   /** Table name for edit button (e.g. 'regulatorik_entries') */
   editTable?: string;
+  /**
+   * Map of country code → structured block data.
+   * When set and the selected item has a matching code, renders block tables
+   * INSTEAD of the document markdown.
+   */
+  countryBlocksMap?: Record<string, CountryBlockGroup[]>;
 };
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
@@ -312,6 +320,7 @@ function DetailPanel<T extends Record<string, unknown>>({
   extraDetailHeader,
   editTable,
   itemId,
+  countryBlocks,
 }: {
   item: T | null;
   columns: Column[];
@@ -324,6 +333,7 @@ function DetailPanel<T extends Record<string, unknown>>({
   extraDetailHeader?: (item: T) => React.ReactNode;
   editTable?: string;
   itemId?: string;
+  countryBlocks?: CountryBlockGroup[];
 }) {
   const [mode, setMode] = React.useState<Mode>('einsteiger');
 
@@ -509,12 +519,17 @@ function DetailPanel<T extends Record<string, unknown>>({
             </div>
           ))}
 
-          {/* Linked document markdown */}
-          {documentMd && (
-            <div>
-              <SectionHeading title="Vollständiges Länderprofil" />
-              <DocumentDetail content={documentMd} />
-            </div>
+          {/* Structured block tables (takes precedence over document markdown) */}
+          {countryBlocks && countryBlocks.length > 0 ? (
+            <CountryBlocksView blocks={countryBlocks} />
+          ) : (
+            /* Linked document markdown fallback */
+            documentMd && (
+              <div>
+                <SectionHeading title="Vollständiges Länderprofil" />
+                <DocumentDetail content={documentMd} />
+              </div>
+            )
           )}
         </dl>
       </div>
@@ -601,6 +616,7 @@ export function SplitView<T extends Record<string, unknown>>({
   summaryField,
   extraDetailHeader,
   editTable,
+  countryBlocksMap,
 }: SplitViewProps<T>) {
   const router = useRouter();
   const pathname = usePathname();
@@ -732,6 +748,13 @@ export function SplitView<T extends Record<string, unknown>>({
   );
 
   // ── Detail ──────────────────────────────────────────────────────────────────
+  // Resolve country blocks for the selected item (by idField key, typically 'code')
+  const selectedCountryBlocks = React.useMemo(() => {
+    if (!countryBlocksMap || !selectedItem) return undefined;
+    const keyVal = idField ? String(selectedItem[idField] ?? '') : String(selectedItem['code'] ?? selectedItem['id'] ?? '');
+    return countryBlocksMap[keyVal] ?? undefined;
+  }, [countryBlocksMap, selectedItem, idField]);
+
   const detail = (
     <DetailPanel
       item={selectedItem}
@@ -745,6 +768,7 @@ export function SplitView<T extends Record<string, unknown>>({
       extraDetailHeader={extraDetailHeader}
       editTable={editTable}
       itemId={selectedId ?? undefined}
+      countryBlocks={selectedCountryBlocks}
     />
   );
 

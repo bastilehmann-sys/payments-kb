@@ -1,4 +1,4 @@
-import { listCountriesWithDocuments } from '@/lib/queries/documents';
+import { listCountriesWithDocuments, getCountryBlocks } from '@/lib/queries/documents';
 import { SplitView, type Column } from '@/components/browse/split-view';
 import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
@@ -34,7 +34,16 @@ export default async function LaenderPage() {
   const session = await auth();
   if (!session) redirect('/login');
 
-  const countriesWithDocs = await listCountriesWithDocuments();
+  const [countriesWithDocs, itBlocks] = await Promise.all([
+    listCountriesWithDocuments(),
+    getCountryBlocks('IT'),
+  ]);
+
+  // Build blocks map: country code → block groups
+  const countryBlocksMap: Record<string, Awaited<ReturnType<typeof getCountryBlocks>>> = {};
+  if (itBlocks.length > 0) {
+    countryBlocksMap['IT'] = itBlocks;
+  }
 
   // Flatten document content_md into the item for SplitView
   const items = countriesWithDocs.map((c) => ({
@@ -69,6 +78,7 @@ export default async function LaenderPage() {
         documentField="document_md"
         summaryField="key_note"
         editTable="countries"
+        countryBlocksMap={countryBlocksMap}
       />
     </Suspense>
   );

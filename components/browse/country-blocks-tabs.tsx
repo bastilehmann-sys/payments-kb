@@ -122,8 +122,8 @@ export function CountryBlocksTabs({ blocks }: Props) {
 
           {/* Rows */}
           <div>
-            {active.rows.map((row) => (
-              <FieldRow key={`${row.blockNo}-${row.rowOrder}`} row={row} />
+            {active.rows.map((row, i) => (
+              <FieldRow key={`${row.blockNo}-${row.rowOrder}-${i}`} row={row} />
             ))}
           </div>
         </div>

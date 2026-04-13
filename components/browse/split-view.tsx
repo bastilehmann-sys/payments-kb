@@ -336,10 +336,12 @@ function DetailPanel<T extends Record<string, unknown>>({
   countryBlocks?: CountryBlockGroup[];
 }) {
   const [mode, setMode] = React.useState<Mode>('einsteiger');
+  const [activeTab, setActiveTab] = React.useState<string>('');
 
-  // Reset mode to default whenever the selected item changes
+  // Reset mode and active tab whenever the selected item changes
   React.useEffect(() => {
     setMode('einsteiger');
+    setActiveTab('');
   }, [item]);
 
   if (!item) {
@@ -390,7 +392,7 @@ function DetailPanel<T extends Record<string, unknown>>({
 
   const grouped = groupPairs(displayColumns);
 
-  // Build sections map
+  // Build sections map, preserving insertion order
   const sectionMap: Record<string, typeof grouped> = {};
   for (const entry of grouped) {
     const sectionKey = entry.type === 'pair' ? entry.section : (entry.col.section ?? 'Allgemein');
@@ -409,6 +411,33 @@ function DetailPanel<T extends Record<string, unknown>>({
       .replace(/\s*\(Einsteiger\)\s*$/i, '')
       .trim();
   }
+
+  // Helper: check if a section has any visible data for the current item
+  function sectionHasData(entries: typeof grouped): boolean {
+    return entries.some((entry) => {
+      if (entry.type === 'pair') {
+        return (
+          !!str(item![entry.expert.key as keyof T]) ||
+          !!str(item![entry.beginner.key as keyof T])
+        );
+      }
+      return !!str(item![entry.col.key as keyof T]);
+    });
+  }
+
+  // Only include sections that have at least one non-empty value for this item
+  const visibleSections = Object.keys(sectionMap).filter((s) =>
+    sectionHasData(sectionMap[s])
+  );
+
+  // Determine the effective active tab (first visible section as default)
+  const effectiveTab =
+    activeTab && visibleSections.includes(activeTab)
+      ? activeTab
+      : visibleSections[0] ?? '';
+
+  // When country blocks are present, skip column-section tabs and use block tabs directly
+  const hasCountryBlocks = countryBlocks && countryBlocks.length > 0;
 
   return (
     <div className="flex flex-1 flex-col overflow-hidden">
@@ -464,74 +493,128 @@ function DetailPanel<T extends Record<string, unknown>>({
         {/* Extra detail header (e.g. sample file card) */}
         {extraDetailHeader && item && extraDetailHeader(item)}
 
-        {/* Einsteiger / Experte toggle */}
-        {hasPairs && (
-          <div className="mb-6 flex items-center gap-2 rounded-lg border border-border bg-muted/30 p-1 w-fit">
-            <button
-              onClick={() => setMode('einsteiger')}
-              className={cn(
-                'px-4 py-1.5 text-sm font-medium rounded-md transition-colors',
-                mode === 'einsteiger'
-                  ? 'bg-primary text-primary-foreground'
-                  : 'text-muted-foreground hover:text-foreground',
-              )}
-            >
-              Einsteiger
-            </button>
-            <button
-              onClick={() => setMode('experte')}
-              className={cn(
-                'px-4 py-1.5 text-sm font-medium rounded-md transition-colors',
-                mode === 'experte'
-                  ? 'bg-primary text-primary-foreground'
-                  : 'text-muted-foreground hover:text-foreground',
-              )}
-            >
-              Experte
-            </button>
-          </div>
-        )}
-
-        <dl>
-          {Object.entries(sectionMap).map(([section, entries]) => (
-            <div key={section}>
-              <SectionHeading title={section} />
-              {entries.map((entry) => {
-                if (entry.type === 'pair') {
-                  const ev = str(item[entry.expert.key as keyof T]);
-                  const bv = str(item[entry.beginner.key as keyof T]);
-                  if (!ev && !bv) return null;
-                  return (
-                    <MergedPairedRow
-                      key={entry.base}
-                      label={stripPairLabel(entry.expert.label)}
-                      expertValue={ev}
-                      beginnerValue={bv}
-                      mode={mode}
-                    />
-                  );
-                } else {
-                  const val = str(item[entry.col.key as keyof T]);
-                  if (!val) return null;
-                  return <FieldRow key={entry.col.key} label={entry.col.label} value={val} />;
-                }
-              })}
-            </div>
-          ))}
-
-          {/* Structured block tables (takes precedence over document markdown) */}
-          {countryBlocks && countryBlocks.length > 0 ? (
-            <CountryBlocksView blocks={countryBlocks} />
-          ) : (
-            /* Linked document markdown fallback */
-            documentMd && (
-              <div>
-                <SectionHeading title="Vollständiges Länderprofil" />
-                <DocumentDetail content={documentMd} />
+        {/* ── Country with block tabs: render metadata above, then block tabs ── */}
+        {hasCountryBlocks ? (
+          <>
+            {/* Top-level column fields (code, name, complexity, currency, etc.) */}
+            {visibleSections.length > 0 && (
+              <dl className="mb-8">
+                {visibleSections.map((section) => (
+                  <div key={section}>
+                    {visibleSections.length > 1 && <SectionHeading title={section} />}
+                    {sectionMap[section].map((entry) => {
+                      if (entry.type === 'pair') {
+                        const ev = str(item[entry.expert.key as keyof T]);
+                        const bv = str(item[entry.beginner.key as keyof T]);
+                        if (!ev && !bv) return null;
+                        return (
+                          <MergedPairedRow
+                            key={entry.base}
+                            label={stripPairLabel(entry.expert.label)}
+                            expertValue={ev}
+                            beginnerValue={bv}
+                            mode={mode}
+                          />
+                        );
+                      } else {
+                        const val = str(item[entry.col.key as keyof T]);
+                        if (!val) return null;
+                        return <FieldRow key={entry.col.key} label={entry.col.label} value={val} />;
+                      }
+                    })}
+                  </div>
+                ))}
+              </dl>
+            )}
+            {/* Block tabs */}
+            <CountryBlocksView blocks={countryBlocks!} />
+          </>
+        ) : (
+          /* ── Standard column-section tabs ── */
+          <>
+            {/* Einsteiger / Experte toggle — sits above the tab bar */}
+            {hasPairs && (
+              <div className="mb-4 flex items-center gap-2 rounded-lg border border-border bg-muted/30 p-1 w-fit">
+                <button
+                  onClick={() => setMode('einsteiger')}
+                  className={cn(
+                    'px-4 py-1.5 text-sm font-medium rounded-md transition-colors',
+                    mode === 'einsteiger'
+                      ? 'bg-primary text-primary-foreground'
+                      : 'text-muted-foreground hover:text-foreground',
+                  )}
+                >
+                  Einsteiger
+                </button>
+                <button
+                  onClick={() => setMode('experte')}
+                  className={cn(
+                    'px-4 py-1.5 text-sm font-medium rounded-md transition-colors',
+                    mode === 'experte'
+                      ? 'bg-primary text-primary-foreground'
+                      : 'text-muted-foreground hover:text-foreground',
+                  )}
+                >
+                  Experte
+                </button>
               </div>
-            )
-          )}
-        </dl>
+            )}
+
+            {/* Tab bar — only render when there are 2+ visible sections */}
+            {visibleSections.length > 1 && (
+              <div className="mb-6 flex items-center gap-1 border-b border-border overflow-x-auto">
+                {visibleSections.map((name) => (
+                  <button
+                    key={name}
+                    onClick={() => setActiveTab(name)}
+                    className={cn(
+                      'px-4 py-2.5 text-sm font-medium whitespace-nowrap transition-colors border-b-2 -mb-px',
+                      effectiveTab === name
+                        ? 'border-primary text-primary'
+                        : 'border-transparent text-muted-foreground hover:text-foreground',
+                    )}
+                  >
+                    {name}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {/* Active section entries */}
+            {effectiveTab && (
+              <dl>
+                {(sectionMap[effectiveTab] ?? []).map((entry) => {
+                  if (entry.type === 'pair') {
+                    const ev = str(item[entry.expert.key as keyof T]);
+                    const bv = str(item[entry.beginner.key as keyof T]);
+                    if (!ev && !bv) return null;
+                    return (
+                      <MergedPairedRow
+                        key={entry.base}
+                        label={stripPairLabel(entry.expert.label)}
+                        expertValue={ev}
+                        beginnerValue={bv}
+                        mode={mode}
+                      />
+                    );
+                  } else {
+                    const val = str(item[entry.col.key as keyof T]);
+                    if (!val) return null;
+                    return <FieldRow key={entry.col.key} label={entry.col.label} value={val} />;
+                  }
+                })}
+
+                {/* Document markdown fallback — shown below the active section if present */}
+                {documentMd && visibleSections.indexOf(effectiveTab) === visibleSections.length - 1 && (
+                  <div>
+                    <SectionHeading title="Vollständiges Länderprofil" />
+                    <DocumentDetail content={documentMd} />
+                  </div>
+                )}
+              </dl>
+            )}
+          </>
+        )}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { getFormatEntries } from '@/lib/queries/entries';
+import { getFormatEntries, getFormatVersions } from '@/lib/queries/entries';
 import { type Column } from '@/components/browse/split-view';
 import { FormateClient } from './formate-client';
 import { auth } from '@/auth';
@@ -41,13 +41,17 @@ export default async function FormatePage() {
   const session = await auth();
   if (!session) redirect('/login');
 
-  const data = await getFormatEntries();
+  const [data, versions] = await Promise.all([
+    getFormatEntries(),
+    getFormatVersions().catch(() => []),
+  ]);
 
   return (
     <Suspense>
       <FormateClient
         items={data as unknown as Record<string, unknown>[]}
         columns={COLUMNS}
+        versions={versions}
       />
     </Suspense>
   );

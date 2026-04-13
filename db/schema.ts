@@ -68,6 +68,11 @@ export const regulatorikEntries = pgTable('regulatorik_entries', {
   best_practice_einsteiger: text('best_practice_einsteiger'),
   risiken_experte: text('risiken_experte'),
   risiken_einsteiger: text('risiken_einsteiger'),
+  verwandte_regulierungen: text('verwandte_regulierungen'),
+  sap_bezug: text('sap_bezug'),
+  bussgeld: text('bussgeld'),
+  pruefpflicht: text('pruefpflicht'),
+  aufwand_tshirt: text('aufwand_tshirt'),
   source_row: integer('source_row'),
   created_at: timestamp('created_at', { withTimezone: true }).defaultNow(),
 });

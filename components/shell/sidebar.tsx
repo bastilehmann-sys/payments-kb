@@ -108,7 +108,7 @@ export function SidebarContent({ onNavClick }: SidebarContentProps) {
 
       {/* Footer hint */}
       <div className="border-t border-sidebar-border px-4 py-3">
-        <p className="text-xs text-muted-foreground">
+        <p className="text-sm text-muted-foreground">
           SAP Treasury · Payments KB
         </p>
       </div>

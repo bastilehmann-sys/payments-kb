@@ -48,7 +48,7 @@ const components: Components = {
   // H3: field-label style
   h3({ children }) {
     return (
-      <h3 className="mb-2 mt-6 text-xs font-semibold uppercase tracking-wider text-muted-foreground/60">
+      <h3 className="mb-2 mt-6 text-sm font-semibold uppercase tracking-wider text-muted-foreground/60">
         {children}
       </h3>
     );
@@ -147,7 +147,7 @@ const components: Components = {
   },
   th({ children }) {
     return (
-      <th className="border-b border-border bg-muted/50 px-4 py-2 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+      <th className="border-b border-border bg-muted/50 px-4 py-2 text-left text-sm font-semibold uppercase tracking-wider text-muted-foreground">
         {children}
       </th>
     );

@@ -44,7 +44,7 @@ function SectionBadge({ section }: { section: string | null }) {
   const color = SECTION_COLORS[section] ?? 'bg-muted text-muted-foreground';
   return (
     <span
-      className={`inline-flex h-5 items-center rounded-full px-2 text-[10px] font-medium uppercase tracking-wide ${color}`}
+      className={`inline-flex h-5 items-center rounded-full px-2 text-sm font-medium uppercase tracking-wide ${color}`}
     >
       {label}
     </span>
@@ -91,7 +91,7 @@ export function RecentUpdates({ updates }: RecentUpdatesProps) {
                   </span>
                   <SectionBadge section={doc.section} />
                 </div>
-                <span className="shrink-0 text-xs text-muted-foreground pt-0.5">
+                <span className="shrink-0 text-sm text-muted-foreground pt-0.5">
                   {relativeTime(doc.updated_at)}
                 </span>
               </Link>

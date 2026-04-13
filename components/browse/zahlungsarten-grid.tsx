@@ -19,7 +19,7 @@ const columns: DataGridColumn<ZahlungsartEntry>[] = [
     header: 'Code',
     size: 100,
     cell: ({ getValue }) => (
-      <span className="font-mono text-xs font-semibold text-primary">
+      <span className="font-mono text-sm font-semibold text-primary">
         {getValue<string>() ?? '—'}
       </span>
     ),

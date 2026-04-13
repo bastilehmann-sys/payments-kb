@@ -134,7 +134,7 @@ export function Topbar({ className }: TopbarProps) {
           <path d="m21 21-4.35-4.35" />
         </svg>
         <span className="hidden sm:inline">Suche</span>
-        <kbd className="hidden rounded border border-border bg-background px-1.5 py-0.5 font-mono text-xs text-muted-foreground sm:inline">
+        <kbd className="hidden rounded border border-border bg-background px-1.5 py-0.5 font-mono text-sm text-muted-foreground sm:inline">
           ⌘K
         </kbd>
       </button>

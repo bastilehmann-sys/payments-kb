@@ -95,7 +95,7 @@ export default async function ChangelogPage() {
                     >
                       {/* Section badge */}
                       <span
-                        className={`shrink-0 rounded-md px-2 py-0.5 text-xs font-medium ${
+                        className={`shrink-0 rounded-md px-2 py-0.5 text-sm font-medium ${
                           SECTION_COLORS[entry.section ?? ''] ??
                           'bg-muted text-muted-foreground'
                         }`}
@@ -111,7 +111,7 @@ export default async function ChangelogPage() {
                       {/* Date */}
                       <time
                         dateTime={entry.updated_at?.toISOString()}
-                        className="shrink-0 text-xs tabular-nums text-muted-foreground"
+                        className="shrink-0 text-sm tabular-nums text-muted-foreground"
                       >
                         {entry.updated_at?.toLocaleDateString('de-DE', {
                           day: '2-digit',

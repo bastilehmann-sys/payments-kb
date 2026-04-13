@@ -97,7 +97,7 @@ function ComplexityDot({ value }: { value: string }) {
   const color = COMPLEXITY_COLOR[value] ?? '#7d87a0';
   const label = COMPLEXITY_LABEL[value] ?? value;
   return (
-    <span className="inline-flex items-center gap-1.5 text-xs" style={{ color }}>
+    <span className="inline-flex items-center gap-1.5 text-sm" style={{ color }}>
       <span className="inline-block size-2 rounded-full" style={{ backgroundColor: color }} />
       {label}
     </span>
@@ -213,7 +213,7 @@ function FieldRow({ label, value }: { label: string; value: string }) {
   const isLink = value.startsWith('http');
   return (
     <div className="mb-6">
-      <dt className="mb-1.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground/60">
+      <dt className="mb-1.5 text-sm font-semibold uppercase tracking-wider text-muted-foreground/60">
         {label}
       </dt>
       <dd className="text-base text-foreground/85 leading-relaxed">
@@ -296,7 +296,7 @@ function DetailPanel<T extends Record<string, unknown>>({
           </svg>
         </div>
         <p className="text-sm text-muted-foreground/60">Eintrag auswählen</p>
-        <p className="text-xs text-muted-foreground/40">Klick auf einen Eintrag in der linken Liste</p>
+        <p className="text-sm text-muted-foreground/40">Klick auf einen Eintrag in der linken Liste</p>
       </div>
     );
   }
@@ -366,7 +366,7 @@ function DetailPanel<T extends Record<string, unknown>>({
                 {primaryVal || '—'}
               </h2>
               {badgeVal && (
-                <span className="rounded-full border border-[#86bc25]/40 bg-[#86bc25]/10 px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-[#86bc25]">
+                <span className="rounded-full border border-[#86bc25]/40 bg-[#86bc25]/10 px-2.5 py-1 text-sm font-bold uppercase tracking-wider text-[#86bc25]">
                   {badgeVal}
                 </span>
               )}
@@ -389,7 +389,7 @@ function DetailPanel<T extends Record<string, unknown>>({
         {/* Management Summary callout */}
         {summaryVal && (
           <div className="mb-8 rounded-xl border border-primary/30 bg-primary/5 p-5">
-            <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-primary">
+            <div className="mb-2 text-sm font-semibold uppercase tracking-wider text-primary">
               Management Summary
             </div>
             <div className="text-base leading-relaxed text-foreground/90">
@@ -519,7 +519,7 @@ function ListItem<T extends Record<string, unknown>>({
           </p>
         )}
         {tertiary && (
-          <p className="text-xs text-muted-foreground/60 leading-snug">{tertiary}</p>
+          <p className="text-sm text-muted-foreground/60 leading-snug">{tertiary}</p>
         )}
       </div>
     </button>
@@ -652,7 +652,7 @@ export function SplitView<T extends Record<string, unknown>>({
   const list = (
     <div className="flex-1 overflow-y-auto px-2 py-2 space-y-0.5">
       {filtered.length === 0 ? (
-        <p className="py-8 text-center text-xs text-muted-foreground/60">{emptyLabel}</p>
+        <p className="py-8 text-center text-sm text-muted-foreground/60">{emptyLabel}</p>
       ) : (
         filtered.map((item) => {
           const id = getIdOf(item);
@@ -709,7 +709,7 @@ export function SplitView<T extends Record<string, unknown>>({
             <div className="shrink-0 border-b border-border px-4 py-3">
               <button
                 onClick={() => setShowDetail(false)}
-                className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 <IconBack />
                 Zurück zur Liste

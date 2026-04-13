@@ -43,7 +43,7 @@ export function DocumentList({ documents, section }: DocumentListProps) {
         <p className="text-sm font-medium text-muted-foreground">
           Keine Dokumente in dieser Sektion
         </p>
-        <p className="mt-1 text-xs text-muted-foreground/60">
+        <p className="mt-1 text-sm text-muted-foreground/60">
           Dokumente werden nach dem nächsten Ingest hier angezeigt.
         </p>
       </div>
@@ -80,10 +80,10 @@ export function DocumentList({ documents, section }: DocumentListProps) {
           </div>
 
           <div className="flex shrink-0 items-center gap-3">
-            <span className="hidden rounded-full border border-border bg-muted/40 px-2 py-0.5 text-xs text-muted-foreground sm:inline">
+            <span className="hidden rounded-full border border-border bg-muted/40 px-2 py-0.5 text-sm text-muted-foreground sm:inline">
               {sectionLabel}
             </span>
-            <span className="text-xs tabular-nums text-muted-foreground/60">
+            <span className="text-sm tabular-nums text-muted-foreground/60">
               {formatDate(doc.updated_at)}
             </span>
             <svg

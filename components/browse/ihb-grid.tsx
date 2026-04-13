@@ -38,7 +38,7 @@ const columns: DataGridColumn<IhbEntry>[] = [
     header: 'ISO',
     size: 90,
     cell: ({ getValue }) => (
-      <span className="font-mono text-xs text-muted-foreground">
+      <span className="font-mono text-sm text-muted-foreground">
         {getValue<string>() ?? '—'}
       </span>
     ),

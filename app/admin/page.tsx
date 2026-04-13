@@ -163,19 +163,19 @@ export default function AdminPage() {
                   <tbody className="divide-y divide-border">
                     {Object.entries(state.result.per_file).map(([filename, fileResult]) => (
                       <tr key={filename} className="bg-card">
-                        <td className="px-4 py-2 font-mono text-xs text-foreground">
+                        <td className="px-4 py-2 font-mono text-sm text-foreground">
                           {filename}
                         </td>
                         <td className="px-4 py-2">
                           {fileResult.status === 'processed' ? (
-                            <span className="inline-flex items-center gap-1 rounded-full bg-green-500/15 px-2 py-0.5 text-xs font-medium text-green-700 dark:text-green-400">
+                            <span className="inline-flex items-center gap-1 rounded-full bg-green-500/15 px-2 py-0.5 text-sm font-medium text-green-700 dark:text-green-400">
                               <svg className="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                 <polyline points="20 6 9 17 4 12" />
                               </svg>
                               Verarbeitet
                             </span>
                           ) : (
-                            <span className="inline-flex items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
+                            <span className="inline-flex items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-sm font-medium text-muted-foreground">
                               <svg className="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                 <line x1="5" y1="12" x2="19" y2="12" />
                               </svg>
@@ -219,7 +219,7 @@ function StatBadge({
       className={`rounded-lg border px-4 py-3 text-center min-w-[100px] ${colorClasses[color]}`}
     >
       <div className="text-2xl font-semibold tabular-nums">{value}</div>
-      <div className="mt-0.5 text-xs">{label}</div>
+      <div className="mt-0.5 text-sm">{label}</div>
     </div>
   );
 }

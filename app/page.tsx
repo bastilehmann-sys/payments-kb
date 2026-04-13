@@ -31,7 +31,7 @@ export default async function HomePage() {
           <h2 className="font-heading text-base font-semibold text-foreground">
             Länder-Komplexität
           </h2>
-          <div className="flex items-center gap-3 text-xs text-muted-foreground">
+          <div className="flex items-center gap-3 text-sm text-muted-foreground">
             <span className="flex items-center gap-1.5">
               <span className="inline-block size-2 rounded-full bg-[#22c55e]" />
               Niedrig

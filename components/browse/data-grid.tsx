@@ -351,7 +351,7 @@ export function DataGrid<T extends object>({
                   return (
                     <th
                       key={header.id}
-                      className="px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+                      className="px-3 py-2.5 text-left text-sm font-semibold uppercase tracking-wider text-muted-foreground"
                       style={{ width: header.getSize() !== 150 ? header.getSize() : undefined }}
                     >
                       <div className="flex flex-col gap-1">
@@ -380,7 +380,7 @@ export function DataGrid<T extends object>({
                             placeholder="…"
                             value={(header.column.getFilterValue() as string) ?? ''}
                             onChange={(e) => header.column.setFilterValue(e.target.value)}
-                            className="h-6 text-xs"
+                            className="h-6 text-sm"
                             onClick={(e) => e.stopPropagation()}
                           />
                         )}
@@ -455,7 +455,7 @@ export function DataGrid<T extends object>({
       </div>
 
       {/* Footer: row count */}
-      <div className="flex items-center justify-between text-xs text-muted-foreground">
+      <div className="flex items-center justify-between text-sm text-muted-foreground">
         <span>
           {filteredCount === totalRows
             ? `${totalRows} Einträge`

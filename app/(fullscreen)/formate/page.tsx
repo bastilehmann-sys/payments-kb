@@ -1,6 +1,6 @@
 import { getFormatEntries } from '@/lib/queries/entries';
-import { SplitView, type Column } from '@/components/browse/split-view';
-import { FormatSampleCard } from '@/components/browse/formate-sample-card';
+import { type Column } from '@/components/browse/split-view';
+import { FormateClient } from './formate-client';
 import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
@@ -45,18 +45,9 @@ export default async function FormatePage() {
 
   return (
     <Suspense>
-      <SplitView
+      <FormateClient
         items={data as unknown as Record<string, unknown>[]}
         columns={COLUMNS}
-        primaryField="format_name"
-        secondaryField="nachrichtentyp"
-        searchFields={['format_name', 'nachrichtentyp', 'familie_standard', 'aktuelle_version']}
-        filterField="familie_standard"
-        filterLabel="Alle Familien"
-        summaryField="beschreibung_einsteiger"
-        extraDetailHeader={(item) => (
-          <FormatSampleCard formatName={String(item['format_name'] ?? '')} />
-        )}
       />
     </Suspense>
   );

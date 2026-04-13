@@ -87,6 +87,77 @@ export default async function CountryPage({ params }: Props) {
           )}
         </div>
 
+        {/* Structured country profile fields from Excel matrix */}
+        {(country.currency || country.payment_infra || country.ihb_pobo_cobo ||
+          country.regulatorik || country.local_specifics || country.sap_effort ||
+          country.key_note) && (
+          <div className="rounded-xl border border-border bg-card overflow-hidden">
+            <div className="border-b border-border px-5 py-3">
+              <h2 className="font-heading text-sm font-semibold text-foreground">
+                Strukturiertes Länderprofil
+              </h2>
+            </div>
+            <dl className="divide-y divide-border">
+              {country.currency && (
+                <div className="flex items-start gap-4 px-5 py-3">
+                  <dt className="w-44 shrink-0 text-xs font-medium text-muted-foreground pt-0.5">
+                    Währung
+                  </dt>
+                  <dd className="text-sm text-foreground">{country.currency}</dd>
+                </div>
+              )}
+              {country.payment_infra && (
+                <div className="flex items-start gap-4 px-5 py-3">
+                  <dt className="w-44 shrink-0 text-xs font-medium text-muted-foreground pt-0.5">
+                    Payment-Infrastruktur
+                  </dt>
+                  <dd className="text-sm text-foreground">{country.payment_infra}</dd>
+                </div>
+              )}
+              {country.ihb_pobo_cobo && (
+                <div className="flex items-start gap-4 px-5 py-3">
+                  <dt className="w-44 shrink-0 text-xs font-medium text-muted-foreground pt-0.5">
+                    IHB / POBO / COBO
+                  </dt>
+                  <dd className="text-sm text-foreground">{country.ihb_pobo_cobo}</dd>
+                </div>
+              )}
+              {country.regulatorik && (
+                <div className="flex items-start gap-4 px-5 py-3">
+                  <dt className="w-44 shrink-0 text-xs font-medium text-muted-foreground pt-0.5">
+                    Regulatorik
+                  </dt>
+                  <dd className="text-sm text-foreground">{country.regulatorik}</dd>
+                </div>
+              )}
+              {country.local_specifics && (
+                <div className="flex items-start gap-4 px-5 py-3">
+                  <dt className="w-44 shrink-0 text-xs font-medium text-muted-foreground pt-0.5">
+                    Lokale Besonderheiten
+                  </dt>
+                  <dd className="text-sm text-foreground">{country.local_specifics}</dd>
+                </div>
+              )}
+              {country.sap_effort && (
+                <div className="flex items-start gap-4 px-5 py-3">
+                  <dt className="w-44 shrink-0 text-xs font-medium text-muted-foreground pt-0.5">
+                    SAP-Aufwand
+                  </dt>
+                  <dd className="text-sm text-foreground">{country.sap_effort}</dd>
+                </div>
+              )}
+              {country.key_note && (
+                <div className="flex items-start gap-4 px-5 py-4 bg-muted/30">
+                  <dt className="w-44 shrink-0 text-xs font-medium text-muted-foreground pt-0.5">
+                    Wichtigster Hinweis
+                  </dt>
+                  <dd className="text-sm text-foreground leading-relaxed">{country.key_note}</dd>
+                </div>
+              )}
+            </dl>
+          </div>
+        )}
+
         {/* Document or placeholder */}
         {country.document ? (
           <div>

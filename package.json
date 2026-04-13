@@ -11,7 +11,9 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
-    "test": "vitest"
+    "test": "vitest",
+    "db:reindex": "tsx scripts/reindex-local.ts",
+    "db:seed:countries": "tsx scripts/seed-countries.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.88.0",

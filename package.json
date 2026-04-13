@@ -14,7 +14,8 @@
     "test": "vitest",
     "db:reindex": "DOTENV_CONFIG_PATH=.env.local tsx scripts/reindex-local.ts",
     "db:seed:countries": "tsx scripts/seed-countries.ts",
-    "db:import:structured": "DOTENV_CONFIG_PATH=.env.local tsx scripts/import-excel-structured.ts"
+    "db:import:structured": "DOTENV_CONFIG_PATH=.env.local tsx scripts/import-excel-structured.ts",
+    "db:seed:format-versions": "DOTENV_CONFIG_PATH=.env.local tsx scripts/seed-format-versions.ts"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.11.1",

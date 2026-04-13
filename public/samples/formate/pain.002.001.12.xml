@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- pain.002.001.12 — Payment Status Report -->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.002.001.12"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.002.001.12 pain.002.001.12.xsd">
+  <CstmrPmtStsRpt>
+    <GrpHdr>
+      <MsgId>STSRPT-20260413-012</MsgId>
+      <CreDtTm>2026-04-13T10:15:00</CreDtTm>
+      <InitgPty>
+        <Nm>COMMERZBANK AG</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <OrgnlGrpInfAndSts>
+      <OrgnlMsgId>MSGID-20260413-012</OrgnlMsgId>
+      <OrgnlMsgNmId>pain.001.001.012</OrgnlMsgNmId>
+      <OrgnlNbOfTxs>1</OrgnlNbOfTxs>
+      <OrgnlCtrlSum>100.00</OrgnlCtrlSum>
+      <GrpSts>ACCP</GrpSts>
+    </OrgnlGrpInfAndSts>
+    <OrgnlPmtInfAndSts>
+      <OrgnlPmtInfId>PMTINF-20260413-012</OrgnlPmtInfId>
+      <PmtInfSts>ACCP</PmtInfSts>
+      <TxInfAndSts>
+        <OrgnlEndToEndId>E2EID-20260413-012</OrgnlEndToEndId>
+        <TxSts>ACCP</TxSts>
+        <AcctSvcrRef>BANKREF202604130012</AcctSvcrRef>
+      </TxInfAndSts>
+    </OrgnlPmtInfAndSts>
+  </CstmrPmtStsRpt>
+</Document>

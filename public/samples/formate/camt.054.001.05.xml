@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- camt.054.001.05 — Bank to Customer Debit/Credit Notification -->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.054.001.05"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:camt.054.001.05 camt.054.001.05.xsd">
+  <BkToCstmrDbtCdtNtfctn>
+    <GrpHdr>
+      <MsgId>NTFCTN-20260413-005</MsgId>
+      <CreDtTm>2026-04-13T11:30:00</CreDtTm>
+      <MsgPgntn>
+        <PgNb>1</PgNb>
+        <LastPgInd>true</LastPgInd>
+      </MsgPgntn>
+    </GrpHdr>
+    <Ntfctn>
+      <Id>NTFCTNID-20260413-005</Id>
+      <CreDtTm>2026-04-13T11:30:00</CreDtTm>
+      <Acct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+        <Ccy>EUR</Ccy>
+        <Ownr>
+          <Nm>Test Debtor GmbH</Nm>
+        </Ownr>
+        <Svcr>
+          <FinInstnId>
+            <BIC>COBADEFFXXX</BIC>
+          </FinInstnId>
+        </Svcr>
+      </Acct>
+      <Ntry>
+        <Amt Ccy="EUR">150.00</Amt>
+        <CdtDbtInd>CRDT</CdtDbtInd>
+        <Sts>BOOK</Sts>
+        <BookgDt><Dt>2026-04-13</Dt></BookgDt>
+        <ValDt><Dt>2026-04-13</Dt></ValDt>
+        <BkTxCd>
+          <Domn>
+            <Cd>PMTS</Cd>
+            <Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly>
+          </Domn>
+        </BkTxCd>
+        <NtryDtls>
+          <TxDtls>
+            <Refs><EndToEndId>E2EID-20260413-005</EndToEndId></Refs>
+            <RmtInf><Ustrd>Gutschrift 2026-005</Ustrd></RmtInf>
+          </TxDtls>
+        </NtryDtls>
+      </Ntry>
+    </Ntfctn>
+  </BkToCstmrDbtCdtNtfctn>
+</Document>

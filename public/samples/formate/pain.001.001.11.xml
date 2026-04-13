@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- pain.001.001.11 — Credit Transfer Initiation (2022) -->
+<!-- Introduces CPP (Common Payment Part) concept and enhanced structured address -->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.11"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.001.001.11 pain.001.001.11.xsd">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>MSGID-20260413-011</MsgId>
+      <CreDtTm>2026-04-13T10:00:00</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>15000.00</CtrlSum>
+      <InitgPty>
+        <Nm>Test Debtor GmbH</Nm>
+        <Id>
+          <OrgId>
+            <LEI>5493001KJTIIGC8Y1R12</LEI>
+          </OrgId>
+        </Id>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <PmtInfId>PMTINF-20260413-011</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>15000.00</CtrlSum>
+      <PmtTpInf>
+        <SvcLvl>
+          <Cd>SEPA</Cd>
+        </SvcLvl>
+      </PmtTpInf>
+      <ReqdExctnDt>
+        <Dt>2026-04-14</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>Test Debtor GmbH</Nm>
+        <!-- Structured postal address (CPP concept, available in .11+) -->
+        <PstlAdr>
+          <StrtNm>Teststraße</StrtNm>
+          <BldgNb>1</BldgNb>
+          <PstCd>90401</PstCd>
+          <TwnNm>Nürnberg</TwnNm>
+          <Ctry>DE</Ctry>
+        </PstlAdr>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+        <Ccy>EUR</Ccy>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>COBADEFFXXX</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtTrfTxInf>
+        <PmtId>
+          <InstrId>INSTRID-011-001</InstrId>
+          <EndToEndId>E2EID-20260413-011</EndToEndId>
+          <UETR>g8g8dff8-9f7b-9h5i-di87-6i7i8h9i0k1f</UETR>
+        </PmtId>
+        <Amt>
+          <InstdAmt Ccy="EUR">15000.00</InstdAmt>
+        </Amt>
+        <ChrgBr>SLEV</ChrgBr>
+        <CdtrAgt>
+          <FinInstnId>
+            <BICFI>DEUTDEDBXXX</BICFI>
+          </FinInstnId>
+        </CdtrAgt>
+        <Cdtr>
+          <Nm>Test Creditor AG</Nm>
+          <!-- Fully structured address in .11+ -->
+          <PstlAdr>
+            <StrtNm>Empfängerstraße</StrtNm>
+            <BldgNb>5</BldgNb>
+            <PstCd>10115</PstCd>
+            <TwnNm>Berlin</TwnNm>
+            <Ctry>DE</Ctry>
+          </PstlAdr>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>DE75512108001245126199</IBAN>
+          </Id>
+        </CdtrAcct>
+        <Purp>
+          <Cd>SUPP</Cd>
+        </Purp>
+        <RmtInf>
+          <Strd>
+            <CdtrRefInf>
+              <Tp>
+                <CdOrPrtry>
+                  <Cd>SCOR</Cd>
+                </CdOrPrtry>
+              </Tp>
+              <Ref>INV2026-011</Ref>
+            </CdtrRefInf>
+          </Strd>
+        </RmtInf>
+      </CdtTrfTxInf>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- pain.008.001.05 — Direct Debit Initiation -->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.008.001.05"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.008.001.05 pain.008.001.05.xsd">
+  <CstmrDrctDbtInitn>
+    <GrpHdr>
+      <MsgId>DDMSG-20260413-005</MsgId>
+      <CreDtTm>2026-04-13T09:00:00</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>200.00</CtrlSum>
+      <InitgPty>
+        <Nm>Test Creditor AG</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <PmtInfId>DDPMTINF-20260413-005</PmtInfId>
+      <PmtMtd>DD</PmtMtd>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>200.00</CtrlSum>
+      <PmtTpInf>
+        <SvcLvl>
+          <Cd>SEPA</Cd>
+        </SvcLvl>
+        <LclInstrm>
+          <Cd>CORE</Cd>
+        </LclInstrm>
+        <SeqTp>RCUR</SeqTp>
+      </PmtTpInf>
+      <ReqdColltnDt>2026-04-16</ReqdColltnDt>
+      <Cdtr>
+        <Nm>Test Creditor AG</Nm>
+        <PstlAdr>
+          <Ctry>DE</Ctry>
+          <AdrLine>Empfängerstraße 5</AdrLine>
+          <AdrLine>10115 Berlin</AdrLine>
+        </PstlAdr>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <IBAN>DE75512108001245126199</IBAN>
+        </Id>
+        <Ccy>EUR</Ccy>
+      </CdtrAcct>
+      <CdtrAgt>
+        <FinInstnId>
+          <BIC>DEUTDEDBXXX</BIC>
+        </FinInstnId>
+      </CdtrAgt>
+      <CdtrSchmeId>
+        <Id>
+          <PrvtId>
+            <Othr>
+              <Id>DE98ZZZ09999999999</Id>
+              <SchmeNm>
+                <Prtry>SEPA</Prtry>
+              </SchmeNm>
+            </Othr>
+          </PrvtId>
+        </Id>
+      </CdtrSchmeId>
+      <DrctDbtTxInf>
+        <PmtId>
+          <EndToEndId>DDEE-20260413-005</EndToEndId>
+        </PmtId>
+        <InstdAmt Ccy="EUR">200.00</InstdAmt>
+        <DrctDbtTx>
+          <MndtRltdInf>
+            <MndtId>MNDTID-2025-0005</MndtId>
+            <DtOfSgntr>2025-01-10</DtOfSgntr>
+          </MndtRltdInf>
+        </DrctDbtTx>
+        <DbtrAgt>
+          <FinInstnId>
+            <BIC>COBADEFFXXX</BIC>
+          </FinInstnId>
+        </DbtrAgt>
+        <Dbtr>
+          <Nm>Test Debtor GmbH</Nm>
+          <PstlAdr>
+            <Ctry>DE</Ctry>
+            <AdrLine>Teststraße 1</AdrLine>
+            <AdrLine>90401 Nürnberg</AdrLine>
+          </PstlAdr>
+        </Dbtr>
+        <DbtrAcct>
+          <Id>
+            <IBAN>DE89370400440532013000</IBAN>
+          </Id>
+        </DbtrAcct>
+        <RmtInf>
+          <Ustrd>Abbuchung Abo-Beitrag April 2026</Ustrd>
+        </RmtInf>
+      </DrctDbtTxInf>
+    </PmtInf>
+  </CstmrDrctDbtInitn>
+</Document>

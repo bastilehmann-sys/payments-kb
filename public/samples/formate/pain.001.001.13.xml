@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- pain.001.001.13 — Credit Transfer Initiation (2024, latest ISO 20022 HVPS+/CBPR+) -->
+<!-- Full structured address mandatory for cross-border; LEI support; enhanced remittance -->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.13"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.001.001.13 pain.001.001.13.xsd">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>MSGID-20260413-013</MsgId>
+      <CreDtTm>2026-04-13T10:00:00</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>50000.00</CtrlSum>
+      <InitgPty>
+        <Nm>Test Debtor GmbH</Nm>
+        <Id>
+          <OrgId>
+            <LEI>5493001KJTIIGC8Y1R12</LEI>
+          </OrgId>
+        </Id>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <PmtInfId>PMTINF-20260413-013</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>50000.00</CtrlSum>
+      <PmtTpInf>
+        <SvcLvl>
+          <Cd>SEPA</Cd>
+        </SvcLvl>
+      </PmtTpInf>
+      <ReqdExctnDt>
+        <Dt>2026-04-14</Dt>
+      </ReqdExctnDt>
+      <!-- Full structured address mandatory in .13 for cross-border payments -->
+      <Dbtr>
+        <Nm>Test Debtor GmbH</Nm>
+        <PstlAdr>
+          <StrtNm>Teststraße</StrtNm>
+          <BldgNb>1</BldgNb>
+          <PstCd>90401</PstCd>
+          <TwnNm>Nürnberg</TwnNm>
+          <CtrySubDvsn>Bayern</CtrySubDvsn>
+          <Ctry>DE</Ctry>
+        </PstlAdr>
+        <Id>
+          <OrgId>
+            <LEI>5493001KJTIIGC8Y1R12</LEI>
+          </OrgId>
+        </Id>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+        <Ccy>EUR</Ccy>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>COBADEFFXXX</BICFI>
+          <Nm>Commerzbank AG</Nm>
+          <PstlAdr>
+            <StrtNm>Kaiserplatz</StrtNm>
+            <BldgNb>1</BldgNb>
+            <PstCd>60311</PstCd>
+            <TwnNm>Frankfurt am Main</TwnNm>
+            <Ctry>DE</Ctry>
+          </PstlAdr>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtTrfTxInf>
+        <PmtId>
+          <InstrId>INSTRID-013-001</InstrId>
+          <EndToEndId>E2EID-20260413-013</EndToEndId>
+          <UETR>i0i0fhh0-1h9d-1j7k-fk09-8k9k0j1k2m3h</UETR>
+        </PmtId>
+        <Amt>
+          <InstdAmt Ccy="EUR">50000.00</InstdAmt>
+        </Amt>
+        <ChrgBr>SLEV</ChrgBr>
+        <CdtrAgt>
+          <FinInstnId>
+            <BICFI>DEUTDEDBXXX</BICFI>
+            <Nm>Deutsche Bank AG</Nm>
+            <PstlAdr>
+              <StrtNm>Taunusanlage</StrtNm>
+              <BldgNb>12</BldgNb>
+              <PstCd>60325</PstCd>
+              <TwnNm>Frankfurt am Main</TwnNm>
+              <Ctry>DE</Ctry>
+            </PstlAdr>
+          </FinInstnId>
+        </CdtrAgt>
+        <Cdtr>
+          <Nm>Test Creditor AG</Nm>
+          <!-- Full structured address mandatory in .13 -->
+          <PstlAdr>
+            <StrtNm>Empfängerstraße</StrtNm>
+            <BldgNb>5</BldgNb>
+            <PstCd>10115</PstCd>
+            <TwnNm>Berlin</TwnNm>
+            <CtrySubDvsn>Berlin</CtrySubDvsn>
+            <Ctry>DE</Ctry>
+          </PstlAdr>
+          <Id>
+            <OrgId>
+              <LEI>7654321ABCDEFGH12345</LEI>
+            </OrgId>
+          </Id>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>DE75512108001245126199</IBAN>
+          </Id>
+        </CdtrAcct>
+        <Purp>
+          <Cd>SUPP</Cd>
+        </Purp>
+        <RmtInf>
+          <Strd>
+            <CdtrRefInf>
+              <Tp>
+                <CdOrPrtry>
+                  <Cd>SCOR</Cd>
+                </CdOrPrtry>
+              </Tp>
+              <Ref>INV2026-013</Ref>
+            </CdtrRefInf>
+            <AddtlRmtInf>Zahlung gemäß Rahmenvertrag 2026 — CBPR+ konform</AddtlRmtInf>
+          </Strd>
+        </RmtInf>
+      </CdtTrfTxInf>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>

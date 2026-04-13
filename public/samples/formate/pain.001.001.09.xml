@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- pain.001.001.09 — Credit Transfer Initiation (2019/2023 EPC SEPA standard) -->
+<!-- EPC SEPA SCT Rulebook 2023 — current standard for SEPA Credit Transfers -->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09 pain.001.001.09.xsd">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>MSGID-20260413-009</MsgId>
+      <CreDtTm>2026-04-13T10:00:00</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>5000.00</CtrlSum>
+      <InitgPty>
+        <Nm>Test Debtor GmbH</Nm>
+        <Id>
+          <OrgId>
+            <LEI>5493001KJTIIGC8Y1R12</LEI>
+          </OrgId>
+        </Id>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <PmtInfId>PMTINF-20260413-009</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>5000.00</CtrlSum>
+      <PmtTpInf>
+        <SvcLvl>
+          <Cd>SEPA</Cd>
+        </SvcLvl>
+      </PmtTpInf>
+      <ReqdExctnDt>
+        <Dt>2026-04-14</Dt>
+      </ReqdExctnDt>
+      <!-- UltimateOriginator optional in .09+ for POBO/on-behalf-of scenarios -->
+      <UltmtDbtr>
+        <Nm>Ultimate Debtor Parent AG</Nm>
+        <Id>
+          <OrgId>
+            <LEI>3358001KJTIIGC8Y1R99</LEI>
+          </OrgId>
+        </Id>
+      </UltmtDbtr>
+      <Dbtr>
+        <Nm>Test Debtor GmbH</Nm>
+        <PstlAdr>
+          <Ctry>DE</Ctry>
+          <AdrLine>Teststraße 1</AdrLine>
+          <AdrLine>90401 Nürnberg</AdrLine>
+        </PstlAdr>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+        <Ccy>EUR</Ccy>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>COBADEFFXXX</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtTrfTxInf>
+        <PmtId>
+          <InstrId>INSTRID-009-001</InstrId>
+          <EndToEndId>E2EID-20260413-009</EndToEndId>
+          <UETR>e6e6bdd6-7d59-7f3g-bg65-4g5g6f7g8i9d</UETR>
+        </PmtId>
+        <Amt>
+          <InstdAmt Ccy="EUR">5000.00</InstdAmt>
+        </Amt>
+        <ChrgBr>SLEV</ChrgBr>
+        <CdtrAgt>
+          <FinInstnId>
+            <BICFI>DEUTDEDBXXX</BICFI>
+          </FinInstnId>
+        </CdtrAgt>
+        <Cdtr>
+          <Nm>Test Creditor AG</Nm>
+          <PstlAdr>
+            <Ctry>DE</Ctry>
+            <AdrLine>Empfängerstraße 5</AdrLine>
+            <AdrLine>10115 Berlin</AdrLine>
+          </PstlAdr>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>DE75512108001245126199</IBAN>
+          </Id>
+        </CdtrAcct>
+        <Purp>
+          <Cd>SUPP</Cd>
+        </Purp>
+        <RmtInf>
+          <Strd>
+            <CdtrRefInf>
+              <Tp>
+                <CdOrPrtry>
+                  <Cd>SCOR</Cd>
+                </CdOrPrtry>
+              </Tp>
+              <Ref>INV2026-009</Ref>
+            </CdtrRefInf>
+          </Strd>
+        </RmtInf>
+      </CdtTrfTxInf>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>

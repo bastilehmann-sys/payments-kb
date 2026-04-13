@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- pain.001.001.08 — Credit Transfer Initiation (2019) -->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.08"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.001.001.08 pain.001.001.08.xsd">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>MSGID-20260413-008</MsgId>
+      <CreDtTm>2026-04-13T10:00:00</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>2500.00</CtrlSum>
+      <InitgPty>
+        <Nm>Test Debtor GmbH</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <PmtInfId>PMTINF-20260413-008</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>2500.00</CtrlSum>
+      <PmtTpInf>
+        <SvcLvl>
+          <Cd>SEPA</Cd>
+        </SvcLvl>
+      </PmtTpInf>
+      <ReqdExctnDt>2026-04-14</ReqdExctnDt>
+      <Dbtr>
+        <Nm>Test Debtor GmbH</Nm>
+        <PstlAdr>
+          <Ctry>DE</Ctry>
+          <AdrLine>Teststraße 1</AdrLine>
+          <AdrLine>90401 Nürnberg</AdrLine>
+        </PstlAdr>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+        <Ccy>EUR</Ccy>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BIC>COBADEFFXXX</BIC>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtTrfTxInf>
+        <PmtId>
+          <InstrId>INSTRID-008-001</InstrId>
+          <EndToEndId>E2EID-20260413-008</EndToEndId>
+          <UETR>d5d5acc5-6c48-6e2f-af54-3f4f5e6f7h8c</UETR>
+        </PmtId>
+        <Amt>
+          <InstdAmt Ccy="EUR">2500.00</InstdAmt>
+        </Amt>
+        <ChrgBr>SLEV</ChrgBr>
+        <CdtrAgt>
+          <FinInstnId>
+            <BIC>DEUTDEDBXXX</BIC>
+          </FinInstnId>
+        </CdtrAgt>
+        <Cdtr>
+          <Nm>Test Creditor AG</Nm>
+          <PstlAdr>
+            <Ctry>DE</Ctry>
+            <AdrLine>Empfängerstraße 5</AdrLine>
+            <AdrLine>10115 Berlin</AdrLine>
+          </PstlAdr>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>DE75512108001245126199</IBAN>
+          </Id>
+        </CdtrAcct>
+        <!-- SupplementaryData allowed in 08+ for bank-specific extensions -->
+        <RmtInf>
+          <Strd>
+            <CdtrRefInf>
+              <Tp>
+                <CdOrPrtry>
+                  <Cd>SCOR</Cd>
+                </CdOrPrtry>
+              </Tp>
+              <Ref>INV2026-008</Ref>
+            </CdtrRefInf>
+          </Strd>
+        </RmtInf>
+      </CdtTrfTxInf>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>

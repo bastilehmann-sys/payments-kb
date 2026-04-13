@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- camt.053.001.11 — Bank to Customer Statement (End-of-Day) -->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.053.001.11"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:camt.053.001.11 camt.053.001.11.xsd">
+  <BkToCstmrStmt>
+    <GrpHdr>
+      <MsgId>STMT-20260413-011</MsgId>
+      <CreDtTm>2026-04-13T23:59:00</CreDtTm>
+      <MsgPgntn>
+        <PgNb>1</PgNb>
+        <LastPgInd>true</LastPgInd>
+      </MsgPgntn>
+    </GrpHdr>
+    <Stmt>
+      <Id>STMTID-20260413-011</Id>
+      <ElctrncSeqNb>42</ElctrncSeqNb>
+      <CreDtTm>2026-04-13T23:59:00</CreDtTm>
+      <FrToDt>
+        <FrDtTm>2026-04-13T00:00:00</FrDtTm>
+        <ToDtTm>2026-04-13T23:59:59</ToDtTm>
+      </FrToDt>
+      <Acct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+        <Ccy>EUR</Ccy>
+        <Ownr>
+          <Nm>Test Debtor GmbH</Nm>
+        </Ownr>
+        <Svcr>
+          <FinInstnId>
+            <BIC>COBADEFFXXX</BIC>
+          </FinInstnId>
+        </Svcr>
+      </Acct>
+      <Bal>
+        <Tp><CdOrPrtry><Cd>OPBD</Cd></CdOrPrtry></Tp>
+        <Amt Ccy="EUR">5000.00</Amt>
+        <CdtDbtInd>CRDT</CdtDbtInd>
+        <Dt><Dt>2026-04-13</Dt></Dt>
+      </Bal>
+      <Bal>
+        <Tp><CdOrPrtry><Cd>CLBD</Cd></CdOrPrtry></Tp>
+        <Amt Ccy="EUR">4750.00</Amt>
+        <CdtDbtInd>CRDT</CdtDbtInd>
+        <Dt><Dt>2026-04-13</Dt></Dt>
+      </Bal>
+      <Ntry>
+        <Amt Ccy="EUR">250.00</Amt>
+        <CdtDbtInd>DBIT</CdtDbtInd>
+        <Sts>BOOK</Sts>
+        <BookgDt><Dt>2026-04-13</Dt></BookgDt>
+        <ValDt><Dt>2026-04-13</Dt></ValDt>
+        <BkTxCd>
+          <Domn>
+            <Cd>PMTS</Cd>
+            <Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly>
+          </Domn>
+        </BkTxCd>
+        <NtryDtls>
+          <TxDtls>
+            <Refs><EndToEndId>E2EID-20260413-011</EndToEndId></Refs>
+            <RmtInf><Ustrd>Rechnung 2026-011</Ustrd></RmtInf>
+          </TxDtls>
+        </NtryDtls>
+      </Ntry>
+    </Stmt>
+  </BkToCstmrStmt>
+</Document>

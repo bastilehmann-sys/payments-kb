@@ -149,8 +149,8 @@ function groupPairs(columns: Column[]): Array<{ type: 'pair'; base: string; expe
 
 function SectionHeading({ title }: { title: string }) {
   return (
-    <div className="sticky top-0 z-10 -mx-6 mb-2 mt-5 bg-card px-6 py-2 first:mt-0">
-      <h3 className="font-heading text-xs font-bold uppercase tracking-widest text-[#86bc25]/80">
+    <div className="sticky top-0 z-10 -mx-4 mb-3 mt-8 bg-card px-4 py-3 first:mt-0 md:-mx-10 md:px-10">
+      <h3 className="font-heading text-sm font-semibold uppercase tracking-wider text-[#86bc25]/80">
         {title}
       </h3>
     </div>
@@ -162,11 +162,11 @@ function SectionHeading({ title }: { title: string }) {
 function FieldRow({ label, value }: { label: string; value: string }) {
   const isLink = value.startsWith('http');
   return (
-    <div className="mb-4">
-      <dt className="mb-1 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">
+    <div className="mb-6">
+      <dt className="mb-1.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground/60">
         {label}
       </dt>
-      <dd className="text-sm text-foreground/85 leading-relaxed whitespace-pre-line">
+      <dd className="text-base text-foreground/85 leading-relaxed whitespace-pre-line">
         {isLink ? (
           <a
             href={value}
@@ -203,23 +203,23 @@ function PairedRow({
   if (!hasExpert && !hasBeginner) return null;
 
   return (
-    <div className="mb-4 grid grid-cols-1 gap-3 md:grid-cols-2">
+    <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
       {hasExpert && (
-        <div className="rounded-lg border border-border bg-muted/20 p-3">
-          <dt className="mb-1.5 text-[10px] font-bold uppercase tracking-widest text-[#4a9eff]/80">
+        <div className="rounded-lg border border-border bg-muted/20 p-4">
+          <dt className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#4a9eff]/80">
             {expertLabel}
           </dt>
-          <dd className="text-sm text-foreground/85 leading-relaxed whitespace-pre-line">
+          <dd className="text-base text-foreground/85 leading-relaxed whitespace-pre-line">
             {expertValue}
           </dd>
         </div>
       )}
       {hasBeginner && (
-        <div className="rounded-lg border border-border bg-muted/20 p-3">
-          <dt className="mb-1.5 text-[10px] font-bold uppercase tracking-widest text-[#86bc25]/80">
+        <div className="rounded-lg border border-border bg-muted/20 p-4">
+          <dt className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#86bc25]/80">
             {beginnerLabel}
           </dt>
-          <dd className="text-sm text-foreground/85 leading-relaxed whitespace-pre-line">
+          <dd className="text-base text-foreground/85 leading-relaxed whitespace-pre-line">
             {beginnerValue}
           </dd>
         </div>
@@ -280,21 +280,21 @@ function DetailPanel<T extends Record<string, unknown>>({
   return (
     <div className="flex flex-1 flex-col overflow-hidden">
       {/* Header */}
-      <div className="shrink-0 border-b border-border px-6 py-5">
+      <div className="shrink-0 border-b border-border px-10 py-6">
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0 flex-1">
-            <div className="flex flex-wrap items-center gap-2">
-              <h2 className="font-heading text-xl font-bold text-foreground leading-snug">
+            <div className="flex flex-wrap items-center gap-3">
+              <h2 className="font-heading text-4xl font-bold text-foreground leading-tight tracking-tight">
                 {primaryVal || '—'}
               </h2>
               {badgeVal && (
-                <span className="rounded-full border border-[#86bc25]/40 bg-[#86bc25]/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#86bc25]">
+                <span className="rounded-full border border-[#86bc25]/40 bg-[#86bc25]/10 px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-[#86bc25]">
                   {badgeVal}
                 </span>
               )}
             </div>
             {secondaryVal && (
-              <p className="mt-1 text-sm text-muted-foreground">{secondaryVal}</p>
+              <p className="mt-2 text-lg text-muted-foreground">{secondaryVal}</p>
             )}
           </div>
           {complexityVal && (
@@ -306,7 +306,8 @@ function DetailPanel<T extends Record<string, unknown>>({
       </div>
 
       {/* Scrollable content */}
-      <div className="flex-1 overflow-y-auto px-6 py-4">
+      <div className="flex-1 overflow-y-auto px-4 py-6 md:px-10">
+
         <dl>
           {Object.entries(sectionMap).map(([section, entries]) => (
             <div key={section}>
@@ -378,7 +379,7 @@ function ListItem<T extends Record<string, unknown>>({
     <button
       onClick={onClick}
       className={cn(
-        'relative w-full text-left px-3 py-2.5 rounded-md transition-all duration-100 border',
+        'relative w-full text-left px-3 py-3 rounded-md transition-all duration-100 border',
         isSelected
           ? 'bg-[#86bc25]/10 border-[#86bc25]/40 shadow-sm'
           : 'border-transparent hover:bg-muted/40 hover:border-border',
@@ -387,22 +388,22 @@ function ListItem<T extends Record<string, unknown>>({
       {isSelected && (
         <div className="absolute left-0 top-1/2 -translate-y-1/2 h-6 w-0.5 rounded-r bg-[#86bc25]" />
       )}
-      <div className="pl-1 space-y-0.5">
+      <div className="pl-1 space-y-1">
         <div className="flex items-center gap-2">
-          <span className={cn('text-xs font-semibold leading-snug line-clamp-1', isSelected ? 'text-foreground' : 'text-foreground/80')}>
+          <span className={cn('text-base font-semibold leading-snug line-clamp-1', isSelected ? 'text-foreground' : 'text-foreground/80')}>
             {primary || '—'}
           </span>
           {complexityColor && (
-            <span className="inline-block size-1.5 shrink-0 rounded-full" style={{ backgroundColor: complexityColor }} />
+            <span className="inline-block size-2 shrink-0 rounded-full" style={{ backgroundColor: complexityColor }} />
           )}
         </div>
         {secondary && (
-          <p className="text-[11px] text-muted-foreground/70 leading-snug line-clamp-1">
+          <p className="text-sm text-muted-foreground leading-relaxed line-clamp-1">
             {secondary}
           </p>
         )}
         {tertiary && (
-          <p className="text-[10px] text-muted-foreground/50 leading-snug">{tertiary}</p>
+          <p className="text-xs text-muted-foreground/60 leading-snug">{tertiary}</p>
         )}
       </div>
     </button>
@@ -490,14 +491,14 @@ export function SplitView<T extends Record<string, unknown>>({
   // ── Left pane controls ──────────────────────────────────────────────────────
   const controls = (
     <div className="shrink-0 space-y-2 border-b border-border px-3 py-3">
-      <div className="flex items-center gap-2 rounded-md border border-border bg-muted/30 px-3 py-1.5">
+      <div className="flex h-11 items-center gap-2 rounded-md border border-border bg-muted/30 px-3">
         <IconSearch />
         <input
           type="text"
           placeholder="Suche..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="flex-1 bg-transparent text-xs text-foreground placeholder:text-muted-foreground/50 outline-none"
+          className="flex-1 bg-transparent text-base text-foreground placeholder:text-muted-foreground/50 outline-none"
         />
         {search && (
           <button onClick={() => setSearch('')} className="text-muted-foreground hover:text-foreground">
@@ -511,7 +512,7 @@ export function SplitView<T extends Record<string, unknown>>({
           <select
             value={filterValue}
             onChange={(e) => setFilterValue(e.target.value)}
-            className="w-full appearance-none rounded-md border border-border bg-muted/30 px-3 py-1.5 pr-7 text-xs text-foreground outline-none focus:border-[#86bc25]/60"
+            className="h-11 w-full appearance-none rounded-md border border-border bg-muted/30 px-3 pr-7 text-base text-foreground outline-none focus:border-[#86bc25]/60"
           >
             <option value="">{filterLabel}</option>
             {filterOptions.map((opt) => (
@@ -524,7 +525,7 @@ export function SplitView<T extends Record<string, unknown>>({
         </div>
       )}
 
-      <p className="text-[10px] text-muted-foreground/60 px-1">
+      <p className="text-sm text-muted-foreground/60 px-1">
         {filtered.length} von {items.length} Einträgen
       </p>
     </div>

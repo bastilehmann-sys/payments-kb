@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Syne, Outfit, JetBrains_Mono } from "next/font/google";
+import { ThemeProvider } from "next-themes";
+import { AppShell } from "@/components/shell/app-shell";
 import "./globals.css";
 
 const syne = Syne({
@@ -33,9 +35,19 @@ export default function RootLayout({
   return (
     <html
       lang="de"
-      className={`${syne.variable} ${outfit.variable} ${jetbrainsMono.variable} dark h-full antialiased`}
+      className={`${syne.variable} ${outfit.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <AppShell>{children}</AppShell>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

@@ -307,9 +307,10 @@ export function FormatTreeDiff({ sampleA, sampleB, labelA = 'Format A', labelB =
         </div>
       </div>
 
-      {/* Side-by-side trees */}
+      {/* Side-by-side trees — panels scroll together on the outer wrapper */}
       <div
-        className="grid grid-cols-2 rounded-lg border border-border bg-background"
+        className="grid grid-cols-2 rounded-lg border border-border bg-background overflow-auto"
+        style={{ maxHeight: 'calc(100vh - 240px)' }}
       >
         <TreePanel
           root={diffResult.left}

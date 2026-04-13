@@ -42,6 +42,17 @@ const SLUG_MAP: Record<string, string> = {
   laender: 'italien',
 };
 
+// Excel-derived MD files: filename → { section, slug }
+const EXCEL_FILE_MAP: Record<string, { section: string; slug: string }> = {
+  'excel_01_regulatorik_glossar.md': { section: 'regulatorik', slug: 'excel-regulatorik-glossar' },
+  'excel_02_format_bibliothek.md':   { section: 'formate',     slug: 'excel-format-bibliothek' },
+  'excel_03_clearing_systeme.md':    { section: 'clearing',    slug: 'excel-clearing-systeme' },
+  'excel_04_zahlungsarten.md':       { section: 'clearing',    slug: 'excel-zahlungsarten' },
+  'excel_05_ihb_pobo_cobo.md':       { section: 'ihb',         slug: 'excel-ihb-pobo-cobo' },
+  'excel_06_laenderkomplexitaet_matrix.md': { section: 'laender', slug: 'excel-laenderkomplexitaet-matrix' },
+  'excel_07_land_italien.md':        { section: 'laender',     slug: 'excel-italien' },
+};
+
 function filenameToSection(filename: string): string | null {
   // e.g. "gpdb_01_regulatorik.md" → "01_regulatorik"
   const m = filename.match(/^gpdb_(\d{2}_[^.]+)\.md$/);
@@ -67,9 +78,49 @@ function slugify(str: string): string {
 
 // --- Main ---
 
+// --- File list building ---
+
+interface IndexableFile {
+  filename: string;   // basename
+  filePath: string;   // absolute path
+  section: string;
+  slug: string;
+}
+
+function buildFileList(contentDir: string): IndexableFile[] {
+  const files: IndexableFile[] = [];
+
+  // gpdb_*.md files in content/
+  const gpdbFiles = fs.readdirSync(contentDir).filter(f => /^gpdb_.*\.md$/.test(f));
+  for (const filename of gpdbFiles) {
+    const section = filenameToSection(filename);
+    if (!section) continue;
+    const slug = SLUG_MAP[section] ?? slugify(filename);
+    files.push({ filename, filePath: path.join(contentDir, filename), section, slug });
+  }
+
+  // excel/*.md files in content/excel/
+  const excelDir = path.join(contentDir, 'excel');
+  if (fs.existsSync(excelDir)) {
+    const excelFiles = fs.readdirSync(excelDir).filter(f => /^excel_.*\.md$/.test(f));
+    for (const filename of excelFiles) {
+      const meta = EXCEL_FILE_MAP[filename];
+      if (!meta) continue;
+      files.push({
+        filename: `excel/${filename}`,
+        filePath: path.join(excelDir, filename),
+        section: meta.section,
+        slug: meta.slug,
+      });
+    }
+  }
+
+  return files;
+}
+
 export async function reindex(opts: { openaiKey: string }): Promise<ReindexResult> {
   const contentDir = path.join(process.cwd(), 'content');
-  const allFiles = fs.readdirSync(contentDir).filter(f => /^gpdb_.*\.md$/.test(f));
+  const allFiles = buildFileList(contentDir);
 
   const result: ReindexResult = {
     processed: 0,
@@ -78,25 +129,13 @@ export async function reindex(opts: { openaiKey: string }): Promise<ReindexResul
     per_file: {},
   };
 
-  for (const filename of allFiles) {
-    const section = filenameToSection(filename);
-    if (!section) {
-      result.per_file[filename] = {
-        status: 'skipped',
-        chunks_created: 0,
-        reason: 'Could not map filename to section',
-      };
-      result.skipped++;
-      continue;
-    }
-
-    const filePath = path.join(contentDir, filename);
+  for (const fileEntry of allFiles) {
+    const { filename, filePath, section, slug } = fileEntry;
     const raw = fs.readFileSync(filePath, 'utf-8');
     const { content: contentMd } = matter(raw);
 
     const contentHash = hash(contentMd);
     const title = extractTitle(contentMd, section);
-    const slug = SLUG_MAP[section] ?? slugify(title);
 
     // Check for existing document by source_file
     const existing = await db

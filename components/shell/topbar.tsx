@@ -111,6 +111,29 @@ export function Topbar({ className }: TopbarProps) {
         })}
       </nav>
 
+      {/* Dashboard Mockups temp link — desktop only */}
+      <Link
+        href="/mockups/dashboard"
+        className="hidden lg:flex items-center gap-1.5 rounded-md border border-dashed border-amber-400 bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700 transition-colors hover:bg-amber-100"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.75"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="h-3.5 w-3.5 shrink-0"
+          aria-hidden="true"
+        >
+          <rect x="3" y="3" width="7" height="7" rx="1" />
+          <rect x="14" y="3" width="7" height="7" rx="1" />
+          <rect x="3" y="14" width="7" height="7" rx="1" />
+          <rect x="14" y="14" width="7" height="7" rx="1" />
+        </svg>
+        Dashboard Mockups
+      </Link>
+
       {/* Spacer */}
       <div className="flex-1" />
 

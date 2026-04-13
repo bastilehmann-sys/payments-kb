@@ -1,9 +1,12 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { ThemeToggle } from "./theme-toggle"
 import { SidebarContent } from "./sidebar"
+import { NAV_ITEMS } from "./nav-items"
 import {
   Sheet,
   SheetContent,
@@ -12,6 +15,15 @@ import {
 import { signOut } from "next-auth/react"
 import { SearchDialog } from "@/components/search/search-dialog"
 
+const FULLSCREEN_PATHS = [
+  "/regulatorik",
+  "/formate",
+  "/clearing",
+  "/zahlungsarten",
+  "/ihb",
+  "/laender",
+]
+
 interface TopbarProps {
   className?: string
 }
@@ -19,6 +31,8 @@ interface TopbarProps {
 export function Topbar({ className }: TopbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
+  const pathname = usePathname()
+  const isFullscreen = FULLSCREEN_PATHS.some((p) => pathname.startsWith(p))
 
   // Global Cmd+K / Ctrl+K hotkey
   useEffect(() => {
@@ -39,10 +53,13 @@ export function Topbar({ className }: TopbarProps) {
         className
       )}
     >
-      {/* Hamburger — mobile only */}
+      {/* Hamburger — mobile always + desktop on fullscreen routes as fallback */}
       <button
         onClick={() => setMobileOpen(true)}
-        className="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent/10 hover:text-foreground lg:hidden"
+        className={cn(
+          "flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent/10 hover:text-foreground",
+          isFullscreen ? "lg:hidden" : "lg:hidden"
+        )}
         aria-label="Open navigation"
       >
         <svg
@@ -59,10 +76,39 @@ export function Topbar({ className }: TopbarProps) {
         </svg>
       </button>
 
-      {/* Mobile logo — only visible when sidebar is hidden */}
-      <span className="font-heading text-sm font-semibold text-foreground lg:hidden">
+      {/* Logo — visible on mobile always, on desktop only when sidebar is hidden */}
+      <Link
+        href="/"
+        className={cn(
+          "font-heading text-base font-semibold text-foreground lg:hidden",
+          isFullscreen && "lg:inline"
+        )}
+      >
         Payments KB
-      </span>
+      </Link>
+
+      {/* Horizontal nav — shown on fullscreen routes where sidebar is hidden */}
+      {isFullscreen && (
+        <nav className="ml-4 hidden items-center gap-1 lg:flex">
+          {NAV_ITEMS.filter((item) => item.href !== "/").map((item) => {
+            const active = pathname.startsWith(item.href)
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+                  active
+                    ? "bg-primary/10 text-primary"
+                    : "text-muted-foreground hover:bg-accent/10 hover:text-foreground"
+                )}
+              >
+                {item.label}
+              </Link>
+            )
+          })}
+        </nav>
+      )}
 
       {/* Spacer */}
       <div className="flex-1" />

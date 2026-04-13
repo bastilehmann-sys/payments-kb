@@ -48,7 +48,7 @@ function IconDelta() {
   return (
     <svg
       viewBox="0 0 12 12"
-      className="size-3 shrink-0 text-amber-500"
+      className="size-5 shrink-0 text-amber-600 dark:text-amber-400"
       fill="none"
       stroke="currentColor"
       strokeWidth="1.5"
@@ -259,6 +259,25 @@ export function FormatCompare({ versions, entries }: FormatCompareProps) {
   const currentValueB = paramB ?? '';
 
   const [showDiff, setShowDiff] = React.useState(true);
+  const [onlyDiffs, setOnlyDiffs] = React.useState(false);
+
+  // ── Compute diff summary ──────────────────────────────────────────────────
+  const diffSummary = React.useMemo(() => {
+    if (!versionA && !entryA && !versionB && !entryB) return null;
+    const visibleRows = SECTION_ROWS.filter((row) => {
+      const valA = getValue(row, entryA, versionA);
+      const valB = getValue(row, entryB, versionB);
+      return !!(valA || valB);
+    });
+    const differentCount = visibleRows.filter((row) => {
+      const valA = getValue(row, entryA, versionA);
+      const valB = getValue(row, entryB, versionB);
+      return valA !== valB;
+    }).length;
+    return { differentCount, totalCount: visibleRows.length };
+  }, [versionA, entryA, versionB, entryB]);
+
+  const hasSelections = !!(versionA || entryA || versionB || entryB);
 
   return (
     <div className="flex h-full flex-col overflow-hidden">
@@ -335,24 +354,40 @@ export function FormatCompare({ versions, entries }: FormatCompareProps) {
               </span>
             </div>
           </div>
+        </div>
 
-          {/* Diff toggle */}
-          <div className="flex flex-col items-center self-end pb-0.5">
-            <span className="mb-1.5 block text-xs text-transparent select-none">Diff</span>
+        {/* Diff summary banner */}
+        {diffSummary && (
+          <div className="mt-3 flex items-center gap-4 flex-wrap rounded-lg border border-border bg-muted/20 px-5 py-3">
+            <div className="text-sm">
+              <span className="font-semibold text-foreground">{diffSummary.differentCount}</span>
+              <span className="ml-1 text-muted-foreground">von {diffSummary.totalCount} Feldern unterschiedlich</span>
+            </div>
+            <div className="h-4 w-px bg-border" />
+            <label className="flex items-center gap-2 text-sm cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={onlyDiffs}
+                onChange={(e) => setOnlyDiffs(e.target.checked)}
+                className="size-4 accent-primary"
+              />
+              <span>Nur Unterschiede zeigen</span>
+            </label>
+            <div className="h-4 w-px bg-border" />
             <button
               onClick={() => setShowDiff((v) => !v)}
               className={cn(
-                'h-10 rounded-md border px-3 text-xs font-medium transition-colors whitespace-nowrap',
+                'rounded-md border px-3 py-1 text-xs font-medium transition-colors whitespace-nowrap',
                 showDiff
                   ? 'border-green-500/30 bg-green-500/10 text-green-700 dark:text-green-400 hover:bg-green-500/20'
                   : 'border-border bg-muted/30 text-muted-foreground hover:bg-muted/60 hover:text-foreground',
               )}
-              title={showDiff ? 'Diff ausblenden' : 'Diff anzeigen'}
+              title={showDiff ? 'Zu Plain-Ansicht wechseln' : 'Zu Wort-Diff wechseln'}
             >
-              {showDiff ? 'Diff an' : 'Plain'}
+              {showDiff ? 'Wort-Diff' : 'Nur Text'}
             </button>
           </div>
-        </div>
+        )}
       </div>
 
       {/* Split view */}
@@ -369,7 +404,7 @@ export function FormatCompare({ versions, entries }: FormatCompareProps) {
       </div>
 
       {/* Comparison rows */}
-      {(versionA || entryA || versionB || entryB) && (
+      {hasSelections && (
         <div className="shrink-0 border-t border-border overflow-y-auto" style={{ maxHeight: 'calc(100vh - 300px)' }}>
           <table className="w-full text-sm">
             <thead className="sticky top-0 z-10 bg-background border-b border-border">
@@ -391,18 +426,21 @@ export function FormatCompare({ versions, entries }: FormatCompareProps) {
                 const valB = getValue(row, entryB, versionB);
                 const differs = !!(valA || valB) && valA !== valB;
                 if (!valA && !valB) return null;
+                if (onlyDiffs && !differs) return null;
 
                 return (
                   <tr
                     key={row.key}
                     className={cn(
                       'align-top',
-                      differs && 'bg-amber-500/5',
+                      differs && 'bg-amber-50/50 dark:bg-amber-950/20',
                     )}
                   >
                     <td className={cn(
-                      'px-4 py-3 text-xs font-medium text-muted-foreground/70 whitespace-nowrap',
-                      differs && 'border-l-2 border-amber-500/60',
+                      'px-4 py-3 text-xs whitespace-nowrap',
+                      differs
+                        ? 'font-semibold text-amber-700 dark:text-amber-300 border-l-4 border-l-amber-500'
+                        : 'font-medium text-muted-foreground/70',
                     )}>
                       <div className="flex items-center gap-1.5">
                         {differs && <IconDelta />}

@@ -58,6 +58,24 @@ function IconChevron({ open }: { open: boolean }) {
   );
 }
 
+function IconInfo() {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      className="size-4 shrink-0 mt-0.5 text-blue-500 dark:text-blue-400"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="10" cy="10" r="8" />
+      <path d="M10 9v5" />
+      <circle cx="10" cy="6.5" r="0.5" fill="currentColor" />
+    </svg>
+  );
+}
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 interface FormatCompareProps {
@@ -336,12 +354,25 @@ export function FormatCompare({ versions, entries }: FormatCompareProps) {
 
         {/* Tree diff */}
         {bothSelected && (
-          <FormatTreeDiff
-            sampleA={versionA?.sample_file}
-            sampleB={versionB?.sample_file}
-            labelA={labelA}
-            labelB={labelB}
-          />
+          <>
+            <div className="mb-4 flex items-start gap-3 rounded-lg border border-blue-200 bg-blue-50/60 dark:bg-blue-950/20 p-4 text-sm">
+              <IconInfo />
+              <div>
+                <div className="font-semibold text-blue-900 dark:text-blue-200">Hinweis zum Diff</div>
+                <p className="mt-1 text-blue-900/80 dark:text-blue-200/80 leading-relaxed">
+                  Der Baum zeigt Unterschiede basierend auf den hinterlegten Beispiel-Dateien.
+                  Für die autoritative Schema-Definition siehe ISO 20022 / EPC / CGI-MP.
+                  Kuratierte Versionshinweise findest du im Callout oben.
+                </p>
+              </div>
+            </div>
+            <FormatTreeDiff
+              sampleA={versionA?.sample_file}
+              sampleB={versionB?.sample_file}
+              labelA={labelA}
+              labelB={labelB}
+            />
+          </>
         )}
 
         {/* ── Metadaten-Vergleich (collapsible) ──────────────────────────── */}

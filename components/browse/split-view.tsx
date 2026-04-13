@@ -264,7 +264,7 @@ function PairedRow({
   if (!hasExpert && !hasBeginner) return null;
 
   return (
-    <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+    <div className="mb-6 space-y-3">
       {hasExpert && (
         <div className="rounded-lg border border-border bg-muted/20 p-4">
           <dt className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#4a9eff]/80">

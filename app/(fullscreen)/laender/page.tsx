@@ -67,6 +67,7 @@ export default async function LaenderPage() {
         idField="code"
         complexityField="complexity"
         documentField="document_md"
+        summaryField="key_note"
       />
     </Suspense>
   );

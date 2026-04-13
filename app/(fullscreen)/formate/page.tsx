@@ -52,6 +52,7 @@ export default async function FormatePage() {
         searchFields={['format_name', 'nachrichtentyp', 'familie_standard', 'aktuelle_version']}
         filterField="familie_standard"
         filterLabel="Alle Familien"
+        summaryField="beschreibung_einsteiger"
       />
     </Suspense>
   );

@@ -55,6 +55,7 @@ export default async function ZahlungsartenPage() {
         searchFields={['name', 'kuerzel', 'instrument_typ', 'clearing_system', 'nachrichtenformat']}
         filterField="instrument_typ"
         filterLabel="Alle Typen"
+        summaryField="beschreibung_einsteiger"
       />
     </Suspense>
   );

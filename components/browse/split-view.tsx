@@ -31,6 +31,8 @@ export type SplitViewProps<T extends Record<string, unknown>> = {
   complexityField?: keyof T;
   /** Document markdown to append at end of detail */
   documentField?: keyof T;
+  /** Field to use as Management Summary callout at top of detail */
+  summaryField?: keyof T;
 };
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
@@ -299,6 +301,7 @@ function DetailPanel<T extends Record<string, unknown>>({
   headerBadgeField,
   complexityField,
   documentField,
+  summaryField,
 }: {
   item: T | null;
   columns: Column[];
@@ -307,6 +310,7 @@ function DetailPanel<T extends Record<string, unknown>>({
   headerBadgeField?: keyof T;
   complexityField?: keyof T;
   documentField?: keyof T;
+  summaryField?: keyof T;
 }) {
   if (!item) {
     return (
@@ -327,8 +331,34 @@ function DetailPanel<T extends Record<string, unknown>>({
   const badgeVal = headerBadgeField ? str(item[headerBadgeField]) : '';
   const complexityVal = complexityField ? str(item[complexityField]) : '';
   const documentMd = documentField ? str(item[documentField]) : '';
+  const summaryVal = summaryField ? str(item[summaryField]) : '';
 
-  const grouped = groupPairs(columns);
+  // Determine which column keys to exclude from the section rendering:
+  // - the summaryField itself (rendered as the callout card above)
+  // - if summaryField ends with "_einsteiger", also suppress the paired _einsteiger column
+  //   (the _experte partner will be rendered as a single field instead of a pair)
+  const summaryKey = summaryField ? String(summaryField) : '';
+  const summaryIsEinsteiger = summaryKey.endsWith('_einsteiger');
+
+  // Build the filtered columns for section rendering
+  const filteredColumns = summaryKey
+    ? columns.filter((col) => col.key !== summaryKey)
+    : columns;
+
+  // For the paired rendering: when summaryField is the _einsteiger half of a pair,
+  // convert the _experte column to a plain single field (rename label by stripping " (Experte)" suffix)
+  const displayColumns: Column[] = summaryIsEinsteiger
+    ? filteredColumns.map((col) => {
+        const expectedExpert = summaryKey.slice(0, -'_einsteiger'.length) + '_experte';
+        if (col.key === expectedExpert) {
+          const newLabel = col.label.replace(/\s*\(Experte\)\s*$/i, '').trim() || col.label;
+          return { ...col, label: newLabel };
+        }
+        return col;
+      })
+    : filteredColumns;
+
+  const grouped = groupPairs(displayColumns);
 
   // Build sections map
   const sectionMap: Record<string, typeof grouped> = {};
@@ -368,6 +398,18 @@ function DetailPanel<T extends Record<string, unknown>>({
 
       {/* Scrollable content */}
       <div className="flex-1 overflow-y-auto px-4 py-6 md:px-10">
+
+        {/* Management Summary callout */}
+        {summaryVal && (
+          <div className="mb-8 rounded-xl border border-primary/30 bg-primary/5 p-5">
+            <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-primary">
+              Management Summary
+            </div>
+            <div className="text-base leading-relaxed text-foreground/90">
+              {renderFieldValue(summaryVal)}
+            </div>
+          </div>
+        )}
 
         <dl>
           {Object.entries(sectionMap).map(([section, entries]) => (
@@ -485,6 +527,7 @@ export function SplitView<T extends Record<string, unknown>>({
   headerBadgeField,
   complexityField,
   documentField,
+  summaryField,
 }: SplitViewProps<T>) {
   const router = useRouter();
   const pathname = usePathname();
@@ -625,6 +668,7 @@ export function SplitView<T extends Record<string, unknown>>({
       headerBadgeField={headerBadgeField}
       complexityField={complexityField}
       documentField={documentField}
+      summaryField={summaryField}
     />
   );
 

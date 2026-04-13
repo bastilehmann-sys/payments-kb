@@ -54,6 +54,7 @@ export default async function RegulatorikPage() {
         searchFields={['kuerzel', 'name', 'kategorie', 'typ']}
         filterField="typ"
         filterLabel="Alle Typen"
+        summaryField="beschreibung_einsteiger"
       />
     </Suspense>
   );

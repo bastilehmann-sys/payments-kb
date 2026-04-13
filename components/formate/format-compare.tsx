@@ -5,6 +5,7 @@ import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import type { FormatVersion } from '@/lib/queries/entries';
 import type { FormatEntry } from '@/lib/queries/entries';
+import { DiffPair } from '@/components/formate/diff-pair';
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
 
@@ -256,6 +257,8 @@ export function FormatCompare({ versions, entries }: FormatCompareProps) {
   const currentValueA = paramA ?? '';
   const currentValueB = paramB ?? '';
 
+  const [showDiff, setShowDiff] = React.useState(true);
+
   return (
     <div className="flex h-full flex-col overflow-hidden">
       {/* Top bar: dropdowns + swap */}
@@ -331,6 +334,23 @@ export function FormatCompare({ versions, entries }: FormatCompareProps) {
               </span>
             </div>
           </div>
+
+          {/* Diff toggle */}
+          <div className="flex flex-col items-center self-end pb-0.5">
+            <span className="mb-1.5 block text-xs text-transparent select-none">Diff</span>
+            <button
+              onClick={() => setShowDiff((v) => !v)}
+              className={cn(
+                'h-10 rounded-md border px-3 text-xs font-medium transition-colors whitespace-nowrap',
+                showDiff
+                  ? 'border-green-500/30 bg-green-500/10 text-green-700 dark:text-green-400 hover:bg-green-500/20'
+                  : 'border-border bg-muted/30 text-muted-foreground hover:bg-muted/60 hover:text-foreground',
+              )}
+              title={showDiff ? 'Diff ausblenden' : 'Diff anzeigen'}
+            >
+              {showDiff ? 'Diff an' : 'Plain'}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -379,20 +399,20 @@ export function FormatCompare({ versions, entries }: FormatCompareProps) {
                       differs && 'bg-amber-500/5',
                     )}
                   >
-                    <td className="px-4 py-3 text-xs font-medium text-muted-foreground/70 whitespace-nowrap">
-                      {row.label}
-                    </td>
-                    <td className="px-4 py-3 text-sm text-foreground/85 max-w-xs">
-                      <div className="flex items-start gap-1.5">
-                        {differs && valA && <span className="mt-0.5 shrink-0"><IconDelta /></span>}
-                        <span className="break-words leading-relaxed">{valA || <span className="text-muted-foreground/40">—</span>}</span>
+                    <td className={cn(
+                      'px-4 py-3 text-xs font-medium text-muted-foreground/70 whitespace-nowrap',
+                      differs && 'border-l-2 border-amber-500/60',
+                    )}>
+                      <div className="flex items-center gap-1.5">
+                        {differs && <IconDelta />}
+                        {row.label}
                       </div>
                     </td>
                     <td className="px-4 py-3 text-sm text-foreground/85 max-w-xs">
-                      <div className="flex items-start gap-1.5">
-                        {differs && valB && <span className="mt-0.5 shrink-0"><IconDelta /></span>}
-                        <span className="break-words leading-relaxed">{valB || <span className="text-muted-foreground/40">—</span>}</span>
-                      </div>
+                      <DiffPair left={valA} right={valB} showDiff={showDiff} side="left" />
+                    </td>
+                    <td className="px-4 py-3 text-sm text-foreground/85 max-w-xs">
+                      <DiffPair left={valA} right={valB} showDiff={showDiff} side="right" />
                     </td>
                   </tr>
                 );
@@ -401,6 +421,7 @@ export function FormatCompare({ versions, entries }: FormatCompareProps) {
           </table>
         </div>
       )}
+
 
       {/* Empty state */}
       {!versionA && !entryA && !versionB && !entryB && (

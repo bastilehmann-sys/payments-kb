@@ -21,7 +21,36 @@ export type FormatVersion = typeof formatVersions.$inferSelect;
 
 export async function getRegulatorikEntries(): Promise<RegulatorikEntry[]> {
   return db
-    .select()
+    .select({
+      id: regulatorikEntries.id,
+      kuerzel: regulatorikEntries.kuerzel,
+      name: regulatorikEntries.name,
+      kategorie: regulatorikEntries.kategorie,
+      typ: regulatorikEntries.typ,
+      beschreibung_experte: regulatorikEntries.beschreibung_experte,
+      beschreibung_einsteiger: regulatorikEntries.beschreibung_einsteiger,
+      geltungsbereich: regulatorikEntries.geltungsbereich,
+      status_version: regulatorikEntries.status_version,
+      in_kraft_seit: regulatorikEntries.in_kraft_seit,
+      naechste_aenderung: regulatorikEntries.naechste_aenderung,
+      behoerde_link: regulatorikEntries.behoerde_link,
+      betroffene_abteilungen: regulatorikEntries.betroffene_abteilungen,
+      auswirkungen_experte: regulatorikEntries.auswirkungen_experte,
+      auswirkungen_einsteiger: regulatorikEntries.auswirkungen_einsteiger,
+      pflichtmassnahmen_experte: regulatorikEntries.pflichtmassnahmen_experte,
+      pflichtmassnahmen_einsteiger: regulatorikEntries.pflichtmassnahmen_einsteiger,
+      best_practice_experte: regulatorikEntries.best_practice_experte,
+      best_practice_einsteiger: regulatorikEntries.best_practice_einsteiger,
+      risiken_experte: regulatorikEntries.risiken_experte,
+      risiken_einsteiger: regulatorikEntries.risiken_einsteiger,
+      verwandte_regulierungen: regulatorikEntries.verwandte_regulierungen,
+      sap_bezug: regulatorikEntries.sap_bezug,
+      bussgeld: regulatorikEntries.bussgeld,
+      pruefpflicht: regulatorikEntries.pruefpflicht,
+      aufwand_tshirt: regulatorikEntries.aufwand_tshirt,
+      source_row: regulatorikEntries.source_row,
+      created_at: regulatorikEntries.created_at,
+    })
     .from(regulatorikEntries)
     .orderBy(asc(regulatorikEntries.source_row));
 }

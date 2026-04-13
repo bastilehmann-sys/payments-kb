@@ -1,9 +1,43 @@
 'use client';
 
+import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import type { Components } from 'react-markdown';
+
+// Detect numbered/bullet patterns in prose text and split into items.
+// Returns null if no meaningful list pattern found.
+function splitIntoItems(text: string): string[] | null {
+  // Numbered: "1) Foo 2) Bar 3) Baz" or "1. Foo 2. Bar"
+  const numberedRegex = /(?:^|\s)\d+[)\.]\s+(?=[A-Za-zÄÖÜäöüß])/g;
+  const numberedMatches = [...text.matchAll(numberedRegex)];
+  if (numberedMatches.length >= 2) {
+    const parts = text
+      .split(/\s*\d+[)\.]\s+(?=[A-Za-zÄÖÜäöüß])/)
+      .map((s) => s.trim())
+      .filter(Boolean);
+    if (parts.length >= 2) return parts;
+  }
+  // Bullet: • · ● ▪ – —
+  const bulletParts = text
+    .split(/\s*[•·●▪\–\—]\s+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  if (bulletParts.length >= 3) return bulletParts;
+  return null;
+}
+
+// Extract plain text from React children for pattern detection
+function childrenToText(children: React.ReactNode): string {
+  if (typeof children === 'string') return children;
+  if (typeof children === 'number') return String(children);
+  if (Array.isArray(children)) return children.map(childrenToText).join('');
+  if (React.isValidElement<{ children?: React.ReactNode }>(children)) {
+    return childrenToText(children.props.children);
+  }
+  return '';
+}
 
 // ─── Custom renderers matching detail-pane aesthetics ──────────────────────────
 
@@ -47,8 +81,21 @@ const components: Components = {
     );
   },
 
-  // Paragraph
+  // Paragraph — auto-detect inline numbered/bullet lists and split into <ul>
   p({ children }) {
+    const text = childrenToText(children);
+    const items = splitIntoItems(text);
+    if (items) {
+      return (
+        <ul className="mb-4 list-disc space-y-2 pl-6 marker:text-primary/60">
+          {items.map((item, i) => (
+            <li key={i} className="text-base leading-relaxed text-foreground/90">
+              {item}
+            </li>
+          ))}
+        </ul>
+      );
+    }
     return (
       <p className="mb-4 text-base leading-relaxed text-foreground/90">
         {children}

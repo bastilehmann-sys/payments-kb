@@ -73,26 +73,161 @@ function findFallback(formatName: string): { file: string; label: string } | nul
 
 interface FormatSampleCardProps {
   formatName: string;
+  /** Full version string for the currently selected list item (e.g. "pain.001.001.09") */
+  selectedVersion?: string;
+  /** Sample file URL for the selected version */
+  selectedSampleFile?: string;
+  /** Whether the selected version is flagged as current/latest */
+  selectedIsCurrentVersion?: boolean;
   versions?: FormatVersion[];
 }
 
-export function FormatSampleCard({ formatName, versions }: FormatSampleCardProps) {
+export function FormatSampleCard({
+  formatName,
+  selectedVersion,
+  selectedSampleFile,
+  selectedIsCurrentVersion,
+  versions,
+}: FormatSampleCardProps) {
   const [expanded, setExpanded] = React.useState(false);
 
-  // Filter versions matching this format
-  const formatKey = formatName.toLowerCase().split(' ')[0]; // e.g. "pain.001" from "pain.001"
+  // Filter all versions for this format family
+  const formatKey = formatName.toLowerCase().split(' ')[0]; // e.g. "pain.001"
   const matchedVersions = versions?.filter(
     (v) => v.format_name.toLowerCase() === formatKey
   ) ?? [];
 
-  // If we have DB versions, show enhanced card
+  // ── New mode: per-version list item selected ──────────────────────────────
+  if (selectedVersion) {
+    const compareUrl = `/formate/vergleich?a=${encodeURIComponent(selectedVersion)}`;
+    const otherVersions = matchedVersions.filter(
+      (v) => `${v.format_name}.${v.version}` !== selectedVersion
+    );
+
+    return (
+      <div className="mb-6 rounded-xl border border-border bg-muted/20 overflow-hidden">
+        {/* Header row — selected version */}
+        <div className="flex items-center justify-between gap-4 px-5 py-4">
+          <div className="min-w-0 flex-1">
+            <div className="mb-1 text-base font-semibold uppercase tracking-wider text-muted-foreground">
+              Beispiel-Datei
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="font-mono font-semibold text-lg text-foreground/90">{selectedVersion}</span>
+              {selectedIsCurrentVersion && (
+                <span className="rounded bg-primary/10 px-1.5 py-0.5 text-xs font-semibold uppercase tracking-wider text-primary">
+                  Aktuell
+                </span>
+              )}
+            </div>
+          </div>
+          <div className="flex shrink-0 items-center gap-2">
+            {selectedSampleFile && (
+              <a
+                href={selectedSampleFile}
+                download
+                className="inline-flex items-center gap-2 rounded-md bg-primary px-3 py-2 text-base font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+              >
+                <IconDownload />
+                Download
+              </a>
+            )}
+            <Link
+              href={compareUrl}
+              className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-3 py-2 text-base font-medium text-foreground/80 hover:bg-muted/50 transition-colors"
+            >
+              <IconCompare />
+              Vergleichen
+            </Link>
+            {otherVersions.length > 0 && (
+              <button
+                onClick={() => setExpanded((e) => !e)}
+                className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3 py-2 text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
+                aria-expanded={expanded}
+              >
+                {expanded ? 'Einklappen' : `${otherVersions.length} weitere`}
+                <span className={`transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`}>
+                  <IconChevron />
+                </span>
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Expandable other versions */}
+        {expanded && otherVersions.length > 0 && (
+          <div className="border-t border-border">
+            <div className="px-5 py-2">
+              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/60">
+                Weitere Versionen ({formatName})
+              </p>
+            </div>
+            <div className="divide-y divide-border">
+              {otherVersions.map((v) => {
+                const versionId = `${v.format_name}.${v.version}`;
+                return (
+                  <div
+                    key={v.id}
+                    className="flex items-start justify-between gap-3 px-5 py-3 hover:bg-muted/20 transition-colors"
+                  >
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-base font-mono font-medium text-foreground/90">
+                          {versionId}
+                        </span>
+                        {v.is_current && (
+                          <span className="rounded bg-primary/10 px-1.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-primary">
+                            Aktuell
+                          </span>
+                        )}
+                        {v.released && (
+                          <span className="text-xs text-muted-foreground/60">{v.released}</span>
+                        )}
+                      </div>
+                      {v.notes && (
+                        <p className="mt-0.5 text-xs text-muted-foreground/70 line-clamp-2 leading-relaxed">
+                          {v.notes}
+                        </p>
+                      )}
+                    </div>
+                    <div className="flex shrink-0 items-center gap-1.5">
+                      {v.sample_file && (
+                        <a
+                          href={v.sample_file}
+                          download
+                          className="inline-flex items-center gap-1.5 rounded border border-border bg-background px-2.5 py-1.5 text-xs font-medium text-foreground/70 hover:text-foreground hover:bg-muted/50 transition-colors"
+                          title={`${versionId} herunterladen`}
+                        >
+                          <IconDownload />
+                          Download
+                        </a>
+                      )}
+                      <Link
+                        href={`/formate/vergleich?a=${encodeURIComponent(versionId)}`}
+                        className="inline-flex items-center gap-1.5 rounded border border-border bg-background px-2.5 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
+                        title="Mit anderer Version vergleichen"
+                      >
+                        <IconCompare />
+                        Vergl.
+                      </Link>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // ── Legacy mode: no selectedVersion — show all matched versions ───────────
   if (matchedVersions.length > 0) {
     const currentVersion = matchedVersions.find((v) => v.is_current) ?? matchedVersions[matchedVersions.length - 1];
     const compareUrl = `/formate/vergleich?a=${encodeURIComponent(formatKey + '.' + currentVersion.version)}`;
 
     return (
       <div className="mb-6 rounded-xl border border-border bg-muted/20 overflow-hidden">
-        {/* Header row */}
         <div className="flex items-center justify-between gap-4 px-5 py-4">
           <div className="min-w-0 flex-1">
             <div className="mb-1 text-base font-semibold uppercase tracking-wider text-muted-foreground">
@@ -138,7 +273,6 @@ export function FormatSampleCard({ formatName, versions }: FormatSampleCardProps
           </div>
         </div>
 
-        {/* Expanded version list */}
         {expanded && (
           <div className="border-t border-border">
             <div className="divide-y divide-border">

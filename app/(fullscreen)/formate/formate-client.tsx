@@ -15,9 +15,11 @@ export function FormateClient({ items, columns, versions }: FormateClientProps) 
     <SplitView
       items={items}
       columns={columns}
-      primaryField="format_name"
+      idField="format_version_id"
+      primaryField="aktuelle_version"
       secondaryField="nachrichtentyp"
-      searchFields={['format_name', 'nachrichtentyp', 'familie_standard', 'aktuelle_version']}
+      tertiaryField="familie_standard"
+      searchFields={['format_name', 'aktuelle_version', 'nachrichtentyp', 'familie_standard', 'version_notes']}
       filterField="familie_standard"
       filterLabel="Alle Familien"
       summaryField="beschreibung_einsteiger"
@@ -25,6 +27,9 @@ export function FormateClient({ items, columns, versions }: FormateClientProps) 
       extraDetailHeader={(item) => (
         <FormatSampleCard
           formatName={String(item['format_name'] ?? '')}
+          selectedVersion={String(item['aktuelle_version'] ?? '')}
+          selectedSampleFile={String(item['version_sample_file'] ?? '')}
+          selectedIsCurrentVersion={Boolean(item['version_is_current'])}
           versions={versions}
         />
       )}

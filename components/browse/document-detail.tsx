@@ -5,26 +5,15 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import type { Components } from 'react-markdown';
+import { splitToBullets } from '@/lib/text/split-to-bullets';
 
-// Detect numbered/bullet patterns in prose text and split into items.
+// Detect list patterns in prose text and split into items.
 // Returns null if no meaningful list pattern found.
-function splitIntoItems(text: string): string[] | null {
-  // Numbered: "1) Foo 2) Bar 3) Baz" or "1. Foo 2. Bar"
-  const numberedRegex = /(?:^|\s)\d+[)\.]\s+(?=[A-Za-zÄÖÜäöüß])/g;
-  const numberedMatches = [...text.matchAll(numberedRegex)];
-  if (numberedMatches.length >= 2) {
-    const parts = text
-      .split(/\s*\d+[)\.]\s+(?=[A-Za-zÄÖÜäöüß])/)
-      .map((s) => s.trim())
-      .filter(Boolean);
-    if (parts.length >= 2) return parts;
+function splitIntoItems(text: string): { items: string[]; intro?: string } | null {
+  const result = splitToBullets(text);
+  if (result.kind === 'list') {
+    return { items: result.items, intro: result.intro };
   }
-  // Bullet: • · ● ▪ – —
-  const bulletParts = text
-    .split(/\s*[•·●▪\–\—]\s+/)
-    .map((s) => s.trim())
-    .filter(Boolean);
-  if (bulletParts.length >= 3) return bulletParts;
   return null;
 }
 
@@ -84,16 +73,23 @@ const components: Components = {
   // Paragraph — auto-detect inline numbered/bullet lists and split into <ul>
   p({ children }) {
     const text = childrenToText(children);
-    const items = splitIntoItems(text);
-    if (items) {
+    const split = splitIntoItems(text);
+    if (split) {
       return (
-        <ul className="mb-4 list-disc space-y-2 pl-6 marker:text-primary/60">
-          {items.map((item, i) => (
-            <li key={i} className="text-base leading-relaxed text-foreground/90">
-              {item}
-            </li>
-          ))}
-        </ul>
+        <>
+          {split.intro && (
+            <p className="mb-2 text-base leading-relaxed text-foreground/90">
+              {split.intro}
+            </p>
+          )}
+          <ul className="mb-4 list-disc space-y-2 pl-6 marker:text-primary/60">
+            {split.items.map((item, i) => (
+              <li key={i} className="text-base leading-relaxed text-foreground/90">
+                {item}
+              </li>
+            ))}
+          </ul>
+        </>
       );
     }
     return (

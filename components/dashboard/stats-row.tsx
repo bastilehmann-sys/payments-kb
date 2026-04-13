@@ -104,9 +104,46 @@ interface StatsRowProps {
   stats: Stats;
 }
 
+function BankIcon() {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="#86bc25"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M2 18h16M2 8h16M4 8v10M8 8v10M12 8v10M16 8v10M10 2l8 6H2l8-6z" />
+    </svg>
+  );
+}
+
+function PaymentIcon() {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="#86bc25"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <rect x="2" y="5" width="16" height="12" rx="2" />
+      <path d="M2 9h16M6 13h2M10 13h4" />
+    </svg>
+  );
+}
+
 export function StatsRow({ stats }: StatsRowProps) {
   return (
-    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-6">
       <StatCard
         label="Regulatorik"
         value={stats.regulatorik}
@@ -121,6 +158,16 @@ export function StatsRow({ stats }: StatsRowProps) {
         label="Clearing"
         value={stats.clearing}
         icon={<ArrowsHorizontalIcon />}
+      />
+      <StatCard
+        label="Zahlungsarten"
+        value={stats.zahlungsarten}
+        icon={<PaymentIcon />}
+      />
+      <StatCard
+        label="IHB / POBO"
+        value={stats.ihb}
+        icon={<BankIcon />}
       />
       <StatCard
         label="Länder"

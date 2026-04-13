@@ -1,6 +1,14 @@
 import { db } from '@/db/client';
-import { documents, countries } from '@/db/schema';
-import { asc, desc, eq, count, sql } from 'drizzle-orm';
+import {
+  documents,
+  countries,
+  regulatorikEntries,
+  formatEntries,
+  clearingEntries,
+  zahlungsartEntries,
+  ihbEntries,
+} from '@/db/schema';
+import { asc, desc, count, sql } from 'drizzle-orm';
 
 // All countries ordered by complexity (high first) then name
 export async function getCountries() {
@@ -23,45 +31,34 @@ export interface Stats {
   regulatorik: number;
   formate: number;
   clearing: number;
+  zahlungsarten: number;
   ihb: number;
-  laender: number;
   totalCountries: number;
   lastUpdatedAt: Date | null;
 }
 
 export async function getStats(): Promise<Stats> {
-  // Section counts
-  const sectionCounts = await db
-    .select({
-      section: documents.section,
-      count: count(),
-    })
-    .from(documents)
-    .groupBy(documents.section);
+  // Count each structured entry table
+  const [regulatorikRow] = await db.select({ total: count() }).from(regulatorikEntries);
+  const [formateRow] = await db.select({ total: count() }).from(formatEntries);
+  const [clearingRow] = await db.select({ total: count() }).from(clearingEntries);
+  const [zahlungsartenRow] = await db.select({ total: count() }).from(zahlungsartEntries);
+  const [ihbRow] = await db.select({ total: count() }).from(ihbEntries);
 
   // Total countries
-  const [countryRow] = await db
-    .select({ total: count() })
-    .from(countries);
+  const [countryRow] = await db.select({ total: count() }).from(countries);
 
-  // Last updated_at from documents
+  // Last updated_at from documents (still used for changelog / recent updates)
   const [latestRow] = await db
     .select({ last: sql<Date | null>`MAX(${documents.updated_at})` })
     .from(documents);
 
-  const bySection: Record<string, number> = {};
-  for (const row of sectionCounts) {
-    if (row.section) {
-      bySection[row.section] = row.count;
-    }
-  }
-
   return {
-    regulatorik: bySection['regulatorik'] ?? 0,
-    formate: bySection['formate'] ?? 0,
-    clearing: bySection['clearing'] ?? 0,
-    ihb: bySection['ihb'] ?? 0,
-    laender: bySection['laender'] ?? 0,
+    regulatorik: regulatorikRow?.total ?? 0,
+    formate: formateRow?.total ?? 0,
+    clearing: clearingRow?.total ?? 0,
+    zahlungsarten: zahlungsartenRow?.total ?? 0,
+    ihb: ihbRow?.total ?? 0,
     totalCountries: countryRow?.total ?? 0,
     lastUpdatedAt: latestRow?.last ?? null,
   };

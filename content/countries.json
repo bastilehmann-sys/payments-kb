@@ -1,0 +1,200 @@
+[
+  {
+    "code": "DE",
+    "name": "Deutschland",
+    "complexity": "low",
+    "summary": "Benchmark für IHB-Setup. EBICS T+TS als Standard. SEPA vollständig, SCT Inst verfügbar. Komplexitätsscore: 2/10."
+  },
+  {
+    "code": "AT",
+    "name": "Österreich",
+    "complexity": "low",
+    "summary": "Standard SEPA-Setup. 13 Feiertage in SAP pflegen. OeNB CI für SDD. Komplexitätsscore: 2/10."
+  },
+  {
+    "code": "CH",
+    "name": "Schweiz",
+    "complexity": "medium",
+    "summary": "Dual-Setup: EUR via SEPA + CHF via SIC. QR-Rechnung Pflicht seit 2022. CH-pain.001-Variante weicht vom EPC-Standard ab. Komplexitätsscore: 4/10."
+  },
+  {
+    "code": "NL",
+    "name": "Niederlande",
+    "complexity": "low",
+    "summary": "Idealer European Treasury Hub. Notional Pooling gut etabliert. Standard SEPA-Setup. Komplexitätsscore: 2/10."
+  },
+  {
+    "code": "BE",
+    "name": "Belgien",
+    "complexity": "low",
+    "summary": "NBB CI für SDD. 11 Feiertage + regionaler Kalender. EU-Institutionen in Brüssel. Komplexitätsscore: 2/10."
+  },
+  {
+    "code": "LU",
+    "name": "Luxemburg",
+    "complexity": "low",
+    "summary": "Beliebt als Finanzholding-Standort. CSSF als Aufsicht. Sehr bankenfreundlich. Standard SEPA-Setup. Komplexitätsscore: 2/10."
+  },
+  {
+    "code": "FR",
+    "name": "Frankreich",
+    "complexity": "low",
+    "summary": "Chorus Pro B2B e-Invoicing ab 2026 stufenweise Pflicht. LCR/BOR rückläufig. Banque de France CI. Komplexitätsscore: 2/10."
+  },
+  {
+    "code": "IT",
+    "name": "Italien",
+    "complexity": "medium",
+    "summary": "Fattura Elettronica (SDI) Pflicht seit 2019. Codice Fiscale in Zahlung erforderlich. CBI-Format für lokale Banken. RIBA/SBF als lokale Instrumente. Komplexitätsscore: 5/10."
+  },
+  {
+    "code": "ES",
+    "name": "Spanien",
+    "complexity": "medium",
+    "summary": "NIF/CIF als Steuer-ID in bestimmten Zahlungen. Bizum sehr verbreitet. B2B e-Invoicing (Verifactu) in Vorbereitung. Komplexitätsscore: 3/10."
+  },
+  {
+    "code": "PT",
+    "name": "Portugal",
+    "complexity": "medium",
+    "summary": "NIF in Zahlungen empfohlen. AT e-Invoice für öffentliche Auftraggeber Pflicht. MB WAY Consumer Instant. Komplexitätsscore: 3/10."
+  },
+  {
+    "code": "GR",
+    "name": "Griechenland",
+    "complexity": "medium",
+    "summary": "myDATA digitale Buchführungspflicht seit 2021. AFM als Steuer-ID. Instant Payment noch im Ausbau. Komplexitätsscore: 4/10."
+  },
+  {
+    "code": "SE",
+    "name": "Schweden",
+    "complexity": "medium",
+    "summary": "Dual-Currency: EUR via SEPA, SEK über BiR/RIX. Swish sehr verbreitet. SCT Inst für SEK erst ab Jan. 2027 Pflicht. Komplexitätsscore: 3/10."
+  },
+  {
+    "code": "DK",
+    "name": "Dänemark",
+    "complexity": "medium",
+    "summary": "Dual-Currency: EUR via SEPA, DKK via Nets Clearing. MobilePay extrem verbreitet. Straksclearing = DKK Instant. Komplexitätsscore: 3/10."
+  },
+  {
+    "code": "NO",
+    "name": "Norwegen",
+    "complexity": "medium",
+    "summary": "Nicht EU-Mitglied (EWR). NOK-Zahlungen über NICS. Vipps Consumer Instant sehr verbreitet. Viele Feiertage rund um Ostern. Komplexitätsscore: 3/10."
+  },
+  {
+    "code": "FI",
+    "name": "Finnland",
+    "complexity": "low",
+    "summary": "Standard SEPA-Setup. MobilePay und Pivo/Siirto als Consumer Instant. Midsommar + Unabhängigkeitstag 6.12. beachten. Komplexitätsscore: 2/10."
+  },
+  {
+    "code": "PL",
+    "name": "Polen",
+    "complexity": "medium",
+    "summary": "Dual-Currency: PLN via ELIXIR, EUR via SEPA. BLIK extrem verbreitet. KSeF e-Invoicing Pflicht geplant. NIP als Steuer-ID. Komplexitätsscore: 4/10."
+  },
+  {
+    "code": "CZ",
+    "name": "Tschechien",
+    "complexity": "medium",
+    "summary": "Dual-Currency: CZK via CERTIS, EUR via SEPA. IČO als Unternehmens-ID in Transaktionen. Instant Payment im Aufbau. Komplexitätsscore: 3/10."
+  },
+  {
+    "code": "HU",
+    "name": "Ungarn",
+    "complexity": "medium",
+    "summary": "AFR = HUF Instant seit März 2020, 24/7 Pflicht. Dual-Currency Setup nötig. Adószám als HU-Steuer-ID in Zahlungen. Komplexitätsscore: 3/10."
+  },
+  {
+    "code": "RO",
+    "name": "Rumänien",
+    "complexity": "medium",
+    "summary": "e-Factura Pflicht seit Jan. 2024 für B2B. CUI als Unternehmens-ID. Dual-Currency: RON via SENT, EUR via SEPA. Komplexitätsscore: 4/10."
+  },
+  {
+    "code": "GB",
+    "name": "Großbritannien",
+    "complexity": "high",
+    "summary": "Post-Brexit: GBP über CHAPS/FPS/BACS, eigenes UK-Konto dringend empfohlen. UK PSD2 statt EU PSD2. FPS = GBP Instant bis GBP 1 Mio. Komplexitätsscore: 6/10."
+  },
+  {
+    "code": "IE",
+    "name": "Irland",
+    "complexity": "low",
+    "summary": "EU-Mitglied, EUR, Standard SEPA-Setup. Beliebter EU-Holdingstandort. CBI als Aufsicht. Komplexitätsscore: 2/10."
+  },
+  {
+    "code": "CN",
+    "name": "China",
+    "complexity": "high",
+    "summary": "Vollständige Devisenkontrolle. POBO/COBO verboten. CNY-Konto Pflicht. SAFE-Genehmigung für grenzüberschreitende Zahlungen. VAT Fapiao Pflicht. Nur Reporting-Integration in IHB möglich. Komplexitätsscore: 10/10."
+  },
+  {
+    "code": "JP",
+    "name": "Japan",
+    "complexity": "high",
+    "summary": "Zengin-Format: kein IBAN, Katakana-Pflicht für Empfängernamen. Golden Week: 4–5 Bankarbeitstage gesperrt. BOJ-Meldepflicht > JPY 30 Mio. 16 Feiertage/Jahr. Komplexitätsscore: 7/10."
+  },
+  {
+    "code": "AU",
+    "name": "Australien",
+    "complexity": "medium",
+    "summary": "NPP = AUD Instant seit 2018, PayID-System. BSB + Kontonummer statt IBAN. AUD gut konvertierbar. Standard SWIFT für internationale Zahlungen. Komplexitätsscore: 4/10."
+  },
+  {
+    "code": "SG",
+    "name": "Singapur",
+    "complexity": "medium",
+    "summary": "FAST = SGD Instant 24/7. MEPS+ = SGD RTGS. MAS proaktive, unternehmensfreundliche Regulierung. Sehr guter SWIFT-Hub für APAC. Komplexitätsscore: 4/10."
+  },
+  {
+    "code": "IN",
+    "name": "Indien",
+    "complexity": "high",
+    "summary": "FEMA-Devisenkontrolle. POBO/COBO verboten. Lokales Konto Pflicht. RBI Purpose Code für grenzüberschreitende Zahlungen. PAN/GSTIN in Zahlungen. TDS auf IC-Zinsen. Komplexitätsscore: 9/10."
+  },
+  {
+    "code": "US",
+    "name": "USA",
+    "complexity": "high",
+    "summary": "NACHA-Format für ACH. Routing Number statt IBAN. OFAC-Screening für alle USD-Zahlungen weltweit. State Money Transmitter Laws für POBO prüfen. Komplexitätsscore: 6/10."
+  },
+  {
+    "code": "CA",
+    "name": "Kanada",
+    "complexity": "medium",
+    "summary": "AFT = CA-ACH-Äquivalent. Lynx = CAD RTGS. Transit Number statt IBAN. CAD frei konvertierbar. Bilingual (EN/FR in Quebec). Komplexitätsscore: 4/10."
+  },
+  {
+    "code": "BR",
+    "name": "Brasilien",
+    "complexity": "high",
+    "summary": "IOF-Steuer auf alle Devisenzahlungen. NF-e Pflicht für alle Transaktionen. CNPJ in Zahlungen. PIX = Instant 24/7. POBO/COBO verboten. SAP BR-Add-On nötig. Komplexitätsscore: 9/10."
+  },
+  {
+    "code": "MX",
+    "name": "Mexiko",
+    "complexity": "high",
+    "summary": "CFDI = MX e-Invoice Pflicht für alle Transaktionen. RFC als Steuer-ID in Zahlungen Pflicht. SPEI = Instant 24/7. CLABE (18-stellig) statt IBAN. SAT-Behörde strenge Compliance. Komplexitätsscore: 7/10."
+  },
+  {
+    "code": "AE",
+    "name": "VAE / Dubai",
+    "complexity": "medium",
+    "summary": "AED an USD gebunden, kein FX-Risiko AED/USD. UAEFTS = UAE Instant Transfers. Kein Income Tax (seit 2023: 9% Corporate Tax). DIFC/ADGM mit eigenen Regelwerken. Komplexitätsscore: 4/10."
+  },
+  {
+    "code": "SA",
+    "name": "Saudi-Arabien",
+    "complexity": "high",
+    "summary": "Fatoora e-Invoice Pflicht (Phase 1+2 mit ZATCA). VAT 15% seit 2020. SAR an USD gebunden. Wochenende Fr+Sa. SAMA als Central Bank. Komplexitätsscore: 6/10."
+  },
+  {
+    "code": "ZA",
+    "name": "Südafrika",
+    "complexity": "high",
+    "summary": "SARB Devisenregulierung. EFT Standard für Inlandszahlungen. ZAEFT-Format proprietär. Devisenzahlungen > ZAR 1 Mio meldepflichtig. ZAR volatil. Komplexitätsscore: 6/10."
+  }
+]

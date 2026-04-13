@@ -9,6 +9,7 @@ import {
   SheetContent,
   SheetTitle,
 } from "@/components/ui/sheet"
+import { signOut } from "next-auth/react"
 
 interface TopbarProps {
   className?: string
@@ -79,10 +80,11 @@ export function Topbar({ className }: TopbarProps) {
       {/* Theme toggle */}
       <ThemeToggle />
 
-      {/* User menu placeholder */}
-      <div
-        className="flex h-8 items-center gap-2 rounded-md border border-border bg-muted/40 px-3 text-sm text-muted-foreground"
-        title="Auth coming in Task 2.2"
+      {/* User menu with logout */}
+      <button
+        onClick={() => signOut({ redirectTo: "/login" })}
+        className="flex h-8 items-center gap-2 rounded-md border border-border bg-muted/40 px-3 text-sm text-muted-foreground transition-colors hover:border-destructive/50 hover:bg-destructive/10 hover:text-destructive"
+        title="Abmelden"
       >
         <svg
           viewBox="0 0 24 24"
@@ -97,8 +99,8 @@ export function Topbar({ className }: TopbarProps) {
           <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
           <circle cx="12" cy="7" r="4" />
         </svg>
-        <span className="hidden sm:inline">Session</span>
-      </div>
+        <span className="hidden sm:inline">Abmelden</span>
+      </button>
 
       {/* Mobile nav sheet */}
       <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>

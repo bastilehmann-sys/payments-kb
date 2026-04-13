@@ -1,5 +1,6 @@
 "use client"
 
+import { usePathname } from "next/navigation"
 import { DesktopSidebar } from "./sidebar"
 import { Topbar } from "./topbar"
 
@@ -8,6 +9,13 @@ interface AppShellProps {
 }
 
 export function AppShell({ children }: AppShellProps) {
+  const pathname = usePathname()
+
+  // Render bare page on login (no shell)
+  if (pathname === "/login") {
+    return <>{children}</>
+  }
+
   return (
     <div className="flex min-h-screen">
       {/* Desktop sidebar */}

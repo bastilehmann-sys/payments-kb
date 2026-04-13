@@ -55,6 +55,14 @@ export type CountryRow = {
   complexity: string;
   summary: string | null;
   document_id: string | null;
+  // Enrichment columns from Excel matrix
+  currency: string | null;
+  payment_infra: string | null;
+  ihb_pobo_cobo: string | null;
+  regulatorik: string | null;
+  local_specifics: string | null;
+  sap_effort: string | null;
+  key_note: string | null;
 };
 
 export type CountryWithDocument = CountryRow & {
@@ -70,6 +78,13 @@ export async function listCountries(): Promise<CountryRow[]> {
       complexity: countries.complexity,
       summary: countries.summary,
       document_id: countries.document_id,
+      currency: countries.currency,
+      payment_infra: countries.payment_infra,
+      ihb_pobo_cobo: countries.ihb_pobo_cobo,
+      regulatorik: countries.regulatorik,
+      local_specifics: countries.local_specifics,
+      sap_effort: countries.sap_effort,
+      key_note: countries.key_note,
     })
     .from(countries)
     .orderBy(
@@ -87,6 +102,13 @@ export async function getCountry(code: string): Promise<CountryWithDocument | nu
       complexity: countries.complexity,
       summary: countries.summary,
       document_id: countries.document_id,
+      currency: countries.currency,
+      payment_infra: countries.payment_infra,
+      ihb_pobo_cobo: countries.ihb_pobo_cobo,
+      regulatorik: countries.regulatorik,
+      local_specifics: countries.local_specifics,
+      sap_effort: countries.sap_effort,
+      key_note: countries.key_note,
     })
     .from(countries)
     .where(eq(countries.code, code.toUpperCase()))

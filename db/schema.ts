@@ -67,6 +67,14 @@ export const countries = pgTable('countries', {
   complexity: text('complexity').notNull(), // 'low' | 'medium' | 'high'
   summary: text('summary'),
   document_id: uuid('document_id').references(() => documents.id, { onDelete: 'set null' }),
+  // Enrichment columns from Sheet 06
+  currency: text('currency'),
+  payment_infra: text('payment_infra'),
+  ihb_pobo_cobo: text('ihb_pobo_cobo'),
+  regulatorik: text('regulatorik'),
+  local_specifics: text('local_specifics'),
+  sap_effort: text('sap_effort'),
+  key_note: text('key_note'),
 });
 
 export const chats = pgTable('chats', {

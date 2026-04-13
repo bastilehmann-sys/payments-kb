@@ -125,8 +125,8 @@ const components: Components = {
             <p className="mb-1.5 text-sm leading-relaxed italic text-foreground/80">{sub.intro}</p>
           )}
           <ul className="mt-1.5 list-none space-y-1.5 pl-0">
-            {sub.topics.map((t) => (
-              <li key={t.label} className="text-sm">
+            {sub.topics.map((t, i) => (
+              <li key={`${i}-${t.label}`} className="text-sm">
                 <span className="mr-1.5 inline-block rounded bg-primary/10 px-1.5 py-0.5 text-[13px] font-semibold text-primary">
                   {t.label}
                 </span>

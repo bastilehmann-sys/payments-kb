@@ -7,8 +7,10 @@ import {
   clearingEntries,
   zahlungsartEntries,
   ihbEntries,
+  formatVersions,
+  entryAudit,
 } from '@/db/schema';
-import { asc, desc, count, sql } from 'drizzle-orm';
+import { asc, desc, count, eq, sql } from 'drizzle-orm';
 
 // All countries ordered by complexity (high first) then name
 export async function getCountries() {
@@ -84,4 +86,55 @@ export async function getRecentUpdates(limit = 5): Promise<RecentUpdate[]> {
     .from(documents)
     .orderBy(desc(documents.updated_at))
     .limit(limit);
+}
+
+/** Last N audit entries across all tables */
+export async function getRecentAuditEntries(limit = 5) {
+  return db
+    .select({
+      id: entryAudit.id,
+      table_name: entryAudit.table_name,
+      row_id: entryAudit.row_id,
+      field: entryAudit.field,
+      old_value: entryAudit.old_value,
+      new_value: entryAudit.new_value,
+      edited_at: entryAudit.edited_at,
+      edited_by: entryAudit.edited_by,
+    })
+    .from(entryAudit)
+    .orderBy(desc(entryAudit.edited_at))
+    .limit(limit);
+}
+
+/** High-complexity countries */
+export async function getHighComplexityCountries(limit = 5) {
+  return db
+    .select({
+      id: countries.id,
+      code: countries.code,
+      name: countries.name,
+      complexity: countries.complexity,
+      summary: countries.summary,
+    })
+    .from(countries)
+    .where(eq(countries.complexity, 'high'))
+    .orderBy(asc(countries.name))
+    .limit(limit);
+}
+
+/** Current (latest) format versions per format family */
+export async function getCurrentFormatVersions() {
+  return db
+    .select({
+      id: formatVersions.id,
+      format_name: formatVersions.format_name,
+      version: formatVersions.version,
+      released: formatVersions.released,
+      is_current: formatVersions.is_current,
+      notes: formatVersions.notes,
+    })
+    .from(formatVersions)
+    .where(eq(formatVersions.is_current, true))
+    .orderBy(asc(formatVersions.format_name))
+    .limit(8);
 }

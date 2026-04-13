@@ -46,25 +46,25 @@
   --radius-2xl: calc(var(--radius) * 2);
 }
 
-/* ── Light mode (approximated — site is dark-first) ─────────────────────── */
+/* ── Light mode ──────────────────────────────────────────────────────────── */
 :root {
-  --background: #f9fafb;
-  --foreground: #101828;
+  --background: #fafafa;
+  --foreground: #111827;
   --card: #ffffff;
-  --card-foreground: #101828;
+  --card-foreground: #111827;
   --popover: #ffffff;
-  --popover-foreground: #101828;
+  --popover-foreground: #111827;
   --primary: #86bc25;
-  --primary-foreground: #101828;
+  --primary-foreground: #ffffff;
   --secondary: #f3f4f6;
-  --secondary-foreground: #4a5565;
+  --secondary-foreground: #374151;
   --muted: #f3f4f6;
-  --muted-foreground: #6a7282;
+  --muted-foreground: #6b7280;
   --accent: #86bc25;
-  --accent-foreground: #101828;
-  --destructive: #fb2c36;
-  --border: rgba(0, 0, 0, 0.08);
-  --input: rgba(0, 0, 0, 0.08);
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626;
+  --border: #e5e7eb;
+  --input: #e5e7eb;
   --ring: #86bc25;
   /* chart tokens = module color palette */
   --chart-1: #86bc25;
@@ -74,12 +74,12 @@
   --chart-5: #ffb340;
   --radius: 0.5rem;
   --sidebar: #ffffff;
-  --sidebar-foreground: #101828;
+  --sidebar-foreground: #111827;
   --sidebar-primary: #86bc25;
-  --sidebar-primary-foreground: #101828;
+  --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #f3f4f6;
-  --sidebar-accent-foreground: #4a5565;
-  --sidebar-border: rgba(0, 0, 0, 0.08);
+  --sidebar-accent-foreground: #374151;
+  --sidebar-border: #e5e7eb;
   --sidebar-ring: #86bc25;
 }
 

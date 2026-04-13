@@ -117,7 +117,7 @@ interface TreePanelProps {
 
 function TreePanel({ root, side, label, formatLabel, collapsed, onToggle, isB }: TreePanelProps) {
   return (
-    <div className={cn('flex flex-col h-full overflow-hidden', isB && 'border-l border-border')}>
+    <div className={cn('flex flex-col', isB && 'border-l border-border')}>
       {/* Panel header */}
       <div className={cn(
         'shrink-0 px-4 py-2 border-b border-border',
@@ -133,7 +133,7 @@ function TreePanel({ root, side, label, formatLabel, collapsed, onToggle, isB }:
       </div>
 
       {/* Tree rows */}
-      <div className="flex-1 overflow-y-auto overflow-x-auto">
+      <div className="overflow-x-auto">
         <NodeRow
           node={root}
           side={side}
@@ -309,8 +309,7 @@ export function FormatTreeDiff({ sampleA, sampleB, labelA = 'Format A', labelB =
 
       {/* Side-by-side trees */}
       <div
-        className="grid grid-cols-2 rounded-lg border border-border bg-background overflow-hidden"
-        style={{ minHeight: 320, maxHeight: 'calc(100vh - 340px)' }}
+        className="grid grid-cols-2 rounded-lg border border-border bg-background"
       >
         <TreePanel
           root={diffResult.left}

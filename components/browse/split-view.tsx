@@ -235,47 +235,28 @@ function FieldRow({ label, value }: { label: string; value: string }) {
   );
 }
 
-// ─── Paired field row ─────────────────────────────────────────────────────────
+// ─── Mode type ────────────────────────────────────────────────────────────────
 
-function PairedRow({
-  expertLabel,
+type Mode = 'einsteiger' | 'experte';
+
+// ─── Merged paired field row ──────────────────────────────────────────────────
+
+function MergedPairedRow({
+  label,
   expertValue,
-  beginnerLabel,
   beginnerValue,
+  mode,
 }: {
-  expertLabel: string;
+  label: string;
   expertValue: string;
-  beginnerLabel: string;
   beginnerValue: string;
+  mode: Mode;
 }) {
-  const hasExpert = !!expertValue;
-  const hasBeginner = !!beginnerValue;
-  if (!hasExpert && !hasBeginner) return null;
-
-  return (
-    <div className="mb-6 space-y-3">
-      {hasExpert && (
-        <div className="rounded-lg border border-border bg-muted/20 p-4">
-          <dt className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#4a9eff]/80">
-            {expertLabel}
-          </dt>
-          <dd className="text-base text-foreground/85 leading-relaxed">
-            {renderFieldValue(expertValue)}
-          </dd>
-        </div>
-      )}
-      {hasBeginner && (
-        <div className="rounded-lg border border-border bg-muted/20 p-4">
-          <dt className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#86bc25]/80">
-            {beginnerLabel}
-          </dt>
-          <dd className="text-base text-foreground/85 leading-relaxed">
-            {renderFieldValue(beginnerValue)}
-          </dd>
-        </div>
-      )}
-    </div>
-  );
+  const primary = mode === 'experte' ? expertValue : beginnerValue;
+  const fallback = mode === 'experte' ? beginnerValue : expertValue;
+  const value = primary || fallback;
+  if (!value) return null;
+  return <FieldRow label={label} value={value} />;
 }
 
 // ─── Detail panel ─────────────────────────────────────────────────────────────
@@ -299,6 +280,13 @@ function DetailPanel<T extends Record<string, unknown>>({
   documentField?: keyof T;
   summaryField?: keyof T;
 }) {
+  const [mode, setMode] = React.useState<Mode>('einsteiger');
+
+  // Reset mode to default whenever the selected item changes
+  React.useEffect(() => {
+    setMode('einsteiger');
+  }, [item]);
+
   if (!item) {
     return (
       <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center">
@@ -355,6 +343,18 @@ function DetailPanel<T extends Record<string, unknown>>({
     sectionMap[sectionKey].push(entry);
   }
 
+  // Determine if any paired fields exist (to conditionally show toggle)
+  const hasPairs = grouped.some((e) => e.type === 'pair');
+
+  // Strip base label from pair — remove trailing " (Experte)" or " (Einsteiger)" suffix,
+  // then also remove the remaining " (Experte)" from the expert column label if present.
+  function stripPairLabel(expertLabel: string): string {
+    return expertLabel
+      .replace(/\s*\(Experte\)\s*$/i, '')
+      .replace(/\s*\(Einsteiger\)\s*$/i, '')
+      .trim();
+  }
+
   return (
     <div className="flex flex-1 flex-col overflow-hidden">
       {/* Header */}
@@ -398,6 +398,34 @@ function DetailPanel<T extends Record<string, unknown>>({
           </div>
         )}
 
+        {/* Einsteiger / Experte toggle */}
+        {hasPairs && (
+          <div className="mb-6 flex items-center gap-2 rounded-lg border border-border bg-muted/30 p-1 w-fit">
+            <button
+              onClick={() => setMode('einsteiger')}
+              className={cn(
+                'px-4 py-1.5 text-sm font-medium rounded-md transition-colors',
+                mode === 'einsteiger'
+                  ? 'bg-primary text-primary-foreground'
+                  : 'text-muted-foreground hover:text-foreground',
+              )}
+            >
+              Einsteiger
+            </button>
+            <button
+              onClick={() => setMode('experte')}
+              className={cn(
+                'px-4 py-1.5 text-sm font-medium rounded-md transition-colors',
+                mode === 'experte'
+                  ? 'bg-primary text-primary-foreground'
+                  : 'text-muted-foreground hover:text-foreground',
+              )}
+            >
+              Experte
+            </button>
+          </div>
+        )}
+
         <dl>
           {Object.entries(sectionMap).map(([section, entries]) => (
             <div key={section}>
@@ -408,12 +436,12 @@ function DetailPanel<T extends Record<string, unknown>>({
                   const bv = str(item[entry.beginner.key as keyof T]);
                   if (!ev && !bv) return null;
                   return (
-                    <PairedRow
+                    <MergedPairedRow
                       key={entry.base}
-                      expertLabel={entry.expert.label}
+                      label={stripPairLabel(entry.expert.label)}
                       expertValue={ev}
-                      beginnerLabel={entry.beginner.label}
                       beginnerValue={bv}
+                      mode={mode}
                     />
                   );
                 } else {

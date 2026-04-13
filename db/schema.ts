@@ -5,6 +5,7 @@ import {
   integer,
   jsonb,
   timestamp,
+  boolean,
   customType,
 } from 'drizzle-orm/pg-core';
 
@@ -168,6 +169,22 @@ export const ihbEntries = pgTable('ihb_entries', {
 // ============================================================
 // Countries table (Sheet 06)
 // ============================================================
+
+// ============================================================
+// format_versions table (per-version metadata for ISO 20022 format families)
+// ============================================================
+
+export const formatVersions = pgTable('format_versions', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  format_name: text('format_name').notNull(),
+  version: text('version').notNull(),
+  released: text('released'),
+  sample_file: text('sample_file'),
+  is_current: boolean('is_current').default(false),
+  notes: text('notes'),
+  schema_uri: text('schema_uri'),
+  source_standard: text('source_standard'),
+});
 
 export const countries = pgTable('countries', {
   id: uuid('id').primaryKey().defaultRandom(),

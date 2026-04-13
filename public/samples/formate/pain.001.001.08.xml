@@ -1,29 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- pain.001.001.08 — Credit Transfer Initiation (2019) -->
+<!-- pain.001.001.08 — CustomerCreditTransferInitiation (ISO 20022, 2019)           -->
+<!-- Pre-CGI-MP transitional version. UETR supported, BIC still used (not BICFI).   -->
+<!-- SplmtryData block available. ReqdExctnDt still plain date. Strd RmtInf with    -->
+<!-- CdtrRefInf supported. No structured PostalAddress (AdrLine only).               -->
 <Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.08"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.001.001.08 pain.001.001.08.xsd">
   <CstmrCdtTrfInitn>
     <GrpHdr>
-      <MsgId>MSGID-20260413-008</MsgId>
+      <MsgId>MSGID-20260413-08-001</MsgId>
       <CreDtTm>2026-04-13T10:00:00</CreDtTm>
       <NbOfTxs>1</NbOfTxs>
-      <CtrlSum>2500.00</CtrlSum>
+      <CtrlSum>100.00</CtrlSum>
       <InitgPty>
         <Nm>Test Debtor GmbH</Nm>
+        <PstlAdr>
+          <Ctry>DE</Ctry>
+          <AdrLine>Teststraße 1</AdrLine>
+          <AdrLine>90401 Nürnberg</AdrLine>
+        </PstlAdr>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>DE12345678</Id>
+              <SchmeNm>
+                <Cd>COID</Cd>
+              </SchmeNm>
+            </Othr>
+          </OrgId>
+        </Id>
       </InitgPty>
     </GrpHdr>
     <PmtInf>
-      <PmtInfId>PMTINF-20260413-008</PmtInfId>
+      <PmtInfId>PMTINF-20260413-08-001</PmtInfId>
       <PmtMtd>TRF</PmtMtd>
+      <BtchBookg>false</BtchBookg>
       <NbOfTxs>1</NbOfTxs>
-      <CtrlSum>2500.00</CtrlSum>
+      <CtrlSum>100.00</CtrlSum>
       <PmtTpInf>
+        <InstrPrty>NORM</InstrPrty>
         <SvcLvl>
           <Cd>SEPA</Cd>
         </SvcLvl>
+        <CtgyPurp>
+          <Cd>SUPP</Cd>
+        </CtgyPurp>
       </PmtTpInf>
+      <!-- .08: ReqdExctnDt still plain xs:date -->
       <ReqdExctnDt>2026-04-14</ReqdExctnDt>
+      <UltmtDbtr>
+        <Nm>Ultimate Debtor Parent AG</Nm>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>DE-PARENT-001</Id>
+            </Othr>
+          </OrgId>
+        </Id>
+      </UltmtDbtr>
       <Dbtr>
         <Nm>Test Debtor GmbH</Nm>
         <PstlAdr>
@@ -31,31 +65,55 @@
           <AdrLine>Teststraße 1</AdrLine>
           <AdrLine>90401 Nürnberg</AdrLine>
         </PstlAdr>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>DE12345678</Id>
+              <SchmeNm>
+                <Cd>COID</Cd>
+              </SchmeNm>
+            </Othr>
+          </OrgId>
+        </Id>
       </Dbtr>
       <DbtrAcct>
         <Id>
           <IBAN>DE89370400440532013000</IBAN>
         </Id>
         <Ccy>EUR</Ccy>
+        <Nm>Hauptkonto</Nm>
       </DbtrAcct>
       <DbtrAgt>
         <FinInstnId>
+          <!-- .08: BIC (not yet BICFI) -->
           <BIC>COBADEFFXXX</BIC>
+          <Nm>Commerzbank AG</Nm>
+          <PstlAdr>
+            <Ctry>DE</Ctry>
+            <AdrLine>Kaiserplatz 1</AdrLine>
+            <AdrLine>60311 Frankfurt am Main</AdrLine>
+          </PstlAdr>
         </FinInstnId>
       </DbtrAgt>
       <CdtTrfTxInf>
         <PmtId>
-          <InstrId>INSTRID-008-001</InstrId>
-          <EndToEndId>E2EID-20260413-008</EndToEndId>
-          <UETR>d5d5acc5-6c48-6e2f-af54-3f4f5e6f7h8c</UETR>
+          <InstrId>INSTRID-08-001</InstrId>
+          <EndToEndId>E2EID-20260413-08-001</EndToEndId>
+          <UETR>a2b3c4d5-e6f7-8901-bcde-f01234567808</UETR>
         </PmtId>
         <Amt>
-          <InstdAmt Ccy="EUR">2500.00</InstdAmt>
+          <InstdAmt Ccy="EUR">100.00</InstdAmt>
         </Amt>
         <ChrgBr>SLEV</ChrgBr>
         <CdtrAgt>
           <FinInstnId>
             <BIC>DEUTDEDBXXX</BIC>
+            <Nm>Deutsche Bank AG</Nm>
+            <PstlAdr>
+              <Ctry>DE</Ctry>
+              <AdrLine>Taunusanlage 12</AdrLine>
+              <AdrLine>60325 Frankfurt am Main</AdrLine>
+            </PstlAdr>
           </FinInstnId>
         </CdtrAgt>
         <Cdtr>
@@ -65,13 +123,29 @@
             <AdrLine>Empfängerstraße 5</AdrLine>
             <AdrLine>10115 Berlin</AdrLine>
           </PstlAdr>
+          <Id>
+            <OrgId>
+              <Othr>
+                <Id>HRB-123456-B</Id>
+                <SchmeNm>
+                  <Cd>COID</Cd>
+                </SchmeNm>
+              </Othr>
+            </OrgId>
+          </Id>
         </Cdtr>
         <CdtrAcct>
           <Id>
             <IBAN>DE75512108001245126199</IBAN>
           </Id>
+          <Nm>Hauptkonto Creditor</Nm>
         </CdtrAcct>
-        <!-- SupplementaryData allowed in 08+ for bank-specific extensions -->
+        <UltmtCdtr>
+          <Nm>Ultimate Creditor Tochter GmbH</Nm>
+        </UltmtCdtr>
+        <Purp>
+          <Cd>SUPP</Cd>
+        </Purp>
         <RmtInf>
           <Strd>
             <CdtrRefInf>
@@ -80,11 +154,19 @@
                   <Cd>SCOR</Cd>
                 </CdOrPrtry>
               </Tp>
-              <Ref>INV2026-008</Ref>
+              <Ref>INV2026-08-001</Ref>
             </CdtrRefInf>
           </Strd>
         </RmtInf>
       </CdtTrfTxInf>
     </PmtInf>
+    <!-- .08+: SplmtryData block for bank-specific extensions -->
+    <SplmtryData>
+      <Envlp>
+        <Nmspc>
+          <Id>BankExt</Id>
+        </Nmspc>
+      </Envlp>
+    </SplmtryData>
   </CstmrCdtTrfInitn>
 </Document>

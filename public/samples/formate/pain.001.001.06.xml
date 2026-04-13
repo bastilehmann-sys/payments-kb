@@ -1,29 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- pain.001.001.06 — Credit Transfer Initiation (2016) -->
+<!-- pain.001.001.06 — CustomerCreditTransferInitiation (ISO 20022, 2016)         -->
+<!-- Incremental revision. Key changes vs .05: ExchgRateInf for FX transactions   -->
+<!-- introduced, structured RmtInf improvements. BIC still used (not BICFI).      -->
+<!-- No UETR yet. ReqdExctnDt still plain date. UltmtDbtr at PmtInf level.        -->
 <Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.06"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.001.001.06 pain.001.001.06.xsd">
   <CstmrCdtTrfInitn>
     <GrpHdr>
-      <MsgId>MSGID-20260413-006</MsgId>
+      <MsgId>MSGID-20260413-06-001</MsgId>
       <CreDtTm>2026-04-13T10:00:00</CreDtTm>
       <NbOfTxs>1</NbOfTxs>
-      <CtrlSum>750.00</CtrlSum>
+      <CtrlSum>100.00</CtrlSum>
       <InitgPty>
         <Nm>Test Debtor GmbH</Nm>
+        <PstlAdr>
+          <Ctry>DE</Ctry>
+          <AdrLine>Teststraße 1</AdrLine>
+          <AdrLine>90401 Nürnberg</AdrLine>
+        </PstlAdr>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>DE12345678</Id>
+              <SchmeNm>
+                <Cd>COID</Cd>
+              </SchmeNm>
+            </Othr>
+          </OrgId>
+        </Id>
       </InitgPty>
     </GrpHdr>
     <PmtInf>
-      <PmtInfId>PMTINF-20260413-006</PmtInfId>
+      <PmtInfId>PMTINF-20260413-06-001</PmtInfId>
       <PmtMtd>TRF</PmtMtd>
+      <BtchBookg>false</BtchBookg>
       <NbOfTxs>1</NbOfTxs>
-      <CtrlSum>750.00</CtrlSum>
+      <CtrlSum>100.00</CtrlSum>
       <PmtTpInf>
+        <InstrPrty>NORM</InstrPrty>
         <SvcLvl>
           <Cd>SEPA</Cd>
         </SvcLvl>
+        <CtgyPurp>
+          <Cd>SUPP</Cd>
+        </CtgyPurp>
       </PmtTpInf>
+      <!-- .06: ReqdExctnDt still plain xs:date -->
       <ReqdExctnDt>2026-04-14</ReqdExctnDt>
+      <UltmtDbtr>
+        <Nm>Ultimate Debtor Parent AG</Nm>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>DE-PARENT-001</Id>
+            </Othr>
+          </OrgId>
+        </Id>
+      </UltmtDbtr>
       <Dbtr>
         <Nm>Test Debtor GmbH</Nm>
         <PstlAdr>
@@ -31,31 +65,58 @@
           <AdrLine>Teststraße 1</AdrLine>
           <AdrLine>90401 Nürnberg</AdrLine>
         </PstlAdr>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>DE12345678</Id>
+              <SchmeNm>
+                <Cd>COID</Cd>
+              </SchmeNm>
+            </Othr>
+          </OrgId>
+        </Id>
       </Dbtr>
       <DbtrAcct>
         <Id>
           <IBAN>DE89370400440532013000</IBAN>
         </Id>
         <Ccy>EUR</Ccy>
+        <Nm>Hauptkonto</Nm>
       </DbtrAcct>
       <DbtrAgt>
         <FinInstnId>
           <BIC>COBADEFFXXX</BIC>
+          <Nm>Commerzbank AG</Nm>
+          <PstlAdr>
+            <Ctry>DE</Ctry>
+            <AdrLine>Kaiserplatz 1</AdrLine>
+            <AdrLine>60311 Frankfurt am Main</AdrLine>
+          </PstlAdr>
         </FinInstnId>
       </DbtrAgt>
       <CdtTrfTxInf>
         <PmtId>
-          <InstrId>INSTRID-006-001</InstrId>
-          <EndToEndId>E2EID-20260413-006</EndToEndId>
-          <UETR>b3b38aa3-4a26-4c0f-8e32-1f2d3c4e5f6a</UETR>
+          <InstrId>INSTRID-06-001</InstrId>
+          <EndToEndId>E2EID-20260413-06-001</EndToEndId>
         </PmtId>
         <Amt>
-          <InstdAmt Ccy="EUR">750.00</InstdAmt>
+          <InstdAmt Ccy="EUR">100.00</InstdAmt>
         </Amt>
+        <!-- .06: ExchgRateInf for FX credit transfers -->
+        <XchgRateInf>
+          <UnitCcy>EUR</UnitCcy>
+          <XchgRate>1.0800</XchgRate>
+        </XchgRateInf>
         <ChrgBr>SLEV</ChrgBr>
         <CdtrAgt>
           <FinInstnId>
             <BIC>DEUTDEDBXXX</BIC>
+            <Nm>Deutsche Bank AG</Nm>
+            <PstlAdr>
+              <Ctry>DE</Ctry>
+              <AdrLine>Taunusanlage 12</AdrLine>
+              <AdrLine>60325 Frankfurt am Main</AdrLine>
+            </PstlAdr>
           </FinInstnId>
         </CdtrAgt>
         <Cdtr>
@@ -65,14 +126,40 @@
             <AdrLine>Empfängerstraße 5</AdrLine>
             <AdrLine>10115 Berlin</AdrLine>
           </PstlAdr>
+          <Id>
+            <OrgId>
+              <Othr>
+                <Id>HRB-123456-B</Id>
+                <SchmeNm>
+                  <Cd>COID</Cd>
+                </SchmeNm>
+              </Othr>
+            </OrgId>
+          </Id>
         </Cdtr>
         <CdtrAcct>
           <Id>
             <IBAN>DE75512108001245126199</IBAN>
           </Id>
+          <Nm>Hauptkonto Creditor</Nm>
         </CdtrAcct>
+        <UltmtCdtr>
+          <Nm>Ultimate Creditor Tochter GmbH</Nm>
+        </UltmtCdtr>
+        <Purp>
+          <Cd>SUPP</Cd>
+        </Purp>
         <RmtInf>
-          <Ustrd>Rechnung 2026-006 vom 2026-04-01</Ustrd>
+          <Strd>
+            <CdtrRefInf>
+              <Tp>
+                <CdOrPrtry>
+                  <Cd>SCOR</Cd>
+                </CdOrPrtry>
+              </Tp>
+              <Ref>INV2026-06-001</Ref>
+            </CdtrRefInf>
+          </Strd>
         </RmtInf>
       </CdtTrfTxInf>
     </PmtInf>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- pain.001.001.13 — Credit Transfer Initiation (ISO 20022 HVPS+/CBPR+ 2024/2025) -->
-<!-- Key additions vs .12: structured address hardened (mandatory for cross-border),  -->
-<!-- UETR propagation rules enforced, HVPS+/CBPR+ CPP alignment, CtrySubDvsn in      -->
-<!-- common use, LEI on both Debtor and Creditor, bank PstlAdr now common.            -->
+<!-- pain.001.001.13 — CustomerCreditTransferInitiation (ISO 20022 HVPS+/CBPR+ 2024/2025) -->
+<!-- Key additions vs .12: structured address mandatory for cross-border (HVPS+/CBPR+),   -->
+<!-- UETR propagation rules enforced across entire chain, CtrySubDvsn common use,          -->
+<!-- LEI on Creditor standard, bank PstlAdr routinely included per CPP alignment,          -->
+<!-- extended TaxRmt, PostalAddress27 (adds Room field), CBPR+ specific constraints.      -->
 <Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.13"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.001.001.13 pain.001.001.13.xsd">
@@ -11,9 +12,21 @@
       <MsgId>MSGID-20260413-13-001</MsgId>
       <CreDtTm>2026-04-13T10:00:00</CreDtTm>
       <NbOfTxs>1</NbOfTxs>
-      <CtrlSum>45000.00</CtrlSum>
+      <CtrlSum>100.00</CtrlSum>
       <InitgPty>
         <Nm>Test Debtor GmbH</Nm>
+        <!-- .13: structured address mandatory cross-border per HVPS+/CBPR+ -->
+        <PstlAdr>
+          <StrtNm>Teststraße</StrtNm>
+          <BldgNb>1</BldgNb>
+          <BldgNm>Hauptgebäude</BldgNm>
+          <Flr>3</Flr>
+          <Room>301</Room>
+          <PstCd>90401</PstCd>
+          <TwnNm>Nürnberg</TwnNm>
+          <CtrySubDvsn>Bayern</CtrySubDvsn>
+          <Ctry>DE</Ctry>
+        </PstlAdr>
         <Id>
           <OrgId>
             <LEI>5493001KJTIIGC8Y1R12</LEI>
@@ -24,9 +37,11 @@
     <PmtInf>
       <PmtInfId>PMTINF-20260413-13-001</PmtInfId>
       <PmtMtd>TRF</PmtMtd>
+      <BtchBookg>false</BtchBookg>
       <NbOfTxs>1</NbOfTxs>
-      <CtrlSum>45000.00</CtrlSum>
+      <CtrlSum>100.00</CtrlSum>
       <PmtTpInf>
+        <InstrPrty>NORM</InstrPrty>
         <SvcLvl>
           <Cd>SEPA</Cd>
         </SvcLvl>
@@ -37,14 +52,31 @@
       <ReqdExctnDt>
         <Dt>2026-04-14</Dt>
       </ReqdExctnDt>
+      <UltmtDbtr>
+        <Nm>Ultimate Debtor Parent AG</Nm>
+        <PstlAdr>
+          <StrtNm>Konzernstraße</StrtNm>
+          <BldgNb>10</BldgNb>
+          <PstCd>80333</PstCd>
+          <TwnNm>München</TwnNm>
+          <CtrySubDvsn>Bayern</CtrySubDvsn>
+          <Ctry>DE</Ctry>
+        </PstlAdr>
+        <Id>
+          <OrgId>
+            <LEI>3358001KJTIIGC8Y1R99</LEI>
+          </OrgId>
+        </Id>
+      </UltmtDbtr>
       <Dbtr>
         <Nm>Test Debtor GmbH</Nm>
-        <!-- .13: structured address hardened — mandatory for cross-border payments  -->
-        <!-- CtrySubDvsn now in common use per HVPS+/CBPR+ CPP alignment rules.     -->
-        <!-- Same PostalAddress24 field set as .09; enforcement rules tightened.     -->
+        <!-- .13: structured address hardened — mandatory for cross-border payments -->
         <PstlAdr>
           <StrtNm>Teststraße</StrtNm>
           <BldgNb>1</BldgNb>
+          <BldgNm>Hauptgebäude</BldgNm>
+          <Flr>3</Flr>
+          <Room>301</Room>
           <PstCd>90401</PstCd>
           <TwnNm>Nürnberg</TwnNm>
           <CtrySubDvsn>Bayern</CtrySubDvsn>
@@ -61,17 +93,19 @@
           <IBAN>DE89370400440532013000</IBAN>
         </Id>
         <Ccy>EUR</Ccy>
+        <Nm>Hauptkonto</Nm>
       </DbtrAcct>
       <DbtrAgt>
         <FinInstnId>
           <BICFI>COBADEFFXXX</BICFI>
           <Nm>Commerzbank AG</Nm>
-          <!-- .13: bank postal address now routinely included in HVPS+/CBPR+ -->
+          <!-- .13: bank postal address routinely included per HVPS+/CBPR+ CPP alignment -->
           <PstlAdr>
             <StrtNm>Kaiserplatz</StrtNm>
             <BldgNb>1</BldgNb>
             <PstCd>60311</PstCd>
             <TwnNm>Frankfurt am Main</TwnNm>
+            <CtrySubDvsn>Hessen</CtrySubDvsn>
             <Ctry>DE</Ctry>
           </PstlAdr>
         </FinInstnId>
@@ -80,11 +114,11 @@
         <PmtId>
           <InstrId>INSTRID-13-001</InstrId>
           <EndToEndId>E2EID-20260413-13-001</EndToEndId>
-          <!-- .13: UETR propagation rules enforced across entire payment chain -->
-          <UETR>e5f6a7b8-c9d0-1234-ef01-234567890124</UETR>
+          <!-- .13: UETR propagation enforced across entire payment chain (HVPS+) -->
+          <UETR>e5f6a7b8-c9d0-1234-ef01-234567890113</UETR>
         </PmtId>
         <Amt>
-          <InstdAmt Ccy="EUR">45000.00</InstdAmt>
+          <InstdAmt Ccy="EUR">100.00</InstdAmt>
         </Amt>
         <ChrgBr>SLEV</ChrgBr>
         <CdtrAgt>
@@ -96,13 +130,14 @@
               <BldgNb>12</BldgNb>
               <PstCd>60325</PstCd>
               <TwnNm>Frankfurt am Main</TwnNm>
+              <CtrySubDvsn>Hessen</CtrySubDvsn>
               <Ctry>DE</Ctry>
             </PstlAdr>
           </FinInstnId>
         </CdtrAgt>
         <Cdtr>
           <Nm>Test Creditor AG</Nm>
-          <!-- .13: structured address mandatory for cross-border, CtrySubDvsn common -->
+          <!-- .13: structured address mandatory cross-border, CtrySubDvsn standard -->
           <PstlAdr>
             <StrtNm>Empfängerstraße</StrtNm>
             <BldgNb>5</BldgNb>
@@ -111,7 +146,7 @@
             <CtrySubDvsn>Berlin</CtrySubDvsn>
             <Ctry>DE</Ctry>
           </PstlAdr>
-          <!-- .13: LEI on Creditor side now standard per HVPS+/CBPR+ -->
+          <!-- .13: LEI on Creditor now standard per HVPS+/CBPR+ -->
           <Id>
             <OrgId>
               <LEI>7654321ABCDEFGH12345</LEI>
@@ -122,10 +157,37 @@
           <Id>
             <IBAN>DE75512108001245126199</IBAN>
           </Id>
+          <Nm>Hauptkonto Creditor</Nm>
+          <Prxy>
+            <Tp>
+              <Cd>EMAL</Cd>
+            </Tp>
+            <Id>creditor@testcreditor.de</Id>
+          </Prxy>
         </CdtrAcct>
+        <UltmtCdtr>
+          <Nm>Ultimate Creditor Tochter GmbH</Nm>
+          <Id>
+            <OrgId>
+              <Othr>
+                <Id>HRB-987654-B</Id>
+              </Othr>
+            </OrgId>
+          </Id>
+        </UltmtCdtr>
         <Purp>
           <Cd>SUPP</Cd>
         </Purp>
+        <RgltryRptg>
+          <DbtCdtRptgInd>CRED</DbtCdtRptgInd>
+          <Dtls>
+            <Tp>CRED</Tp>
+            <Dt>2026-04-13</Dt>
+            <Ctry>DE</Ctry>
+            <Cd>150</Cd>
+            <Inf>CBPR+ konform — HVPS+ Zahlungsauftrag</Inf>
+          </Dtls>
+        </RgltryRptg>
         <RmtInf>
           <Strd>
             <CdtrRefInf>
@@ -148,12 +210,31 @@
               </RltdDt>
             </RfrdDocInf>
             <RfrdDocAmt>
-              <DuePyblAmt Ccy="EUR">45000.00</DuePyblAmt>
+              <DuePyblAmt Ccy="EUR">100.00</DuePyblAmt>
+              <TaxAmt Ccy="EUR">15.97</TaxAmt>
             </RfrdDocAmt>
-            <AddtlRmtInf>CBPR+ konform — HVPS+ Zahlungsauftrag Q2/2026</AddtlRmtInf>
+            <TaxRmt>
+              <Dbtr>
+                <TaxId>DE123456789</TaxId>
+              </Dbtr>
+              <Rcrd>
+                <Tp>MWST</Tp>
+                <TaxAmt>
+                  <TtlAmt Ccy="EUR">15.97</TtlAmt>
+                </TaxAmt>
+              </Rcrd>
+            </TaxRmt>
+            <AddtlRmtInf>CBPR+ konform — HVPS+ Zahlungsauftrag Q2/2026 - fällig 2026-04-30</AddtlRmtInf>
           </Strd>
         </RmtInf>
       </CdtTrfTxInf>
     </PmtInf>
+    <SplmtryData>
+      <Envlp>
+        <Nmspc>
+          <Id>CBPR+Ext</Id>
+        </Nmspc>
+      </Envlp>
+    </SplmtryData>
   </CstmrCdtTrfInitn>
 </Document>

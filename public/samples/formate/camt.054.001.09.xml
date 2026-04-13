@@ -1,50 +1,175 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- camt.054.001.09 — Bank to Customer Debit/Credit Notification -->
+<!-- camt.054.001.09 — BankToCustomerDebitCreditNotification (ISO 20022)           -->
+<!-- Real-time notification of a single debit or credit entry. BICFI, structured  -->
+<!-- PostalAddress24, UETR, RltdPties with full party data, structured RmtInf.    -->
+<!-- Typically sent immediately when a significant payment clears.                  -->
 <Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.054.001.09"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:camt.054.001.09 camt.054.001.09.xsd">
   <BkToCstmrDbtCdtNtfctn>
     <GrpHdr>
-      <MsgId>NTFCTN-20260413-009</MsgId>
-      <CreDtTm>2026-04-13T11:30:00</CreDtTm>
+      <MsgId>NTFCTN-20260413-09-001</MsgId>
+      <CreDtTm>2026-04-13T14:22:00</CreDtTm>
+      <AddtlInf>Sofortbenachrichtigung - SEPA Gutschrift eingegangen</AddtlInf>
       <MsgPgntn>
         <PgNb>1</PgNb>
         <LastPgInd>true</LastPgInd>
       </MsgPgntn>
     </GrpHdr>
     <Ntfctn>
-      <Id>NTFCTNID-20260413-009</Id>
-      <CreDtTm>2026-04-13T11:30:00</CreDtTm>
+      <Id>NTFCTNID-20260413-09-001</Id>
+      <CreDtTm>2026-04-13T14:22:00</CreDtTm>
+      <!-- FrToDt: notification covers this specific moment -->
+      <FrToDt>
+        <FrDtTm>2026-04-13T14:20:00</FrDtTm>
+        <ToDtTm>2026-04-13T14:22:00</ToDtTm>
+      </FrToDt>
       <Acct>
         <Id>
           <IBAN>DE89370400440532013000</IBAN>
         </Id>
         <Ccy>EUR</Ccy>
+        <Nm>Hauptkonto Test Debtor GmbH</Nm>
         <Ownr>
           <Nm>Test Debtor GmbH</Nm>
+          <PstlAdr>
+            <StrtNm>Teststraße</StrtNm>
+            <BldgNb>1</BldgNb>
+            <PstCd>90401</PstCd>
+            <TwnNm>Nürnberg</TwnNm>
+            <CtrySubDvsn>Bayern</CtrySubDvsn>
+            <Ctry>DE</Ctry>
+          </PstlAdr>
+          <Id>
+            <OrgId>
+              <LEI>5493001KJTIIGC8Y1R12</LEI>
+            </OrgId>
+          </Id>
         </Ownr>
         <Svcr>
           <FinInstnId>
-            <BIC>COBADEFFXXX</BIC>
+            <BICFI>COBADEFFXXX</BICFI>
+            <Nm>Commerzbank AG</Nm>
+            <PstlAdr>
+              <StrtNm>Kaiserplatz</StrtNm>
+              <BldgNb>1</BldgNb>
+              <PstCd>60311</PstCd>
+              <TwnNm>Frankfurt am Main</TwnNm>
+              <Ctry>DE</Ctry>
+            </PstlAdr>
           </FinInstnId>
         </Svcr>
       </Acct>
+      <!-- Incoming credit entry notification -->
       <Ntry>
-        <Amt Ccy="EUR">150.00</Amt>
+        <Amt Ccy="EUR">100.00</Amt>
         <CdtDbtInd>CRDT</CdtDbtInd>
-        <Sts>BOOK</Sts>
-        <BookgDt><Dt>2026-04-13</Dt></BookgDt>
-        <ValDt><Dt>2026-04-13</Dt></ValDt>
+        <Sts>
+          <Cd>BOOK</Cd>
+        </Sts>
+        <BookgDt>
+          <DtTm>2026-04-13T14:20:00</DtTm>
+        </BookgDt>
+        <ValDt>
+          <Dt>2026-04-13</Dt>
+        </ValDt>
+        <AcctSvcrRef>BANKREF20260413-09-NTFCTN-001</AcctSvcrRef>
         <BkTxCd>
           <Domn>
             <Cd>PMTS</Cd>
-            <Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly>
+            <Fmly>
+              <Cd>ICDT</Cd>
+              <SubFmlyCd>ESCT</SubFmlyCd>
+            </Fmly>
           </Domn>
+          <Prtry>
+            <Cd>SEPA-CREDIT-NOTIFICATION</Cd>
+            <Issr>COBADEFFXXX</Issr>
+          </Prtry>
         </BkTxCd>
         <NtryDtls>
           <TxDtls>
-            <Refs><EndToEndId>E2EID-20260413-009</EndToEndId></Refs>
-            <RmtInf><Ustrd>Gutschrift 2026-009</Ustrd></RmtInf>
+            <Refs>
+              <MsgId>MSGID-20260413-09-001</MsgId>
+              <EndToEndId>E2EID-20260413-09-001</EndToEndId>
+              <UETR>a1b2c3d4-e5f6-7890-abcd-ef1234567809</UETR>
+            </Refs>
+            <Amt Ccy="EUR">100.00</Amt>
+            <CdtDbtInd>CRDT</CdtDbtInd>
+            <BkTxCd>
+              <Domn>
+                <Cd>PMTS</Cd>
+                <Fmly>
+                  <Cd>ICDT</Cd>
+                  <SubFmlyCd>ESCT</SubFmlyCd>
+                </Fmly>
+              </Domn>
+            </BkTxCd>
+            <RltdPties>
+              <Dbtr>
+                <Pty>
+                  <Nm>Kunde XY GmbH</Nm>
+                  <PstlAdr>
+                    <StrtNm>Kundenstraße</StrtNm>
+                    <BldgNb>7</BldgNb>
+                    <PstCd>80333</PstCd>
+                    <TwnNm>München</TwnNm>
+                    <Ctry>DE</Ctry>
+                  </PstlAdr>
+                </Pty>
+              </Dbtr>
+              <DbtrAcct>
+                <Id>
+                  <IBAN>DE75512108001245126199</IBAN>
+                </Id>
+              </DbtrAcct>
+              <Cdtr>
+                <Pty>
+                  <Nm>Test Debtor GmbH</Nm>
+                  <PstlAdr>
+                    <StrtNm>Teststraße</StrtNm>
+                    <BldgNb>1</BldgNb>
+                    <PstCd>90401</PstCd>
+                    <TwnNm>Nürnberg</TwnNm>
+                    <Ctry>DE</Ctry>
+                  </PstlAdr>
+                </Pty>
+              </Cdtr>
+              <CdtrAcct>
+                <Id>
+                  <IBAN>DE89370400440532013000</IBAN>
+                </Id>
+              </CdtrAcct>
+            </RltdPties>
+            <RltdAgts>
+              <DbtrAgt>
+                <FinInstnId>
+                  <BICFI>DEUTDEDBXXX</BICFI>
+                  <Nm>Deutsche Bank AG</Nm>
+                </FinInstnId>
+              </DbtrAgt>
+              <CdtrAgt>
+                <FinInstnId>
+                  <BICFI>COBADEFFXXX</BICFI>
+                  <Nm>Commerzbank AG</Nm>
+                </FinInstnId>
+              </CdtrAgt>
+            </RltdAgts>
+            <Purp>
+              <Cd>SUPP</Cd>
+            </Purp>
+            <RmtInf>
+              <Strd>
+                <CdtrRefInf>
+                  <Tp>
+                    <CdOrPrtry>
+                      <Cd>SCOR</Cd>
+                    </CdOrPrtry>
+                  </Tp>
+                  <Ref>INV2026-09-001</Ref>
+                </CdtrRefInf>
+              </Strd>
+            </RmtInf>
           </TxDtls>
         </NtryDtls>
       </Ntry>

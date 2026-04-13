@@ -1,35 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- camt.052.001.09 — Bank to Customer Account Report (Intraday) -->
+<!-- camt.052.001.09 — BankToCustomerAccountReport (Intraday / ISO 20022)         -->
+<!-- Intraday balance report sent during the business day. BICFI, structured       -->
+<!-- PostalAddress24, UETR in transaction references, RltdPties with full parties. -->
+<!-- Balance types: OPBD (opening), ITBD (intermediate), CLAV (available).         -->
 <Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.052.001.09"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:camt.052.001.09 camt.052.001.09.xsd">
   <BkToCstmrAcctRpt>
     <GrpHdr>
-      <MsgId>ACCRPT-20260413-009</MsgId>
-      <CreDtTm>2026-04-13T08:00:00</CreDtTm>
+      <MsgId>ACCRPT-20260413-09-001</MsgId>
+      <CreDtTm>2026-04-13T12:00:00</CreDtTm>
+      <!-- AddtlInf: optional free-text for the report group -->
+      <AddtlInf>Intraday account report - Midday update</AddtlInf>
       <MsgPgntn>
         <PgNb>1</PgNb>
         <LastPgInd>true</LastPgInd>
       </MsgPgntn>
     </GrpHdr>
     <Rpt>
-      <Id>RPTID-20260413-009</Id>
-      <ElctrncSeqNb>1</ElctrncSeqNb>
-      <CreDtTm>2026-04-13T08:00:00</CreDtTm>
+      <Id>RPTID-20260413-09-001</Id>
+      <ElctrncSeqNb>3</ElctrncSeqNb>
+      <!-- LglSeqNb: legal sequence number (for regulatory purposes) -->
+      <LglSeqNb>3</LglSeqNb>
+      <CreDtTm>2026-04-13T12:00:00</CreDtTm>
+      <FrToDt>
+        <FrDtTm>2026-04-13T00:00:00</FrDtTm>
+        <ToDtTm>2026-04-13T11:59:59</ToDtTm>
+      </FrToDt>
+      <!-- RptgSrc: identifies who generated this report (bank) -->
+      <RptgSrc>
+        <Prtry>CORE</Prtry>
+      </RptgSrc>
       <Acct>
         <Id>
           <IBAN>DE89370400440532013000</IBAN>
         </Id>
         <Ccy>EUR</Ccy>
+        <Nm>Hauptkonto Test Debtor GmbH</Nm>
         <Ownr>
           <Nm>Test Debtor GmbH</Nm>
+          <PstlAdr>
+            <StrtNm>Teststraße</StrtNm>
+            <BldgNb>1</BldgNb>
+            <PstCd>90401</PstCd>
+            <TwnNm>Nürnberg</TwnNm>
+            <CtrySubDvsn>Bayern</CtrySubDvsn>
+            <Ctry>DE</Ctry>
+          </PstlAdr>
+          <Id>
+            <OrgId>
+              <LEI>5493001KJTIIGC8Y1R12</LEI>
+            </OrgId>
+          </Id>
         </Ownr>
         <Svcr>
           <FinInstnId>
-            <BIC>COBADEFFXXX</BIC>
+            <BICFI>COBADEFFXXX</BICFI>
+            <Nm>Commerzbank AG</Nm>
+            <PstlAdr>
+              <StrtNm>Kaiserplatz</StrtNm>
+              <BldgNb>1</BldgNb>
+              <PstCd>60311</PstCd>
+              <TwnNm>Frankfurt am Main</TwnNm>
+              <Ctry>DE</Ctry>
+            </PstlAdr>
           </FinInstnId>
         </Svcr>
       </Acct>
+      <!-- OPBD: Opening Booked Balance -->
       <Bal>
         <Tp>
           <CdOrPrtry>
@@ -39,19 +77,154 @@
         <Amt Ccy="EUR">10000.00</Amt>
         <CdtDbtInd>CRDT</CdtDbtInd>
         <Dt>
-          <Dt>2026-04-13</Dt>
+          <DtTm>2026-04-13T00:00:00</DtTm>
         </Dt>
       </Bal>
-      <Ntry>
-        <Amt Ccy="EUR">500.00</Amt>
+      <!-- ITBD: Intermediate Booked Balance (current intraday position) -->
+      <Bal>
+        <Tp>
+          <CdOrPrtry>
+            <Cd>ITBD</Cd>
+          </CdOrPrtry>
+        </Tp>
+        <Amt Ccy="EUR">9900.00</Amt>
         <CdtDbtInd>CRDT</CdtDbtInd>
-        <Sts>BOOK</Sts>
+        <Dt>
+          <DtTm>2026-04-13T12:00:00</DtTm>
+        </Dt>
+      </Bal>
+      <!-- CLAV: Closing Available Balance (forecasted) -->
+      <Bal>
+        <Tp>
+          <CdOrPrtry>
+            <Cd>CLAV</Cd>
+          </CdOrPrtry>
+        </Tp>
+        <Amt Ccy="EUR">9900.00</Amt>
+        <CdtDbtInd>CRDT</CdtDbtInd>
+        <Dt>
+          <DtTm>2026-04-13T12:00:00</DtTm>
+        </Dt>
+      </Bal>
+      <!-- TxsSummry: transaction summary for the period -->
+      <TxsSummry>
+        <TtlNtries>
+          <NbOfNtries>2</NbOfNtries>
+          <Sum>350.00</Sum>
+        </TtlNtries>
+        <TtlCdtNtries>
+          <NbOfNtries>1</NbOfNtries>
+          <Sum>250.00</Sum>
+        </TtlCdtNtries>
+        <TtlDbtNtries>
+          <NbOfNtries>1</NbOfNtries>
+          <Sum>100.00</Sum>
+        </TtlDbtNtries>
+      </TxsSummry>
+      <!-- Credit entry: incoming SEPA payment -->
+      <Ntry>
+        <Amt Ccy="EUR">250.00</Amt>
+        <CdtDbtInd>CRDT</CdtDbtInd>
+        <Sts>
+          <Cd>BOOK</Cd>
+        </Sts>
         <BookgDt>
-          <Dt>2026-04-13</Dt>
+          <DtTm>2026-04-13T09:15:00</DtTm>
         </BookgDt>
         <ValDt>
           <Dt>2026-04-13</Dt>
         </ValDt>
+        <AcctSvcrRef>BANKREF20260413-09-001</AcctSvcrRef>
+        <BkTxCd>
+          <Domn>
+            <Cd>PMTS</Cd>
+            <Fmly>
+              <Cd>ICDT</Cd>
+              <SubFmlyCd>ESCT</SubFmlyCd>
+            </Fmly>
+          </Domn>
+          <Prtry>
+            <Cd>SEPA-CREDIT</Cd>
+            <Issr>COBADEFFXXX</Issr>
+          </Prtry>
+        </BkTxCd>
+        <NtryDtls>
+          <TxDtls>
+            <Refs>
+              <MsgId>MSGID-20260413-09-001</MsgId>
+              <EndToEndId>E2EID-20260413-09-001</EndToEndId>
+              <UETR>a1b2c3d4-e5f6-7890-abcd-ef1234567809</UETR>
+            </Refs>
+            <Amt Ccy="EUR">250.00</Amt>
+            <CdtDbtInd>CRDT</CdtDbtInd>
+            <BkTxCd>
+              <Domn>
+                <Cd>PMTS</Cd>
+                <Fmly>
+                  <Cd>ICDT</Cd>
+                  <SubFmlyCd>ESCT</SubFmlyCd>
+                </Fmly>
+              </Domn>
+            </BkTxCd>
+            <RltdPties>
+              <Dbtr>
+                <Pty>
+                  <Nm>Kunde XY GmbH</Nm>
+                  <PstlAdr>
+                    <StrtNm>Kundenstraße</StrtNm>
+                    <BldgNb>7</BldgNb>
+                    <PstCd>80333</PstCd>
+                    <TwnNm>München</TwnNm>
+                    <Ctry>DE</Ctry>
+                  </PstlAdr>
+                </Pty>
+              </Dbtr>
+              <DbtrAcct>
+                <Id>
+                  <IBAN>DE12500105170648489890</IBAN>
+                </Id>
+              </DbtrAcct>
+            </RltdPties>
+            <RltdAgts>
+              <DbtrAgt>
+                <FinInstnId>
+                  <BICFI>SSKMDEMMXXX</BICFI>
+                  <Nm>Stadtsparkasse München</Nm>
+                </FinInstnId>
+              </DbtrAgt>
+            </RltdAgts>
+            <Purp>
+              <Cd>SUPP</Cd>
+            </Purp>
+            <RmtInf>
+              <Strd>
+                <CdtrRefInf>
+                  <Tp>
+                    <CdOrPrtry>
+                      <Cd>SCOR</Cd>
+                    </CdOrPrtry>
+                  </Tp>
+                  <Ref>INV2026-09-001</Ref>
+                </CdtrRefInf>
+              </Strd>
+            </RmtInf>
+          </TxDtls>
+        </NtryDtls>
+      </Ntry>
+      <!-- Debit entry: outgoing SEPA transfer -->
+      <Ntry>
+        <Amt Ccy="EUR">100.00</Amt>
+        <CdtDbtInd>DBIT</CdtDbtInd>
+        <Sts>
+          <Cd>BOOK</Cd>
+        </Sts>
+        <BookgDt>
+          <DtTm>2026-04-13T10:30:00</DtTm>
+        </BookgDt>
+        <ValDt>
+          <Dt>2026-04-13</Dt>
+        </ValDt>
+        <AcctSvcrRef>BANKREF20260413-09-002</AcctSvcrRef>
         <BkTxCd>
           <Domn>
             <Cd>PMTS</Cd>
@@ -64,10 +237,50 @@
         <NtryDtls>
           <TxDtls>
             <Refs>
-              <EndToEndId>E2EID-20260413-009</EndToEndId>
+              <MsgId>MSGID-20260413-09-002</MsgId>
+              <EndToEndId>E2EID-20260413-09-002</EndToEndId>
+              <UETR>b2c3d4e5-f6a7-8901-bcde-f01234567810</UETR>
             </Refs>
+            <Amt Ccy="EUR">100.00</Amt>
+            <CdtDbtInd>DBIT</CdtDbtInd>
+            <BkTxCd>
+              <Domn>
+                <Cd>PMTS</Cd>
+                <Fmly>
+                  <Cd>ICDT</Cd>
+                  <SubFmlyCd>ESCT</SubFmlyCd>
+                </Fmly>
+              </Domn>
+            </BkTxCd>
+            <RltdPties>
+              <Cdtr>
+                <Pty>
+                  <Nm>Test Creditor AG</Nm>
+                  <PstlAdr>
+                    <StrtNm>Empfängerstraße</StrtNm>
+                    <BldgNb>5</BldgNb>
+                    <PstCd>10115</PstCd>
+                    <TwnNm>Berlin</TwnNm>
+                    <Ctry>DE</Ctry>
+                  </PstlAdr>
+                </Pty>
+              </Cdtr>
+              <CdtrAcct>
+                <Id>
+                  <IBAN>DE75512108001245126199</IBAN>
+                </Id>
+              </CdtrAcct>
+            </RltdPties>
+            <RltdAgts>
+              <CdtrAgt>
+                <FinInstnId>
+                  <BICFI>DEUTDEDBXXX</BICFI>
+                  <Nm>Deutsche Bank AG</Nm>
+                </FinInstnId>
+              </CdtrAgt>
+            </RltdAgts>
             <RmtInf>
-              <Ustrd>Rechnung 2026-009</Ustrd>
+              <Ustrd>Lieferantenrechnung LR-2026-007 vom 2026-04-01</Ustrd>
             </RmtInf>
           </TxDtls>
         </NtryDtls>

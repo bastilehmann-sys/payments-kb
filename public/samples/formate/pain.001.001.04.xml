@@ -1,35 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- pain.001.001.04 — Credit Transfer Initiation (2010) -->
+<!-- pain.001.001.04 — CustomerCreditTransferInitiation (ISO 20022, 2010)       -->
+<!-- Minor revision over .03. Key changes: Othr replaces BICOrBEI in OrgId,     -->
+<!-- InstrId added to PmtId, ChrgBr moved to CdtTrfTxInf level. BIC still used  -->
+<!-- (not BICFI). No UETR. ReqdExctnDt still plain date string.                  -->
 <Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.04"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.001.001.04 pain.001.001.04.xsd">
   <CstmrCdtTrfInitn>
     <GrpHdr>
-      <MsgId>MSGID-20260413-004</MsgId>
+      <MsgId>MSGID-20260413-04-001</MsgId>
       <CreDtTm>2026-04-13T10:00:00</CreDtTm>
       <NbOfTxs>1</NbOfTxs>
-      <CtrlSum>250.00</CtrlSum>
+      <CtrlSum>100.00</CtrlSum>
       <InitgPty>
         <Nm>Test Debtor GmbH</Nm>
+        <PstlAdr>
+          <Ctry>DE</Ctry>
+          <AdrLine>Teststraße 1</AdrLine>
+          <AdrLine>90401 Nürnberg</AdrLine>
+        </PstlAdr>
         <Id>
           <OrgId>
+            <!-- .04: Othr used instead of BICOrBEI -->
             <Othr>
               <Id>DE12345678</Id>
+              <SchmeNm>
+                <Cd>COID</Cd>
+              </SchmeNm>
             </Othr>
           </OrgId>
         </Id>
       </InitgPty>
     </GrpHdr>
     <PmtInf>
-      <PmtInfId>PMTINF-20260413-004</PmtInfId>
+      <PmtInfId>PMTINF-20260413-04-001</PmtInfId>
       <PmtMtd>TRF</PmtMtd>
+      <BtchBookg>false</BtchBookg>
       <NbOfTxs>1</NbOfTxs>
-      <CtrlSum>250.00</CtrlSum>
+      <CtrlSum>100.00</CtrlSum>
       <PmtTpInf>
+        <InstrPrty>NORM</InstrPrty>
         <SvcLvl>
           <Cd>SEPA</Cd>
         </SvcLvl>
+        <CtgyPurp>
+          <Cd>SUPP</Cd>
+        </CtgyPurp>
       </PmtTpInf>
+      <!-- .04: ReqdExctnDt still plain xs:date -->
       <ReqdExctnDt>2026-04-14</ReqdExctnDt>
       <Dbtr>
         <Nm>Test Debtor GmbH</Nm>
@@ -38,29 +56,65 @@
           <AdrLine>Teststraße 1</AdrLine>
           <AdrLine>90401 Nürnberg</AdrLine>
         </PstlAdr>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>DE12345678</Id>
+              <SchmeNm>
+                <Cd>COID</Cd>
+              </SchmeNm>
+            </Othr>
+          </OrgId>
+        </Id>
       </Dbtr>
       <DbtrAcct>
         <Id>
           <IBAN>DE89370400440532013000</IBAN>
         </Id>
         <Ccy>EUR</Ccy>
+        <Nm>Hauptkonto</Nm>
       </DbtrAcct>
       <DbtrAgt>
         <FinInstnId>
+          <!-- .04: BIC element (not BICFI) -->
           <BIC>COBADEFFXXX</BIC>
+          <Nm>Commerzbank AG</Nm>
+          <PstlAdr>
+            <Ctry>DE</Ctry>
+            <AdrLine>Kaiserplatz 1</AdrLine>
+            <AdrLine>60311 Frankfurt am Main</AdrLine>
+          </PstlAdr>
         </FinInstnId>
       </DbtrAgt>
       <CdtTrfTxInf>
         <PmtId>
-          <InstrId>INSTRID-004-001</InstrId>
-          <EndToEndId>E2EID-20260413-004</EndToEndId>
+          <InstrId>INSTRID-04-001</InstrId>
+          <EndToEndId>E2EID-20260413-04-001</EndToEndId>
         </PmtId>
         <Amt>
-          <InstdAmt Ccy="EUR">250.00</InstdAmt>
+          <InstdAmt Ccy="EUR">100.00</InstdAmt>
         </Amt>
+        <!-- .04: ChrgBr at CdtTrfTxInf level -->
+        <ChrgBr>SLEV</ChrgBr>
+        <UltmtDbtr>
+          <Nm>Ultimate Debtor Parent AG</Nm>
+          <Id>
+            <OrgId>
+              <Othr>
+                <Id>DE-PARENT-001</Id>
+              </Othr>
+            </OrgId>
+          </Id>
+        </UltmtDbtr>
         <CdtrAgt>
           <FinInstnId>
             <BIC>DEUTDEDBXXX</BIC>
+            <Nm>Deutsche Bank AG</Nm>
+            <PstlAdr>
+              <Ctry>DE</Ctry>
+              <AdrLine>Taunusanlage 12</AdrLine>
+              <AdrLine>60325 Frankfurt am Main</AdrLine>
+            </PstlAdr>
           </FinInstnId>
         </CdtrAgt>
         <Cdtr>
@@ -70,14 +124,31 @@
             <AdrLine>Empfängerstraße 5</AdrLine>
             <AdrLine>10115 Berlin</AdrLine>
           </PstlAdr>
+          <Id>
+            <OrgId>
+              <Othr>
+                <Id>HRB-123456-B</Id>
+                <SchmeNm>
+                  <Cd>COID</Cd>
+                </SchmeNm>
+              </Othr>
+            </OrgId>
+          </Id>
         </Cdtr>
         <CdtrAcct>
           <Id>
             <IBAN>DE75512108001245126199</IBAN>
           </Id>
+          <Nm>Hauptkonto Creditor</Nm>
         </CdtrAcct>
+        <UltmtCdtr>
+          <Nm>Ultimate Creditor Tochter GmbH</Nm>
+        </UltmtCdtr>
+        <Purp>
+          <Cd>SUPP</Cd>
+        </Purp>
         <RmtInf>
-          <Ustrd>Rechnung 2026-004 vom 2026-04-01</Ustrd>
+          <Ustrd>Rechnung RE-2026-004 vom 2026-04-01 - Warenlieferung Q1/2026</Ustrd>
         </RmtInf>
       </CdtTrfTxInf>
     </PmtInf>

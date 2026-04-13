@@ -1,31 +1,147 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- pain.002.001.09 — Payment Status Report -->
+<!-- pain.002.001.09 — CustomerPaymentStatusReport (ISO 20022 / CGI-MP 2019)      -->
+<!-- Corresponds to pain.001.001.09. MAJOR version: BICFI, LEI, structured address -->
+<!-- (PostalAddress24), complex ReqdExctnDt in OrgnlTxRef. UETR echoed.            -->
+<!-- Shows ACSC (AcceptedSettlementCompleted) with full structured OrgnlTxRef.      -->
 <Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.002.001.09"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.002.001.09 pain.002.001.09.xsd">
   <CstmrPmtStsRpt>
     <GrpHdr>
-      <MsgId>STSRPT-20260413-009</MsgId>
+      <MsgId>STSRPT-20260413-09-001</MsgId>
       <CreDtTm>2026-04-13T10:15:00</CreDtTm>
+      <FwdgAgt>
+        <FinInstnId>
+          <!-- .09+: BICFI replaces BIC -->
+          <BICFI>COBADEFFXXX</BICFI>
+          <Nm>Commerzbank AG</Nm>
+        </FinInstnId>
+      </FwdgAgt>
       <InitgPty>
         <Nm>COMMERZBANK AG</Nm>
+        <Id>
+          <OrgId>
+            <!-- .09+: LEI for org identification -->
+            <LEI>5493001KJTIIGC8Y1R12</LEI>
+          </OrgId>
+        </Id>
       </InitgPty>
     </GrpHdr>
     <OrgnlGrpInfAndSts>
-      <OrgnlMsgId>MSGID-20260413-009</OrgnlMsgId>
-      <OrgnlMsgNmId>pain.001.001.009</OrgnlMsgNmId>
+      <OrgnlMsgId>MSGID-20260413-09-001</OrgnlMsgId>
+      <OrgnlMsgNmId>pain.001.001.09</OrgnlMsgNmId>
+      <OrgnlCreDtTm>2026-04-13T10:00:00</OrgnlCreDtTm>
       <OrgnlNbOfTxs>1</OrgnlNbOfTxs>
       <OrgnlCtrlSum>100.00</OrgnlCtrlSum>
-      <GrpSts>ACCP</GrpSts>
+      <GrpSts>ACSC</GrpSts>
     </OrgnlGrpInfAndSts>
     <OrgnlPmtInfAndSts>
-      <OrgnlPmtInfId>PMTINF-20260413-009</OrgnlPmtInfId>
-      <PmtInfSts>ACCP</PmtInfSts>
+      <OrgnlPmtInfId>PMTINF-20260413-09-001</OrgnlPmtInfId>
+      <PmtInfSts>ACSC</PmtInfSts>
       <TxInfAndSts>
-        <OrgnlEndToEndId>E2EID-20260413-009</OrgnlEndToEndId>
-        <TxSts>ACCP</TxSts>
-        <AcctSvcrRef>BANKREF202604130009</AcctSvcrRef>
+        <StsId>STSID-20260413-09-001</StsId>
+        <OrgnlInstrId>INSTRID-09-001</OrgnlInstrId>
+        <OrgnlEndToEndId>E2EID-20260413-09-001</OrgnlEndToEndId>
+        <!-- .09+: OrgnlUETR echoes the UETR from pain.001 -->
+        <OrgnlUETR>a1b2c3d4-e5f6-7890-abcd-ef1234567809</OrgnlUETR>
+        <TxSts>ACSC</TxSts>
+        <StsRsnInf>
+          <Orgtr>
+            <Nm>COMMERZBANK AG</Nm>
+            <Id>
+              <OrgId>
+                <LEI>5493001KJTIIGC8Y1R12</LEI>
+              </OrgId>
+            </Id>
+          </Orgtr>
+          <Rsn>
+            <Cd>NARR</Cd>
+          </Rsn>
+          <AddtlInf>Settlement abgeschlossen am 2026-04-14 - CGI-MP konform</AddtlInf>
+        </StsRsnInf>
+        <AcctSvcrRef>BANKREF20260413-09-001</AcctSvcrRef>
+        <ChrgsInf>
+          <Amt Ccy="EUR">0.00</Amt>
+          <Agt>
+            <FinInstnId>
+              <BICFI>COBADEFFXXX</BICFI>
+            </FinInstnId>
+          </Agt>
+        </ChrgsInf>
+        <OrgnlTxRef>
+          <Amt>
+            <InstdAmt Ccy="EUR">100.00</InstdAmt>
+          </Amt>
+          <!-- .09+: complex ReqdExctnDt in OrgnlTxRef -->
+          <ReqdExctnDt>
+            <Dt>2026-04-14</Dt>
+          </ReqdExctnDt>
+          <PmtTpInf>
+            <SvcLvl>
+              <Cd>SEPA</Cd>
+            </SvcLvl>
+          </PmtTpInf>
+          <RmtInf>
+            <Strd>
+              <CdtrRefInf>
+                <Tp>
+                  <CdOrPrtry>
+                    <Cd>SCOR</Cd>
+                  </CdOrPrtry>
+                </Tp>
+                <Ref>INV2026-09-001</Ref>
+              </CdtrRefInf>
+            </Strd>
+          </RmtInf>
+          <Dbtr>
+            <Nm>Test Debtor GmbH</Nm>
+            <PstlAdr>
+              <StrtNm>Teststraße</StrtNm>
+              <BldgNb>1</BldgNb>
+              <PstCd>90401</PstCd>
+              <TwnNm>Nürnberg</TwnNm>
+              <Ctry>DE</Ctry>
+            </PstlAdr>
+          </Dbtr>
+          <DbtrAcct>
+            <Id>
+              <IBAN>DE89370400440532013000</IBAN>
+            </Id>
+          </DbtrAcct>
+          <DbtrAgt>
+            <FinInstnId>
+              <BICFI>COBADEFFXXX</BICFI>
+            </FinInstnId>
+          </DbtrAgt>
+          <Cdtr>
+            <Nm>Test Creditor AG</Nm>
+            <PstlAdr>
+              <StrtNm>Empfängerstraße</StrtNm>
+              <BldgNb>5</BldgNb>
+              <PstCd>10115</PstCd>
+              <TwnNm>Berlin</TwnNm>
+              <Ctry>DE</Ctry>
+            </PstlAdr>
+          </Cdtr>
+          <CdtrAcct>
+            <Id>
+              <IBAN>DE75512108001245126199</IBAN>
+            </Id>
+          </CdtrAcct>
+          <CdtrAgt>
+            <FinInstnId>
+              <BICFI>DEUTDEDBXXX</BICFI>
+            </FinInstnId>
+          </CdtrAgt>
+        </OrgnlTxRef>
       </TxInfAndSts>
     </OrgnlPmtInfAndSts>
+    <SplmtryData>
+      <Envlp>
+        <Nmspc>
+          <Id>BankExt</Id>
+        </Nmspc>
+      </Envlp>
+    </SplmtryData>
   </CstmrPmtStsRpt>
 </Document>

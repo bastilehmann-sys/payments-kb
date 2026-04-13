@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- pain.001.001.09 — Credit Transfer Initiation (ISO 20022 / EPC SEPA SCT 2019/2023) -->
-<!-- The MAJOR migration from .03: structured address (PostalAddress24) already present  -->
-<!-- in .09 schema. Key additions vs .03: BICFI, LEI, UETR, structured PostalAddress,   -->
-<!-- ReqdExctnDt as complex element, SupplementaryData, UltimateOriginator for POBO.    -->
+<!-- pain.001.001.09 — CustomerCreditTransferInitiation (ISO 20022 / CGI-MP 2019) -->
+<!-- MAJOR version: structured PostalAddress24 (StrtNm, BldgNb, BldgNm, Flr,      -->
+<!-- PstBx, Room, PstCd, TwnNm, TwnLctnNm, DstrctNm, CtrySubDvsn, Ctry),          -->
+<!-- BICFI replaces BIC, LEI in OrgId, UETR mandatory in CGI-MP, UltmtDbtr POBO,  -->
+<!-- ReqdExctnDt becomes complex element <Dt>date</Dt>, SplmtryData/Envlp/Nmspc.  -->
 <Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09 pain.001.001.09.xsd">
@@ -11,12 +12,22 @@
       <MsgId>MSGID-20260413-09-001</MsgId>
       <CreDtTm>2026-04-13T10:00:00</CreDtTm>
       <NbOfTxs>1</NbOfTxs>
-      <CtrlSum>5000.00</CtrlSum>
+      <CtrlSum>100.00</CtrlSum>
       <InitgPty>
         <Nm>Test Debtor GmbH</Nm>
-        <!-- .09+: LEI replaces BICOrBEI in OrgId -->
+        <!-- .09+: structured PostalAddress24 with individual fields -->
+        <PstlAdr>
+          <StrtNm>Teststraße</StrtNm>
+          <BldgNb>1</BldgNb>
+          <BldgNm>Hauptgebäude</BldgNm>
+          <Flr>3</Flr>
+          <PstCd>90401</PstCd>
+          <TwnNm>Nürnberg</TwnNm>
+          <Ctry>DE</Ctry>
+        </PstlAdr>
         <Id>
           <OrgId>
+            <!-- .09+: LEI (Legal Entity Identifier) replaces BICOrBEI -->
             <LEI>5493001KJTIIGC8Y1R12</LEI>
           </OrgId>
         </Id>
@@ -25,20 +36,32 @@
     <PmtInf>
       <PmtInfId>PMTINF-20260413-09-001</PmtInfId>
       <PmtMtd>TRF</PmtMtd>
+      <BtchBookg>false</BtchBookg>
       <NbOfTxs>1</NbOfTxs>
-      <CtrlSum>5000.00</CtrlSum>
+      <CtrlSum>100.00</CtrlSum>
       <PmtTpInf>
+        <InstrPrty>NORM</InstrPrty>
         <SvcLvl>
           <Cd>SEPA</Cd>
         </SvcLvl>
+        <CtgyPurp>
+          <Cd>SUPP</Cd>
+        </CtgyPurp>
       </PmtTpInf>
-      <!-- .09+: ReqdExctnDt becomes a complex element with <Dt> child -->
+      <!-- .09+: ReqdExctnDt is now a complex element with <Dt> or <DtTm> child -->
       <ReqdExctnDt>
         <Dt>2026-04-14</Dt>
       </ReqdExctnDt>
-      <!-- .09+: UltimateOriginator for POBO (Payment on Behalf Of) scenarios -->
+      <!-- .09+: UltmtDbtr at PmtInf level for POBO (Payment on Behalf Of) -->
       <UltmtDbtr>
         <Nm>Ultimate Debtor Parent AG</Nm>
+        <PstlAdr>
+          <StrtNm>Konzernstraße</StrtNm>
+          <BldgNb>10</BldgNb>
+          <PstCd>80333</PstCd>
+          <TwnNm>München</TwnNm>
+          <Ctry>DE</Ctry>
+        </PstlAdr>
         <Id>
           <OrgId>
             <LEI>3358001KJTIIGC8Y1R99</LEI>
@@ -47,15 +70,16 @@
       </UltmtDbtr>
       <Dbtr>
         <Nm>Test Debtor GmbH</Nm>
-        <!-- .09: PostalAddress24 — structured address already available in .09 schema -->
-        <!-- All fields (StrtNm, BldgNb, BldgNm, Flr, PstBx, Room, PstCd, TwnNm,    -->
-        <!-- TwnLctnNm, DstrctNm, CtrySubDvsn, Ctry) present in .09.                 -->
-        <!-- AdrLine may also be used as fallback alongside structured fields.         -->
+        <!-- .09+: PostalAddress24 — all major fields available -->
         <PstlAdr>
           <StrtNm>Teststraße</StrtNm>
           <BldgNb>1</BldgNb>
+          <BldgNm>Hauptgebäude</BldgNm>
+          <Flr>3</Flr>
+          <PstBx>1234</PstBx>
           <PstCd>90401</PstCd>
           <TwnNm>Nürnberg</TwnNm>
+          <CtrySubDvsn>Bayern</CtrySubDvsn>
           <Ctry>DE</Ctry>
         </PstlAdr>
         <Id>
@@ -69,49 +93,83 @@
           <IBAN>DE89370400440532013000</IBAN>
         </Id>
         <Ccy>EUR</Ccy>
+        <Nm>Hauptkonto</Nm>
       </DbtrAcct>
       <DbtrAgt>
         <FinInstnId>
           <!-- .09+: BICFI replaces BIC -->
           <BICFI>COBADEFFXXX</BICFI>
+          <Nm>Commerzbank AG</Nm>
+          <PstlAdr>
+            <StrtNm>Kaiserplatz</StrtNm>
+            <BldgNb>1</BldgNb>
+            <PstCd>60311</PstCd>
+            <TwnNm>Frankfurt am Main</TwnNm>
+            <Ctry>DE</Ctry>
+          </PstlAdr>
         </FinInstnId>
       </DbtrAgt>
       <CdtTrfTxInf>
         <PmtId>
           <InstrId>INSTRID-09-001</InstrId>
           <EndToEndId>E2EID-20260413-09-001</EndToEndId>
-          <!-- .09+: UETR for end-to-end tracking (UUID format) -->
-          <UETR>a1b2c3d4-e5f6-7890-abcd-ef1234567890</UETR>
+          <!-- .09+: UETR (UUID v4) for end-to-end tracking -->
+          <UETR>a1b2c3d4-e5f6-7890-abcd-ef1234567809</UETR>
         </PmtId>
         <Amt>
-          <InstdAmt Ccy="EUR">5000.00</InstdAmt>
+          <InstdAmt Ccy="EUR">100.00</InstdAmt>
         </Amt>
         <ChrgBr>SLEV</ChrgBr>
         <CdtrAgt>
           <FinInstnId>
             <BICFI>DEUTDEDBXXX</BICFI>
+            <Nm>Deutsche Bank AG</Nm>
+            <PstlAdr>
+              <StrtNm>Taunusanlage</StrtNm>
+              <BldgNb>12</BldgNb>
+              <PstCd>60325</PstCd>
+              <TwnNm>Frankfurt am Main</TwnNm>
+              <Ctry>DE</Ctry>
+            </PstlAdr>
           </FinInstnId>
         </CdtrAgt>
         <Cdtr>
           <Nm>Test Creditor AG</Nm>
-          <!-- .09: full structured address available (PostalAddress24) -->
+          <!-- .09+: structured PostalAddress24 on Creditor -->
           <PstlAdr>
             <StrtNm>Empfängerstraße</StrtNm>
             <BldgNb>5</BldgNb>
             <PstCd>10115</PstCd>
             <TwnNm>Berlin</TwnNm>
+            <CtrySubDvsn>Berlin</CtrySubDvsn>
             <Ctry>DE</Ctry>
           </PstlAdr>
+          <Id>
+            <OrgId>
+              <LEI>7654321ABCDEFGH12345</LEI>
+            </OrgId>
+          </Id>
         </Cdtr>
         <CdtrAcct>
           <Id>
             <IBAN>DE75512108001245126199</IBAN>
           </Id>
+          <Nm>Hauptkonto Creditor</Nm>
         </CdtrAcct>
+        <UltmtCdtr>
+          <Nm>Ultimate Creditor Tochter GmbH</Nm>
+          <Id>
+            <OrgId>
+              <Othr>
+                <Id>HRB-987654-B</Id>
+              </Othr>
+            </OrgId>
+          </Id>
+        </UltmtCdtr>
         <Purp>
           <Cd>SUPP</Cd>
         </Purp>
-        <!-- .09+: Strd (structured) remittance info with CdtrRefInf -->
+        <!-- .09+: Strd remittance with CdtrRefInf -->
         <RmtInf>
           <Strd>
             <CdtrRefInf>
@@ -126,7 +184,7 @@
         </RmtInf>
       </CdtTrfTxInf>
     </PmtInf>
-    <!-- .09+: SupplementaryData block for bank-specific extensions -->
+    <!-- .09+: SplmtryData block with Nmspc/Id for bank-specific extensions -->
     <SplmtryData>
       <Envlp>
         <Nmspc>

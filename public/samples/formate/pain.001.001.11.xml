@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- pain.001.001.11 — Credit Transfer Initiation (ISO 20022, 2022)           -->
-<!-- Minor revision vs .10. Key additions: CardTransaction supplementary data, -->
-<!-- enhanced RemittanceInformation (AddtlRmtInf in Strd block), extended Rmt  -->
-<!-- location info. Structured address same as .09/.10 — no new fields.        -->
+<!-- pain.001.001.11 — CustomerCreditTransferInitiation (ISO 20022, 2022)           -->
+<!-- Minor revision vs .10. Key additions: AddtlRmtInf in Strd remittance block,    -->
+<!-- CardTransaction supplementary data, extended RmtLctnMtd. PostalAddress24       -->
+<!-- unchanged. BICFI, LEI, UETR, Proxy, RgltryRptg all carried over from .10.     -->
 <Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.11"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.001.001.11 pain.001.001.11.xsd">
@@ -11,9 +11,17 @@
       <MsgId>MSGID-20260413-11-001</MsgId>
       <CreDtTm>2026-04-13T10:00:00</CreDtTm>
       <NbOfTxs>1</NbOfTxs>
-      <CtrlSum>12750.00</CtrlSum>
+      <CtrlSum>100.00</CtrlSum>
       <InitgPty>
         <Nm>Test Debtor GmbH</Nm>
+        <PstlAdr>
+          <StrtNm>Teststraße</StrtNm>
+          <BldgNb>1</BldgNb>
+          <PstCd>90401</PstCd>
+          <TwnNm>Nürnberg</TwnNm>
+          <CtrySubDvsn>Bayern</CtrySubDvsn>
+          <Ctry>DE</Ctry>
+        </PstlAdr>
         <Id>
           <OrgId>
             <LEI>5493001KJTIIGC8Y1R12</LEI>
@@ -24,24 +32,46 @@
     <PmtInf>
       <PmtInfId>PMTINF-20260413-11-001</PmtInfId>
       <PmtMtd>TRF</PmtMtd>
+      <BtchBookg>false</BtchBookg>
       <NbOfTxs>1</NbOfTxs>
-      <CtrlSum>12750.00</CtrlSum>
+      <CtrlSum>100.00</CtrlSum>
       <PmtTpInf>
+        <InstrPrty>NORM</InstrPrty>
         <SvcLvl>
           <Cd>SEPA</Cd>
         </SvcLvl>
+        <CtgyPurp>
+          <Cd>SUPP</Cd>
+        </CtgyPurp>
       </PmtTpInf>
       <ReqdExctnDt>
         <Dt>2026-04-14</Dt>
       </ReqdExctnDt>
+      <UltmtDbtr>
+        <Nm>Ultimate Debtor Parent AG</Nm>
+        <PstlAdr>
+          <StrtNm>Konzernstraße</StrtNm>
+          <BldgNb>10</BldgNb>
+          <PstCd>80333</PstCd>
+          <TwnNm>München</TwnNm>
+          <Ctry>DE</Ctry>
+        </PstlAdr>
+        <Id>
+          <OrgId>
+            <LEI>3358001KJTIIGC8Y1R99</LEI>
+          </OrgId>
+        </Id>
+      </UltmtDbtr>
       <Dbtr>
         <Nm>Test Debtor GmbH</Nm>
-        <!-- Structured address unchanged from .09/.10 (PostalAddress24) -->
         <PstlAdr>
           <StrtNm>Teststraße</StrtNm>
           <BldgNb>1</BldgNb>
+          <BldgNm>Hauptgebäude</BldgNm>
+          <Flr>3</Flr>
           <PstCd>90401</PstCd>
           <TwnNm>Nürnberg</TwnNm>
+          <CtrySubDvsn>Bayern</CtrySubDvsn>
           <Ctry>DE</Ctry>
         </PstlAdr>
         <Id>
@@ -55,25 +85,42 @@
           <IBAN>DE89370400440532013000</IBAN>
         </Id>
         <Ccy>EUR</Ccy>
+        <Nm>Hauptkonto</Nm>
       </DbtrAcct>
       <DbtrAgt>
         <FinInstnId>
           <BICFI>COBADEFFXXX</BICFI>
+          <Nm>Commerzbank AG</Nm>
+          <PstlAdr>
+            <StrtNm>Kaiserplatz</StrtNm>
+            <BldgNb>1</BldgNb>
+            <PstCd>60311</PstCd>
+            <TwnNm>Frankfurt am Main</TwnNm>
+            <Ctry>DE</Ctry>
+          </PstlAdr>
         </FinInstnId>
       </DbtrAgt>
       <CdtTrfTxInf>
         <PmtId>
           <InstrId>INSTRID-11-001</InstrId>
           <EndToEndId>E2EID-20260413-11-001</EndToEndId>
-          <UETR>c3d4e5f6-a7b8-9012-cdef-012345678902</UETR>
+          <UETR>c3d4e5f6-a7b8-9012-cdef-012345678911</UETR>
         </PmtId>
         <Amt>
-          <InstdAmt Ccy="EUR">12750.00</InstdAmt>
+          <InstdAmt Ccy="EUR">100.00</InstdAmt>
         </Amt>
         <ChrgBr>SLEV</ChrgBr>
         <CdtrAgt>
           <FinInstnId>
             <BICFI>DEUTDEDBXXX</BICFI>
+            <Nm>Deutsche Bank AG</Nm>
+            <PstlAdr>
+              <StrtNm>Taunusanlage</StrtNm>
+              <BldgNb>12</BldgNb>
+              <PstCd>60325</PstCd>
+              <TwnNm>Frankfurt am Main</TwnNm>
+              <Ctry>DE</Ctry>
+            </PstlAdr>
           </FinInstnId>
         </CdtrAgt>
         <Cdtr>
@@ -83,17 +130,50 @@
             <BldgNb>5</BldgNb>
             <PstCd>10115</PstCd>
             <TwnNm>Berlin</TwnNm>
+            <CtrySubDvsn>Berlin</CtrySubDvsn>
             <Ctry>DE</Ctry>
           </PstlAdr>
+          <Id>
+            <OrgId>
+              <LEI>7654321ABCDEFGH12345</LEI>
+            </OrgId>
+          </Id>
         </Cdtr>
         <CdtrAcct>
           <Id>
             <IBAN>DE75512108001245126199</IBAN>
           </Id>
+          <Nm>Hauptkonto Creditor</Nm>
+          <Prxy>
+            <Tp>
+              <Cd>EMAL</Cd>
+            </Tp>
+            <Id>creditor@testcreditor.de</Id>
+          </Prxy>
         </CdtrAcct>
+        <UltmtCdtr>
+          <Nm>Ultimate Creditor Tochter GmbH</Nm>
+          <Id>
+            <OrgId>
+              <Othr>
+                <Id>HRB-987654-B</Id>
+              </Othr>
+            </OrgId>
+          </Id>
+        </UltmtCdtr>
         <Purp>
           <Cd>SUPP</Cd>
         </Purp>
+        <RgltryRptg>
+          <DbtCdtRptgInd>CRED</DbtCdtRptgInd>
+          <Dtls>
+            <Tp>CRED</Tp>
+            <Dt>2026-04-13</Dt>
+            <Ctry>DE</Ctry>
+            <Cd>150</Cd>
+            <Inf>Warenlieferung - Teillieferung 2 von 3</Inf>
+          </Dtls>
+        </RgltryRptg>
         <RmtInf>
           <Strd>
             <CdtrRefInf>
@@ -105,7 +185,7 @@
               <Ref>INV2026-11-001</Ref>
             </CdtrRefInf>
             <!-- .11 NEW: AddtlRmtInf within Strd block (enhanced remittance) -->
-            <AddtlRmtInf>Bestellung 2026-B-0047 - Teillieferung 2 von 3</AddtlRmtInf>
+            <AddtlRmtInf>Bestellung 2026-B-0047 - Teillieferung 2 von 3 - fällig 2026-04-30</AddtlRmtInf>
           </Strd>
         </RmtInf>
       </CdtTrfTxInf>

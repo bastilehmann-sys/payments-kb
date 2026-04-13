@@ -1,31 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- pain.001.001.05 — Credit Transfer Initiation (2013, SEPA CT v6.0) -->
+<!-- pain.001.001.05 — CustomerCreditTransferInitiation (ISO 20022 / EPC SEPA SCT 2013) -->
+<!-- EPC SEPA Credit Transfer v6.0 implementors' guide. Key changes vs .04:              -->
+<!-- LclInstrm added for payment type differentiation, Strd remittance info improved,    -->
+<!-- CdtrRefInf with SCOR type supported. BIC still used (not BICFI), no UETR.           -->
 <Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.05"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.001.001.05 pain.001.001.05.xsd">
   <CstmrCdtTrfInitn>
     <GrpHdr>
-      <MsgId>MSGID-20260413-005</MsgId>
+      <MsgId>MSGID-20260413-05-001</MsgId>
       <CreDtTm>2026-04-13T10:00:00</CreDtTm>
       <NbOfTxs>1</NbOfTxs>
-      <CtrlSum>500.00</CtrlSum>
+      <CtrlSum>100.00</CtrlSum>
       <InitgPty>
         <Nm>Test Debtor GmbH</Nm>
+        <PstlAdr>
+          <Ctry>DE</Ctry>
+          <AdrLine>Teststraße 1</AdrLine>
+          <AdrLine>90401 Nürnberg</AdrLine>
+        </PstlAdr>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>DE12345678</Id>
+              <SchmeNm>
+                <Cd>COID</Cd>
+              </SchmeNm>
+            </Othr>
+          </OrgId>
+        </Id>
       </InitgPty>
     </GrpHdr>
     <PmtInf>
-      <PmtInfId>PMTINF-20260413-005</PmtInfId>
+      <PmtInfId>PMTINF-20260413-05-001</PmtInfId>
       <PmtMtd>TRF</PmtMtd>
+      <BtchBookg>false</BtchBookg>
       <NbOfTxs>1</NbOfTxs>
-      <CtrlSum>500.00</CtrlSum>
+      <CtrlSum>100.00</CtrlSum>
       <PmtTpInf>
+        <InstrPrty>NORM</InstrPrty>
         <SvcLvl>
           <Cd>SEPA</Cd>
         </SvcLvl>
+        <!-- .05: LclInstrm used for CORE/B2B differentiation in EPC context -->
         <LclInstrm>
           <Cd>CORE</Cd>
         </LclInstrm>
+        <CtgyPurp>
+          <Cd>SUPP</Cd>
+        </CtgyPurp>
       </PmtTpInf>
+      <!-- .05: ReqdExctnDt still plain xs:date -->
       <ReqdExctnDt>2026-04-14</ReqdExctnDt>
       <Dbtr>
         <Nm>Test Debtor GmbH</Nm>
@@ -34,30 +59,63 @@
           <AdrLine>Teststraße 1</AdrLine>
           <AdrLine>90401 Nürnberg</AdrLine>
         </PstlAdr>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>DE12345678</Id>
+              <SchmeNm>
+                <Cd>COID</Cd>
+              </SchmeNm>
+            </Othr>
+          </OrgId>
+        </Id>
       </Dbtr>
       <DbtrAcct>
         <Id>
           <IBAN>DE89370400440532013000</IBAN>
         </Id>
         <Ccy>EUR</Ccy>
+        <Nm>Hauptkonto</Nm>
       </DbtrAcct>
       <DbtrAgt>
         <FinInstnId>
           <BIC>COBADEFFXXX</BIC>
+          <Nm>Commerzbank AG</Nm>
+          <PstlAdr>
+            <Ctry>DE</Ctry>
+            <AdrLine>Kaiserplatz 1</AdrLine>
+            <AdrLine>60311 Frankfurt am Main</AdrLine>
+          </PstlAdr>
         </FinInstnId>
       </DbtrAgt>
       <CdtTrfTxInf>
         <PmtId>
-          <InstrId>INSTRID-005-001</InstrId>
-          <EndToEndId>E2EID-20260413-005</EndToEndId>
+          <InstrId>INSTRID-05-001</InstrId>
+          <EndToEndId>E2EID-20260413-05-001</EndToEndId>
         </PmtId>
         <Amt>
-          <InstdAmt Ccy="EUR">500.00</InstdAmt>
+          <InstdAmt Ccy="EUR">100.00</InstdAmt>
         </Amt>
         <ChrgBr>SLEV</ChrgBr>
+        <UltmtDbtr>
+          <Nm>Ultimate Debtor Parent AG</Nm>
+          <Id>
+            <OrgId>
+              <Othr>
+                <Id>DE-PARENT-001</Id>
+              </Othr>
+            </OrgId>
+          </Id>
+        </UltmtDbtr>
         <CdtrAgt>
           <FinInstnId>
             <BIC>DEUTDEDBXXX</BIC>
+            <Nm>Deutsche Bank AG</Nm>
+            <PstlAdr>
+              <Ctry>DE</Ctry>
+              <AdrLine>Taunusanlage 12</AdrLine>
+              <AdrLine>60325 Frankfurt am Main</AdrLine>
+            </PstlAdr>
           </FinInstnId>
         </CdtrAgt>
         <Cdtr>
@@ -67,14 +125,41 @@
             <AdrLine>Empfängerstraße 5</AdrLine>
             <AdrLine>10115 Berlin</AdrLine>
           </PstlAdr>
+          <Id>
+            <OrgId>
+              <Othr>
+                <Id>HRB-123456-B</Id>
+                <SchmeNm>
+                  <Cd>COID</Cd>
+                </SchmeNm>
+              </Othr>
+            </OrgId>
+          </Id>
         </Cdtr>
         <CdtrAcct>
           <Id>
             <IBAN>DE75512108001245126199</IBAN>
           </Id>
+          <Nm>Hauptkonto Creditor</Nm>
         </CdtrAcct>
+        <UltmtCdtr>
+          <Nm>Ultimate Creditor Tochter GmbH</Nm>
+        </UltmtCdtr>
+        <Purp>
+          <Cd>SUPP</Cd>
+        </Purp>
         <RmtInf>
-          <Ustrd>Rechnung 2026-005 vom 2026-04-01</Ustrd>
+          <!-- .05: Strd with CdtrRefInf fully supported per EPC SCT v6.0 -->
+          <Strd>
+            <CdtrRefInf>
+              <Tp>
+                <CdOrPrtry>
+                  <Cd>SCOR</Cd>
+                </CdOrPrtry>
+              </Tp>
+              <Ref>INV2026-05-001</Ref>
+            </CdtrRefInf>
+          </Strd>
         </RmtInf>
       </CdtTrfTxInf>
     </PmtInf>

@@ -201,6 +201,23 @@ export const entryAudit = pgTable('entry_audit', {
   edited_by: text('edited_by').default('shared'),
 });
 
+// ============================================================
+// Country blocks table (Sheet 07+) — structured block/table data
+// ============================================================
+
+export const countryBlocks = pgTable('country_blocks', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  country_code: text('country_code').notNull(),
+  block_no: integer('block_no').notNull(),
+  block_title: text('block_title').notNull(),
+  row_order: integer('row_order').notNull(),
+  feld: text('feld').notNull(),
+  experte: text('experte'),
+  einsteiger: text('einsteiger'),
+  praxis: text('praxis'),
+  created_at: timestamp('created_at', { withTimezone: true }).defaultNow(),
+});
+
 export const countries = pgTable('countries', {
   id: uuid('id').primaryKey().defaultRandom(),
   code: text('code').unique().notNull(),

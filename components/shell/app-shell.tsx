@@ -16,6 +16,7 @@ const FULLSCREEN_PATHS = [
   "/ihb",
   "/laender",
   "/formate/vergleich",
+  "/edit",
 ]
 
 export function AppShell({ children }: AppShellProps) {

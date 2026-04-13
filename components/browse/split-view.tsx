@@ -36,6 +36,8 @@ export type SplitViewProps<T extends Record<string, unknown>> = {
   summaryField?: keyof T;
   /** Optional extra content rendered between Management Summary and Einsteiger/Experte toggle */
   extraDetailHeader?: (item: T) => React.ReactNode;
+  /** Table name for edit button (e.g. 'regulatorik_entries') */
+  editTable?: string;
 };
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
@@ -77,6 +79,14 @@ function IconExternalLink() {
   return (
     <svg viewBox="0 0 16 16" className="size-3 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M7 3H3a1 1 0 00-1 1v9a1 1 0 001 1h9a1 1 0 001-1V9M10 2h4m0 0v4M14 2L7.5 8.5" />
+    </svg>
+  );
+}
+
+function IconPencil() {
+  return (
+    <svg viewBox="0 0 16 16" className="size-3.5 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M11.5 2.5l2 2-8 8H3.5v-2l8-8z" />
     </svg>
   );
 }
@@ -300,6 +310,8 @@ function DetailPanel<T extends Record<string, unknown>>({
   documentField,
   summaryField,
   extraDetailHeader,
+  editTable,
+  itemId,
 }: {
   item: T | null;
   columns: Column[];
@@ -310,6 +322,8 @@ function DetailPanel<T extends Record<string, unknown>>({
   documentField?: keyof T;
   summaryField?: keyof T;
   extraDetailHeader?: (item: T) => React.ReactNode;
+  editTable?: string;
+  itemId?: string;
 }) {
   const [mode, setMode] = React.useState<Mode>('einsteiger');
 
@@ -406,11 +420,19 @@ function DetailPanel<T extends Record<string, unknown>>({
               <p className="mt-2 text-lg text-muted-foreground">{secondaryVal}</p>
             )}
           </div>
-          {complexityVal && (
-            <div className="shrink-0">
-              <ComplexityDot value={complexityVal} />
-            </div>
-          )}
+          <div className="flex shrink-0 items-center gap-3">
+            {complexityVal && <ComplexityDot value={complexityVal} />}
+            {editTable && itemId && (
+              <a
+                href={`/edit/${editTable}/${itemId}`}
+                className="inline-flex items-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 text-xs text-muted-foreground transition-colors hover:border-[#86bc25]/40 hover:bg-[#86bc25]/5 hover:text-[#86bc25]"
+                title="Bearbeiten"
+              >
+                <IconPencil />
+                Bearbeiten
+              </a>
+            )}
+          </div>
         </div>
       </div>
 
@@ -578,6 +600,7 @@ export function SplitView<T extends Record<string, unknown>>({
   documentField,
   summaryField,
   extraDetailHeader,
+  editTable,
 }: SplitViewProps<T>) {
   const router = useRouter();
   const pathname = usePathname();
@@ -720,6 +743,8 @@ export function SplitView<T extends Record<string, unknown>>({
       documentField={documentField}
       summaryField={summaryField}
       extraDetailHeader={extraDetailHeader}
+      editTable={editTable}
+      itemId={selectedId ?? undefined}
     />
   );
 

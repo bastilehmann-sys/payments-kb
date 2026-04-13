@@ -51,6 +51,7 @@ export default async function ClearingPage() {
         filterLabel="Alle Regionen"
         headerBadgeField="abkuerzung"
         summaryField="beschreibung_einsteiger"
+        editTable="clearing_entries"
       />
     </Suspense>
   );

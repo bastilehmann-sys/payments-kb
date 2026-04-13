@@ -55,6 +55,7 @@ export default async function RegulatorikPage() {
         filterField="typ"
         filterLabel="Alle Typen"
         summaryField="beschreibung_einsteiger"
+        editTable="regulatorik_entries"
       />
     </Suspense>
   );

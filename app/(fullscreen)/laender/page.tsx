@@ -68,6 +68,7 @@ export default async function LaenderPage() {
         complexityField="complexity"
         documentField="document_md"
         summaryField="key_note"
+        editTable="countries"
       />
     </Suspense>
   );

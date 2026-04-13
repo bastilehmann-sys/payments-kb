@@ -21,6 +21,7 @@ export function FormateClient({ items, columns, versions }: FormateClientProps) 
       filterField="familie_standard"
       filterLabel="Alle Familien"
       summaryField="beschreibung_einsteiger"
+      editTable="format_entries"
       extraDetailHeader={(item) => (
         <FormatSampleCard
           formatName={String(item['format_name'] ?? '')}

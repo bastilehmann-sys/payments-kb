@@ -53,6 +53,7 @@ export default async function IhbPage() {
         filterLabel="Alle Bewertungen"
         tertiaryField="region"
         summaryField="handlungsempfehlung"
+        editTable="ihb_entries"
       />
     </Suspense>
   );

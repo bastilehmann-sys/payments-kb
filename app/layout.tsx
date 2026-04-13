@@ -3,6 +3,7 @@ import { Syne, Outfit, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { AppShell } from "@/components/shell/app-shell";
 import { SessionProvider } from "next-auth/react";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 const syne = Syne({
@@ -48,6 +49,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <AppShell>{children}</AppShell>
+            <Toaster richColors position="bottom-right" />
           </ThemeProvider>
         </SessionProvider>
       </body>

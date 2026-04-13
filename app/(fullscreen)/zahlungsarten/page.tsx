@@ -56,6 +56,7 @@ export default async function ZahlungsartenPage() {
         filterField="instrument_typ"
         filterLabel="Alle Typen"
         summaryField="beschreibung_einsteiger"
+        editTable="zahlungsart_entries"
       />
     </Suspense>
   );

@@ -19,7 +19,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
         <span>{title}</span>
         <span className="flex-1 border-t border-border" />
       </h2>
-      <div className="text-sm text-foreground/80 leading-relaxed whitespace-pre-line max-w-prose">
+      <div className="text-base text-foreground/80 leading-relaxed whitespace-pre-line max-w-prose">
         {children}
       </div>
     </section>
@@ -33,7 +33,7 @@ function MetaPair({ label, value }: { label: string; value: string | null }) {
       <dt className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/60">
         {label}
       </dt>
-      <dd className="text-sm text-foreground/80">{value}</dd>
+      <dd className="text-base text-foreground/80">{value}</dd>
     </div>
   );
 }
@@ -71,18 +71,18 @@ export default async function Mockup2DetailPage({ params }: Props) {
         <div className="flex items-start gap-6 px-8 py-6">
           {/* Kürzel badge */}
           <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border-2 border-[#4a9eff]/40 bg-[#4a9eff]/10">
-            <span className="font-mono text-lg font-bold text-[#4a9eff]">
+            <span className="font-mono text-xl font-bold text-[#4a9eff]">
               {entry.kuerzel ?? '?'}
             </span>
           </div>
 
           {/* Title block */}
           <div className="flex-1 min-w-0 space-y-2">
-            <h1 className="font-heading text-2xl font-bold text-foreground leading-tight">
+            <h1 className="font-heading text-3xl font-bold text-foreground leading-tight">
               {entry.name}
             </h1>
             {meta.length > 0 && (
-              <p className="text-sm text-muted-foreground">{meta.join(' · ')}</p>
+              <p className="text-base text-muted-foreground">{meta.join(' · ')}</p>
             )}
           </div>
 

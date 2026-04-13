@@ -43,10 +43,10 @@ export default function MockupsIndexPage() {
           </span>
           <span className="text-xs text-muted-foreground">Regulatorik · Data-Grid Mockups</span>
         </div>
-        <h1 className="font-heading text-3xl font-bold text-foreground">
+        <h1 className="font-heading text-4xl font-bold text-foreground">
           3 Varianten zur Auswahl
         </h1>
-        <p className="max-w-2xl text-base text-foreground/70 leading-relaxed">
+        <p className="max-w-2xl text-lg text-foreground/70 leading-relaxed">
           Drei unterschiedliche Ansichten für die Regulatorik-Daten. Jede Variante nutzt echte
           Datenbankdaten. Wähle die Variante, die am besten passt — oder kombiniere Ideen.
         </p>
@@ -72,12 +72,12 @@ export default function MockupsIndexPage() {
             </div>
 
             {/* Title */}
-            <h2 className="font-heading text-lg font-semibold text-foreground group-hover:text-primary transition-colors duration-150">
+            <h2 className="font-heading text-xl font-semibold text-foreground group-hover:text-primary transition-colors duration-150">
               {v.title}
             </h2>
 
             {/* Pitch */}
-            <p className="flex-1 text-sm text-foreground/65 leading-relaxed">{v.pitch}</p>
+            <p className="flex-1 text-base text-foreground/65 leading-relaxed">{v.pitch}</p>
 
             {/* CTA */}
             <div className="flex items-center gap-1.5 text-xs font-medium" style={{ color: v.accent }}>

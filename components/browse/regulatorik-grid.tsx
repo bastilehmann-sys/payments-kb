@@ -10,7 +10,7 @@ const columns: DataGridColumn<RegulatorikEntry>[] = [
     header: 'Kürzel',
     size: 90,
     cell: ({ getValue }) => (
-      <span className="font-mono text-sm font-semibold text-primary">
+      <span className="font-mono text-base font-semibold text-primary">
         {getValue<string>() ?? '—'}
       </span>
     ),
@@ -50,7 +50,7 @@ const columns: DataGridColumn<RegulatorikEntry>[] = [
       const v = getValue<string>();
       if (!v) return null;
       return (
-        <span className="line-clamp-2 text-sm text-muted-foreground" title={v}>
+        <span className="line-clamp-2 text-base text-muted-foreground" title={v}>
           {v}
         </span>
       );

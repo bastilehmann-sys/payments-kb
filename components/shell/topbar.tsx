@@ -79,7 +79,7 @@ export function Topbar({ className }: TopbarProps) {
       {/* Logo */}
       <Link
         href="/"
-        className="flex items-center gap-2 font-heading text-base font-semibold text-foreground"
+        className="flex items-center gap-2 font-heading text-lg font-semibold text-foreground"
       >
         <span className="flex h-7 w-7 items-center justify-center rounded-md bg-primary text-primary-foreground">
           P
@@ -99,7 +99,7 @@ export function Topbar({ className }: TopbarProps) {
               key={item.href}
               href={item.href}
               className={cn(
-                "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+                "rounded-md px-3 py-1.5 text-base font-medium transition-colors",
                 active
                   ? "bg-primary/10 text-primary"
                   : "text-muted-foreground hover:bg-accent/10 hover:text-foreground"
@@ -117,7 +117,7 @@ export function Topbar({ className }: TopbarProps) {
       {/* Search button */}
       <button
         onClick={() => setSearchOpen(true)}
-        className="flex items-center gap-2 rounded-md border border-border bg-muted/40 px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:border-border hover:bg-muted/70 hover:text-foreground"
+        className="flex items-center gap-2 rounded-md border border-border bg-muted/40 px-3 py-1.5 text-base text-muted-foreground transition-colors hover:border-border hover:bg-muted/70 hover:text-foreground"
         aria-label="Suche öffnen (Cmd K)"
       >
         <svg
@@ -134,7 +134,7 @@ export function Topbar({ className }: TopbarProps) {
           <path d="m21 21-4.35-4.35" />
         </svg>
         <span className="hidden sm:inline">Suche</span>
-        <kbd className="hidden rounded border border-border bg-background px-1.5 py-0.5 font-mono text-sm text-muted-foreground sm:inline">
+        <kbd className="hidden rounded border border-border bg-background px-1.5 py-0.5 font-mono text-base text-muted-foreground sm:inline">
           ⌘K
         </kbd>
       </button>
@@ -145,7 +145,7 @@ export function Topbar({ className }: TopbarProps) {
       {/* User menu with logout */}
       <button
         onClick={() => signOut({ redirectTo: "/login" })}
-        className="flex h-8 items-center gap-2 rounded-md border border-border bg-muted/40 px-3 text-sm text-muted-foreground transition-colors hover:border-destructive/50 hover:bg-destructive/10 hover:text-destructive"
+        className="flex h-8 items-center gap-2 rounded-md border border-border bg-muted/40 px-3 text-base text-muted-foreground transition-colors hover:border-destructive/50 hover:bg-destructive/10 hover:text-destructive"
         title="Abmelden"
       >
         <svg

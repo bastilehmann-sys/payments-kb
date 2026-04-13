@@ -18,8 +18,8 @@ export default async function Mockup1Page() {
             </span>
             <span className="text-xs text-muted-foreground">Dense Linear / Notion Style</span>
           </div>
-          <h1 className="font-heading text-2xl font-semibold text-foreground">Regulatorik</h1>
-          <p className="text-sm text-muted-foreground">
+          <h1 className="font-heading text-3xl font-semibold text-foreground">Regulatorik</h1>
+          <p className="text-base text-muted-foreground">
             Kompakte Tabellenansicht · Klick auf Zeile öffnet Side-Panel · Esc oder ↑↓ für Navigation
           </p>
         </div>

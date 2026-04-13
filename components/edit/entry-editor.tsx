@@ -76,7 +76,7 @@ function EntryField({
         onChange={(e) => onChange(fieldKey, e.target.value)}
         minRows={2}
         className={cn(
-          'w-full resize-none rounded-md border bg-background px-3 py-2.5 text-sm leading-relaxed text-foreground outline-none transition-colors',
+          'w-full resize-none rounded-md border bg-background px-3 py-2.5 text-base leading-relaxed text-foreground outline-none transition-colors',
           isDirty
             ? 'border-amber-400/60 focus:border-amber-400'
             : 'border-border focus:border-[#86bc25]/60',
@@ -116,7 +116,7 @@ function PreviewPanel({
   }
 
   return (
-    <div className="px-8 py-6 text-sm">
+    <div className="px-8 py-6 text-base">
       {Object.entries(sections).map(([section, cols]) => (
         <div key={section}>
           <div className="mb-3 mt-8 border-t border-border pt-5 first:mt-0 first:border-t-0 first:pt-0">
@@ -132,7 +132,7 @@ function PreviewPanel({
                 <dt className="mb-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground/50">
                   {col.label}
                 </dt>
-                <dd className="whitespace-pre-line text-sm leading-relaxed text-foreground/85">
+                <dd className="whitespace-pre-line text-base leading-relaxed text-foreground/85">
                   {val}
                 </dd>
               </div>
@@ -243,7 +243,7 @@ export function EntryEditor({ table, id, initial, columns }: EntryEditorProps) {
             <IconPencil />
             <span className="text-xs uppercase tracking-wider font-medium">Bearbeiten</span>
           </div>
-          <h1 className="font-heading text-lg font-bold text-foreground leading-tight truncate">
+          <h1 className="font-heading text-xl font-bold text-foreground leading-tight truncate">
             {title}
           </h1>
         </div>
@@ -257,7 +257,7 @@ export function EntryEditor({ table, id, initial, columns }: EntryEditorProps) {
         <button
           onClick={() => setShowAudit((v) => !v)}
           className={cn(
-            'flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-sm transition-colors',
+            'flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-base transition-colors',
             showAudit
               ? 'border-[#86bc25]/40 bg-[#86bc25]/10 text-[#86bc25]'
               : 'border-border text-muted-foreground hover:border-[#86bc25]/40 hover:text-foreground',
@@ -270,7 +270,7 @@ export function EntryEditor({ table, id, initial, columns }: EntryEditorProps) {
 
         <button
           onClick={handleCancel}
-          className="flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:border-border hover:text-foreground"
+          className="flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-base text-muted-foreground transition-colors hover:border-border hover:text-foreground"
         >
           <IconClose />
           <span className="hidden sm:inline">Abbrechen</span>
@@ -280,7 +280,7 @@ export function EntryEditor({ table, id, initial, columns }: EntryEditorProps) {
           onClick={handleSave}
           disabled={dirty.size === 0 || saving}
           className={cn(
-            'flex items-center gap-1.5 rounded-md px-4 py-1.5 text-sm font-medium transition-colors',
+            'flex items-center gap-1.5 rounded-md px-4 py-1.5 text-base font-medium transition-colors',
             dirty.size > 0 && !saving
               ? 'bg-[#86bc25] text-white hover:bg-[#76ac15]'
               : 'bg-muted text-muted-foreground cursor-not-allowed',

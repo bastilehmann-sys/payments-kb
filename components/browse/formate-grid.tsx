@@ -10,7 +10,7 @@ const columns: DataGridColumn<FormatEntry>[] = [
     header: 'Format',
     size: 120,
     cell: ({ getValue }) => (
-      <span className="font-mono text-sm font-semibold text-primary">
+      <span className="font-mono text-base font-semibold text-primary">
         {getValue<string>()}
       </span>
     ),
@@ -48,7 +48,7 @@ const columns: DataGridColumn<FormatEntry>[] = [
       const v = getValue<string>();
       if (!v) return null;
       return (
-        <span className="inline-flex rounded-full px-2 py-0.5 text-sm font-medium ring-1 ring-border">
+        <span className="inline-flex rounded-full px-2 py-0.5 text-base font-medium ring-1 ring-border">
           {v}
         </span>
       );
@@ -61,7 +61,7 @@ const columns: DataGridColumn<FormatEntry>[] = [
     cell: ({ getValue }) => {
       const v = getValue<string>();
       if (!v) return null;
-      return <span className="line-clamp-2 text-sm text-muted-foreground">{v}</span>;
+      return <span className="line-clamp-2 text-base text-muted-foreground">{v}</span>;
     },
   },
   { accessorKey: 'beschreibung_experte', label: 'Beschreibung (Experte)', header: 'Beschreibung (Exp.)' },

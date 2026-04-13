@@ -88,12 +88,12 @@ function StatCard({ label, value, icon }: StatCardProps) {
   return (
     <div className="flex flex-col gap-3 rounded-xl bg-card p-5 ring-1 ring-foreground/10">
       <div className="flex items-center justify-between">
-        <span className="text-sm font-medium uppercase tracking-widest text-muted-foreground">
+        <span className="text-base font-medium uppercase tracking-widest text-muted-foreground">
           {label}
         </span>
         {icon}
       </div>
-      <span className="font-heading text-4xl font-bold tabular-nums text-foreground">
+      <span className="font-heading text-5xl font-bold tabular-nums text-foreground">
         {value}
       </span>
     </div>

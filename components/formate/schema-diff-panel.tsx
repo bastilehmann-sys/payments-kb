@@ -99,7 +99,7 @@ export function SchemaDiffPanel({ sampleA, sampleB }: SchemaDiffPanelProps) {
         className="flex w-full items-center justify-between px-4 py-3 text-left hover:bg-muted/20 transition-colors"
       >
         <div className="flex items-center gap-3">
-          <span className="text-sm font-semibold text-foreground/80">Schema-Unterschiede</span>
+          <span className="text-base font-semibold text-foreground/80">Schema-Unterschiede</span>
           {data && (
             <div className="flex items-center gap-2">
               {data.added.length > 0 && (
@@ -169,7 +169,7 @@ export function SchemaDiffPanel({ sampleA, sampleB }: SchemaDiffPanelProps) {
                 <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/60">
                   Gemeinsam
                 </p>
-                <div className="text-3xl font-bold tabular-nums text-foreground/70">
+                <div className="text-4xl font-bold tabular-nums text-foreground/70">
                   {data.common}
                 </div>
                 <p className="text-xs text-muted-foreground/50">

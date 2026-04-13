@@ -43,7 +43,7 @@ export default function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <Card className="w-full max-w-sm">
         <CardHeader className="space-y-1">
-          <CardTitle className="font-heading text-2xl">Payments KB</CardTitle>
+          <CardTitle className="font-heading text-3xl">Payments KB</CardTitle>
           <CardDescription>
             SAP Treasury Payments Knowledge Base
           </CardDescription>
@@ -62,7 +62,7 @@ export default function LoginPage() {
                 disabled={loading}
               />
               {error && (
-                <p className="text-sm text-destructive">{error}</p>
+                <p className="text-base text-destructive">{error}</p>
               )}
             </div>
             <Button

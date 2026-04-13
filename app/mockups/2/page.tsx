@@ -19,8 +19,8 @@ export default async function Mockup2Page() {
             </span>
             <span className="text-xs text-muted-foreground">Card-Row Hybrid</span>
           </div>
-          <h1 className="font-heading text-2xl font-semibold text-foreground">Regulatorik</h1>
-          <p className="text-sm text-muted-foreground">
+          <h1 className="font-heading text-3xl font-semibold text-foreground">Regulatorik</h1>
+          <p className="text-base text-muted-foreground">
             Kartenansicht · Klick öffnet Detail-Seite · Alphabetisch sortierbar
           </p>
         </div>

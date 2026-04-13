@@ -44,7 +44,7 @@ function SectionBadge({ section }: { section: string | null }) {
   const color = SECTION_COLORS[section] ?? 'bg-muted text-muted-foreground';
   return (
     <span
-      className={`inline-flex h-5 items-center rounded-full px-2 text-sm font-medium uppercase tracking-wide ${color}`}
+      className={`inline-flex h-5 items-center rounded-full px-2 text-base font-medium uppercase tracking-wide ${color}`}
     >
       {label}
     </span>
@@ -59,14 +59,14 @@ export function RecentUpdates({ updates }: RecentUpdatesProps) {
   return (
     <div className="rounded-xl bg-card ring-1 ring-foreground/10 overflow-hidden">
       <div className="border-b border-foreground/[0.06] px-5 py-4">
-        <h2 className="font-heading text-base font-semibold text-foreground">
+        <h2 className="font-heading text-lg font-semibold text-foreground">
           Letzte Updates
         </h2>
       </div>
 
       {updates.length === 0 ? (
         <div className="px-5 py-8 text-center">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-base text-muted-foreground">
             Noch keine Dokumente — bitte unter{' '}
             <Link
               href="/admin"
@@ -86,12 +86,12 @@ export function RecentUpdates({ updates }: RecentUpdatesProps) {
                 className="group flex items-start justify-between gap-4 px-5 py-4 transition-colors hover:bg-muted/30 focus-visible:outline-none focus-visible:bg-muted/30"
               >
                 <div className="flex flex-col gap-1.5 min-w-0">
-                  <span className="truncate text-sm font-medium text-foreground group-hover:text-primary transition-colors">
+                  <span className="truncate text-base font-medium text-foreground group-hover:text-primary transition-colors">
                     {doc.title}
                   </span>
                   <SectionBadge section={doc.section} />
                 </div>
-                <span className="shrink-0 text-sm text-muted-foreground pt-0.5">
+                <span className="shrink-0 text-base text-muted-foreground pt-0.5">
                   {relativeTime(doc.updated_at)}
                 </span>
               </Link>

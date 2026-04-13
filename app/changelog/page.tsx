@@ -34,8 +34,8 @@ export default async function ChangelogPage() {
     <div className="space-y-8">
       {/* Page header */}
       <div className="space-y-1">
-        <h1 className="font-heading text-2xl font-semibold text-foreground">Changelog</h1>
-        <p className="text-sm text-muted-foreground">
+        <h1 className="font-heading text-3xl font-semibold text-foreground">Changelog</h1>
+        <p className="text-base text-muted-foreground">
           Alle aktualisierten Dokumente in chronologischer Reihenfolge.
         </p>
       </div>
@@ -54,8 +54,8 @@ export default async function ChangelogPage() {
           >
             <path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" />
           </svg>
-          <p className="mt-4 text-sm font-medium text-foreground">Noch keine Änderungen</p>
-          <p className="mt-1 text-sm text-muted-foreground">
+          <p className="mt-4 text-base font-medium text-foreground">Noch keine Änderungen</p>
+          <p className="mt-1 text-base text-muted-foreground">
             Bitte zuerst unter{' '}
             <Link href="/admin" className="underline underline-offset-4 hover:text-foreground">
               /admin
@@ -81,7 +81,7 @@ export default async function ChangelogPage() {
               />
 
               {/* Month heading */}
-              <h2 className="font-heading text-base font-semibold text-foreground capitalize">
+              <h2 className="font-heading text-lg font-semibold text-foreground capitalize">
                 {month.label}
               </h2>
 
@@ -95,7 +95,7 @@ export default async function ChangelogPage() {
                     >
                       {/* Section badge */}
                       <span
-                        className={`shrink-0 rounded-md px-2 py-0.5 text-sm font-medium ${
+                        className={`shrink-0 rounded-md px-2 py-0.5 text-base font-medium ${
                           SECTION_COLORS[entry.section ?? ''] ??
                           'bg-muted text-muted-foreground'
                         }`}
@@ -104,14 +104,14 @@ export default async function ChangelogPage() {
                       </span>
 
                       {/* Title */}
-                      <span className="flex-1 truncate text-sm font-medium text-foreground group-hover:text-primary">
+                      <span className="flex-1 truncate text-base font-medium text-foreground group-hover:text-primary">
                         {entry.title}
                       </span>
 
                       {/* Date */}
                       <time
                         dateTime={entry.updated_at?.toISOString()}
-                        className="shrink-0 text-sm tabular-nums text-muted-foreground"
+                        className="shrink-0 text-base tabular-nums text-muted-foreground"
                       >
                         {entry.updated_at?.toLocaleDateString('de-DE', {
                           day: '2-digit',

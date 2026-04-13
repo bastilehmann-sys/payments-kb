@@ -70,7 +70,7 @@ function CardRow({ entry }: { entry: RegulatorikEntry }) {
     >
       {/* Left: Kürzel badge */}
       <div className="flex w-[120px] shrink-0 flex-col items-center justify-center gap-1 border-r border-border bg-muted/20 px-3 py-4">
-        <span className="font-mono text-base font-bold text-[#4a9eff] text-center leading-tight">
+        <span className="font-mono text-lg font-bold text-[#4a9eff] text-center leading-tight">
           {kuerzel}
         </span>
         {entry.typ && (
@@ -96,7 +96,7 @@ function CardRow({ entry }: { entry: RegulatorikEntry }) {
           </p>
         )}
         {description && (
-          <p className="text-sm text-foreground/65 leading-relaxed line-clamp-2 max-w-prose">
+          <p className="text-base text-foreground/65 leading-relaxed line-clamp-2 max-w-prose">
             {description}
           </p>
         )}
@@ -183,7 +183,7 @@ export function CardRowList({ data }: { data: RegulatorikEntry[] }) {
             placeholder="Suche..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground/60 outline-none"
+            className="flex-1 bg-transparent text-base text-foreground placeholder:text-muted-foreground/60 outline-none"
           />
           {search && (
             <button onClick={() => setSearch('')} className="text-muted-foreground hover:text-foreground">
@@ -235,7 +235,7 @@ export function CardRowList({ data }: { data: RegulatorikEntry[] }) {
       {/* Card list */}
       <div className="space-y-3">
         {filtered.length === 0 ? (
-          <div className="rounded-lg border border-border bg-card px-6 py-12 text-center text-sm text-muted-foreground">
+          <div className="rounded-lg border border-border bg-card px-6 py-12 text-center text-base text-muted-foreground">
             Keine Einträge gefunden
           </div>
         ) : (

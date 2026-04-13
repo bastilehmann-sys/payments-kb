@@ -150,7 +150,7 @@ function DetailSection({ title, children }: { title: string; children: React.Rea
       <h3 className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/70">
         {title}
       </h3>
-      <div className="text-sm text-foreground/80 leading-relaxed whitespace-pre-line max-w-prose">
+      <div className="text-base text-foreground/80 leading-relaxed whitespace-pre-line max-w-prose">
         {children}
       </div>
     </div>
@@ -216,7 +216,7 @@ function SidePanel({
                     <span className="text-xs text-muted-foreground">{entry.kategorie}</span>
                   )}
                 </div>
-                <h2 className="font-heading text-lg font-semibold text-foreground leading-snug">
+                <h2 className="font-heading text-xl font-semibold text-foreground leading-snug">
                   {entry.name}
                 </h2>
               </div>
@@ -383,7 +383,7 @@ export function LinearGrid({ data }: { data: RegulatorikEntry[] }) {
             placeholder="Suche..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground/60 outline-none"
+            className="flex-1 bg-transparent text-base text-foreground placeholder:text-muted-foreground/60 outline-none"
           />
           {search && (
             <button
@@ -450,7 +450,7 @@ export function LinearGrid({ data }: { data: RegulatorikEntry[] }) {
                 <tr>
                   <td
                     colSpan={COLUMNS.length}
-                    className="px-4 py-10 text-center text-sm text-muted-foreground"
+                    className="px-4 py-10 text-center text-base text-muted-foreground"
                   >
                     Keine Einträge gefunden
                   </td>

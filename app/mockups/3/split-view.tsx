@@ -53,7 +53,7 @@ function DetailSection({
   return (
     <div className={cn('space-y-2 py-5 border-b border-border last:border-b-0', className)}>
       <dt className="text-[10px] font-bold uppercase tracking-widest text-[#b47aff]/80">{title}</dt>
-      <dd className="text-sm text-foreground/80 leading-relaxed whitespace-pre-line max-w-prose">
+      <dd className="text-base text-foreground/80 leading-relaxed whitespace-pre-line max-w-prose">
         {children}
       </dd>
     </div>
@@ -71,7 +71,7 @@ function DetailPanel({ entry }: { entry: RegulatorikEntry | null }) {
             <path d="M9 12h6M9 16h6M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2z" />
           </svg>
         </div>
-        <p className="text-sm text-muted-foreground/60">Eintrag auswählen</p>
+        <p className="text-base text-muted-foreground/60">Eintrag auswählen</p>
         <p className="text-xs text-muted-foreground/40">Klick auf einen Eintrag in der linken Liste</p>
       </div>
     );
@@ -94,12 +94,12 @@ function DetailPanel({ entry }: { entry: RegulatorikEntry | null }) {
         <div className="flex items-start gap-4">
           {/* Big kürzel badge */}
           <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border-2 border-[#b47aff]/40 bg-[#b47aff]/10">
-            <span className="font-mono text-base font-bold text-[#b47aff] leading-none">
+            <span className="font-mono text-lg font-bold text-[#b47aff] leading-none">
               {entry.kuerzel ?? '?'}
             </span>
           </div>
           <div className="flex-1 min-w-0 space-y-1.5">
-            <h2 className="font-heading text-xl font-bold text-foreground leading-snug">
+            <h2 className="font-heading text-2xl font-bold text-foreground leading-snug">
               {entry.name}
             </h2>
             <div className="flex flex-wrap items-center gap-2">

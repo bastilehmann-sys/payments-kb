@@ -37,8 +37,8 @@ export default function AdminPage() {
     <div className="space-y-8">
       {/* Page header */}
       <div className="space-y-1">
-        <h1 className="font-heading text-2xl font-semibold text-foreground">Admin</h1>
-        <p className="text-sm text-muted-foreground">
+        <h1 className="font-heading text-3xl font-semibold text-foreground">Admin</h1>
+        <p className="text-base text-muted-foreground">
           Verwaltung und Wartung der Knowledge Base.
         </p>
       </div>
@@ -46,17 +46,17 @@ export default function AdminPage() {
       {/* Reindex card */}
       <div className="rounded-xl border border-border bg-card p-6 space-y-5">
         <div className="space-y-1">
-          <h2 className="font-heading text-base font-semibold text-foreground">
+          <h2 className="font-heading text-lg font-semibold text-foreground">
             Inhalte neu indizieren
           </h2>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-base text-muted-foreground">
             Liest alle Markdown-Dokumente aus dem Content-Verzeichnis, erstellt Embeddings und
             aktualisiert die Datenbank. Unveränderte Dateien werden übersprungen.
           </p>
         </div>
 
         {/* Warning */}
-        <div className="flex items-start gap-3 rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-700 dark:text-amber-300">
+        <div className="flex items-start gap-3 rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-base text-amber-700 dark:text-amber-300">
           <svg
             className="mt-0.5 size-4 shrink-0"
             viewBox="0 0 24 24"
@@ -79,7 +79,7 @@ export default function AdminPage() {
         <button
           onClick={handleReindex}
           disabled={state.status === 'loading'}
-          className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-base font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {state.status === 'loading' ? (
             <>
@@ -116,7 +116,7 @@ export default function AdminPage() {
 
         {/* Error state */}
         {state.status === 'error' && (
-          <div className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-700 dark:text-red-300">
+          <div className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-base text-red-700 dark:text-red-300">
             <strong>Fehler:</strong> {state.message}
           </div>
         )}
@@ -146,7 +146,7 @@ export default function AdminPage() {
             {/* Per-file list */}
             {Object.keys(state.result.per_file).length > 0 && (
               <div className="overflow-hidden rounded-lg border border-border">
-                <table className="w-full text-sm">
+                <table className="w-full text-base">
                   <thead>
                     <tr className="border-b border-border bg-muted/50">
                       <th className="px-4 py-2 text-left font-medium text-muted-foreground">
@@ -163,19 +163,19 @@ export default function AdminPage() {
                   <tbody className="divide-y divide-border">
                     {Object.entries(state.result.per_file).map(([filename, fileResult]) => (
                       <tr key={filename} className="bg-card">
-                        <td className="px-4 py-2 font-mono text-sm text-foreground">
+                        <td className="px-4 py-2 font-mono text-base text-foreground">
                           {filename}
                         </td>
                         <td className="px-4 py-2">
                           {fileResult.status === 'processed' ? (
-                            <span className="inline-flex items-center gap-1 rounded-full bg-green-500/15 px-2 py-0.5 text-sm font-medium text-green-700 dark:text-green-400">
+                            <span className="inline-flex items-center gap-1 rounded-full bg-green-500/15 px-2 py-0.5 text-base font-medium text-green-700 dark:text-green-400">
                               <svg className="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                 <polyline points="20 6 9 17 4 12" />
                               </svg>
                               Verarbeitet
                             </span>
                           ) : (
-                            <span className="inline-flex items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-sm font-medium text-muted-foreground">
+                            <span className="inline-flex items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-base font-medium text-muted-foreground">
                               <svg className="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                 <line x1="5" y1="12" x2="19" y2="12" />
                               </svg>
@@ -218,8 +218,8 @@ function StatBadge({
     <div
       className={`rounded-lg border px-4 py-3 text-center min-w-[100px] ${colorClasses[color]}`}
     >
-      <div className="text-2xl font-semibold tabular-nums">{value}</div>
-      <div className="mt-0.5 text-sm">{label}</div>
+      <div className="text-3xl font-semibold tabular-nums">{value}</div>
+      <div className="mt-0.5 text-base">{label}</div>
     </div>
   );
 }

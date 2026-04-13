@@ -16,7 +16,7 @@ function StatusCell({ value }: { value: string | null }) {
     value.toLowerCase().includes(key.toLowerCase())
   )?.[1] ?? 'text-foreground';
   return (
-    <span className={`text-sm font-medium ${colorClass}`}>
+    <span className={`text-base font-medium ${colorClass}`}>
       {value}
     </span>
   );
@@ -38,7 +38,7 @@ const columns: DataGridColumn<IhbEntry>[] = [
     header: 'ISO',
     size: 90,
     cell: ({ getValue }) => (
-      <span className="font-mono text-sm text-muted-foreground">
+      <span className="font-mono text-base text-muted-foreground">
         {getValue<string>() ?? '—'}
       </span>
     ),
@@ -89,7 +89,7 @@ const columns: DataGridColumn<IhbEntry>[] = [
     cell: ({ getValue }) => {
       const v = getValue<string>();
       if (!v) return null;
-      return <span className="line-clamp-2 text-sm text-muted-foreground">{v}</span>;
+      return <span className="line-clamp-2 text-base text-muted-foreground">{v}</span>;
     },
   },
   { accessorKey: 'einschraenkungen_experte', label: 'Einschränkungen (Experte)', header: 'Einschränkungen (Exp.)' },

@@ -95,10 +95,10 @@ export function FormatSampleCard({ formatName, versions }: FormatSampleCardProps
         {/* Header row */}
         <div className="flex items-center justify-between gap-4 px-5 py-4">
           <div className="min-w-0 flex-1">
-            <div className="mb-1 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+            <div className="mb-1 text-base font-semibold uppercase tracking-wider text-muted-foreground">
               Beispiel-Dateien · {matchedVersions.length} Versionen
             </div>
-            <div className="text-base text-foreground/90">
+            <div className="text-lg text-foreground/90">
               <span className="font-medium">{formatName}</span>
               {currentVersion && (
                 <span className="ml-2 rounded bg-primary/10 px-1.5 py-0.5 text-xs font-semibold text-primary">
@@ -112,7 +112,7 @@ export function FormatSampleCard({ formatName, versions }: FormatSampleCardProps
               <a
                 href={currentVersion.sample_file}
                 download
-                className="inline-flex items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+                className="inline-flex items-center gap-2 rounded-md bg-primary px-3 py-2 text-base font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
               >
                 <IconDownload />
                 Aktuell
@@ -120,14 +120,14 @@ export function FormatSampleCard({ formatName, versions }: FormatSampleCardProps
             )}
             <Link
               href={compareUrl}
-              className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-3 py-2 text-sm font-medium text-foreground/80 hover:bg-muted/50 transition-colors"
+              className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-3 py-2 text-base font-medium text-foreground/80 hover:bg-muted/50 transition-colors"
             >
               <IconCompare />
               Vergleichen
             </Link>
             <button
               onClick={() => setExpanded((e) => !e)}
-              className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
+              className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3 py-2 text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
               aria-expanded={expanded}
             >
               {expanded ? 'Einklappen' : 'Alle Versionen'}
@@ -151,7 +151,7 @@ export function FormatSampleCard({ formatName, versions }: FormatSampleCardProps
                   >
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2">
-                        <span className="text-sm font-mono font-medium text-foreground/90">
+                        <span className="text-base font-mono font-medium text-foreground/90">
                           {v.format_name}.{v.version}
                         </span>
                         {v.is_current && (
@@ -207,15 +207,15 @@ export function FormatSampleCard({ formatName, versions }: FormatSampleCardProps
   return (
     <div className="mb-6 flex items-center justify-between gap-4 rounded-xl border border-border bg-muted/20 p-5">
       <div>
-        <div className="mb-1 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+        <div className="mb-1 text-base font-semibold uppercase tracking-wider text-muted-foreground">
           Beispiel-Datei
         </div>
-        <div className="text-base text-foreground/90">{sample.label}</div>
+        <div className="text-lg text-foreground/90">{sample.label}</div>
       </div>
       <a
         href={sample.file}
         download
-        className="inline-flex shrink-0 items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+        className="inline-flex shrink-0 items-center gap-2 rounded-md bg-primary px-4 py-2 text-base font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
       >
         <IconDownload />
         Download

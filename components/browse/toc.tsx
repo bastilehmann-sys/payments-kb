@@ -39,7 +39,7 @@ export function Toc({ entries }: TocProps) {
 
   return (
     <nav aria-label="Inhaltsverzeichnis" className="space-y-1">
-      <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+      <p className="mb-2 text-base font-semibold uppercase tracking-wider text-muted-foreground">
         Inhalt
       </p>
       <ul className="space-y-0.5">
@@ -47,7 +47,7 @@ export function Toc({ entries }: TocProps) {
           <li key={entry.slug}>
             <a
               href={`#${entry.slug}`}
-              className={`block truncate py-0.5 text-sm transition-colors ${
+              className={`block truncate py-0.5 text-base transition-colors ${
                 entry.level === 3 ? 'pl-3' : 'pl-0'
               } ${
                 activeSlug === entry.slug

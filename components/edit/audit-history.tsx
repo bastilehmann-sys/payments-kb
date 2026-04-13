@@ -107,10 +107,10 @@ export function AuditHistory({ table, id, onClose }: AuditHistoryProps) {
       {/* Content */}
       <div className="flex-1 overflow-y-auto px-8 py-5">
         {loading ? (
-          <p className="text-sm text-muted-foreground/60">Lädt…</p>
+          <p className="text-base text-muted-foreground/60">Lädt…</p>
         ) : rows.length === 0 ? (
           <div className="py-8 text-center">
-            <p className="text-sm text-muted-foreground/60">Noch keine Änderungen</p>
+            <p className="text-base text-muted-foreground/60">Noch keine Änderungen</p>
             <p className="mt-1 text-xs text-muted-foreground/40">
               Änderungen erscheinen hier nach dem ersten Speichern.
             </p>
@@ -127,7 +127,7 @@ export function AuditHistory({ table, id, onClose }: AuditHistoryProps) {
                   onClick={() => toggleExpand(row.id)}
                 >
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-medium text-foreground truncate">
+                    <p className="text-base font-medium text-foreground truncate">
                       <code className="font-mono text-[11px] text-primary">{row.field}</code>
                       {' '}geändert
                     </p>

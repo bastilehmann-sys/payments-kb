@@ -19,8 +19,8 @@ export default async function Mockup3Page() {
             </span>
             <span className="text-xs text-muted-foreground">Split Master-Detail</span>
           </div>
-          <h1 className="font-heading text-2xl font-semibold text-foreground">Regulatorik</h1>
-          <p className="text-sm text-muted-foreground">
+          <h1 className="font-heading text-3xl font-semibold text-foreground">Regulatorik</h1>
+          <p className="text-base text-muted-foreground">
             Links: Liste · Rechts: vollständiges Detail · Klick aktualisiert Detailansicht
           </p>
         </div>

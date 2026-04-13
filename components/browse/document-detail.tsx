@@ -38,7 +38,7 @@ const components: Components = {
   h2({ children }) {
     return (
       <div className="mb-4 mt-10 border-t border-border pt-6 first:mt-0 first:border-t-0 first:pt-0">
-        <h2 className="font-heading text-sm font-semibold uppercase tracking-wider text-[#86bc25]/80">
+        <h2 className="font-heading text-base font-semibold uppercase tracking-wider text-[#86bc25]/80">
           {children}
         </h2>
       </div>
@@ -48,7 +48,7 @@ const components: Components = {
   // H3: field-label style
   h3({ children }) {
     return (
-      <h3 className="mb-2 mt-6 text-sm font-semibold uppercase tracking-wider text-muted-foreground/60">
+      <h3 className="mb-2 mt-6 text-base font-semibold uppercase tracking-wider text-muted-foreground/60">
         {children}
       </h3>
     );
@@ -57,14 +57,14 @@ const components: Components = {
   // H4/H5: compact sub-heading
   h4({ children }) {
     return (
-      <h4 className="mb-1 mt-4 text-sm font-semibold text-foreground/80">
+      <h4 className="mb-1 mt-4 text-base font-semibold text-foreground/80">
         {children}
       </h4>
     );
   },
   h5({ children }) {
     return (
-      <h5 className="mb-1 mt-3 text-sm font-semibold text-foreground/70">
+      <h5 className="mb-1 mt-3 text-base font-semibold text-foreground/70">
         {children}
       </h5>
     );
@@ -78,13 +78,13 @@ const components: Components = {
       return (
         <>
           {split.intro && (
-            <p className="mb-2 text-base leading-relaxed text-foreground/90">
+            <p className="mb-2 text-lg leading-relaxed text-foreground/90">
               {split.intro}
             </p>
           )}
           <ul className="mb-4 list-disc space-y-2 pl-6 marker:text-primary/60">
             {split.items.map((item, i) => (
-              <li key={i} className="text-base leading-relaxed text-foreground/90">
+              <li key={i} className="text-lg leading-relaxed text-foreground/90">
                 {item}
               </li>
             ))}
@@ -93,7 +93,7 @@ const components: Components = {
       );
     }
     return (
-      <p className="mb-4 text-base leading-relaxed text-foreground/90">
+      <p className="mb-4 text-lg leading-relaxed text-foreground/90">
         {children}
       </p>
     );
@@ -120,13 +120,13 @@ const components: Components = {
     const sub = splitIntoSubtopics(rawText);
     if (sub.kind === 'subtopics') {
       return (
-        <li className="text-sm leading-relaxed text-foreground/90">
+        <li className="text-base leading-relaxed text-foreground/90">
           {sub.intro && (
-            <p className="mb-1.5 text-sm leading-relaxed italic text-foreground/80">{sub.intro}</p>
+            <p className="mb-1.5 text-base leading-relaxed italic text-foreground/80">{sub.intro}</p>
           )}
           <ul className="mt-1.5 list-none space-y-1.5 pl-0">
             {sub.topics.map((t, i) => (
-              <li key={`${i}-${t.label}`} className="text-sm">
+              <li key={`${i}-${t.label}`} className="text-base">
                 <span className="mr-1.5 inline-block rounded bg-primary/10 px-1.5 py-0.5 text-[13px] font-semibold text-primary">
                   {t.label}
                 </span>
@@ -138,7 +138,7 @@ const components: Components = {
       );
     }
     return (
-      <li className="text-base leading-relaxed text-foreground/90">
+      <li className="text-lg leading-relaxed text-foreground/90">
         {children}
       </li>
     );
@@ -148,7 +148,7 @@ const components: Components = {
   table({ children }) {
     return (
       <div className="mb-6 w-full overflow-x-auto rounded-lg border border-border">
-        <table className="w-full border-collapse text-sm">
+        <table className="w-full border-collapse text-base">
           {children}
         </table>
       </div>
@@ -169,14 +169,14 @@ const components: Components = {
   },
   th({ children }) {
     return (
-      <th className="border-b border-border bg-muted/50 px-4 py-2 text-left text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+      <th className="border-b border-border bg-muted/50 px-4 py-2 text-left text-base font-semibold uppercase tracking-wider text-muted-foreground">
         {children}
       </th>
     );
   },
   td({ children }) {
     return (
-      <td className="px-4 py-2 align-top text-sm text-foreground/90">
+      <td className="px-4 py-2 align-top text-base text-foreground/90">
         {children}
       </td>
     );
@@ -207,7 +207,7 @@ const components: Components = {
       );
     }
     return (
-      <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm text-foreground">
+      <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-base text-foreground">
         {children}
       </code>
     );
@@ -216,7 +216,7 @@ const components: Components = {
   // Code block
   pre({ children }) {
     return (
-      <pre className="mb-4 overflow-x-auto rounded-lg border border-border bg-muted p-4 font-mono text-sm">
+      <pre className="mb-4 overflow-x-auto rounded-lg border border-border bg-muted p-4 font-mono text-base">
         {children}
       </pre>
     );

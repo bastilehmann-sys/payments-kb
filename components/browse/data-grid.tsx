@@ -142,7 +142,7 @@ function RowDetail<T extends object>({
             <p className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
               {label}
             </p>
-            <p className="whitespace-pre-wrap text-sm leading-relaxed text-foreground">
+            <p className="whitespace-pre-wrap text-base leading-relaxed text-foreground">
               {cell}
             </p>
           </div>
@@ -202,7 +202,7 @@ function ColumnVisibilityDropdown<T extends object>({
               <button
                 key={id}
                 onClick={() => onToggle(id)}
-                className="flex w-full items-center gap-2.5 rounded px-2 py-1.5 text-left text-sm hover:bg-muted"
+                className="flex w-full items-center gap-2.5 rounded px-2 py-1.5 text-left text-base hover:bg-muted"
               >
                 <span
                   className={cn(
@@ -340,7 +340,7 @@ export function DataGrid<T extends object>({
 
       {/* Table wrapper — horizontal scroll on small screens */}
       <div className="overflow-auto rounded-lg border border-border">
-        <table className="w-full min-w-[640px] text-sm">
+        <table className="w-full min-w-[640px] text-base">
           {/* Sticky header */}
           <thead className="sticky top-0 z-10 bg-muted/80 backdrop-blur-sm">
             {table.getHeaderGroups().map((headerGroup) => (
@@ -351,7 +351,7 @@ export function DataGrid<T extends object>({
                   return (
                     <th
                       key={header.id}
-                      className="px-3 py-2.5 text-left text-sm font-semibold uppercase tracking-wider text-muted-foreground"
+                      className="px-3 py-2.5 text-left text-base font-semibold uppercase tracking-wider text-muted-foreground"
                       style={{ width: header.getSize() !== 150 ? header.getSize() : undefined }}
                     >
                       <div className="flex flex-col gap-1">
@@ -380,7 +380,7 @@ export function DataGrid<T extends object>({
                             placeholder="…"
                             value={(header.column.getFilterValue() as string) ?? ''}
                             onChange={(e) => header.column.setFilterValue(e.target.value)}
-                            className="h-6 text-sm"
+                            className="h-6 text-base"
                             onClick={(e) => e.stopPropagation()}
                           />
                         )}
@@ -397,7 +397,7 @@ export function DataGrid<T extends object>({
               <tr>
                 <td
                   colSpan={columns.length}
-                  className="px-4 py-10 text-center text-sm text-muted-foreground"
+                  className="px-4 py-10 text-center text-base text-muted-foreground"
                 >
                   Keine Einträge gefunden.
                 </td>
@@ -420,7 +420,7 @@ export function DataGrid<T extends object>({
                       {row.getVisibleCells().map((cell) => (
                         <td
                           key={cell.id}
-                          className="px-3 py-2.5 align-top text-sm text-foreground"
+                          className="px-3 py-2.5 align-top text-base text-foreground"
                         >
                           {flexRender(cell.column.columnDef.cell, cell.getContext())}
                         </td>
@@ -455,7 +455,7 @@ export function DataGrid<T extends object>({
       </div>
 
       {/* Footer: row count */}
-      <div className="flex items-center justify-between text-sm text-muted-foreground">
+      <div className="flex items-center justify-between text-base text-muted-foreground">
         <span>
           {filteredCount === totalRows
             ? `${totalRows} Einträge`

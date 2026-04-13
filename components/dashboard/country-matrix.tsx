@@ -27,12 +27,12 @@ function CountryCard({ country }: { country: Country }) {
       className="group flex flex-col gap-2 rounded-lg bg-card p-3 ring-1 ring-foreground/10 transition-all duration-150 hover:ring-primary/60 hover:bg-card/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
     >
       <div className="flex items-center justify-between gap-1">
-        <span className="text-sm font-mono text-muted-foreground tracking-widest uppercase leading-none">
+        <span className="text-base font-mono text-muted-foreground tracking-widest uppercase leading-none">
           {country.code}
         </span>
         <AmpelDot complexity={country.complexity} />
       </div>
-      <span className="text-sm font-semibold leading-tight text-card-foreground line-clamp-2">
+      <span className="text-base font-semibold leading-tight text-card-foreground line-clamp-2">
         {country.name}
       </span>
     </Link>
@@ -46,9 +46,9 @@ interface CountryMatrixProps {
 export function CountryMatrix({ countries }: CountryMatrixProps) {
   if (countries.length === 0) {
     return (
-      <p className="text-sm text-muted-foreground">
+      <p className="text-base text-muted-foreground">
         Keine Länder gefunden — bitte{' '}
-        <code className="font-mono text-sm">pnpm db:seed:countries</code> ausführen.
+        <code className="font-mono text-base">pnpm db:seed:countries</code> ausführen.
       </p>
     );
   }

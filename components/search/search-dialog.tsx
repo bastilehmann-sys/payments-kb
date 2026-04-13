@@ -136,7 +136,7 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
               placeholder="Suche in der Knowledge Base…"
-              className="flex-1 bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground"
+              className="flex-1 bg-transparent text-base text-foreground outline-none placeholder:text-muted-foreground"
               aria-label="Volltext-Suche"
             />
             {loading && (
@@ -151,7 +151,7 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
                 <path d="M21 12a9 9 0 11-6.219-8.56" />
               </svg>
             )}
-            <kbd className="hidden rounded border border-border bg-muted px-1.5 py-0.5 font-mono text-sm text-muted-foreground sm:inline">
+            <kbd className="hidden rounded border border-border bg-muted px-1.5 py-0.5 font-mono text-base text-muted-foreground sm:inline">
               Esc
             </kbd>
           </div>
@@ -159,13 +159,13 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
           {/* Results */}
           <div className="max-h-[60vh] overflow-y-auto py-2">
             {query.trim().length >= 2 && !loading && results.length === 0 && (
-              <p className="px-4 py-8 text-center text-sm text-muted-foreground">
+              <p className="px-4 py-8 text-center text-base text-muted-foreground">
                 Keine Ergebnisse für &ldquo;{query}&rdquo;
               </p>
             )}
 
             {query.trim().length < 2 && (
-              <p className="px-4 py-8 text-center text-sm text-muted-foreground">
+              <p className="px-4 py-8 text-center text-base text-muted-foreground">
                 Mindestens 2 Zeichen eingeben…
               </p>
             )}
@@ -173,7 +173,7 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
             {Object.entries(grouped).map(([section, sectionResults]) => (
               <div key={section}>
                 <div className="px-4 pb-1 pt-3">
-                  <span className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+                  <span className="text-base font-semibold uppercase tracking-wider text-muted-foreground">
                     {SECTION_LABELS[section] ?? section}
                   </span>
                 </div>
@@ -191,17 +191,17 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
                       )}
                     >
                       <div className="flex items-baseline gap-2">
-                        <span className="truncate text-sm font-medium text-foreground">
+                        <span className="truncate text-base font-medium text-foreground">
                           {result.doc_title}
                         </span>
                         {result.heading && (
-                          <span className="shrink-0 text-sm text-muted-foreground">
+                          <span className="shrink-0 text-base text-muted-foreground">
                             #{result.heading}
                           </span>
                         )}
                       </div>
                       <p
-                        className="mt-0.5 line-clamp-2 text-sm text-muted-foreground [&_mark]:bg-primary/20 [&_mark]:text-foreground"
+                        className="mt-0.5 line-clamp-2 text-base text-muted-foreground [&_mark]:bg-primary/20 [&_mark]:text-foreground"
                         dangerouslySetInnerHTML={{ __html: result.snippet }}
                       />
                     </button>
@@ -213,17 +213,17 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
 
           {/* Footer */}
           {results.length > 0 && (
-            <div className="flex items-center gap-4 border-t border-border px-4 py-2 text-sm text-muted-foreground">
+            <div className="flex items-center gap-4 border-t border-border px-4 py-2 text-base text-muted-foreground">
               <span className="flex items-center gap-1">
-                <kbd className="rounded border border-border bg-muted px-1 py-0.5 font-mono text-sm">↑↓</kbd>
+                <kbd className="rounded border border-border bg-muted px-1 py-0.5 font-mono text-base">↑↓</kbd>
                 navigieren
               </span>
               <span className="flex items-center gap-1">
-                <kbd className="rounded border border-border bg-muted px-1 py-0.5 font-mono text-sm">↵</kbd>
+                <kbd className="rounded border border-border bg-muted px-1 py-0.5 font-mono text-base">↵</kbd>
                 öffnen
               </span>
               <span className="flex items-center gap-1">
-                <kbd className="rounded border border-border bg-muted px-1 py-0.5 font-mono text-sm">Esc</kbd>
+                <kbd className="rounded border border-border bg-muted px-1 py-0.5 font-mono text-base">Esc</kbd>
                 schließen
               </span>
             </div>

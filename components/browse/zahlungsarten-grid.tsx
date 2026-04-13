@@ -19,7 +19,7 @@ const columns: DataGridColumn<ZahlungsartEntry>[] = [
     header: 'Code',
     size: 100,
     cell: ({ getValue }) => (
-      <span className="font-mono text-sm font-semibold text-primary">
+      <span className="font-mono text-base font-semibold text-primary">
         {getValue<string>() ?? '—'}
       </span>
     ),
@@ -44,7 +44,7 @@ const columns: DataGridColumn<ZahlungsartEntry>[] = [
     cell: ({ getValue }) => {
       const v = getValue<string>();
       if (!v) return null;
-      return <span className="line-clamp-2 text-sm">{v}</span>;
+      return <span className="line-clamp-2 text-base">{v}</span>;
     },
   },
   {
@@ -54,7 +54,7 @@ const columns: DataGridColumn<ZahlungsartEntry>[] = [
     cell: ({ getValue }) => {
       const v = getValue<string>();
       if (!v) return null;
-      return <span className="line-clamp-2 text-sm text-muted-foreground">{v}</span>;
+      return <span className="line-clamp-2 text-base text-muted-foreground">{v}</span>;
     },
   },
   {
@@ -64,7 +64,7 @@ const columns: DataGridColumn<ZahlungsartEntry>[] = [
     cell: ({ getValue }) => {
       const v = getValue<string>();
       if (!v) return null;
-      return <span className="line-clamp-2 text-sm text-muted-foreground">{v}</span>;
+      return <span className="line-clamp-2 text-base text-muted-foreground">{v}</span>;
     },
   },
   { accessorKey: 'beschreibung_experte', label: 'Beschreibung (Experte)', header: 'Beschreibung (Exp.)' },

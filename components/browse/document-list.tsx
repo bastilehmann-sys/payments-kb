@@ -40,10 +40,10 @@ export function DocumentList({ documents, section }: DocumentListProps) {
           <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" />
           <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
         </svg>
-        <p className="text-sm font-medium text-muted-foreground">
+        <p className="text-base font-medium text-muted-foreground">
           Keine Dokumente in dieser Sektion
         </p>
-        <p className="mt-1 text-sm text-muted-foreground/60">
+        <p className="mt-1 text-base text-muted-foreground/60">
           Dokumente werden nach dem nächsten Ingest hier angezeigt.
         </p>
       </div>
@@ -74,16 +74,16 @@ export function DocumentList({ documents, section }: DocumentListProps) {
               <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" />
               <path d="M14 2v6h6" />
             </svg>
-            <span className="truncate text-sm font-medium text-foreground group-hover:text-primary transition-colors">
+            <span className="truncate text-base font-medium text-foreground group-hover:text-primary transition-colors">
               {doc.title}
             </span>
           </div>
 
           <div className="flex shrink-0 items-center gap-3">
-            <span className="hidden rounded-full border border-border bg-muted/40 px-2 py-0.5 text-sm text-muted-foreground sm:inline">
+            <span className="hidden rounded-full border border-border bg-muted/40 px-2 py-0.5 text-base text-muted-foreground sm:inline">
               {sectionLabel}
             </span>
-            <span className="text-sm tabular-nums text-muted-foreground/60">
+            <span className="text-base tabular-nums text-muted-foreground/60">
               {formatDate(doc.updated_at)}
             </span>
             <svg

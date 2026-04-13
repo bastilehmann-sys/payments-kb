@@ -60,7 +60,9 @@ export default async function FormatePage() {
   // 1. Version-backed items
   for (const v of versions) {
     const base = entryByName.get(v.format_name.toLowerCase());
-    const fullVersion = `${v.format_name}.${v.version}`;
+    // Drop redundant ".001" variant segment: "001.001.03" → "001.03"
+    const cleanVersion = v.version.replace(/^001\.001\./, '001.');
+    const fullVersion = `${v.format_name}.${cleanVersion}`;
     syntheticItems.push({
       // Unique id for URL selection
       format_version_id: v.id,

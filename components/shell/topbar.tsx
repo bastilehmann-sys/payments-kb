@@ -111,15 +111,6 @@ export function Topbar({ className }: TopbarProps) {
         })}
       </nav>
 
-      {/* Debug: Mockups IT */}
-      <a
-        href="/mockups/it"
-        className="hidden rounded-md border border-dashed border-amber-400/60 bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700 transition-colors hover:bg-amber-100 lg:inline-flex items-center gap-1"
-      >
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="size-3 shrink-0"><path d="M8 2a6 6 0 100 12A6 6 0 008 2zm0 2v4l2.5 1.5" /></svg>
-        Mockups IT
-      </a>
-
       {/* Spacer */}
       <div className="flex-1" />
 

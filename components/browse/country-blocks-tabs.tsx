@@ -68,9 +68,11 @@ function FieldRow({ row }: { row: CountryBlockRow }) {
   );
 }
 
-export function TabsView({ blocks }: Props) {
+export function CountryBlocksTabs({ blocks }: Props) {
   const [activeTab, setActiveTab] = useState(0);
   const active = blocks[activeTab];
+
+  if (!blocks || blocks.length === 0) return null;
 
   return (
     <div className="rounded-xl border border-border bg-card overflow-hidden">

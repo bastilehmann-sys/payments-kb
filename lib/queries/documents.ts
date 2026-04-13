@@ -1,5 +1,5 @@
 import { db } from '@/db/client';
-import { documents, countries } from '@/db/schema';
+import { documents, countries, countryBlocks } from '@/db/schema';
 import { eq, asc, sql } from 'drizzle-orm';
 
 export type DocumentRow = {
@@ -122,6 +122,61 @@ export async function listCountriesWithDocuments(): Promise<CountryWithDocument[
     }
   }
   return result;
+}
+
+// ─── Country Blocks ───────────────────────────────────────────────────────────
+
+export type CountryBlockRow = {
+  blockNo: number;
+  blockTitle: string;
+  rowOrder: number;
+  feld: string;
+  experte: string | null;
+  einsteiger: string | null;
+  praxis: string | null;
+};
+
+export type CountryBlockGroup = {
+  blockNo: number;
+  blockTitle: string;
+  rows: CountryBlockRow[];
+};
+
+export async function getCountryBlocks(code: string): Promise<CountryBlockGroup[]> {
+  const rows = await db
+    .select({
+      block_no: countryBlocks.block_no,
+      block_title: countryBlocks.block_title,
+      row_order: countryBlocks.row_order,
+      feld: countryBlocks.feld,
+      experte: countryBlocks.experte,
+      einsteiger: countryBlocks.einsteiger,
+      praxis: countryBlocks.praxis,
+    })
+    .from(countryBlocks)
+    .where(eq(countryBlocks.country_code, code.toUpperCase()))
+    .orderBy(asc(countryBlocks.block_no), asc(countryBlocks.row_order));
+
+  const blockMap = new Map<number, CountryBlockGroup>();
+  for (const r of rows) {
+    if (!blockMap.has(r.block_no)) {
+      blockMap.set(r.block_no, {
+        blockNo: r.block_no,
+        blockTitle: r.block_title,
+        rows: [],
+      });
+    }
+    blockMap.get(r.block_no)!.rows.push({
+      blockNo: r.block_no,
+      blockTitle: r.block_title,
+      rowOrder: r.row_order,
+      feld: r.feld,
+      experte: r.experte,
+      einsteiger: r.einsteiger,
+      praxis: r.praxis,
+    });
+  }
+  return Array.from(blockMap.values());
 }
 
 export async function getCountry(code: string): Promise<CountryWithDocument | null> {

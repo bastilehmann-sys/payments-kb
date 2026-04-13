@@ -15,7 +15,9 @@
     "db:reindex": "DOTENV_CONFIG_PATH=.env.local tsx scripts/reindex-local.ts",
     "db:seed:countries": "tsx scripts/seed-countries.ts",
     "db:import:structured": "DOTENV_CONFIG_PATH=.env.local tsx scripts/import-excel-structured.ts",
-    "db:seed:format-versions": "DOTENV_CONFIG_PATH=.env.local tsx scripts/seed-format-versions.ts"
+    "db:seed:format-versions": "DOTENV_CONFIG_PATH=.env.local tsx scripts/seed-format-versions.ts",
+    "db:migrate:country-blocks": "DOTENV_CONFIG_PATH=.env.local tsx scripts/migrate-country-blocks.ts",
+    "db:import:italien-blocks": "DOTENV_CONFIG_PATH=.env.local tsx scripts/import-italien-blocks.ts"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.11.1",

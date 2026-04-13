@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { ThemeToggle } from "./theme-toggle"
@@ -11,6 +11,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet"
 import { signOut } from "next-auth/react"
+import { SearchDialog } from "@/components/search/search-dialog"
 
 interface TopbarProps {
   className?: string
@@ -18,6 +19,19 @@ interface TopbarProps {
 
 export function Topbar({ className }: TopbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
+
+  // Global Cmd+K / Ctrl+K hotkey
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault()
+        setSearchOpen((prev) => !prev)
+      }
+    }
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [])
 
   return (
     <header
@@ -56,8 +70,9 @@ export function Topbar({ className }: TopbarProps) {
 
       {/* Search button */}
       <button
+        onClick={() => setSearchOpen(true)}
         className="flex items-center gap-2 rounded-md border border-border bg-muted/40 px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:border-border hover:bg-muted/70 hover:text-foreground"
-        aria-label="Open search (Cmd K)"
+        aria-label="Suche öffnen (Cmd K)"
       >
         <svg
           viewBox="0 0 24 24"
@@ -132,6 +147,9 @@ export function Topbar({ className }: TopbarProps) {
           <SidebarContent onNavClick={() => setMobileOpen(false)} />
         </SheetContent>
       </Sheet>
+
+      {/* Search dialog */}
+      <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
     </header>
   )
 }

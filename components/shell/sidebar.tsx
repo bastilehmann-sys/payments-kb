@@ -5,6 +5,13 @@ import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { NAV_ITEMS, type NavItem } from "./nav-items"
 
+/** Secondary links shown only when a parent nav item is active */
+const SUB_NAV: Record<string, { label: string; href: string }[]> = {
+  "/formate": [
+    { label: "Format-Vergleich", href: "/formate/vergleich" },
+  ],
+}
+
 function NavIcon({ path, className }: { path: string; className?: string }) {
   return (
     <svg
@@ -57,6 +64,26 @@ function NavLink({ item, onClick }: { item: NavItem; onClick?: () => void }) {
   )
 }
 
+function SubNavLink({ href, label, onClick }: { href: string; label: string; onClick?: () => void }) {
+  const pathname = usePathname()
+  const isActive = pathname === href || pathname.startsWith(href + '/')
+  return (
+    <Link
+      href={href}
+      onClick={onClick}
+      className={cn(
+        "flex items-center gap-2 rounded-md px-2 py-1 text-xs transition-colors duration-150",
+        isActive
+          ? "text-primary font-medium"
+          : "text-sidebar-foreground/50 hover:text-sidebar-foreground/80"
+      )}
+    >
+      <span className="inline-block h-px w-3 shrink-0 bg-current opacity-40" />
+      {label}
+    </Link>
+  )
+}
+
 interface SidebarContentProps {
   onNavClick?: () => void
 }
@@ -98,11 +125,23 @@ export function SidebarContent({ onNavClick }: SidebarContentProps) {
       {/* Nav */}
       <nav className="flex-1 overflow-y-auto px-2 py-3">
         <ul className="flex flex-col gap-0.5" role="list">
-          {NAV_ITEMS.map((item) => (
-            <li key={item.href}>
-              <NavLink item={item} onClick={onNavClick} />
-            </li>
-          ))}
+          {NAV_ITEMS.map((item) => {
+            const subItems = SUB_NAV[item.href] ?? [];
+            return (
+              <li key={item.href}>
+                <NavLink item={item} onClick={onNavClick} />
+                {subItems.length > 0 && (
+                  <ul className="mt-0.5 ml-7 flex flex-col gap-0.5">
+                    {subItems.map((sub) => (
+                      <li key={sub.href}>
+                        <SubNavLink href={sub.href} label={sub.label} onClick={onNavClick} />
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            );
+          })}
         </ul>
       </nav>
 

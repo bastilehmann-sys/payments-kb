@@ -15,6 +15,7 @@ const FULLSCREEN_PATHS = [
   "/zahlungsarten",
   "/ihb",
   "/laender",
+  "/formate/vergleich",
 ]
 
 export function AppShell({ children }: AppShellProps) {

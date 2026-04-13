@@ -210,7 +210,7 @@ function groupPairs(columns: Column[]): Array<{ type: 'pair'; base: string; expe
 
 function SectionHeading({ title }: { title: string }) {
   return (
-    <div className="sticky top-0 z-10 -mx-4 mb-3 mt-8 bg-card px-4 py-3 first:mt-0 md:-mx-10 md:px-10">
+    <div className="mb-3 mt-10 border-t border-border pt-6 first:mt-0 first:border-t-0 first:pt-0">
       <h3 className="font-heading text-sm font-semibold uppercase tracking-wider text-[#86bc25]/80">
         {title}
       </h3>

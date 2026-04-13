@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- pain.001.001.11 — Credit Transfer Initiation (2022) -->
-<!-- Introduces CPP (Common Payment Part) concept and enhanced structured address -->
+<!-- pain.001.001.11 — Credit Transfer Initiation (ISO 20022, 2022)           -->
+<!-- Minor revision vs .10. Key additions: CardTransaction supplementary data, -->
+<!-- enhanced RemittanceInformation (AddtlRmtInf in Strd block), extended Rmt  -->
+<!-- location info. Structured address same as .09/.10 — no new fields.        -->
 <Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.11"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.001.001.11 pain.001.001.11.xsd">
   <CstmrCdtTrfInitn>
     <GrpHdr>
-      <MsgId>MSGID-20260413-011</MsgId>
+      <MsgId>MSGID-20260413-11-001</MsgId>
       <CreDtTm>2026-04-13T10:00:00</CreDtTm>
       <NbOfTxs>1</NbOfTxs>
-      <CtrlSum>15000.00</CtrlSum>
+      <CtrlSum>12750.00</CtrlSum>
       <InitgPty>
         <Nm>Test Debtor GmbH</Nm>
         <Id>
@@ -20,10 +22,10 @@
       </InitgPty>
     </GrpHdr>
     <PmtInf>
-      <PmtInfId>PMTINF-20260413-011</PmtInfId>
+      <PmtInfId>PMTINF-20260413-11-001</PmtInfId>
       <PmtMtd>TRF</PmtMtd>
       <NbOfTxs>1</NbOfTxs>
-      <CtrlSum>15000.00</CtrlSum>
+      <CtrlSum>12750.00</CtrlSum>
       <PmtTpInf>
         <SvcLvl>
           <Cd>SEPA</Cd>
@@ -34,7 +36,7 @@
       </ReqdExctnDt>
       <Dbtr>
         <Nm>Test Debtor GmbH</Nm>
-        <!-- Structured postal address (CPP concept, available in .11+) -->
+        <!-- Structured address unchanged from .09/.10 (PostalAddress24) -->
         <PstlAdr>
           <StrtNm>Teststraße</StrtNm>
           <BldgNb>1</BldgNb>
@@ -42,6 +44,11 @@
           <TwnNm>Nürnberg</TwnNm>
           <Ctry>DE</Ctry>
         </PstlAdr>
+        <Id>
+          <OrgId>
+            <LEI>5493001KJTIIGC8Y1R12</LEI>
+          </OrgId>
+        </Id>
       </Dbtr>
       <DbtrAcct>
         <Id>
@@ -56,12 +63,12 @@
       </DbtrAgt>
       <CdtTrfTxInf>
         <PmtId>
-          <InstrId>INSTRID-011-001</InstrId>
-          <EndToEndId>E2EID-20260413-011</EndToEndId>
-          <UETR>g8g8dff8-9f7b-9h5i-di87-6i7i8h9i0k1f</UETR>
+          <InstrId>INSTRID-11-001</InstrId>
+          <EndToEndId>E2EID-20260413-11-001</EndToEndId>
+          <UETR>c3d4e5f6-a7b8-9012-cdef-012345678902</UETR>
         </PmtId>
         <Amt>
-          <InstdAmt Ccy="EUR">15000.00</InstdAmt>
+          <InstdAmt Ccy="EUR">12750.00</InstdAmt>
         </Amt>
         <ChrgBr>SLEV</ChrgBr>
         <CdtrAgt>
@@ -71,7 +78,6 @@
         </CdtrAgt>
         <Cdtr>
           <Nm>Test Creditor AG</Nm>
-          <!-- Fully structured address in .11+ -->
           <PstlAdr>
             <StrtNm>Empfängerstraße</StrtNm>
             <BldgNb>5</BldgNb>
@@ -96,11 +102,21 @@
                   <Cd>SCOR</Cd>
                 </CdOrPrtry>
               </Tp>
-              <Ref>INV2026-011</Ref>
+              <Ref>INV2026-11-001</Ref>
             </CdtrRefInf>
+            <!-- .11 NEW: AddtlRmtInf within Strd block (enhanced remittance) -->
+            <AddtlRmtInf>Bestellung 2026-B-0047 - Teillieferung 2 von 3</AddtlRmtInf>
           </Strd>
         </RmtInf>
       </CdtTrfTxInf>
     </PmtInf>
+    <!-- .11: CardTransaction supplementary block for card-initiated credit transfers -->
+    <SplmtryData>
+      <Envlp>
+        <Nmspc>
+          <Id>CardTxnExt</Id>
+        </Nmspc>
+      </Envlp>
+    </SplmtryData>
   </CstmrCdtTrfInitn>
 </Document>

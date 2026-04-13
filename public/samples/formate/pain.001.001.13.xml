@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- pain.001.001.13 — Credit Transfer Initiation (2024, latest ISO 20022 HVPS+/CBPR+) -->
-<!-- Full structured address mandatory for cross-border; LEI support; enhanced remittance -->
+<!-- pain.001.001.13 — Credit Transfer Initiation (ISO 20022 HVPS+/CBPR+ 2024/2025) -->
+<!-- Key additions vs .12: structured address hardened (mandatory for cross-border),  -->
+<!-- UETR propagation rules enforced, HVPS+/CBPR+ CPP alignment, CtrySubDvsn in      -->
+<!-- common use, LEI on both Debtor and Creditor, bank PstlAdr now common.            -->
 <Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.13"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.001.001.13 pain.001.001.13.xsd">
   <CstmrCdtTrfInitn>
     <GrpHdr>
-      <MsgId>MSGID-20260413-013</MsgId>
+      <MsgId>MSGID-20260413-13-001</MsgId>
       <CreDtTm>2026-04-13T10:00:00</CreDtTm>
       <NbOfTxs>1</NbOfTxs>
-      <CtrlSum>50000.00</CtrlSum>
+      <CtrlSum>45000.00</CtrlSum>
       <InitgPty>
         <Nm>Test Debtor GmbH</Nm>
         <Id>
@@ -20,21 +22,26 @@
       </InitgPty>
     </GrpHdr>
     <PmtInf>
-      <PmtInfId>PMTINF-20260413-013</PmtInfId>
+      <PmtInfId>PMTINF-20260413-13-001</PmtInfId>
       <PmtMtd>TRF</PmtMtd>
       <NbOfTxs>1</NbOfTxs>
-      <CtrlSum>50000.00</CtrlSum>
+      <CtrlSum>45000.00</CtrlSum>
       <PmtTpInf>
         <SvcLvl>
           <Cd>SEPA</Cd>
         </SvcLvl>
+        <CtgyPurp>
+          <Cd>SUPP</Cd>
+        </CtgyPurp>
       </PmtTpInf>
       <ReqdExctnDt>
         <Dt>2026-04-14</Dt>
       </ReqdExctnDt>
-      <!-- Full structured address mandatory in .13 for cross-border payments -->
       <Dbtr>
         <Nm>Test Debtor GmbH</Nm>
+        <!-- .13: structured address hardened — mandatory for cross-border payments  -->
+        <!-- CtrySubDvsn now in common use per HVPS+/CBPR+ CPP alignment rules.     -->
+        <!-- Same PostalAddress24 field set as .09; enforcement rules tightened.     -->
         <PstlAdr>
           <StrtNm>Teststraße</StrtNm>
           <BldgNb>1</BldgNb>
@@ -59,6 +66,7 @@
         <FinInstnId>
           <BICFI>COBADEFFXXX</BICFI>
           <Nm>Commerzbank AG</Nm>
+          <!-- .13: bank postal address now routinely included in HVPS+/CBPR+ -->
           <PstlAdr>
             <StrtNm>Kaiserplatz</StrtNm>
             <BldgNb>1</BldgNb>
@@ -70,12 +78,13 @@
       </DbtrAgt>
       <CdtTrfTxInf>
         <PmtId>
-          <InstrId>INSTRID-013-001</InstrId>
-          <EndToEndId>E2EID-20260413-013</EndToEndId>
-          <UETR>i0i0fhh0-1h9d-1j7k-fk09-8k9k0j1k2m3h</UETR>
+          <InstrId>INSTRID-13-001</InstrId>
+          <EndToEndId>E2EID-20260413-13-001</EndToEndId>
+          <!-- .13: UETR propagation rules enforced across entire payment chain -->
+          <UETR>e5f6a7b8-c9d0-1234-ef01-234567890124</UETR>
         </PmtId>
         <Amt>
-          <InstdAmt Ccy="EUR">50000.00</InstdAmt>
+          <InstdAmt Ccy="EUR">45000.00</InstdAmt>
         </Amt>
         <ChrgBr>SLEV</ChrgBr>
         <CdtrAgt>
@@ -93,7 +102,7 @@
         </CdtrAgt>
         <Cdtr>
           <Nm>Test Creditor AG</Nm>
-          <!-- Full structured address mandatory in .13 -->
+          <!-- .13: structured address mandatory for cross-border, CtrySubDvsn common -->
           <PstlAdr>
             <StrtNm>Empfängerstraße</StrtNm>
             <BldgNb>5</BldgNb>
@@ -102,6 +111,7 @@
             <CtrySubDvsn>Berlin</CtrySubDvsn>
             <Ctry>DE</Ctry>
           </PstlAdr>
+          <!-- .13: LEI on Creditor side now standard per HVPS+/CBPR+ -->
           <Id>
             <OrgId>
               <LEI>7654321ABCDEFGH12345</LEI>
@@ -124,9 +134,23 @@
                   <Cd>SCOR</Cd>
                 </CdOrPrtry>
               </Tp>
-              <Ref>INV2026-013</Ref>
+              <Ref>INV2026-13-001</Ref>
             </CdtrRefInf>
-            <AddtlRmtInf>Zahlung gemäß Rahmenvertrag 2026 — CBPR+ konform</AddtlRmtInf>
+            <RfrdDocInf>
+              <Tp>
+                <CdOrPrtry>
+                  <Cd>CINV</Cd>
+                </CdOrPrtry>
+              </Tp>
+              <Nb>RE-2026-13-001</Nb>
+              <RltdDt>
+                <Dt>2026-04-01</Dt>
+              </RltdDt>
+            </RfrdDocInf>
+            <RfrdDocAmt>
+              <DuePyblAmt Ccy="EUR">45000.00</DuePyblAmt>
+            </RfrdDocAmt>
+            <AddtlRmtInf>CBPR+ konform — HVPS+ Zahlungsauftrag Q2/2026</AddtlRmtInf>
           </Strd>
         </RmtInf>
       </CdtTrfTxInf>

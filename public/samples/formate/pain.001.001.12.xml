@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- pain.001.001.12 — Credit Transfer Initiation (2023) -->
+<!-- pain.001.001.12 — Credit Transfer Initiation (ISO 20022 / CGI-MP 2023)       -->
+<!-- Key additions vs .11: extended StructuredRemittanceInformation (RfrdDocInf,   -->
+<!-- TaxRmt), new Purpose/CategoryPurpose codes, hybrid address usage rules        -->
+<!-- tightened (AdrLine + structured not both allowed). No NEW address fields vs   -->
+<!-- .09 — PostalAddress24 fields identical. Structured address was already in .09 -->
 <Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.12"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.001.001.12 pain.001.001.12.xsd">
   <CstmrCdtTrfInitn>
     <GrpHdr>
-      <MsgId>MSGID-20260413-012</MsgId>
+      <MsgId>MSGID-20260413-12-001</MsgId>
       <CreDtTm>2026-04-13T10:00:00</CreDtTm>
       <NbOfTxs>1</NbOfTxs>
-      <CtrlSum>25000.00</CtrlSum>
+      <CtrlSum>22000.00</CtrlSum>
       <InitgPty>
         <Nm>Test Debtor GmbH</Nm>
         <Id>
@@ -19,20 +23,26 @@
       </InitgPty>
     </GrpHdr>
     <PmtInf>
-      <PmtInfId>PMTINF-20260413-012</PmtInfId>
+      <PmtInfId>PMTINF-20260413-12-001</PmtInfId>
       <PmtMtd>TRF</PmtMtd>
       <NbOfTxs>1</NbOfTxs>
-      <CtrlSum>25000.00</CtrlSum>
+      <CtrlSum>22000.00</CtrlSum>
       <PmtTpInf>
         <SvcLvl>
           <Cd>SEPA</Cd>
         </SvcLvl>
+        <!-- .12 NEW: extended CategoryPurpose codes (e.g. TAXS for tax payments) -->
+        <CtgyPurp>
+          <Cd>TAXS</Cd>
+        </CtgyPurp>
       </PmtTpInf>
       <ReqdExctnDt>
         <Dt>2026-04-14</Dt>
       </ReqdExctnDt>
       <Dbtr>
         <Nm>Test Debtor GmbH</Nm>
+        <!-- .12: structured address same PostalAddress24 fields as in .09 -->
+        <!-- Hybrid address usage rules tightened: no mixing AdrLine + StrtNm -->
         <PstlAdr>
           <StrtNm>Teststraße</StrtNm>
           <BldgNb>1</BldgNb>
@@ -59,12 +69,12 @@
       </DbtrAgt>
       <CdtTrfTxInf>
         <PmtId>
-          <InstrId>INSTRID-012-001</InstrId>
-          <EndToEndId>E2EID-20260413-012</EndToEndId>
-          <UETR>h9h9egg9-0g8c-0i6j-ej98-7j8j9i0j1l2g</UETR>
+          <InstrId>INSTRID-12-001</InstrId>
+          <EndToEndId>E2EID-20260413-12-001</EndToEndId>
+          <UETR>d4e5f6a7-b8c9-0123-def0-123456789013</UETR>
         </PmtId>
         <Amt>
-          <InstdAmt Ccy="EUR">25000.00</InstdAmt>
+          <InstdAmt Ccy="EUR">22000.00</InstdAmt>
         </Amt>
         <ChrgBr>SLEV</ChrgBr>
         <CdtrAgt>
@@ -74,6 +84,7 @@
         </CdtrAgt>
         <Cdtr>
           <Nm>Test Creditor AG</Nm>
+          <!-- Structured address same as .09 — PostalAddress24 unchanged -->
           <PstlAdr>
             <StrtNm>Empfängerstraße</StrtNm>
             <BldgNb>5</BldgNb>
@@ -87,8 +98,9 @@
             <IBAN>DE75512108001245126199</IBAN>
           </Id>
         </CdtrAcct>
+        <!-- .12 NEW: extended Purpose codes -->
         <Purp>
-          <Cd>SUPP</Cd>
+          <Cd>TAXS</Cd>
         </Purp>
         <RmtInf>
           <Strd>
@@ -98,9 +110,37 @@
                   <Cd>SCOR</Cd>
                 </CdOrPrtry>
               </Tp>
-              <Ref>INV2026-012</Ref>
+              <Ref>INV2026-12-001</Ref>
             </CdtrRefInf>
-            <AddtlRmtInf>Zahlung gemäß Rahmenvertrag 2026</AddtlRmtInf>
+            <!-- .12 NEW: RfrdDocInf (Referenced Document Information) -->
+            <RfrdDocInf>
+              <Tp>
+                <CdOrPrtry>
+                  <Cd>CINV</Cd>
+                </CdOrPrtry>
+              </Tp>
+              <Nb>RE-2026-001</Nb>
+              <RltdDt>
+                <Dt>2026-04-01</Dt>
+              </RltdDt>
+            </RfrdDocInf>
+            <!-- .12 NEW: RfrdDocAmt for document amount reconciliation -->
+            <RfrdDocAmt>
+              <DuePyblAmt Ccy="EUR">22000.00</DuePyblAmt>
+            </RfrdDocAmt>
+            <!-- .12 NEW: TaxRmt for tax remittance information -->
+            <TaxRmt>
+              <Dbtr>
+                <TaxId>DE123456789</TaxId>
+              </Dbtr>
+              <Rcrd>
+                <Tp>MWST</Tp>
+                <TaxAmt>
+                  <TtlAmt Ccy="EUR">3513.44</TtlAmt>
+                </TaxAmt>
+              </Rcrd>
+            </TaxRmt>
+            <AddtlRmtInf>Rechnung RE-2026-001 inkl. 19% MwSt</AddtlRmtInf>
           </Strd>
         </RmtInf>
       </CdtTrfTxInf>

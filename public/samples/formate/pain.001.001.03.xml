@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- pain.001.001.03 — Credit Transfer Initiation (EPC SEPA SCT 2009) -->
+<!-- Legacy version widely deployed in SAP ERP installations pre-2019.  -->
+<!-- Key traits: BICOrBEI in OrgId, BIC (not BICFI) in FinInstnId,     -->
+<!-- unstructured AdrLine only, no UETR, no LEI, no structured address. -->
 <Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.03"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.001.001.03 pain.001.001.03.xsd">
   <CstmrCdtTrfInitn>
     <GrpHdr>
-      <MsgId>MSGID-20260413-001</MsgId>
+      <MsgId>MSGID-20260413-03-001</MsgId>
       <CreDtTm>2026-04-13T10:00:00</CreDtTm>
       <NbOfTxs>1</NbOfTxs>
-      <CtrlSum>100.00</CtrlSum>
+      <CtrlSum>1250.00</CtrlSum>
       <InitgPty>
         <Nm>Test Debtor GmbH</Nm>
+        <!-- .03 uses BICOrBEI for org identification — no LEI support -->
         <Id>
           <OrgId>
             <BICOrBEI>COBADEFFXXX</BICOrBEI>
@@ -18,10 +23,10 @@
       </InitgPty>
     </GrpHdr>
     <PmtInf>
-      <PmtInfId>PMTINF-20260413-001</PmtInfId>
+      <PmtInfId>PMTINF-20260413-03-001</PmtInfId>
       <PmtMtd>TRF</PmtMtd>
       <NbOfTxs>1</NbOfTxs>
-      <CtrlSum>100.00</CtrlSum>
+      <CtrlSum>1250.00</CtrlSum>
       <PmtTpInf>
         <SvcLvl>
           <Cd>SEPA</Cd>
@@ -30,9 +35,11 @@
           <Cd>SUPP</Cd>
         </CtgyPurp>
       </PmtTpInf>
+      <!-- .03: ReqdExctnDt is a plain date string, not a structured element -->
       <ReqdExctnDt>2026-04-14</ReqdExctnDt>
       <Dbtr>
         <Nm>Test Debtor GmbH</Nm>
+        <!-- .03: only unstructured AdrLine supported, no StrtNm/BldgNb/PstCd -->
         <PstlAdr>
           <Ctry>DE</Ctry>
           <AdrLine>Teststraße 1</AdrLine>
@@ -47,23 +54,27 @@
       </DbtrAcct>
       <DbtrAgt>
         <FinInstnId>
+          <!-- .03: uses BIC element, not BICFI -->
           <BIC>COBADEFFXXX</BIC>
         </FinInstnId>
       </DbtrAgt>
       <CdtTrfTxInf>
         <PmtId>
-          <EndToEndId>E2EID-20260413-001</EndToEndId>
+          <!-- .03: no UETR field -->
+          <EndToEndId>E2EID-20260413-03-001</EndToEndId>
         </PmtId>
         <Amt>
-          <InstdAmt Ccy="EUR">100.00</InstdAmt>
+          <InstdAmt Ccy="EUR">1250.00</InstdAmt>
         </Amt>
         <CdtrAgt>
           <FinInstnId>
+            <!-- .03: BIC, not BICFI -->
             <BIC>DEUTDEDBXXX</BIC>
           </FinInstnId>
         </CdtrAgt>
         <Cdtr>
           <Nm>Test Creditor AG</Nm>
+          <!-- .03: plain AdrLine only, no structured address fields -->
           <PstlAdr>
             <Ctry>DE</Ctry>
             <AdrLine>Empfängerstraße 5</AdrLine>
@@ -79,6 +90,7 @@
           <Cd>SUPP</Cd>
         </Purp>
         <RmtInf>
+          <!-- .03: typically only Ustrd (unstructured) remittance info -->
           <Ustrd>Rechnung 2026-001 vom 2026-04-01</Ustrd>
         </RmtInf>
       </CdtTrfTxInf>

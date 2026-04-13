@@ -4,7 +4,7 @@ import * as React from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { DocumentDetail } from '@/components/browse/document-detail';
-import { splitToBullets } from '@/lib/text/split-to-bullets';
+import { splitToBullets, splitIntoSubtopics } from '@/lib/text/split-to-bullets';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -34,6 +34,8 @@ export type SplitViewProps<T extends Record<string, unknown>> = {
   documentField?: keyof T;
   /** Field to use as Management Summary callout at top of detail */
   summaryField?: keyof T;
+  /** Optional extra content rendered between Management Summary and Einsteiger/Experte toggle */
+  extraDetailHeader?: (item: T) => React.ReactNode;
 };
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
@@ -107,8 +109,39 @@ function ComplexityDot({ value }: { value: string }) {
 // ─── Field value renderer ─────────────────────────────────────────────────────
 
 /**
+ * Render a single bullet item, applying sub-topic splitting when the item
+ * contains 2+ ALL-CAPS topic markers (e.g. "SAP-Implikation:", "NEU:").
+ */
+function renderBulletItem(item: string, key: number): React.ReactNode {
+  const sub = splitIntoSubtopics(item);
+  if (sub.kind === 'subtopics') {
+    return (
+      <li key={key} className="text-sm leading-relaxed text-foreground/90">
+        {sub.intro && (
+          <p className="mb-1.5 text-sm leading-relaxed italic text-foreground/80">{sub.intro}</p>
+        )}
+        <ul className="mt-1.5 list-none space-y-1.5 pl-0">
+          {sub.topics.map((t) => (
+            <li key={t.label} className="text-sm">
+              <span className="mr-1.5 inline-block rounded bg-primary/10 px-1.5 py-0.5 text-[13px] font-semibold text-primary">
+                {t.label}
+              </span>
+              <span className="text-foreground/90">{t.body}</span>
+            </li>
+          ))}
+        </ul>
+      </li>
+    );
+  }
+  return (
+    <li key={key} className="text-base leading-relaxed text-foreground/90">{item}</li>
+  );
+}
+
+/**
  * Render a field value, auto-detecting list patterns via the shared
  * splitToBullets utility (rules 1-6) plus a line-break fallback.
+ * Each bullet item is further processed for embedded ALL-CAPS sub-topics.
  */
 function renderFieldValue(value: string): React.ReactNode {
   if (!value) return null;
@@ -124,9 +157,7 @@ function renderFieldValue(value: string): React.ReactNode {
           </p>
         )}
         <ul className="list-disc space-y-1.5 pl-5 marker:text-primary/60">
-          {result.items.map((item, i) => (
-            <li key={i} className="text-base leading-relaxed text-foreground/90">{item}</li>
-          ))}
+          {result.items.map((item, i) => renderBulletItem(item, i))}
         </ul>
       </>
     );
@@ -138,9 +169,7 @@ function renderFieldValue(value: string): React.ReactNode {
     if (lineParts.length >= 2) {
       return (
         <ul className="list-disc space-y-1.5 pl-5 marker:text-primary/60">
-          {lineParts.map((item, i) => (
-            <li key={i} className="text-base leading-relaxed text-foreground/90">{item}</li>
-          ))}
+          {lineParts.map((item, i) => renderBulletItem(item, i))}
         </ul>
       );
     }
@@ -270,6 +299,7 @@ function DetailPanel<T extends Record<string, unknown>>({
   complexityField,
   documentField,
   summaryField,
+  extraDetailHeader,
 }: {
   item: T | null;
   columns: Column[];
@@ -279,6 +309,7 @@ function DetailPanel<T extends Record<string, unknown>>({
   complexityField?: keyof T;
   documentField?: keyof T;
   summaryField?: keyof T;
+  extraDetailHeader?: (item: T) => React.ReactNode;
 }) {
   const [mode, setMode] = React.useState<Mode>('einsteiger');
 
@@ -397,6 +428,9 @@ function DetailPanel<T extends Record<string, unknown>>({
             </div>
           </div>
         )}
+
+        {/* Extra detail header (e.g. sample file card) */}
+        {extraDetailHeader && item && extraDetailHeader(item)}
 
         {/* Einsteiger / Experte toggle */}
         {hasPairs && (
@@ -543,6 +577,7 @@ export function SplitView<T extends Record<string, unknown>>({
   complexityField,
   documentField,
   summaryField,
+  extraDetailHeader,
 }: SplitViewProps<T>) {
   const router = useRouter();
   const pathname = usePathname();
@@ -684,6 +719,7 @@ export function SplitView<T extends Record<string, unknown>>({
       complexityField={complexityField}
       documentField={documentField}
       summaryField={summaryField}
+      extraDetailHeader={extraDetailHeader}
     />
   );
 

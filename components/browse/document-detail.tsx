@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import type { Components } from 'react-markdown';
-import { splitToBullets } from '@/lib/text/split-to-bullets';
+import { splitToBullets, splitIntoSubtopics } from '@/lib/text/split-to-bullets';
 
 // Detect list patterns in prose text and split into items.
 // Returns null if no meaningful list pattern found.
@@ -115,6 +115,28 @@ const components: Components = {
     );
   },
   li({ children }) {
+    // Extract raw text to check for sub-topic markers
+    const rawText = childrenToText(children);
+    const sub = splitIntoSubtopics(rawText);
+    if (sub.kind === 'subtopics') {
+      return (
+        <li className="text-sm leading-relaxed text-foreground/90">
+          {sub.intro && (
+            <p className="mb-1.5 text-sm leading-relaxed italic text-foreground/80">{sub.intro}</p>
+          )}
+          <ul className="mt-1.5 list-none space-y-1.5 pl-0">
+            {sub.topics.map((t) => (
+              <li key={t.label} className="text-sm">
+                <span className="mr-1.5 inline-block rounded bg-primary/10 px-1.5 py-0.5 text-[13px] font-semibold text-primary">
+                  {t.label}
+                </span>
+                <span className="text-foreground/90">{t.body}</span>
+              </li>
+            ))}
+          </ul>
+        </li>
+      );
+    }
     return (
       <li className="text-base leading-relaxed text-foreground/90">
         {children}

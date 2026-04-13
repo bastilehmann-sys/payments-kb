@@ -203,6 +203,76 @@ function tryColonSections(text: string): string[] | null {
   return isValid(parts, 3, 15) ? parts : null;
 }
 
+// ─── Sub-topic splitting ───────────────────────────────────────────────────────
+
+export type SubtopicResult =
+  | { kind: 'plain' }
+  | { kind: 'subtopics'; intro: string; topics: { label: string; body: string }[] };
+
+/**
+ * Within a single bullet item, detect 2+ ALL-CAPS topic markers like:
+ *   "SAP-Implikation:", "NEU PRO VERSION:", "GEÄNDERT:", "ERWEITERT:", etc.
+ *
+ * Pattern: a phrase whose first word starts uppercase, ends with ":" or "!",
+ * and the whole match is at least 3 chars. The first word may contain hyphens
+ * and digits (e.g. "SAP-Implikation"). Multi-word labels like "NEU PRO VERSION:"
+ * are captured by allowing spaces between words up to 5 words / 50 chars total.
+ *
+ * Returns the intro text (before the first marker) and an array of { label, body }.
+ * Returns { kind: 'plain' } when fewer than 2 markers are found.
+ */
+export function splitIntoSubtopics(text: string): SubtopicResult {
+  if (!text) return { kind: 'plain' };
+
+  // Match: (optional leading spaces) then a capitalised label ending with : or !
+  // Label rules:
+  //   - starts with uppercase letter or digit+uppercase (e.g. "SAP-Implikation")
+  //   - may contain hyphens, slashes, digits, spaces (up to ~50 chars)
+  //   - ends with ':' or '!' (NOT preceded by lowercase run that looks like normal prose)
+  //   - must be followed by a space or end of string
+  //
+  // We use a positive-lookahead approach: look for patterns where the WHOLE
+  // label is ≤ 6 words and ≤ 55 chars and contains no lowercase-only words
+  // (pure lowercase words would indicate normal prose rather than a marker).
+  //
+  // Implementation: find all occurrences of the pattern, require ≥ 2 matches.
+
+  const markerRx = /(?:^|(?<=\s))([A-ZÄÖÜ0-9][A-Za-zÄÖÜäöüß0-9\-\/\(\)]{0,20}(?:\s+[A-ZÄÖÜ0-9][A-Za-zÄÖÜäöüß0-9\-\/]{0,20}){0,4})[!:]\s/g;
+
+  const matches: Array<{ index: number; label: string }> = [];
+  let m: RegExpExecArray | null;
+
+  while ((m = markerRx.exec(text)) !== null) {
+    // Reject if label contains a purely lowercase word (suggests normal prose colon, e.g. "z.B.: text")
+    const label = m[1];
+    const words = label.split(/\s+/);
+    const hasPureLowerWord = words.some(
+      (w) => w.length >= 3 && w === w.toLowerCase() && /[a-zäöü]/.test(w[0]),
+    );
+    if (hasPureLowerWord) continue;
+
+    // The match starts after the leading whitespace captured in lookbehind
+    // m.index is position of the full match start; label starts there (lookbehind is zero-width)
+    matches.push({ index: m.index, label });
+  }
+
+  if (matches.length < 2) return { kind: 'plain' };
+
+  // Extract intro = text before first marker
+  const intro = text.slice(0, matches[0].index).trim();
+
+  const topics: { label: string; body: string }[] = [];
+  for (let i = 0; i < matches.length; i++) {
+    const { index, label } = matches[i];
+    const afterMarker = index + label.length + 2; // +2 for the ":" / "!" and space
+    const bodyEnd = i + 1 < matches.length ? matches[i + 1].index : text.length;
+    const body = text.slice(afterMarker, bodyEnd).trim();
+    topics.push({ label, body });
+  }
+
+  return { kind: 'subtopics', intro, topics };
+}
+
 // ─── Public API ────────────────────────────────────────────────────────────────
 
 export function splitToBullets(text: string): SplitResult {

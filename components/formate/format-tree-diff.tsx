@@ -177,7 +177,7 @@ export function FormatTreeDiff({ sampleA, sampleB, labelA = 'Format A', labelB =
     let cancelled = false;
     setLoadingA(true);
     setErrorA(null);
-    fetch(sampleA!)
+    fetch(sampleA! + (sampleA!.includes('?') ? '&' : '?') + 'v=' + Date.now(), { cache: 'no-store' })
       .then((r) => { if (!r.ok) throw new Error(r.statusText); return r.text(); })
       .then((text) => { if (!cancelled) { setXmlA(text); setLoadingA(false); } })
       .catch((e: unknown) => { if (!cancelled) { setErrorA(String(e)); setLoadingA(false); } });
@@ -190,7 +190,7 @@ export function FormatTreeDiff({ sampleA, sampleB, labelA = 'Format A', labelB =
     let cancelled = false;
     setLoadingB(true);
     setErrorB(null);
-    fetch(sampleB!)
+    fetch(sampleB! + (sampleB!.includes('?') ? '&' : '?') + 'v=' + Date.now(), { cache: 'no-store' })
       .then((r) => { if (!r.ok) throw new Error(r.statusText); return r.text(); })
       .then((text) => { if (!cancelled) { setXmlB(text); setLoadingB(false); } })
       .catch((e: unknown) => { if (!cancelled) { setErrorB(String(e)); setLoadingB(false); } });

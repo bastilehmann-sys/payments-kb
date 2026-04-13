@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { Markdown } from '@/components/browse/markdown';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -338,10 +339,8 @@ function DetailPanel<T extends Record<string, unknown>>({
           {/* Linked document markdown */}
           {documentMd && (
             <div>
-              <SectionHeading title="Profil" />
-              <div className="prose prose-sm dark:prose-invert max-w-none text-sm leading-relaxed text-foreground/85 whitespace-pre-line">
-                {documentMd}
-              </div>
+              <SectionHeading title="Vollständiges Länderprofil" />
+              <Markdown content={documentMd} />
             </div>
           )}
         </dl>

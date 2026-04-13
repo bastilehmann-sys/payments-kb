@@ -21,18 +21,29 @@ async function main() {
 
   console.log(`Seeding ${entries.length} countries...`);
 
-  // Find the document with slug='italien' for IT linking
-  const italyDoc = await db
+  // Find the document for IT: prefer 'excel-italien' (Sheet 07, richest), fall back to 'italien'
+  let italyDocId: string | null = null;
+  const excelItalyDoc = await db
     .select({ id: documents.id })
     .from(documents)
-    .where(eq(documents.slug, 'italien'))
+    .where(eq(documents.slug, 'excel-italien'))
     .limit(1);
 
-  const italyDocId = italyDoc.length > 0 ? italyDoc[0].id : null;
-  if (italyDocId) {
-    console.log(`Found 'italien' document: ${italyDocId}`);
+  if (excelItalyDoc.length > 0) {
+    italyDocId = excelItalyDoc[0].id;
+    console.log(`Found 'excel-italien' document (Sheet 07): ${italyDocId}`);
   } else {
-    console.log(`No 'italien' document found — IT will be inserted without document_id`);
+    const italyDoc = await db
+      .select({ id: documents.id })
+      .from(documents)
+      .where(eq(documents.slug, 'italien'))
+      .limit(1);
+    italyDocId = italyDoc.length > 0 ? italyDoc[0].id : null;
+    if (italyDocId) {
+      console.log(`Found 'italien' document (fallback): ${italyDocId}`);
+    } else {
+      console.log(`No Italy document found — IT will be inserted without document_id`);
+    }
   }
 
   let upserted = 0;

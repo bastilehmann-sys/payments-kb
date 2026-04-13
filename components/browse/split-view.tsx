@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { Markdown } from '@/components/browse/markdown';
+import { DocumentDetail } from '@/components/browse/document-detail';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -340,7 +340,7 @@ function DetailPanel<T extends Record<string, unknown>>({
           {documentMd && (
             <div>
               <SectionHeading title="Vollständiges Länderprofil" />
-              <Markdown content={documentMd} />
+              <DocumentDetail content={documentMd} />
             </div>
           )}
         </dl>

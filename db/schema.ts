@@ -186,6 +186,21 @@ export const formatVersions = pgTable('format_versions', {
   source_standard: text('source_standard'),
 });
 
+// ============================================================
+// Entry audit log (Phase 1 wiki-editor)
+// ============================================================
+
+export const entryAudit = pgTable('entry_audit', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  table_name: text('table_name').notNull(),
+  row_id: uuid('row_id').notNull(),
+  field: text('field').notNull(),
+  old_value: text('old_value'),
+  new_value: text('new_value'),
+  edited_at: timestamp('edited_at', { withTimezone: true }).defaultNow(),
+  edited_by: text('edited_by').default('shared'),
+});
+
 export const countries = pgTable('countries', {
   id: uuid('id').primaryKey().defaultRandom(),
   code: text('code').unique().notNull(),

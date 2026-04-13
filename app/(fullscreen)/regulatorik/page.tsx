@@ -36,6 +36,15 @@ const COLUMNS: Column[] = [
   // Risiken
   { key: 'risiken_experte',   label: 'Risiken (Experte)',   section: 'Risiken' },
   { key: 'risiken_einsteiger',label: 'Risiken (Einsteiger)',section: 'Risiken' },
+  // Querverweise
+  { key: 'verwandte_regulierungen', label: 'Verwandte Regulierungen', section: 'Querverweise' },
+  // Compliance-Folgen
+  { key: 'bussgeld',     label: 'Bußgeld / Sanktionshöhe',         section: 'Compliance-Folgen' },
+  { key: 'pruefpflicht', label: 'Prüfpflicht / Audit-Relevanz',    section: 'Compliance-Folgen' },
+  // SAP & System
+  { key: 'sap_bezug', label: 'SAP-Bezug / System-Auswirkung', section: 'SAP & System' },
+  // Umsetzung
+  { key: 'aufwand_tshirt', label: 'Implementierungsaufwand (T-Shirt)', section: 'Umsetzung' },
 ];
 
 export default async function RegulatorikPage() {

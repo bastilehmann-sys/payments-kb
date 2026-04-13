@@ -174,21 +174,26 @@ function trySentenceSplit(text: string): string[] | null {
 // ─── Rule 6: Colon-section split ───────────────────────────────────────────────
 
 function tryColonSections(text: string): string[] | null {
-  if (text.length <= 400) return null;
+  // Much more conservative: only triggers on long analytical prose with
+  // clearly distinct topic-sections, not on data listings like "Feiertage: ... Mailand: ... Rom: ..."
+  if (text.length <= 600) return null;
 
-  // Pattern: one or more words starting with uppercase, followed by ": "
-  // e.g. "SAP-Implikation: ...", "Standard-DMEE: ..."
+  // Skip if text has lots of inline numerical data (dates, amounts) — suggests data listing, not prose
+  const dataLikePattern = /\d{1,2}[.:]\d{1,2}/g;
+  const dataHits = (text.match(dataLikePattern) ?? []).length;
+  if (dataHits > 3) return null;
+
   const colonRx = /(?:^|\s)([A-ZÄÖÜ][^\s:]{1,30}(?:\s[A-ZÄÖÜ][^\s:]{0,20})?)\s*:\s+(?=[A-Za-zÄÖÜäöüß0-9])/g;
   const matchPositions: number[] = [];
   let mc: RegExpExecArray | null;
 
   while ((mc = colonRx.exec(text)) !== null) {
-    // position of the capitalised word
     const wordStart = mc.index + (mc[0].startsWith(' ') ? 1 : 0);
     matchPositions.push(wordStart);
   }
 
-  if (matchPositions.length < 3) return null;
+  // Require 4+ markers (was 3)
+  if (matchPositions.length < 4) return null;
 
   const parts: string[] = [];
   let prev = 0;
@@ -200,7 +205,8 @@ function tryColonSections(text: string): string[] | null {
   const tail = text.slice(prev).trim();
   if (tail) parts.push(tail);
 
-  return isValid(parts, 3, 15) ? parts : null;
+  // Require minimum 40 chars avg (was 15) — short data fields like "Mailand: 07.12 (X)" won't pass
+  return isValid(parts, 4, 40) ? parts : null;
 }
 
 // ─── Sub-topic splitting ───────────────────────────────────────────────────────

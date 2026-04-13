@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import type { FormatVersion } from '@/lib/queries/entries';
 import type { FormatEntry } from '@/lib/queries/entries';
 import { DiffPair } from '@/components/formate/diff-pair';
+import { SchemaDiffPanel } from '@/components/formate/schema-diff-panel';
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
 
@@ -419,6 +420,17 @@ export function FormatCompare({ versions, entries }: FormatCompareProps) {
               })}
             </tbody>
           </table>
+
+          {/* Schema Diff Panel — only when both samples are XML */}
+          {versionA?.sample_file?.toLowerCase().endsWith('.xml') &&
+           versionB?.sample_file?.toLowerCase().endsWith('.xml') && (
+            <div className="px-4 pb-6">
+              <SchemaDiffPanel
+                sampleA={versionA.sample_file}
+                sampleB={versionB.sample_file}
+              />
+            </div>
+          )}
         </div>
       )}
 

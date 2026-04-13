@@ -110,7 +110,7 @@ async function main() {
   for (const file of files) {
     const filePath = path.join(CLEARING_DIR, file);
     const raw = fs.readFileSync(filePath, 'utf-8');
-    const { data: fm } = matter(raw) as { data: ClearingFrontmatter };
+    const { data: fm } = matter(raw) as unknown as { data: ClearingFrontmatter };
 
     if (!fm.name) {
       console.warn(`  [SKIP] ${file} — no 'name' in frontmatter`);

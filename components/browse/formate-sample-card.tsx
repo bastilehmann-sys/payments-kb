@@ -69,6 +69,41 @@ function findFallback(formatName: string): { file: string; label: string } | nul
   return null;
 }
 
+// ─── Changelog Callout ────────────────────────────────────────────────────────
+
+interface ChangelogCalloutProps {
+  currentVersionId: string;   // e.g. "pain.001.001.09"
+  currentNotes: string | null;
+  previousVersionId: string | null;
+  compareUrl: string;
+}
+
+function ChangelogCallout({ currentVersionId, currentNotes, previousVersionId, compareUrl }: ChangelogCalloutProps) {
+  if (!currentNotes) return null;
+
+  const diffUrl = previousVersionId
+    ? `/formate/vergleich?a=${encodeURIComponent(previousVersionId)}&b=${encodeURIComponent(currentVersionId)}`
+    : compareUrl;
+
+  return (
+    <div className="mb-6 rounded-lg border border-amber-200 bg-amber-50/60 dark:border-amber-800/40 dark:bg-amber-950/20 p-5">
+      <div className="mb-2 text-base font-semibold uppercase tracking-wider text-amber-700 dark:text-amber-300">
+        {previousVersionId ? `Änderungen gegenüber ${previousVersionId}` : 'Versionshinweis'}
+      </div>
+      <p className="text-base leading-relaxed text-amber-900/80 dark:text-amber-200/80">{currentNotes}</p>
+      <Link
+        href={diffUrl}
+        className="mt-3 inline-flex items-center gap-2 text-base text-amber-700 dark:text-amber-400 hover:underline"
+      >
+        Vollständigen Diff anzeigen
+        <svg viewBox="0 0 16 16" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 8h10M9 4l4 4-4 4" />
+        </svg>
+      </Link>
+    </div>
+  );
+}
+
 // ─── Component ────────────────────────────────────────────────────────────────
 
 interface FormatSampleCardProps {
@@ -79,6 +114,8 @@ interface FormatSampleCardProps {
   selectedSampleFile?: string;
   /** Whether the selected version is flagged as current/latest */
   selectedIsCurrentVersion?: boolean;
+  /** Notes for the currently selected version */
+  selectedVersionNotes?: string;
   versions?: FormatVersion[];
 }
 
@@ -87,6 +124,7 @@ export function FormatSampleCard({
   selectedVersion,
   selectedSampleFile,
   selectedIsCurrentVersion,
+  selectedVersionNotes,
   versions,
 }: FormatSampleCardProps) {
   const [expanded, setExpanded] = React.useState(false);
@@ -104,8 +142,34 @@ export function FormatSampleCard({
       (v) => `${v.format_name}.${v.version}` !== selectedVersion
     );
 
+    // Compute previous version: find index of current version in sorted list, pick the one before it
+    const sortedVersions = [...matchedVersions].sort((a, b) => a.version.localeCompare(b.version));
+    const currentIdx = sortedVersions.findIndex(
+      (v) => `${v.format_name}.${v.version}` === selectedVersion
+        || `${v.format_name}.${v.version.replace(/^001\.001\./, '001.')}` === selectedVersion
+    );
+    const previousVersion = currentIdx > 0 ? sortedVersions[currentIdx - 1] : null;
+    const previousVersionId = previousVersion
+      ? `${previousVersion.format_name}.${previousVersion.version.replace(/^001\.001\./, '001.')}`
+      : null;
+
+    // Notes: use explicitly passed prop first, then look up from versions array
+    const currentVersionFromDb = matchedVersions.find(
+      (v) => `${v.format_name}.${v.version}` === selectedVersion
+        || `${v.format_name}.${v.version.replace(/^001\.001\./, '001.')}` === selectedVersion
+    );
+    const notes = selectedVersionNotes || currentVersionFromDb?.notes || null;
+
     return (
-      <div className="mb-6 rounded-xl border border-border bg-muted/20 overflow-hidden">
+      <div>
+        {/* Changelog callout — amber accent, above the sample card */}
+        <ChangelogCallout
+          currentVersionId={selectedVersion}
+          currentNotes={notes}
+          previousVersionId={previousVersionId}
+          compareUrl={compareUrl}
+        />
+        <div className="mb-6 rounded-xl border border-border bg-muted/20 overflow-hidden">
         {/* Header row — selected version */}
         <div className="flex items-center justify-between gap-4 px-5 py-4">
           <div className="min-w-0 flex-1">
@@ -217,6 +281,7 @@ export function FormatSampleCard({
             </div>
           </div>
         )}
+        </div>{/* end inner card */}
       </div>
     );
   }

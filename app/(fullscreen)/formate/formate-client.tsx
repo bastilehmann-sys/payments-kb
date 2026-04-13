@@ -30,6 +30,7 @@ export function FormateClient({ items, columns, versions }: FormateClientProps) 
           selectedVersion={String(item['aktuelle_version'] ?? '')}
           selectedSampleFile={String(item['version_sample_file'] ?? '')}
           selectedIsCurrentVersion={Boolean(item['version_is_current'])}
+          selectedVersionNotes={String(item['version_notes'] ?? '')}
           versions={versions}
         />
       )}

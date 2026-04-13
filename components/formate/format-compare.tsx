@@ -5,8 +5,8 @@ import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import type { FormatVersion } from '@/lib/queries/entries';
 import type { FormatEntry } from '@/lib/queries/entries';
+import { FormatTreeDiff } from '@/components/formate/format-tree-diff';
 import { DiffPair } from '@/components/formate/diff-pair';
-import { SchemaDiffPanel } from '@/components/formate/schema-diff-panel';
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
 
@@ -44,18 +44,16 @@ function IconDownload() {
   );
 }
 
-function IconDelta() {
+function IconChevron({ open }: { open: boolean }) {
   return (
     <svg
-      viewBox="0 0 12 12"
-      className="size-5 shrink-0 text-amber-600 dark:text-amber-400"
+      viewBox="0 0 16 16"
+      className={cn('size-4 text-muted-foreground transition-transform', open && 'rotate-180')}
       fill="none"
       stroke="currentColor"
       strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
     >
-      <path d="M6 2L1 10h10L6 2z" />
+      <path d="M4 6l4 4 4-4" />
     </svg>
   );
 }
@@ -71,16 +69,10 @@ interface FormatCompareProps {
 
 function parseSelection(val: string | null): { formatName: string; version: string } | null {
   if (!val) return null;
-  // Expected: "pain.001.001.03" or "pain.001.legacy" or "mt103.legacy"
-  // Split on last dot-group that matches version pattern (001.001.XX or legacy)
   const legacyMatch = val.match(/^(.+)\.legacy$/i);
   if (legacyMatch) return { formatName: legacyMatch[1], version: 'legacy' };
-
-  // Try splitting: format_name is everything up to the version portion
-  // version is like "001.001.03"
   const parts = val.split('.');
   if (parts.length >= 4) {
-    // Last 3 parts are the version (e.g. 001.001.03)
     const version = parts.slice(-3).join('.');
     const formatName = parts.slice(0, -3).join('.');
     return { formatName, version };
@@ -109,22 +101,22 @@ function findEntry(entries: FormatEntry[], formatName: string): FormatEntry | nu
   );
 }
 
-// ─── Compare row categories ───────────────────────────────────────────────────
+// ─── Metadata rows ────────────────────────────────────────────────────────────
 
 const SECTION_ROWS: { key: string; label: string; source: 'entry' | 'version' }[] = [
-  { key: 'nachrichtentyp',        label: 'Nachrichtentyp',         source: 'entry' },
-  { key: 'familie_standard',      label: 'Familie / Standard',     source: 'entry' },
-  { key: 'aktuelle_version',      label: 'Aktuelle Version',       source: 'entry' },
-  { key: 'datenrichtung',         label: 'Datenrichtung',          source: 'entry' },
-  { key: 'sap_relevanz',          label: 'SAP-Relevanz',           source: 'entry' },
-  { key: 'status',                label: 'Status',                 source: 'entry' },
-  { key: 'released',              label: 'Veröffentlicht',         source: 'version' },
-  { key: 'source_standard',       label: 'Standard / Rulebook',   source: 'version' },
-  { key: 'schema_uri',            label: 'Schema URI',             source: 'version' },
-  { key: 'notes',                 label: 'Versions-Notes',         source: 'version' },
+  { key: 'nachrichtentyp',          label: 'Nachrichtentyp',       source: 'entry' },
+  { key: 'familie_standard',        label: 'Familie / Standard',   source: 'entry' },
+  { key: 'aktuelle_version',        label: 'Aktuelle Version',     source: 'entry' },
+  { key: 'datenrichtung',           label: 'Datenrichtung',        source: 'entry' },
+  { key: 'sap_relevanz',            label: 'SAP-Relevanz',         source: 'entry' },
+  { key: 'status',                  label: 'Status',               source: 'entry' },
+  { key: 'released',                label: 'Veröffentlicht',       source: 'version' },
+  { key: 'source_standard',        label: 'Standard / Rulebook',  source: 'version' },
+  { key: 'schema_uri',              label: 'Schema URI',           source: 'version' },
+  { key: 'notes',                   label: 'Versions-Notes',       source: 'version' },
   { key: 'beschreibung_einsteiger', label: 'Beschreibung',         source: 'entry' },
-  { key: 'wichtige_felder',       label: 'Wichtige Felder',        source: 'entry' },
-  { key: 'sap_mapping_einsteiger', label: 'SAP-Mapping',          source: 'entry' },
+  { key: 'wichtige_felder',         label: 'Wichtige Felder',      source: 'entry' },
+  { key: 'sap_mapping_einsteiger',  label: 'SAP-Mapping',         source: 'entry' },
   { key: 'fehlerquellen_einsteiger', label: 'Typische Fehler',    source: 'entry' },
 ];
 
@@ -142,73 +134,36 @@ function getValue(
   return '';
 }
 
-// ─── Side panel ───────────────────────────────────────────────────────────────
+// ─── Sample download button ───────────────────────────────────────────────────
 
-function SidePanel({
-  label,
-  version,
-  entry,
+function SampleButton({
+  href,
   isB,
 }: {
-  label: string;
-  version: FormatVersion | null;
-  entry: FormatEntry | null;
+  href: string;
   isB?: boolean;
 }) {
-  const title = version
-    ? `${version.format_name}.${version.version}`
-    : (entry?.format_name ?? '—');
-
   return (
-    <div className={cn('flex flex-col h-full', isB && 'border-l border-border')}>
-      {/* Panel header */}
-      <div className={cn(
-        'shrink-0 px-6 py-4 border-b border-border',
-        isB ? 'bg-blue-500/5' : 'bg-primary/5',
-      )}>
-        <div className={cn(
-          'text-xs font-semibold uppercase tracking-wider mb-1',
-          isB ? 'text-blue-500/70' : 'text-primary/70',
-        )}>
-          {label}
-        </div>
-        <h3 className="font-mono text-xl font-bold text-foreground">{title}</h3>
-        {version?.source_standard && (
-          <p className="mt-1 text-xs text-muted-foreground">{version.source_standard}</p>
-        )}
-        {version?.sample_file && (
-          <a
-            href={version.sample_file}
-            download
-            className={cn(
-              'mt-3 inline-flex items-center gap-2 rounded border px-3 py-1.5 text-xs font-medium transition-colors',
-              isB
-                ? 'border-blue-500/30 bg-blue-500/10 text-blue-600 hover:bg-blue-500/20'
-                : 'border-primary/30 bg-primary/10 text-primary hover:bg-primary/20',
-            )}
-          >
-            <IconDownload />
-            Sample herunterladen
-          </a>
-        )}
-      </div>
-
-      {/* Rows */}
-      <div className="flex-1 overflow-y-auto">
-        {!version && !entry ? (
-          <div className="flex h-full items-center justify-center p-8 text-base text-muted-foreground/60 text-center">
-            Wähle eine Version aus dem Dropdown oben
-          </div>
-        ) : null}
-      </div>
-    </div>
+    <a
+      href={href}
+      download
+      className={cn(
+        'inline-flex items-center gap-1.5 rounded border px-2.5 py-1 text-xs font-medium transition-colors',
+        isB
+          ? 'border-blue-500/30 bg-blue-500/10 text-blue-600 hover:bg-blue-500/20'
+          : 'border-primary/30 bg-primary/10 text-primary hover:bg-primary/20',
+      )}
+    >
+      <IconDownload />
+      Sample
+    </a>
   );
 }
 
 // ─── Main compare component ───────────────────────────────────────────────────
 
 export function FormatCompare({ versions, entries }: FormatCompareProps) {
-  const router = useRouter();
+  const router   = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -218,7 +173,7 @@ export function FormatCompare({ versions, entries }: FormatCompareProps) {
   const selA = parseSelection(paramA);
   const selB = parseSelection(paramB);
 
-  const groups = React.useMemo(() => groupVersionsByFormat(versions), [versions]);
+  const groups      = React.useMemo(() => groupVersionsByFormat(versions), [versions]);
   const formatNames = Object.keys(groups).sort();
 
   function buildSelectValue(v: FormatVersion) {
@@ -227,11 +182,8 @@ export function FormatCompare({ versions, entries }: FormatCompareProps) {
 
   function updateParam(side: 'a' | 'b', value: string) {
     const params = new URLSearchParams(searchParams.toString());
-    if (value) {
-      params.set(side, value);
-    } else {
-      params.delete(side);
-    }
+    if (value) params.set(side, value);
+    else params.delete(side);
     router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   }
 
@@ -244,7 +196,6 @@ export function FormatCompare({ versions, entries }: FormatCompareProps) {
     router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   }
 
-  // Resolve selected versions and entries
   const versionA = selA
     ? versions.find((v) => v.format_name === selA.formatName && v.version === selA.version) ?? null
     : null;
@@ -258,58 +209,52 @@ export function FormatCompare({ versions, entries }: FormatCompareProps) {
   const currentValueA = paramA ?? '';
   const currentValueB = paramB ?? '';
 
-  const [showDiff, setShowDiff] = React.useState(true);
-  const [onlyDiffs, setOnlyDiffs] = React.useState(false);
-
-  // ── Compute diff summary ──────────────────────────────────────────────────
-  const diffSummary = React.useMemo(() => {
-    if (!versionA && !entryA && !versionB && !entryB) return null;
-    const visibleRows = SECTION_ROWS.filter((row) => {
-      const valA = getValue(row, entryA, versionA);
-      const valB = getValue(row, entryB, versionB);
-      return !!(valA || valB);
-    });
-    const differentCount = visibleRows.filter((row) => {
-      const valA = getValue(row, entryA, versionA);
-      const valB = getValue(row, entryB, versionB);
-      return valA !== valB;
-    }).length;
-    return { differentCount, totalCount: visibleRows.length };
-  }, [versionA, entryA, versionB, entryB]);
+  const [metaOpen, setMetaOpen] = React.useState(false);
 
   const hasSelections = !!(versionA || entryA || versionB || entryB);
+  const bothSelected  = !!(versionA || entryA) && !!(versionB || entryB);
+
+  // ── Format labels ────────────────────────────────────────────────────────────
+  const labelA = versionA ? `${versionA.format_name}.${versionA.version}` : (entryA?.format_name ?? 'Format A');
+  const labelB = versionB ? `${versionB.format_name}.${versionB.version}` : (entryB?.format_name ?? 'Format B');
 
   return (
     <div className="flex h-full flex-col overflow-hidden">
-      {/* Top bar: dropdowns + swap */}
+
+      {/* ── Top bar: dropdowns + swap ─────────────────────────────────────── */}
       <div className="shrink-0 border-b border-border bg-background px-6 py-4">
         <div className="flex items-center gap-3 flex-wrap">
+
+          {/* Format A dropdown */}
           <div className="flex-1 min-w-48">
             <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted-foreground/60">
               Format A
             </label>
-            <div className="relative">
-              <select
-                value={currentValueA}
-                onChange={(e) => updateParam('a', e.target.value)}
-                className="h-10 w-full appearance-none rounded-md border border-border bg-primary/5 px-3 pr-8 text-base text-foreground outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/30"
-              >
-                <option value="">— Format A wählen —</option>
-                {formatNames.map((name) => (
-                  <optgroup key={name} label={name}>
-                    {groups[name].map((v) => (
-                      <option key={v.id} value={buildSelectValue(v)}>
-                        {name} › {v.version}
-                        {v.is_current ? ' ★' : ''}
-                        {v.released ? ` (${v.released})` : ''}
-                      </option>
-                    ))}
-                  </optgroup>
-                ))}
-              </select>
-              <span className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground">
-                <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 6l4 4 4-4"/></svg>
-              </span>
+            <div className="flex items-center gap-2">
+              <div className="relative flex-1">
+                <select
+                  value={currentValueA}
+                  onChange={(e) => updateParam('a', e.target.value)}
+                  className="h-10 w-full appearance-none rounded-md border border-border bg-primary/5 px-3 pr-8 text-base text-foreground outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/30"
+                >
+                  <option value="">— Format A wählen —</option>
+                  {formatNames.map((name) => (
+                    <optgroup key={name} label={name}>
+                      {groups[name].map((v) => (
+                        <option key={v.id} value={buildSelectValue(v)}>
+                          {name} › {v.version}
+                          {v.is_current ? ' ★' : ''}
+                          {v.released ? ` (${v.released})` : ''}
+                        </option>
+                      ))}
+                    </optgroup>
+                  ))}
+                </select>
+                <span className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground">
+                  <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 6l4 4 4-4" /></svg>
+                </span>
+              </div>
+              {versionA?.sample_file && <SampleButton href={versionA.sample_file} />}
             </div>
           </div>
 
@@ -326,170 +271,142 @@ export function FormatCompare({ versions, entries }: FormatCompareProps) {
             </button>
           </div>
 
+          {/* Format B dropdown */}
           <div className="flex-1 min-w-48">
             <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted-foreground/60">
               Format B
             </label>
-            <div className="relative">
-              <select
-                value={currentValueB}
-                onChange={(e) => updateParam('b', e.target.value)}
-                className="h-10 w-full appearance-none rounded-md border border-border bg-blue-500/5 px-3 pr-8 text-base text-foreground outline-none focus:border-blue-500/40 focus:ring-1 focus:ring-blue-500/20"
-              >
-                <option value="">— Format B wählen —</option>
-                {formatNames.map((name) => (
-                  <optgroup key={name} label={name}>
-                    {groups[name].map((v) => (
-                      <option key={v.id} value={buildSelectValue(v)}>
-                        {name} › {v.version}
-                        {v.is_current ? ' ★' : ''}
-                        {v.released ? ` (${v.released})` : ''}
-                      </option>
-                    ))}
-                  </optgroup>
-                ))}
-              </select>
-              <span className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground">
-                <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 6l4 4 4-4"/></svg>
-              </span>
+            <div className="flex items-center gap-2">
+              <div className="relative flex-1">
+                <select
+                  value={currentValueB}
+                  onChange={(e) => updateParam('b', e.target.value)}
+                  className="h-10 w-full appearance-none rounded-md border border-border bg-blue-500/5 px-3 pr-8 text-base text-foreground outline-none focus:border-blue-500/40 focus:ring-1 focus:ring-blue-500/20"
+                >
+                  <option value="">— Format B wählen —</option>
+                  {formatNames.map((name) => (
+                    <optgroup key={name} label={name}>
+                      {groups[name].map((v) => (
+                        <option key={v.id} value={buildSelectValue(v)}>
+                          {name} › {v.version}
+                          {v.is_current ? ' ★' : ''}
+                          {v.released ? ` (${v.released})` : ''}
+                        </option>
+                      ))}
+                    </optgroup>
+                  ))}
+                </select>
+                <span className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground">
+                  <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 6l4 4 4-4" /></svg>
+                </span>
+              </div>
+              {versionB?.sample_file && <SampleButton href={versionB.sample_file} isB />}
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Diff summary banner */}
-        {diffSummary && (
-          <div className="mt-3 flex items-center gap-4 flex-wrap rounded-lg border border-border bg-muted/20 px-5 py-3">
-            <div className="text-base">
-              <span className="font-semibold text-foreground">{diffSummary.differentCount}</span>
-              <span className="ml-1 text-muted-foreground">von {diffSummary.totalCount} Feldern unterschiedlich</span>
+      {/* ── Main content area ─────────────────────────────────────────────── */}
+      <div className="flex-1 overflow-y-auto px-6 py-5 space-y-6">
+
+        {/* Empty state */}
+        {!hasSelections && (
+          <div className="flex h-full min-h-64 items-center justify-center p-12 text-center">
+            <div>
+              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl border border-border bg-muted/30">
+                <svg viewBox="0 0 24 24" className="size-6 text-muted-foreground/40" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-4M14 3h7m0 0v7m0-7L10 14" />
+                </svg>
+              </div>
+              <p className="text-lg font-medium text-foreground/70">Zwei Formate zum Vergleichen wählen</p>
+              <p className="mt-1 text-base text-muted-foreground/60">
+                Wähle aus den Dropdowns oben ein Format A und Format B aus.<br />
+                Der XML-Elementbaum beider Formate wird nebeneinander gezeigt.
+              </p>
             </div>
-            <div className="h-4 w-px bg-border" />
-            <label className="flex items-center gap-2 text-base cursor-pointer select-none">
-              <input
-                type="checkbox"
-                checked={onlyDiffs}
-                onChange={(e) => setOnlyDiffs(e.target.checked)}
-                className="size-4 accent-primary"
-              />
-              <span>Nur Unterschiede zeigen</span>
-            </label>
-            <div className="h-4 w-px bg-border" />
+          </div>
+        )}
+
+        {/* Single selection hint */}
+        {hasSelections && !bothSelected && (
+          <div className="rounded-lg border border-border bg-muted/20 px-4 py-3 text-sm text-muted-foreground/70">
+            Wähle auch das {!versionA && !entryA ? 'Format A' : 'Format B'} aus, um den Vergleich zu starten.
+          </div>
+        )}
+
+        {/* Tree diff */}
+        {bothSelected && (
+          <FormatTreeDiff
+            sampleA={versionA?.sample_file}
+            sampleB={versionB?.sample_file}
+            labelA={labelA}
+            labelB={labelB}
+          />
+        )}
+
+        {/* ── Metadaten-Vergleich (collapsible) ──────────────────────────── */}
+        {hasSelections && (
+          <div className="rounded-lg border border-border bg-background overflow-hidden">
             <button
-              onClick={() => setShowDiff((v) => !v)}
-              className={cn(
-                'rounded-md border px-3 py-1 text-xs font-medium transition-colors whitespace-nowrap',
-                showDiff
-                  ? 'border-green-500/30 bg-green-500/10 text-green-700 dark:text-green-400 hover:bg-green-500/20'
-                  : 'border-border bg-muted/30 text-muted-foreground hover:bg-muted/60 hover:text-foreground',
-              )}
-              title={showDiff ? 'Zu Plain-Ansicht wechseln' : 'Zu Wort-Diff wechseln'}
+              onClick={() => setMetaOpen((v) => !v)}
+              className="flex w-full items-center justify-between px-4 py-3 text-left hover:bg-muted/20 transition-colors"
             >
-              {showDiff ? 'Wort-Diff' : 'Nur Text'}
+              <span className="text-base font-semibold text-foreground/80">Metadaten-Vergleich</span>
+              <IconChevron open={metaOpen} />
             </button>
+
+            {metaOpen && (
+              <div className="border-t border-border overflow-x-auto">
+                <table className="w-full text-base">
+                  <thead className="sticky top-0 z-10 bg-background border-b border-border">
+                    <tr>
+                      <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground/60 w-36">
+                        Feld
+                      </th>
+                      <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider text-primary/70">
+                        {labelA}
+                      </th>
+                      <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider text-blue-500/70">
+                        {labelB}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border">
+                    {SECTION_ROWS.map((row) => {
+                      const valA = getValue(row, entryA, versionA);
+                      const valB = getValue(row, entryB, versionB);
+                      const differs = !!(valA || valB) && valA !== valB;
+                      if (!valA && !valB) return null;
+
+                      return (
+                        <tr
+                          key={row.key}
+                          className={cn('align-top', differs && 'bg-amber-50/50 dark:bg-amber-950/20')}
+                        >
+                          <td className={cn(
+                            'px-4 py-3 text-xs whitespace-nowrap',
+                            differs
+                              ? 'font-semibold text-amber-700 dark:text-amber-300 border-l-4 border-l-amber-500'
+                              : 'font-medium text-muted-foreground/70',
+                          )}>
+                            {row.label}
+                          </td>
+                          <td className="px-4 py-3 text-base text-foreground/85 max-w-xs">
+                            <DiffPair left={valA} right={valB} showDiff={false} side="left" />
+                          </td>
+                          <td className="px-4 py-3 text-base text-foreground/85 max-w-xs">
+                            <DiffPair left={valA} right={valB} showDiff={false} side="right" />
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         )}
       </div>
-
-      {/* Split view */}
-      <div className="flex flex-1 overflow-hidden">
-        {/* Left: Format A */}
-        <div className="flex flex-1 flex-col overflow-hidden">
-          <SidePanel label="Format A" version={versionA} entry={entryA} />
-        </div>
-
-        {/* Right: Format B */}
-        <div className="flex flex-1 flex-col overflow-hidden">
-          <SidePanel label="Format B" version={versionB} entry={entryB} isB />
-        </div>
-      </div>
-
-      {/* Comparison rows */}
-      {hasSelections && (
-        <div className="shrink-0 border-t border-border overflow-y-auto" style={{ maxHeight: 'calc(100vh - 300px)' }}>
-          <table className="w-full text-base">
-            <thead className="sticky top-0 z-10 bg-background border-b border-border">
-              <tr>
-                <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground/60 w-36">
-                  Feld
-                </th>
-                <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider text-primary/70">
-                  Format A
-                </th>
-                <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider text-blue-500/70">
-                  Format B
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border">
-              {SECTION_ROWS.map((row) => {
-                const valA = getValue(row, entryA, versionA);
-                const valB = getValue(row, entryB, versionB);
-                const differs = !!(valA || valB) && valA !== valB;
-                if (!valA && !valB) return null;
-                if (onlyDiffs && !differs) return null;
-
-                return (
-                  <tr
-                    key={row.key}
-                    className={cn(
-                      'align-top',
-                      differs && 'bg-amber-50/50 dark:bg-amber-950/20',
-                    )}
-                  >
-                    <td className={cn(
-                      'px-4 py-3 text-xs whitespace-nowrap',
-                      differs
-                        ? 'font-semibold text-amber-700 dark:text-amber-300 border-l-4 border-l-amber-500'
-                        : 'font-medium text-muted-foreground/70',
-                    )}>
-                      <div className="flex items-center gap-1.5">
-                        {differs && <IconDelta />}
-                        {row.label}
-                      </div>
-                    </td>
-                    <td className="px-4 py-3 text-base text-foreground/85 max-w-xs">
-                      <DiffPair left={valA} right={valB} showDiff={showDiff} side="left" />
-                    </td>
-                    <td className="px-4 py-3 text-base text-foreground/85 max-w-xs">
-                      <DiffPair left={valA} right={valB} showDiff={showDiff} side="right" />
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-
-          {/* Schema Diff Panel — only when both samples are XML */}
-          {versionA?.sample_file?.toLowerCase().endsWith('.xml') &&
-           versionB?.sample_file?.toLowerCase().endsWith('.xml') && (
-            <div className="px-4 pb-6">
-              <SchemaDiffPanel
-                sampleA={versionA.sample_file}
-                sampleB={versionB.sample_file}
-              />
-            </div>
-          )}
-        </div>
-      )}
-
-
-      {/* Empty state */}
-      {!versionA && !entryA && !versionB && !entryB && (
-        <div className="flex flex-1 items-center justify-center p-12 text-center">
-          <div>
-            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl border border-border bg-muted/30">
-              <svg viewBox="0 0 24 24" className="size-6 text-muted-foreground/40" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M9 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-4M14 3h7m0 0v7m0-7L10 14" />
-              </svg>
-            </div>
-            <p className="text-lg font-medium text-foreground/70">Zwei Formate zum Vergleichen wählen</p>
-            <p className="mt-1 text-base text-muted-foreground/60">
-              Wähle aus den Dropdowns oben ein Format A und Format B aus.<br />
-              Unterschiede werden mit einem Δ-Symbol markiert.
-            </p>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

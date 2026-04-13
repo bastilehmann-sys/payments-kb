@@ -76,39 +76,40 @@ export function Topbar({ className }: TopbarProps) {
         </svg>
       </button>
 
-      {/* Logo — visible on mobile always, on desktop only when sidebar is hidden */}
+      {/* Logo */}
       <Link
         href="/"
-        className={cn(
-          "font-heading text-base font-semibold text-foreground lg:hidden",
-          isFullscreen && "lg:inline"
-        )}
+        className="flex items-center gap-2 font-heading text-base font-semibold text-foreground"
       >
-        Payments KB
+        <span className="flex h-7 w-7 items-center justify-center rounded-md bg-primary text-primary-foreground">
+          P
+        </span>
+        <span className="hidden sm:inline">Payments KB</span>
       </Link>
 
-      {/* Horizontal nav — shown on fullscreen routes where sidebar is hidden */}
-      {isFullscreen && (
-        <nav className="ml-4 hidden items-center gap-1 lg:flex">
-          {NAV_ITEMS.filter((item) => item.href !== "/").map((item) => {
-            const active = pathname.startsWith(item.href)
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
-                  active
-                    ? "bg-primary/10 text-primary"
-                    : "text-muted-foreground hover:bg-accent/10 hover:text-foreground"
-                )}
-              >
-                {item.label}
-              </Link>
-            )
-          })}
-        </nav>
-      )}
+      {/* Horizontal nav */}
+      <nav className="ml-4 hidden items-center gap-1 lg:flex">
+        {NAV_ITEMS.map((item) => {
+          const active =
+            item.href === "/"
+              ? pathname === "/"
+              : pathname.startsWith(item.href)
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={cn(
+                "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+                active
+                  ? "bg-primary/10 text-primary"
+                  : "text-muted-foreground hover:bg-accent/10 hover:text-foreground"
+              )}
+            >
+              {item.label}
+            </Link>
+          )
+        })}
+      </nav>
 
       {/* Spacer */}
       <div className="flex-1" />

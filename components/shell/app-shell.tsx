@@ -1,7 +1,6 @@
 "use client"
 
 import { usePathname } from "next/navigation"
-import { DesktopSidebar } from "./sidebar"
 import { Topbar } from "./topbar"
 
 interface AppShellProps {
@@ -31,28 +30,20 @@ export function AppShell({ children }: AppShellProps) {
   )
 
   return (
-    <div className="flex min-h-screen">
-      {/* Desktop sidebar — hidden on fullscreen section routes */}
-      {!isFullscreen && <DesktopSidebar />}
-
-      {/* Right side: topbar + main.
-          On fullscreen routes the sidebar is unmounted so no left offset needed. */}
-      <div className={`flex flex-1 flex-col ${isFullscreen ? '' : 'lg:pl-[272px]'}`}>
-        <Topbar className="sticky top-0 z-30" />
-        {isFullscreen ? (
-          /* Fullscreen: no padding, fills exact remaining viewport height, full width */
-          <main
-            className="flex flex-col overflow-hidden w-full"
-            style={{ height: 'calc(100vh - 56px)' }}
-          >
-            {children}
-          </main>
-        ) : (
-          <main className="flex-1 px-6 py-6 md:px-8 md:py-8">
-            {children}
-          </main>
-        )}
-      </div>
+    <div className="flex min-h-screen flex-col">
+      <Topbar className="sticky top-0 z-30" />
+      {isFullscreen ? (
+        <main
+          className="flex flex-col overflow-hidden w-full"
+          style={{ height: 'calc(100vh - 56px)' }}
+        >
+          {children}
+        </main>
+      ) : (
+        <main className="flex-1 px-6 py-6 md:px-10 md:py-8">
+          {children}
+        </main>
+      )}
     </div>
   )
 }

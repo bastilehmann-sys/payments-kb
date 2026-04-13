@@ -101,6 +101,66 @@ function ComplexityDot({ value }: { value: string }) {
   );
 }
 
+// ─── Field value renderer ─────────────────────────────────────────────────────
+
+/**
+ * Detect if the value contains an enumerated list and render accordingly.
+ * Priority: numbered (1) 2) ...) > bullet (• · ● ▪ – —) > line-break > plain.
+ */
+function renderFieldValue(value: string): React.ReactNode {
+  if (!value) return null;
+
+  // ── 1. Numbered pattern: e.g. "1) Foo 2) Bar" or "1. Foo 2. Bar"
+  // Only triggers when the digit is followed by ) or . and then whitespace + alpha char.
+  // Avoids "1.0", "5.000 EUR" etc. by requiring a letter right after the whitespace.
+  const numberedRegex = /(?:^|\s)\d+[)\.]\s+(?=[A-Za-zÄÖÜäöüß])/g;
+  const numberedMatches = [...value.matchAll(numberedRegex)];
+  if (numberedMatches.length >= 2) {
+    // Split on the boundary positions
+    const parts = value.split(/\s*\d+[)\.]\s+(?=[A-Za-zÄÖÜäöüß])/).map((s) => s.trim()).filter(Boolean);
+    // The first part might be empty if string starts with "1) ..."
+    if (parts.length >= 2) {
+      return (
+        <ul className="list-disc space-y-1.5 pl-5 marker:text-primary/60">
+          {parts.map((item, i) => (
+            <li key={i} className="text-base leading-relaxed text-foreground/90">{item}</li>
+          ))}
+        </ul>
+      );
+    }
+  }
+
+  // ── 2. Bullet pattern: • · ● ▪ – — followed by whitespace, needs 2+ occurrences
+  const bulletSplitRegex = /\s*[•·●▪\–\—]\s+/;
+  const bulletParts = value.split(bulletSplitRegex).map((s) => s.trim()).filter(Boolean);
+  if (bulletParts.length >= 2) {
+    return (
+      <ul className="list-disc space-y-1.5 pl-5 marker:text-primary/60">
+        {bulletParts.map((item, i) => (
+          <li key={i} className="text-base leading-relaxed text-foreground/90">{item}</li>
+        ))}
+      </ul>
+    );
+  }
+
+  // ── 3. Line-break pattern: 2+ newlines, no numbered/bullet already matched
+  if ((value.match(/\n/g) ?? []).length >= 2) {
+    const lineParts = value.split('\n').map((s) => s.trim()).filter(Boolean);
+    if (lineParts.length >= 2) {
+      return (
+        <ul className="list-disc space-y-1.5 pl-5 marker:text-primary/60">
+          {lineParts.map((item, i) => (
+            <li key={i} className="text-base leading-relaxed text-foreground/90">{item}</li>
+          ))}
+        </ul>
+      );
+    }
+  }
+
+  // ── 4. Plain text
+  return <p className="whitespace-pre-line">{value}</p>;
+}
+
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function getItemId<T extends Record<string, unknown>>(item: T, idField?: keyof T): string {
@@ -167,7 +227,7 @@ function FieldRow({ label, value }: { label: string; value: string }) {
       <dt className="mb-1.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground/60">
         {label}
       </dt>
-      <dd className="text-base text-foreground/85 leading-relaxed whitespace-pre-line">
+      <dd className="text-base text-foreground/85 leading-relaxed">
         {isLink ? (
           <a
             href={value}
@@ -179,7 +239,7 @@ function FieldRow({ label, value }: { label: string; value: string }) {
             <IconExternalLink />
           </a>
         ) : (
-          value
+          renderFieldValue(value)
         )}
       </dd>
     </div>
@@ -210,8 +270,8 @@ function PairedRow({
           <dt className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#4a9eff]/80">
             {expertLabel}
           </dt>
-          <dd className="text-base text-foreground/85 leading-relaxed whitespace-pre-line">
-            {expertValue}
+          <dd className="text-base text-foreground/85 leading-relaxed">
+            {renderFieldValue(expertValue)}
           </dd>
         </div>
       )}
@@ -220,8 +280,8 @@ function PairedRow({
           <dt className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#86bc25]/80">
             {beginnerLabel}
           </dt>
-          <dd className="text-base text-foreground/85 leading-relaxed whitespace-pre-line">
-            {beginnerValue}
+          <dd className="text-base text-foreground/85 leading-relaxed">
+            {renderFieldValue(beginnerValue)}
           </dd>
         </div>
       )}

@@ -93,6 +93,37 @@ export async function listCountries(): Promise<CountryRow[]> {
     );
 }
 
+/**
+ * List countries with their linked document markdown content.
+ * Used by the fullscreen Länder split-view.
+ */
+export async function listCountriesWithDocuments(): Promise<CountryWithDocument[]> {
+  const rows = await listCountries();
+
+  const result: CountryWithDocument[] = [];
+  for (const row of rows) {
+    if (row.document_id) {
+      const docRows = await db
+        .select({
+          id: documents.id,
+          slug: documents.slug,
+          title: documents.title,
+          section: documents.section,
+          source_file: documents.source_file,
+          updated_at: documents.updated_at,
+          content_md: documents.content_md,
+        })
+        .from(documents)
+        .where(eq(documents.id, row.document_id))
+        .limit(1);
+      result.push({ ...row, document: docRows[0] ?? null });
+    } else {
+      result.push({ ...row, document: null });
+    }
+  }
+  return result;
+}
+
 export async function getCountry(code: string): Promise<CountryWithDocument | null> {
   const rows = await db
     .select({

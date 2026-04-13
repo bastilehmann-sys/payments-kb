@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- pacs.008.001.08 — CBPR+ (Cross-Border Payments and Reporting Plus) -->
+<!-- SWIFT CBPR+ Implementation Guidelines 2023 -->
+<!-- Interbank: BIC-basiertes Routing (kein ClrSysMemId), strukturierte CPP-Adressen -->
+<!-- Anonymisierte Testdaten: DE → FR, 100 EUR, vollständig strukturiert -->
+
+<!-- Business Application Header (BAH) — Pflicht für alle CBPR+-Nachrichten -->
+<BizMsgEnvlp xmlns="urn:swift:xsd:envelope">
+  <AppHdr xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.03">
+    <Fr>
+      <FIId>
+        <FinInstnId>
+          <BICFI>COBADEFFXXX</BICFI>
+          <Nm>Commerzbank AG</Nm>
+        </FinInstnId>
+      </FIId>
+    </Fr>
+    <To>
+      <FIId>
+        <FinInstnId>
+          <!-- BIC der Empfängerbank (CBPR+: immer BICFI, keine ClrSysMemId) -->
+          <BICFI>BNPAFRPPXXX</BICFI>
+          <Nm>BNP Paribas SA</Nm>
+        </FinInstnId>
+      </FIId>
+    </To>
+    <BizMsgIdr>CBPR-MSG-20260413-001</BizMsgIdr>
+    <MsgDefIdr>pacs.008.001.08</MsgDefIdr>
+    <BizSvc>swift.cbprplus.02!</BizSvc>
+    <CreDt>2026-04-13T10:00:00Z</CreDt>
+  </AppHdr>
+  <Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08">
+    <FIToFICstmrCdtTrf>
+      <GrpHdr>
+        <MsgId>CBPRPACS008-20260413-001</MsgId>
+        <CreDtTm>2026-04-13T10:00:00</CreDtTm>
+        <NbOfTxs>1</NbOfTxs>
+        <SttlmInf>
+          <SttlmMtd>CLRG</SttlmMtd>
+          <ClrSys>
+            <!-- TARGET2 / T2 als Settlement-System für EUR-Interbankzahlungen -->
+            <Cd>TGT</Cd>
+          </ClrSys>
+        </SttlmInf>
+      </GrpHdr>
+      <CdtTrfTxInf>
+        <PmtId>
+          <InstrId>INSTRID-CBPR-20260413-001</InstrId>
+          <EndToEndId>E2EID-CBPR-20260413-001</EndToEndId>
+          <!-- UETR: UUID v4 — Pflicht für SWIFT gpi und CBPR+ -->
+          <UETR>f8a9b0c1-d2e3-4f56-8901-a2b3c4d5e6f7</UETR>
+        </PmtId>
+        <IntrBkSttlmAmt Ccy="EUR">100.00</IntrBkSttlmAmt>
+        <IntrBkSttlmDt>2026-04-14</IntrBkSttlmDt>
+        <InstdAmt Ccy="EUR">100.00</InstdAmt>
+        <ChrgBr>SHAR</ChrgBr>
+        <!-- CBPR+: Routing ausschließlich per BICFI — kein Sort-Code, keine ClrSysMemId -->
+        <InstgAgt>
+          <FinInstnId>
+            <BICFI>COBADEFFXXX</BICFI>
+          </FinInstnId>
+        </InstgAgt>
+        <InstdAgt>
+          <FinInstnId>
+            <BICFI>BNPAFRPPXXX</BICFI>
+          </FinInstnId>
+        </InstdAgt>
+        <Dbtr>
+          <Nm>Test Debtor GmbH</Nm>
+          <!-- CPP-konforme strukturierte Adresse — Pflicht ab CBPR+ 2026 Enforcement -->
+          <PstlAdr>
+            <StrtNm>Teststraße</StrtNm>
+            <BldgNb>1</BldgNb>
+            <PstCd>90401</PstCd>
+            <TwnNm>Nürnberg</TwnNm>
+            <Ctry>DE</Ctry>
+          </PstlAdr>
+          <Id>
+            <OrgId>
+              <LEI>5493001KJTIIGC8Y1R12</LEI>
+            </OrgId>
+          </Id>
+        </Dbtr>
+        <DbtrAcct>
+          <Id>
+            <IBAN>DE89370400440532013000</IBAN>
+          </Id>
+          <Ccy>EUR</Ccy>
+        </DbtrAcct>
+        <DbtrAgt>
+          <FinInstnId>
+            <BICFI>COBADEFFXXX</BICFI>
+            <Nm>Commerzbank AG</Nm>
+            <PstlAdr>
+              <StrtNm>Kaiserplatz</StrtNm>
+              <BldgNb>1</BldgNb>
+              <PstCd>60261</PstCd>
+              <TwnNm>Frankfurt am Main</TwnNm>
+              <Ctry>DE</Ctry>
+            </PstlAdr>
+          </FinInstnId>
+        </DbtrAgt>
+        <CdtrAgt>
+          <FinInstnId>
+            <BICFI>BNPAFRPPXXX</BICFI>
+            <Nm>BNP Paribas SA</Nm>
+            <PstlAdr>
+              <StrtNm>Boulevard des Italiens</StrtNm>
+              <BldgNb>16</BldgNb>
+              <PstCd>75009</PstCd>
+              <TwnNm>Paris</TwnNm>
+              <Ctry>FR</Ctry>
+            </PstlAdr>
+          </FinInstnId>
+        </CdtrAgt>
+        <Cdtr>
+          <Nm>Test Creditor SARL</Nm>
+          <!-- CPP-strukturierte Adresse für Empfänger -->
+          <PstlAdr>
+            <StrtNm>Rue de la Paix</StrtNm>
+            <BldgNb>12</BldgNb>
+            <PstCd>75002</PstCd>
+            <TwnNm>Paris</TwnNm>
+            <Ctry>FR</Ctry>
+          </PstlAdr>
+          <Id>
+            <OrgId>
+              <LEI>3358001KJTIIGC8Y1R99</LEI>
+            </OrgId>
+          </Id>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>FR7630006000011234567890189</IBAN>
+          </Id>
+          <Ccy>EUR</Ccy>
+        </CdtrAcct>
+        <Purp>
+          <Cd>SUPP</Cd>
+        </Purp>
+        <RmtInf>
+          <Strd>
+            <CdtrRefInf>
+              <Tp>
+                <CdOrPrtry>
+                  <Cd>SCOR</Cd>
+                </CdOrPrtry>
+              </Tp>
+              <Ref>INV2026-042</Ref>
+            </CdtrRefInf>
+          </Strd>
+        </RmtInf>
+      </CdtTrfTxInf>
+    </FIToFICstmrCdtTrf>
+  </Document>
+</BizMsgEnvlp>

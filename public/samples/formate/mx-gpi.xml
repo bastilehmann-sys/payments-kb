@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- pacs.008.001.08 + SWIFT gpi (Global Payments Innovation) -->
+<!-- SWIFT CBPR+ Usage Guidelines 2023 — MX gpi Customer Credit Transfer -->
+<!-- UETR (UUID v4) als Pflicht-Tracking-Referenz; gSRP-Status via SplmtryData -->
+<!-- Anonymisierte Testdaten: DE → US, 100 EUR, SWIFT gpi mit UETR -->
+
+<!-- Business Application Header (BAH) — Pflicht für CBPR+ / SWIFT MX -->
+<BizMsgEnvlp xmlns="urn:swift:xsd:envelope">
+  <AppHdr xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.03">
+    <Fr>
+      <FIId>
+        <FinInstnId>
+          <!-- Absender-Bank (BIC der sendenden Bank) -->
+          <BICFI>COBADEFFXXX</BICFI>
+        </FinInstnId>
+      </FIId>
+    </Fr>
+    <To>
+      <FIId>
+        <FinInstnId>
+          <!-- Empfänger-Bank (BIC der beauftragten Korrespondenzbank) -->
+          <BICFI>CHASUS33XXX</BICFI>
+        </FinInstnId>
+      </FIId>
+    </To>
+    <!-- Nachrichten-Typ: pacs.008.001.08 -->
+    <BizMsgIdr>COBADEFGPI20260413001</BizMsgIdr>
+    <MsgDefIdr>pacs.008.001.08</MsgDefIdr>
+    <CreDt>2026-04-13T10:00:00Z</CreDt>
+  </AppHdr>
+  <Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08">
+    <FIToFICstmrCdtTrf>
+      <GrpHdr>
+        <MsgId>GPI-MSG-20260413-001</MsgId>
+        <CreDtTm>2026-04-13T10:00:00</CreDtTm>
+        <NbOfTxs>1</NbOfTxs>
+        <SttlmInf>
+          <!-- CLRG = Clearing-System-Settlement (z. B. Correspondent-Bank-Konto) -->
+          <SttlmMtd>CLRG</SttlmMtd>
+        </SttlmInf>
+      </GrpHdr>
+      <CdtTrfTxInf>
+        <PmtId>
+          <InstrId>INSTRID-GPI-20260413-001</InstrId>
+          <EndToEndId>E2EID-GPI-20260413-001</EndToEndId>
+          <!-- UETR: UUID v4 — Pflicht für SWIFT gpi, unveränderlich über alle Hops -->
+          <UETR>a1b2c3d4-e5f6-4789-a012-b3c4d5e6f701</UETR>
+        </PmtId>
+        <!-- Settlement-Betrag: immer in Settlement-Währung des Intermediary-Netzes -->
+        <IntrBkSttlmAmt Ccy="EUR">100.00</IntrBkSttlmAmt>
+        <IntrBkSttlmDt>2026-04-14</IntrBkSttlmDt>
+        <!-- Angewiesener Betrag (kann von Settlement-Betrag abweichen bei FX) -->
+        <InstdAmt Ccy="EUR">100.00</InstdAmt>
+        <!-- SHAR = Gebührenteilung (Auftraggeber zahlt eigene Bank, Empfänger seine) -->
+        <ChrgBr>SHAR</ChrgBr>
+        <!-- Absendende Bank -->
+        <InstgAgt>
+          <FinInstnId>
+            <BICFI>COBADEFFXXX</BICFI>
+          </FinInstnId>
+        </InstgAgt>
+        <!-- Empfangende Bank (nächster Hop) -->
+        <InstdAgt>
+          <FinInstnId>
+            <BICFI>CHASUS33XXX</BICFI>
+          </FinInstnId>
+        </InstdAgt>
+        <Dbtr>
+          <Nm>Test Debtor GmbH</Nm>
+          <!-- Strukturierte Adresse (CPP-konform — Pflicht ab 2026) -->
+          <PstlAdr>
+            <StrtNm>Teststraße</StrtNm>
+            <BldgNb>1</BldgNb>
+            <PstCd>90401</PstCd>
+            <TwnNm>Nürnberg</TwnNm>
+            <Ctry>DE</Ctry>
+          </PstlAdr>
+          <Id>
+            <OrgId>
+              <LEI>5493001KJTIIGC8Y1R12</LEI>
+            </OrgId>
+          </Id>
+        </Dbtr>
+        <DbtrAcct>
+          <Id>
+            <IBAN>DE89370400440532013000</IBAN>
+          </Id>
+          <Ccy>EUR</Ccy>
+        </DbtrAcct>
+        <DbtrAgt>
+          <FinInstnId>
+            <BICFI>COBADEFFXXX</BICFI>
+          </FinInstnId>
+        </DbtrAgt>
+        <CdtrAgt>
+          <FinInstnId>
+            <BICFI>CHASUS33XXX</BICFI>
+          </FinInstnId>
+        </CdtrAgt>
+        <Cdtr>
+          <Nm>Test Creditor Inc.</Nm>
+          <PstlAdr>
+            <StrtNm>5th Avenue</StrtNm>
+            <BldgNb>350</BldgNb>
+            <PstCd>10118</PstCd>
+            <TwnNm>New York</TwnNm>
+            <CtrySubDvsn>NY</CtrySubDvsn>
+            <Ctry>US</Ctry>
+          </PstlAdr>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <!-- Non-SEPA: Kontonummer statt IBAN -->
+            <Othr>
+              <Id>000123456789</Id>
+            </Othr>
+          </Id>
+          <Ccy>USD</Ccy>
+        </CdtrAcct>
+        <Purp>
+          <Cd>SUPP</Cd>
+        </Purp>
+        <RmtInf>
+          <Ustrd>Invoice INV2026-042 dated 2026-04-01</Ustrd>
+        </RmtInf>
+        <!-- gpi Service Reference Header: Tracking-Status des aktuellen Hops -->
+        <SplmtryData>
+          <PlcAndNm>urn:swift:xsd:srtp2023.001.03</PlcAndNm>
+          <!-- gSRP: ACSP = Accepted, Settlement in Process — Weiterleitung an nächste Bank -->
+          <Envlp>
+            <SrvcLvl>gSRP</SrvcLvl>
+            <SttlmSts>ACSP</SttlmSts>
+            <UETR>a1b2c3d4-e5f6-4789-a012-b3c4d5e6f701</UETR>
+          </Envlp>
+        </SplmtryData>
+      </CdtTrfTxInf>
+    </FIToFICstmrCdtTrf>
+  </Document>
+</BizMsgEnvlp>

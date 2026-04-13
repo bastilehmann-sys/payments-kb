@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- pain.013.001.09 — Creditor Payment Activation Request (Request-to-Pay) -->
+<!-- EPC SEPA Request-to-Pay Rulebook v2.0 (2023) — Mindestbeispiel (anonymisierte Testdaten) -->
+<!-- Gläubiger fordert Schuldner auf, 100 EUR bis 2026-04-17 zu zahlen -->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.013.001.09"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.013.001.09 pain.013.001.09.xsd">
+  <CdtrPmtActvtnReq>
+    <GrpHdr>
+      <MsgId>RTP-20260413-001</MsgId>
+      <CreDtTm>2026-04-13T10:00:00</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <InitgPty>
+        <Nm>Test Creditor GmbH</Nm>
+        <Id>
+          <OrgId>
+            <LEI>5493001KJTIIGC8Y1R12</LEI>
+          </OrgId>
+        </Id>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <PmtInfId>PMTINF-RTP-20260413-001</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <PmtTpInf>
+        <SvcLvl>
+          <!-- SEPA = SEPA Request-to-Pay -->
+          <Cd>SEPA</Cd>
+        </SvcLvl>
+        <LclInstrm>
+          <!-- SRTP = SEPA Request-to-Pay (EPC-spezifischer Code) -->
+          <Cd>SRTP</Cd>
+        </LclInstrm>
+      </PmtTpInf>
+      <!-- Gewünschtes Zahlungsdatum (Deadline für Ausführung) -->
+      <ReqdExctnDt>
+        <Dt>2026-04-17</Dt>
+      </ReqdExctnDt>
+      <!-- Verfallsdatum der RTP-Anforderung — Debtor muss bis hierhin reagieren -->
+      <XpryDt>
+        <DtTm>2026-04-16T18:00:00</DtTm>
+      </XpryDt>
+      <Cdtr>
+        <Nm>Test Creditor GmbH</Nm>
+        <PstlAdr>
+          <StrtNm>Gläubigerstraße</StrtNm>
+          <BldgNb>5</BldgNb>
+          <PstCd>90401</PstCd>
+          <TwnNm>Nürnberg</TwnNm>
+          <Ctry>DE</Ctry>
+        </PstlAdr>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <IBAN>DE75512108001245126199</IBAN>
+        </Id>
+        <Ccy>EUR</Ccy>
+      </CdtrAcct>
+      <CdtrAgt>
+        <FinInstnId>
+          <BICFI>COBADEFFXXX</BICFI>
+        </FinInstnId>
+      </CdtrAgt>
+      <CdtTrfTxInf>
+        <PmtId>
+          <!-- RtpId: eindeutige RTP-Referenz — Tracking über gesamten Prozess -->
+          <InstrId>INSTRID-RTP-001</InstrId>
+          <EndToEndId>E2EID-RTP-20260413-001</EndToEndId>
+        </PmtId>
+        <Amt>
+          <InstdAmt Ccy="EUR">100.00</InstdAmt>
+        </Amt>
+        <ChrgBr>SLEV</ChrgBr>
+        <Dbtr>
+          <Nm>Test Debtor AG</Nm>
+          <PstlAdr>
+            <StrtNm>Schuldnerstraße</StrtNm>
+            <BldgNb>10</BldgNb>
+            <PstCd>10115</PstCd>
+            <TwnNm>Berlin</TwnNm>
+            <Ctry>DE</Ctry>
+          </PstlAdr>
+        </Dbtr>
+        <DbtrAcct>
+          <Id>
+            <IBAN>DE89370400440532013000</IBAN>
+          </Id>
+        </DbtrAcct>
+        <DbtrAgt>
+          <FinInstnId>
+            <BICFI>DEUTDEDBXXX</BICFI>
+          </FinInstnId>
+        </DbtrAgt>
+        <Purp>
+          <!-- SUPP = Supplier Payment -->
+          <Cd>SUPP</Cd>
+        </Purp>
+        <RmtInf>
+          <!-- Strukturierte Rechnungsreferenz (SCOR = Structured Creditor Reference) -->
+          <Strd>
+            <CdtrRefInf>
+              <Tp>
+                <CdOrPrtry>
+                  <Cd>SCOR</Cd>
+                </CdOrPrtry>
+              </Tp>
+              <Ref>INV2026-042</Ref>
+            </CdtrRefInf>
+            <AddtlRmtInf>Rechnung 2026-042 vom 2026-04-01, Zahlungsziel 30 Tage</AddtlRmtInf>
+          </Strd>
+        </RmtInf>
+      </CdtTrfTxInf>
+    </PmtInf>
+  </CdtrPmtActvtnReq>
+</Document>

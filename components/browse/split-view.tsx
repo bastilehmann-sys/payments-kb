@@ -292,18 +292,17 @@ function MergedPairedRow({
   label,
   expertValue,
   beginnerValue,
-  mode,
 }: {
   label: string;
   expertValue: string;
   beginnerValue: string;
-  mode: Mode;
+  mode?: Mode;
 }) {
-  const primary = mode === 'experte' ? expertValue : beginnerValue;
-  const fallback = mode === 'experte' ? beginnerValue : expertValue;
-  const value = primary || fallback;
-  if (!value) return null;
-  return <FieldRow label={label} value={value} />;
+  // Merge both variants into a single continuous block — no distinction shown.
+  const parts = [beginnerValue, expertValue].filter((v) => v && v.trim());
+  if (parts.length === 0) return null;
+  const merged = parts.join('\n\n');
+  return <FieldRow label={label} value={merged} />;
 }
 
 // ─── Detail panel ─────────────────────────────────────────────────────────────
@@ -532,34 +531,6 @@ function DetailPanel<T extends Record<string, unknown>>({
         ) : (
           /* ── Standard column-section tabs ── */
           <>
-            {/* Einsteiger / Experte toggle — sits above the tab bar */}
-            {hasPairs && (
-              <div className="mb-4 flex items-center gap-2 rounded-lg border border-border bg-muted/30 p-1 w-fit">
-                <button
-                  onClick={() => setMode('einsteiger')}
-                  className={cn(
-                    'px-4 py-1.5 text-base font-medium rounded-md transition-colors',
-                    mode === 'einsteiger'
-                      ? 'bg-primary text-primary-foreground'
-                      : 'text-muted-foreground hover:text-foreground',
-                  )}
-                >
-                  Einsteiger
-                </button>
-                <button
-                  onClick={() => setMode('experte')}
-                  className={cn(
-                    'px-4 py-1.5 text-base font-medium rounded-md transition-colors',
-                    mode === 'experte'
-                      ? 'bg-primary text-primary-foreground'
-                      : 'text-muted-foreground hover:text-foreground',
-                  )}
-                >
-                  Experte
-                </button>
-              </div>
-            )}
-
             {/* Tab bar — only render when there are 2+ visible sections */}
             {visibleSections.length > 1 && (
               <div className="mb-6 flex items-center gap-1 border-b border-border overflow-x-auto">

@@ -17,7 +17,9 @@ import {
 const components: Components = {
   table({ children, ...props }) {
     return (
-      <Table {...(props as React.ComponentProps<'table'>)}>{children}</Table>
+      <div className="my-4 w-full overflow-x-auto rounded-lg border border-border">
+        <Table {...(props as React.ComponentProps<'table'>)}>{children}</Table>
+      </div>
     );
   },
   thead({ children, ...props }) {
@@ -41,12 +43,22 @@ const components: Components = {
   },
   th({ children, ...props }) {
     return (
-      <TableHead {...(props as React.ComponentProps<'th'>)}>{children}</TableHead>
+      <TableHead
+        {...(props as React.ComponentProps<'th'>)}
+        className="whitespace-nowrap bg-muted/50 text-xs font-semibold"
+      >
+        {children}
+      </TableHead>
     );
   },
   td({ children, ...props }) {
     return (
-      <TableCell {...(props as React.ComponentProps<'td'>)}>{children}</TableCell>
+      <TableCell
+        {...(props as React.ComponentProps<'td'>)}
+        className="align-top text-xs [&>p]:m-0"
+      >
+        {children}
+      </TableCell>
     );
   },
 };
@@ -74,7 +86,11 @@ export function Markdown({ content }: MarkdownProps) {
         prose-strong:text-foreground prose-strong:font-semibold
         prose-hr:border-border
         prose-table:text-sm
-        [&_table]:!m-0 [&_table]:w-full
+        [&_table]:!m-0 [&_table]:w-auto [&_table]:min-w-full
+        [&_thead_tr]:border-b [&_thead_tr]:border-border
+        [&_tbody_tr]:border-b [&_tbody_tr]:border-border/50
+        [&_th]:px-3 [&_th]:py-2 [&_th]:text-left
+        [&_td]:px-3 [&_td]:py-2
       "
     >
       <ReactMarkdown

@@ -6,6 +6,7 @@ import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { DocumentDetail } from '@/components/browse/document-detail';
 import { CountryBlocksView } from '@/components/browse/country-blocks-view';
+import { ManagementSummaryCallout } from '@/components/browse/management-summary-callout';
 import { splitToBullets, splitIntoSubtopics } from '@/lib/text/split-to-bullets';
 import type { CountryBlockGroup } from '@/lib/queries/documents';
 
@@ -15,6 +16,14 @@ export type Column = {
   key: string;
   label: string;
   section?: string;
+};
+
+export type DetailTabPlan = {
+  label: string;
+  /** Column section names (from Column.section) rendered inside this tab */
+  sections?: string[];
+  /** Country-block titles rendered inside this tab (exact match) */
+  blockTitles?: string[];
 };
 
 export type SplitViewProps<T extends Record<string, unknown>> = {
@@ -47,6 +56,13 @@ export type SplitViewProps<T extends Record<string, unknown>> = {
    * INSTEAD of the document markdown.
    */
   countryBlocksMap?: Record<string, CountryBlockGroup[]>;
+  /**
+   * Optional merge plan for detail tabs. When provided, the detail view
+   * renders exactly these tabs; each tab can include multiple column
+   * sections and/or country-block groups (matched by block title).
+   * Tabs with no content for the current item are hidden.
+   */
+  detailTabsPlan?: DetailTabPlan[];
   /**
    * Optional panel rendered at the very bottom of the detail view,
    * below all tabs/sections content. Useful for cross-link panels.
@@ -338,6 +354,7 @@ function DetailPanel<T extends Record<string, unknown>>({
   editTable,
   itemId,
   countryBlocks,
+  detailTabsPlan,
   relatedPanel,
 }: {
   item: T | null;
@@ -352,6 +369,7 @@ function DetailPanel<T extends Record<string, unknown>>({
   editTable?: string;
   itemId?: string;
   countryBlocks?: CountryBlockGroup[];
+  detailTabsPlan?: DetailTabPlan[];
   relatedPanel?: (item: T) => React.ReactNode;
 }) {
   const [mode, setMode] = React.useState<Mode>('einsteiger');
@@ -499,82 +517,27 @@ function DetailPanel<T extends Record<string, unknown>>({
 
         {/* Management Summary callout */}
         {summaryVal && (
-          <div className="mb-8 rounded-xl border border-primary/30 bg-primary/5 p-5">
-            <div className="mb-2 text-base font-semibold uppercase tracking-wider text-primary">
-              Management Summary
-            </div>
-            <div className="text-lg leading-relaxed text-foreground/90">
-              {renderFieldValue(summaryVal)}
-            </div>
-          </div>
+          <ManagementSummaryCallout
+            initialValue={summaryVal}
+            editTable={editTable}
+            itemId={itemId}
+            fieldKey={summaryField ? String(summaryField) : undefined}
+          >
+            {renderFieldValue(summaryVal)}
+          </ManagementSummaryCallout>
         )}
 
         {/* Extra detail header (e.g. sample file card) */}
         {extraDetailHeader && item && extraDetailHeader(item)}
 
-        {/* ── Country with block tabs: render metadata above, then block tabs ── */}
-        {hasCountryBlocks ? (
-          <>
-            {/* Top-level column fields (code, name, complexity, currency, etc.) */}
-            {visibleSections.length > 0 && (
-              <dl className="mb-8">
-                {visibleSections.map((section) => (
-                  <div key={section}>
-                    {visibleSections.length > 1 && <SectionHeading title={section} />}
-                    {sectionMap[section].map((entry) => {
-                      if (entry.type === 'pair') {
-                        const ev = str(item[entry.expert.key as keyof T]);
-                        const bv = str(item[entry.beginner.key as keyof T]);
-                        if (!ev && !bv) return null;
-                        return (
-                          <MergedPairedRow
-                            key={entry.base}
-                            label={stripPairLabel(entry.expert.label)}
-                            expertValue={ev}
-                            beginnerValue={bv}
-                            mode={mode}
-                          />
-                        );
-                      } else {
-                        const val = str(item[entry.col.key as keyof T]);
-                        if (!val) return null;
-                        return <FieldRow key={entry.col.key} label={entry.col.label} value={val} />;
-                      }
-                    })}
-                  </div>
-                ))}
-              </dl>
-            )}
-            {/* Block tabs */}
-            <CountryBlocksView blocks={countryBlocks!} />
-          </>
-        ) : (
-          /* ── Standard column-section tabs ── */
-          <>
-            {/* Tab bar — only render when there are 2+ visible sections */}
-            {visibleSections.length > 1 && (
-              <div className="mb-6 flex items-center gap-1 border-b border-border overflow-x-auto">
-                {visibleSections.map((name) => (
-                  <button
-                    key={name}
-                    onClick={() => setActiveTab(name)}
-                    className={cn(
-                      'px-4 py-2.5 text-base font-medium whitespace-nowrap transition-colors border-b-2 -mb-px',
-                      effectiveTab === name
-                        ? 'border-primary text-primary'
-                        : 'border-transparent text-muted-foreground hover:text-foreground',
-                    )}
-                  >
-                    {name}
-                  </button>
-                ))}
-              </div>
-            )}
-
-            {/* Active section entries */}
-            {effectiveTab && (
-              <dl>
-                {(sectionMap[effectiveTab] ?? []).map((entry) => {
+        {/* ── Unified tab layout: plan-based merging of column sections + country blocks ── */}
+        {(() => {
+          // Render helpers
+          const renderSection = (section: string) => {
+            const entries = sectionMap[section] ?? [];
+            return (
+              <dl key={`section-${section}`}>
+                {entries.map((entry) => {
                   if (entry.type === 'pair') {
                     const ev = str(item[entry.expert.key as keyof T]);
                     const bv = str(item[entry.beginner.key as keyof T]);
@@ -594,19 +557,90 @@ function DetailPanel<T extends Record<string, unknown>>({
                     return <FieldRow key={entry.col.key} label={entry.col.label} value={val} />;
                   }
                 })}
-
-                {/* Document markdown fallback — shown below the active section if present */}
-                {documentMd && visibleSections.indexOf(effectiveTab) === visibleSections.length - 1 && (
-                  <div>
-                    <SectionHeading title="Vollständiges Länderprofil" />
-                    <DocumentDetail content={documentMd} />
-                  </div>
-                )}
               </dl>
-            )}
-          </>
-        )}
+            );
+          };
 
+          // Build tabs from plan (if any) or auto-build (sections + individual block tabs)
+          type PlanTab = { key: string; label: string; sections: string[]; blocks: CountryBlockGroup[] };
+          let tabs: PlanTab[];
+
+          if (detailTabsPlan && detailTabsPlan.length > 0) {
+            tabs = detailTabsPlan.map((plan, i) => {
+              const planSections = (plan.sections ?? []).filter((s) => visibleSections.includes(s));
+              const planBlocks = (plan.blockTitles ?? [])
+                .map((title) => (countryBlocks ?? []).find((b) => b.blockTitle === title))
+                .filter((b): b is CountryBlockGroup => !!b);
+              return {
+                key: `plan-${i}`,
+                label: plan.label,
+                sections: planSections,
+                blocks: planBlocks,
+              };
+            }).filter((t) => t.sections.length > 0 || t.blocks.length > 0);
+          } else {
+            tabs = visibleSections.map((s) => ({
+              key: `section-${s}`,
+              label: s,
+              sections: [s],
+              blocks: [],
+            }));
+            if (hasCountryBlocks) {
+              (countryBlocks ?? []).forEach((b, idx) => {
+                tabs.push({
+                  key: `block-${idx}`,
+                  label: b.blockTitle,
+                  sections: [],
+                  blocks: [b],
+                });
+              });
+            }
+          }
+
+          const effectiveUnifiedTab =
+            activeTab && tabs.some((t) => t.key === activeTab)
+              ? activeTab
+              : tabs[0]?.key ?? '';
+          const activeEntry = tabs.find((t) => t.key === effectiveUnifiedTab);
+          const isLastTab = tabs.findIndex((t) => t.key === effectiveUnifiedTab) === tabs.length - 1;
+
+          return (
+            <>
+              {tabs.length > 1 && (
+                <div className="mb-6 flex items-center gap-1 border-b border-border overflow-x-auto">
+                  {tabs.map((t) => (
+                    <button
+                      key={t.key}
+                      onClick={() => setActiveTab(t.key)}
+                      className={cn(
+                        'px-4 py-2.5 text-base font-medium whitespace-nowrap transition-colors border-b-2 -mb-px',
+                        effectiveUnifiedTab === t.key
+                          ? 'border-primary text-primary'
+                          : 'border-transparent text-muted-foreground hover:text-foreground',
+                      )}
+                    >
+                      {t.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+              {activeEntry && (
+                <div className="space-y-6">
+                  {activeEntry.sections.map((s) => renderSection(s))}
+                  {activeEntry.blocks.map((b, i) => (
+                    <CountryBlocksView key={`${b.blockTitle}-${i}`} blocks={[b]} />
+                  ))}
+                  {documentMd && isLastTab && !hasCountryBlocks && (
+                    <div>
+                      <SectionHeading title="Vollständiges Länderprofil" />
+                      <DocumentDetail content={documentMd} />
+                    </div>
+                  )}
+                </div>
+              )}
+            </>
+          );
+        })()}
         {/* Related cross-link panel — always shown at the very bottom */}
         {item && relatedPanel && relatedPanel(item)}
       </div>
@@ -702,6 +736,7 @@ export function SplitView<T extends Record<string, unknown>>({
   extraDetailHeader,
   editTable,
   countryBlocksMap,
+  detailTabsPlan,
   relatedPanel,
   pinnedLinks,
 }: SplitViewProps<T>) {
@@ -905,6 +940,7 @@ export function SplitView<T extends Record<string, unknown>>({
       editTable={editTable}
       itemId={selectedId ?? undefined}
       countryBlocks={selectedCountryBlocks}
+      detailTabsPlan={detailTabsPlan}
       relatedPanel={relatedPanel}
     />
   );

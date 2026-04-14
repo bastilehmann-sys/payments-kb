@@ -29,10 +29,11 @@ export default async function LaenderPage() {
   const session = await auth();
   if (!session) redirect('/login');
 
-  const [countriesWithDocs, itBlocks, cnBlocks, ihbEntries] = await Promise.all([
+  const [countriesWithDocs, itBlocks, cnBlocks, rsBlocks, ihbEntries] = await Promise.all([
     listCountriesWithDocuments(),
     getCountryBlocks('IT'),
     getCountryBlocks('CN'),
+    getCountryBlocks('RS'),
     getIhbEntries(),
   ]);
 
@@ -92,6 +93,9 @@ export default async function LaenderPage() {
 
   const cnOrdered = buildCountryBlocks(cnBlocks, 'china');
   if (cnOrdered.length > 0) countryBlocksMap['CN'] = cnOrdered;
+
+  const rsOrdered = buildCountryBlocks(rsBlocks, 'serbien');
+  if (rsOrdered.length > 0) countryBlocksMap['RS'] = rsOrdered;
 
   const items = countriesWithDocs.map((c) => {
     const ihb = ihbByLand.get(normalizeLand(c.name));

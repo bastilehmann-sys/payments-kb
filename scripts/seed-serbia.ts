@@ -15,7 +15,7 @@ import { createHash } from 'node:crypto';
 config({ path: '.env.local' });
 
 import { db } from '@/db/client';
-import { countries, documents, countryBlocks } from '@/db/schema';
+import { countries, documents, countryBlocks, ihbEntries } from '@/db/schema';
 import { eq, sql } from 'drizzle-orm';
 
 type BlockRow = {
@@ -211,6 +211,36 @@ async function main() {
   }
   const count = await db.execute(sql`SELECT COUNT(*) AS c FROM country_blocks WHERE country_code='RS'`);
   console.log(`Inserted country_blocks for RS: ${(count.rows as any)[0].c}`);
+
+  // 4. Upsert IHB entry for synthetic IHB / POBO / COBO tab
+  const IHB = {
+    land: 'Serbien',
+    iso_waehrung: 'RSD',
+    region: 'South-East Europe',
+    ihb_bewertung: 'Nicht geeignet — Serbien kann nicht als Teilnehmer in einem Standard-IHB-Setup agieren. Lokales Ausführungsmodell mit eigenen Bankkonten und KZ-gemeldeten IC-Krediten ist der empfohlene Weg.',
+    pobo_status: 'Nein — nicht empfohlen wegen FX-Kontrolle und 60-Tage-Repatriierungsfrist für Exporterlöse.',
+    cobo_status: 'Nein — durch 60-Tage-Repatriierung blockiert; Exporterlöse müssen direkt auf das serbische Konto eingehen.',
+    netting_erlaubt: 'Nein — Cross-Currency-IC-Transaktionen werden individuell von der NBS geprüft; automatisches Netting nicht praktikabel.',
+    lokales_konto: 'Ja — Pflicht. Serbische Gesellschaft benötigt eigene RSD-, EUR- und ggf. USD-Konten bei einer lokalen Hausbank.',
+    einschraenkungen_experte: 'FX-Kontrolle nach Zakon o deviznom poslovanju. Related-Party-Exposure auf 25 % Bankkapital begrenzt (Law on Banks). Cross-Guarantees von Residenten an Non-Residenten unter Art. 23 FX-Gesetz restriktiv. NBS „protected funds"-Regel im Cash Pooling. Jeder IC-Kredit KZ-meldepflichtig (KZ-1 binnen 10 Tagen, KZ-3B pro Auszahlung/Tilgung).',
+    einschraenkungen_einsteiger: 'Serbien hat strenge Devisenkontrolle. Konzerninterne Zahlungen und Kredite müssen einzeln bei der Notenbank gemeldet werden. Automatische tägliche Sweeps funktionieren nicht. Exporterlöse müssen binnen 60 Tagen zurück nach Serbien.',
+    rechtsgrundlage: 'Zakon o deviznom poslovanju (FX-Gesetz, RS OG 62/2006 + Änderungen 2025), Zakon o bankama (Bankengesetz, RS OG 107/2005 + 19/2025), NBS-Entscheidung zur Meldung ausländischer Kreditgeschäfte (KZ-Formulare), NBS-Guidelines zum Cash Pooling.',
+    ihb_design_experte: 'Lokales Execution-Modell: RS-CC mit eigenen RSD-/EUR-/USD-Hausbank-Konten, APM Routing Object für Country=RS zwingend auf lokalen Pfad (NICHT IHB). PINO Forwarding/Routing möglich: Header initiiert über APM, Ausführung aus dem RS-Konto. IC-Finanzierung ausschließlich über dokumentierte, KZ-gemeldete IC-Kredite (Codes 270/271 Auszahlung, 276/277 Tilgung, 272/279 Zinsen, 281/282 Gesellschafterdarlehen).',
+    ihb_design_einsteiger: 'Die serbische Gesellschaft behält eigene Bankkonten. Der IHB sieht das nur als „Ausland". Zahlungen löst das System zentral aus, aber sie laufen über das lokale Konto. Konzernkredite werden dokumentiert und bei der Notenbank gemeldet.',
+    sap_config_experte: 'APM Routing Object: Country RS → local execution, IHB-Ausschluss. OB22 RSD lokal + EUR/USD parallel. OB07 dedizierter Rate-Type ZNBS für NBS-Mittelkurs, tägliches Upload-Interface via kursnaListaModul. DMEEX_DEF Formatbaum pain.001 mit <Purp><Prtry> + Model-97-RmtInf. Custom APM-Validation blockt Outgoing ohne NBS-Code. KZ-3B-Reporting-Interface für IC-Kreditvorgänge.',
+    sap_config_einsteiger: 'Eigener Länderpfad im SAP: Routing ignoriert den IHB, tägliche NBS-Kurse werden automatisch geladen, und jede serbische Zahlung braucht den 3-stelligen NBS-Code, sonst blockt das System.',
+    handlungsempfehlung: 'Serbien explizit aus IHB-Rollout ausschließen. Stattdessen: lokale Hausbank mit aktiver FX-Abteilung auswählen, RS-CC mit RSD + Parallelwährungen aufsetzen, NBS-Code-Tabelle in SAP pflegen (quartalsweise NBS-XML-Update), KZ-Reporting-Prozess mit Hausbank etablieren. Wöchentliche/monatliche manuelle Cash-Transfers zum regionalen Treasury-Hub planen — keine täglichen Sweeps.',
+    source_row: null as number | null,
+  };
+
+  const existingIhb = await db.select().from(ihbEntries).where(eq(ihbEntries.land, 'Serbien')).limit(1);
+  if (existingIhb.length > 0) {
+    await db.update(ihbEntries).set(IHB).where(eq(ihbEntries.land, 'Serbien'));
+    console.log('Updated ihb_entries for Serbien');
+  } else {
+    await db.insert(ihbEntries).values(IHB);
+    console.log('Inserted ihb_entries for Serbien');
+  }
 
   console.log('Done.');
 }

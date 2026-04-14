@@ -4,6 +4,23 @@ import React from 'react';
 import Link from 'next/link';
 import type { FormatVersion } from '@/lib/queries/entries';
 
+// ─── XSD availability (hardcoded for the 4 official XSD versions) ─────────────
+
+const XSD_AVAILABLE = new Set([
+  'pain.001.001.13',
+  'pain.002.001.15',
+  'pain.007.001.13',
+  'pain.008.001.12',
+]);
+
+function xsdUrl(versionId: string): string | null {
+  // versionId is e.g. "pain.001.001.13" — extract base (same as filename without extension)
+  if (XSD_AVAILABLE.has(versionId)) {
+    return `/samples/formate/xsd/${versionId}.xsd`;
+  }
+  return null;
+}
+
 // ─── Icons ────────────────────────────────────────────────────────────────────
 
 function IconDownload() {
@@ -19,6 +36,23 @@ function IconDownload() {
     >
       <path d="M8 2v8M5 7l3 3 3-3" />
       <path d="M2 12h12" />
+    </svg>
+  );
+}
+
+function IconXsd() {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      className="size-4 shrink-0"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <rect x="2" y="2" width="12" height="12" rx="1.5" />
+      <path d="M5 6l2 2-2 2M9 10h2" />
     </svg>
   );
 }
@@ -196,6 +230,17 @@ export function FormatSampleCard({
                 Download
               </a>
             )}
+            {selectedVersion && xsdUrl(selectedVersion) && (
+              <a
+                href={xsdUrl(selectedVersion)!}
+                download
+                className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-3 py-2 text-base font-medium text-foreground/80 hover:bg-muted/50 transition-colors"
+                title={`Offizielles ISO 20022 XSD für ${selectedVersion} herunterladen`}
+              >
+                <IconXsd />
+                XSD
+              </a>
+            )}
             <Link
               href={compareUrl}
               className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-3 py-2 text-base font-medium text-foreground/80 hover:bg-muted/50 transition-colors"
@@ -264,6 +309,17 @@ export function FormatSampleCard({
                         >
                           <IconDownload />
                           Download
+                        </a>
+                      )}
+                      {xsdUrl(versionId) && (
+                        <a
+                          href={xsdUrl(versionId)!}
+                          download
+                          className="inline-flex items-center gap-1.5 rounded border border-border bg-background px-2.5 py-1.5 text-xs font-medium text-foreground/70 hover:text-foreground hover:bg-muted/50 transition-colors"
+                          title={`Offizielles XSD für ${versionId}`}
+                        >
+                          <IconXsd />
+                          XSD
                         </a>
                       )}
                       <Link
@@ -378,6 +434,17 @@ export function FormatSampleCard({
                         >
                           <IconDownload />
                           Download
+                        </a>
+                      )}
+                      {xsdUrl(versionId) && (
+                        <a
+                          href={xsdUrl(versionId)!}
+                          download
+                          className="inline-flex items-center gap-1.5 rounded border border-border bg-background px-2.5 py-1.5 text-xs font-medium text-foreground/70 hover:text-foreground hover:bg-muted/50 transition-colors"
+                          title={`Offizielles XSD für ${versionId}`}
+                        >
+                          <IconXsd />
+                          XSD
                         </a>
                       )}
                       <Link

@@ -13,7 +13,6 @@ const FULLSCREEN_PATHS = [
   "/formate",
   "/clearing",
   "/zahlungsarten",
-  "/ihb",
   "/laender",
   "/formate/vergleich",
   "/edit",

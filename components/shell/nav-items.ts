@@ -37,12 +37,6 @@ export const NAV_ITEMS: NavItem[] = [
       "M2 7a2 2 0 012-2h16a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V7zm0 4h20M6 15h2M10 15h4",
   },
   {
-    label: "IHB / POBO",
-    href: "/ihb",
-    iconPath:
-      "M2 20h20M4 20V10l8-7 8 7v10M10 20v-6h4v6",
-  },
-  {
     label: "Länder",
     href: "/laender",
     iconPath:

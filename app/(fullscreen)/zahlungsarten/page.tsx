@@ -1,6 +1,6 @@
-import { getZahlungsartEntries, getClearingForZahlungsart, type ClearingWithLink } from '@/lib/queries/entries';
-import { SplitView, type Column } from '@/components/browse/split-view';
-import { RelatedItemsPanel } from '@/components/browse/related-items-panel';
+import { getZahlungsartEntries, getClearingForZahlungsart } from '@/lib/queries/entries';
+import { type Column } from '@/components/browse/split-view';
+import { ZahlungsartenClient } from './zahlungsarten-client';
 import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
@@ -62,33 +62,9 @@ export default async function ZahlungsartenPage() {
 
   return (
     <Suspense>
-      <SplitView
+      <ZahlungsartenClient
         items={enriched as unknown as Record<string, unknown>[]}
         columns={COLUMNS}
-        primaryField="name"
-        secondaryField="instrument_typ"
-        searchFields={['name', 'kuerzel', 'instrument_typ', 'clearing_system', 'nachrichtenformat']}
-        filterField="instrument_typ"
-        filterLabel="Alle Typen"
-        summaryField="beschreibung_einsteiger"
-        editTable="zahlungsart_entries"
-        relatedPanel={(item) => {
-          const typed = item as ZahlungsartItem;
-          const clearings: ClearingWithLink[] = (typed.relatedClearing as ClearingWithLink[]) ?? [];
-          return (
-            <RelatedItemsPanel
-              title="Clearing-Systeme"
-              items={clearings.map((c: ClearingWithLink) => ({
-                id: c.id,
-                label: c.name,
-                abkuerzung: c.abkuerzung,
-                note: c.note,
-                primary: c.is_primary,
-              }))}
-              targetPath="/clearing"
-            />
-          );
-        }}
       />
     </Suspense>
   );

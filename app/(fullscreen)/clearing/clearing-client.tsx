@@ -7,13 +7,15 @@ import type { ZahlungsartWithLink } from '@/lib/queries/entries';
 interface ClearingClientProps {
   items: Record<string, unknown>[];
   columns: Column[];
+  pinnedLinks?: React.ComponentProps<typeof SplitView>['pinnedLinks'];
 }
 
-export function ClearingClient({ items, columns }: ClearingClientProps) {
+export function ClearingClient({ items, columns, pinnedLinks }: ClearingClientProps) {
   return (
     <SplitView
       items={items}
       columns={columns}
+      pinnedLinks={pinnedLinks}
       primaryField="name"
       secondaryField="region"
       searchFields={['name', 'abkuerzung', 'region', 'typ', 'betreiber']}

@@ -119,6 +119,7 @@ export const clearingEntries = pgTable('clearing_entries', {
   corporate_zugang_experte: text('corporate_zugang_experte'),
   corporate_zugang_einsteiger: text('corporate_zugang_einsteiger'),
   status: text('status'),
+  sap_bezug: text('sap_bezug'),
   source_row: integer('source_row'),
   created_at: timestamp('created_at', { withTimezone: true }).defaultNow(),
 });

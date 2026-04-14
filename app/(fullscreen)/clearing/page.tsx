@@ -1,6 +1,7 @@
 import { getClearingEntries, getZahlungsartenForClearing } from '@/lib/queries/entries';
 import { type Column } from '@/components/browse/split-view';
 import { ClearingClient } from './clearing-client';
+import { ClearingSapMatrix } from '@/components/clearing/sap-matrix';
 import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
@@ -27,6 +28,7 @@ const COLUMNS: Column[] = [
   { key: 'relevanz_einsteiger',        label: 'Relevanz (Einsteiger)',        section: 'Corporate' },
   { key: 'corporate_zugang_experte',   label: 'Corporate-Zugang (Experte)',   section: 'Corporate' },
   { key: 'corporate_zugang_einsteiger',label: 'Corporate-Zugang (Einsteiger)',section: 'Corporate' },
+  { key: 'sap_bezug',                   label: 'SAP-Bezug / System-Auswirkung', section: 'SAP & System' },
 ];
 
 export default async function ClearingPage() {
@@ -51,6 +53,13 @@ export default async function ClearingPage() {
       <ClearingClient
         items={enriched as unknown as Record<string, unknown>[]}
         columns={COLUMNS}
+        pinnedLinks={[
+          {
+            label: 'SAP-Matrix',
+            sublabel: `Alle ${data.length} Clearing-Systeme im Überblick`,
+            content: <ClearingSapMatrix items={enriched as unknown as Record<string, unknown>[]} />,
+          },
+        ]}
       />
     </Suspense>
   );

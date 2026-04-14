@@ -127,6 +127,7 @@ export async function getClearingForZahlungsart(zahlungsartId: string): Promise<
       corporate_zugang_experte: clearingEntries.corporate_zugang_experte,
       corporate_zugang_einsteiger: clearingEntries.corporate_zugang_einsteiger,
       status: clearingEntries.status,
+      sap_bezug: clearingEntries.sap_bezug,
       source_row: clearingEntries.source_row,
       created_at: clearingEntries.created_at,
       // Link fields

@@ -1,6 +1,12 @@
 import { listCountriesWithDocuments, getCountryBlocks } from '@/lib/queries/documents';
 import { getIhbEntries } from '@/lib/queries/entries';
-import { SplitView, type Column } from '@/components/browse/split-view';
+import { type Column } from '@/components/browse/split-view';
+import { LaenderClient } from './laender-client';
+import { IhbPanel } from '@/components/laender/ihb-panel';
+import { RegulatorikItPanel } from '@/components/laender/regulatorik-it-panel';
+import { ClearingItPanel } from '@/components/laender/clearing-it-panel';
+import { SapItPanel } from '@/components/laender/sap-it-panel';
+import { FormateItPanel } from '@/components/laender/formate-it-panel';
 import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
@@ -11,22 +17,7 @@ export const metadata: Metadata = {
 };
 
 const COLUMNS: Column[] = [
-  // IHB / POBO / COBO — Zusammenfassung + strukturierte Felder
-  { key: 'ihb_pobo_cobo',   label: 'Zusammenfassung',        section: 'IHB / POBO / COBO' },
-  { key: 'ihb_bewertung',   label: 'IHB-Bewertung',          section: 'IHB / POBO / COBO' },
-  { key: 'pobo_status',     label: 'POBO-Status',            section: 'IHB / POBO / COBO' },
-  { key: 'cobo_status',     label: 'COBO-Status',            section: 'IHB / POBO / COBO' },
-  { key: 'netting_erlaubt', label: 'Netting erlaubt?',       section: 'IHB / POBO / COBO' },
-  { key: 'lokales_konto',   label: 'Lokales Konto erforderlich?', section: 'IHB / POBO / COBO' },
-  { key: 'ihb_einschraenkungen_experte',    label: 'Einschränkungen (Experte)',    section: 'IHB / POBO / COBO' },
-  { key: 'ihb_einschraenkungen_einsteiger', label: 'Einschränkungen (Einsteiger)', section: 'IHB / POBO / COBO' },
-  { key: 'ihb_rechtsgrundlage',  label: 'Rechtsgrundlage',        section: 'IHB / POBO / COBO' },
-  { key: 'ihb_design_experte',   label: 'IHB-Design (Experte)',   section: 'IHB / POBO / COBO' },
-  { key: 'ihb_design_einsteiger',label: 'IHB-Design (Einsteiger)',section: 'IHB / POBO / COBO' },
-  { key: 'ihb_sap_config_experte',   label: 'SAP-Konfiguration (Experte)',   section: 'IHB / POBO / COBO' },
-  { key: 'ihb_sap_config_einsteiger',label: 'SAP-Konfiguration (Einsteiger)',section: 'IHB / POBO / COBO' },
-  { key: 'ihb_handlungsempfehlung',  label: 'Handlungsempfehlung',           section: 'IHB / POBO / COBO' },
-  // Wichtigster Hinweis
+  // Wichtigster Hinweis (alle IHB-Daten werden über das IhbPanel im extraDetailHeader gerendert)
   { key: 'key_note', label: 'Wichtigster Hinweis', section: 'Wichtigster Hinweis' },
 ];
 
@@ -56,7 +47,40 @@ export default async function LaenderPage() {
   const filteredItBlocks = itBlocks.filter((b) => !/quick reference/i.test(b.blockTitle ?? ''));
   const countryBlocksMap: Record<string, Awaited<ReturnType<typeof getCountryBlocks>>> = {};
   if (filteredItBlocks.length > 0) {
-    countryBlocksMap['IT'] = filteredItBlocks;
+    // Synthetischen IHB / POBO / COBO-Tab als zweiten einfügen (nach „Allgemein")
+    const italyIhb = ihbByLand.get('italien');
+    const ihbTab = italyIhb
+      ? [{
+          blockNo: 1.5,
+          blockTitle: 'IHB / POBO / COBO',
+          rows: [],
+          customContent: (
+            <IhbPanel
+              data={{
+                ihb_bewertung: italyIhb.ihb_bewertung,
+                pobo_status: italyIhb.pobo_status,
+                cobo_status: italyIhb.cobo_status,
+                netting_erlaubt: italyIhb.netting_erlaubt,
+                lokales_konto: italyIhb.lokales_konto,
+                einschraenkungen_experte: italyIhb.einschraenkungen_experte,
+                einschraenkungen_einsteiger: italyIhb.einschraenkungen_einsteiger,
+                rechtsgrundlage: italyIhb.rechtsgrundlage,
+                handlungsempfehlung: italyIhb.handlungsempfehlung,
+              }}
+            />
+          ),
+        }]
+      : [];
+    // Regulatorik (#2) und Clearing (#3) durch Card-Panels ersetzen
+    const enrichedBlocks = filteredItBlocks.map((b) => {
+      if (b.blockNo === 2) return { ...b, customContent: <RegulatorikItPanel rows={b.rows} /> };
+      if (b.blockNo === 3) return { ...b, customContent: <ClearingItPanel rows={b.rows} /> };
+      if (b.blockNo === 4) return { ...b, customContent: <SapItPanel rows={b.rows} /> };
+      if (b.blockNo === 5) return { ...b, customContent: <FormateItPanel rows={b.rows} /> };
+      return b;
+    });
+    const ordered = [...enrichedBlocks, ...ihbTab].sort((a, b) => a.blockNo - b.blockNo);
+    countryBlocksMap['IT'] = ordered;
   }
 
   const items = countriesWithDocs.map((c) => {
@@ -95,19 +119,9 @@ export default async function LaenderPage() {
 
   return (
     <Suspense>
-      <SplitView
-        items={items}
+      <LaenderClient
+        items={items as unknown as Record<string, unknown>[]}
         columns={COLUMNS}
-        primaryField="code"
-        secondaryField="name"
-        searchFields={['code', 'name', 'currency', 'summary']}
-        filterField="complexity"
-        filterLabel="Alle Komplexitäten"
-        idField="code"
-        complexityField="complexity"
-        documentField="document_md"
-        summaryField="key_note"
-        editTable="countries"
         countryBlocksMap={countryBlocksMap}
       />
     </Suspense>

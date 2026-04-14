@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  CBI XML Bonifica — italienische Variante des SEPA-Credit-Transfers (pain.001.001.03)
+  Wird von vielen italienischen Hausbanken (Intesa Sanpaolo, UniCredit, BancoBPM)
+  über das CBI-System (Corporate Banking Interbancario) entgegengenommen.
+  Schema-Erweiterungen gegenüber Standard-pain.001:
+    - CBI-spezifische CategoryPurpose-Codes
+    - Pflichtfeld TaxId mit Codice Fiscale
+    - Strenge Validierung der Adressdaten
+-->
+<Document xmlns="urn:CBI:xsd:CBIPaymentRequest.00.04.00">
+  <CBIPaymentRequest>
+    <GrpHdr>
+      <MsgId>CBI-2026-0414-00001</MsgId>
+      <CreDtTm>2026-04-14T09:30:00</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>1220.00</CtrlSum>
+      <InitgPty>
+        <Nm>ESEMPIO S.R.L.</Nm>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>01234567890</Id>
+              <Issr>CBI</Issr>
+            </Othr>
+          </OrgId>
+        </Id>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <PmtInfId>BATCH-001</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>2026-04-15</ReqdExctnDt>
+      <Dbtr>
+        <Nm>ESEMPIO S.R.L.</Nm>
+        <PstlAdr>
+          <StrtNm>VIA ROMA 1</StrtNm>
+          <PstCd>20121</PstCd>
+          <TwnNm>MILANO</TwnNm>
+          <Ctry>IT</Ctry>
+        </PstlAdr>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>01234567890</Id>
+              <Issr>CF</Issr>
+            </Othr>
+          </OrgId>
+        </Id>
+      </Dbtr>
+      <DbtrAcct>
+        <Id><IBAN>IT60X0542811101000000123456</IBAN></Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId><BIC>BPMIITMM</BIC></FinInstnId>
+      </DbtrAgt>
+      <CdtTrfTxInf>
+        <PmtId>
+          <InstrId>INS-001</InstrId>
+          <EndToEndId>SDI-2026-0042-20260414</EndToEndId>
+        </PmtId>
+        <Amt>
+          <InstdAmt Ccy="EUR">1220.00</InstdAmt>
+        </Amt>
+        <CdtrAgt>
+          <FinInstnId><BIC>UNCRITMM</BIC></FinInstnId>
+        </CdtrAgt>
+        <Cdtr>
+          <Nm>FORNITORE S.P.A.</Nm>
+          <PstlAdr>
+            <Ctry>IT</Ctry>
+          </PstlAdr>
+        </Cdtr>
+        <CdtrAcct>
+          <Id><IBAN>IT12A0200812345000000654321</IBAN></Id>
+        </CdtrAcct>
+        <Tax>
+          <Dbtr>
+            <TaxId>01234567890</TaxId>
+          </Dbtr>
+        </Tax>
+        <RmtInf>
+          <Strd>
+            <RfrdDocInf>
+              <Tp>
+                <CdOrPrtry><Cd>CINV</Cd></CdOrPrtry>
+              </Tp>
+              <Nb>2026/0042</Nb>
+              <RltdDt>2026-04-14</RltdDt>
+            </RfrdDocInf>
+          </Strd>
+        </RmtInf>
+      </CdtTrfTxInf>
+    </PmtInf>
+  </CBIPaymentRequest>
+</Document>

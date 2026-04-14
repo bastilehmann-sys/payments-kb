@@ -1,0 +1,29 @@
+; RIBA — Ricevuta Bancaria Elettronica
+; Italienisches Lastschrift-/Wechseläquivalent.
+; Format: ABI-Standard "Riba" (Flat-File, fixe Spaltenbreiten)
+; Trägertyp: PC, Zeichensatz CP1252.
+; Doku: ABI Banche e Sicurezza, Standard Tracciato Riba (versione attuale)
+;
+; Layout — IB-Datensatz (Anfangs-Header)
+IB000001                  ESEMPIO S.R.L. VIA ROMA 1 MILANO              02000000FATTURE APRILE 2026
+;
+; Datensatz 14 — Pflichtdaten Schuldner
+14000001    20260514EUR0000000122000  IT12A0200812345000000654321FORNITORE S.P.A.                                       2026/00420960912345
+;
+; Datensatz 20 — Verwendungszweck (zusätzlicher Text)
+20000001Pagamento fattura 2026/0042 — beratungsleistung Q2/2026
+;
+; Datensatz 30 — Ergänzende Daten
+30000001CodiceFiscale01234567890                                              CodiceFiscale09876543210
+;
+; Datensatz 40 — Adresse Schuldner
+40000001VIA ROMA 1                              MILANO                  20121MI
+;
+; Datensatz 50 — Bank-/Settlement-Daten
+50000001BPMIITMM                                                                                                              EUR
+;
+; Datensatz 70 — Schlusssatz pro Eintrag
+70000001
+;
+; EF — Schlussatz (Footer)
+EF000001                  000001000000000122000                                                                                              0001

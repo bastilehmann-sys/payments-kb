@@ -76,56 +76,51 @@ export function CountryBlocksTabs({ blocks }: Props) {
 
   return (
     <div className="rounded-xl border border-border bg-card overflow-hidden">
-      {/* Tab bar */}
-      <div className="flex overflow-x-auto border-b border-border bg-muted/30 px-4 gap-1 pt-3">
-        {blocks.map((block, idx) => (
-          <button
-            key={block.blockNo}
-            onClick={() => setActiveTab(idx)}
-            className={cn(
-              'shrink-0 rounded-t-md px-4 py-2.5 text-base font-medium transition-colors border-b-2 -mb-px',
-              activeTab === idx
-                ? 'border-amber-500 text-amber-700 bg-background'
-                : 'border-transparent text-muted-foreground hover:text-foreground hover:bg-background/60'
-            )}
-          >
-            <span className="mr-1.5 rounded bg-muted px-1.5 py-0.5 text-[10px] font-bold text-muted-foreground">
-              {block.blockNo}
-            </span>
-            {block.blockTitle}
-          </button>
-        ))}
-      </div>
+      {/* Tab bar (nur wenn mehrere Blöcke) */}
+      {blocks.length > 1 && (
+        <div className="flex overflow-x-auto border-b border-border bg-muted/30 px-4 gap-1 pt-3">
+          {blocks.map((block, idx) => (
+            <button
+              key={block.blockNo}
+              onClick={() => setActiveTab(idx)}
+              className={cn(
+                'shrink-0 rounded-t-md px-4 py-2.5 text-base font-medium transition-colors border-b-2 -mb-px',
+                activeTab === idx
+                  ? 'border-foreground text-foreground bg-background'
+                  : 'border-transparent text-muted-foreground hover:text-foreground hover:bg-background/60'
+              )}
+            >
+              {block.blockTitle}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Content */}
       {active && (
         <div className="p-6">
-          {/* Block header */}
-          <div className="mb-5 flex items-center gap-3">
-            <h2 className="font-heading text-xl font-semibold text-foreground">
-              {active.blockTitle}
-            </h2>
-            <span className="rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">
-              {active.rows.length} Felder
-            </span>
-          </div>
+          {active.customContent ? (
+            active.customContent
+          ) : (
+            <>
+              {/* Column headers */}
+              <div className="mb-2 flex items-center gap-4 px-0">
+                <div className="w-44 shrink-0 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                  Feld
+                </div>
+                <div className="flex-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                  Einsteiger
+                </div>
+              </div>
 
-          {/* Column headers */}
-          <div className="mb-2 flex items-center gap-4 px-0">
-            <div className="w-44 shrink-0 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-              Feld
-            </div>
-            <div className="flex-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-              Einsteiger
-            </div>
-          </div>
-
-          {/* Rows */}
-          <div>
-            {active.rows.map((row, i) => (
-              <FieldRow key={`${row.blockNo}-${row.rowOrder}-${i}`} row={row} />
-            ))}
-          </div>
+              {/* Rows */}
+              <div>
+                {active.rows.map((row, i) => (
+                  <FieldRow key={`${row.blockNo}-${row.rowOrder}-${i}`} row={row} />
+                ))}
+              </div>
+            </>
+          )}
         </div>
       )}
     </div>

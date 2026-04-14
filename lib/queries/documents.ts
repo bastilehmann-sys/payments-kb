@@ -140,6 +140,8 @@ export type CountryBlockGroup = {
   blockNo: number;
   blockTitle: string;
   rows: CountryBlockRow[];
+  /** If set, replaces the default rows rendering with custom JSX (e.g. IHB-Panel). */
+  customContent?: import('react').ReactNode;
 };
 
 export async function getCountryBlocks(code: string): Promise<CountryBlockGroup[]> {

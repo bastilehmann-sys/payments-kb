@@ -137,21 +137,71 @@ function Section({ label, body }: { label: string; body: string }) {
 
 // ─── Beispiel-Dateien pro Format ──────────────────────────────────────────────
 
-type Sample = { label: string; href: string; size: string };
+type Sample = {
+  label: string;
+  href: string;
+  size: string;
+  source?: { label: string; url: string };
+};
 const SAMPLES: Record<string, Sample[]> = {
   // Italien-Sektionen (Block 5)
-  '5.1': [{ label: 'fatturapa-1.2.xml', href: '/samples/it/fatturapa-1.2.xml', size: '~2 KB · XML' }],
-  '5.2': [{ label: 'cbi-bonifica.xml',  href: '/samples/it/cbi-bonifica.xml',  size: '~2 KB · XML' }],
-  '5.3': [{ label: 'riba.txt',          href: '/samples/it/riba.txt',          size: '~1 KB · Flat-File' }],
-  '5.4': [{ label: 'camt.053-it.xml',   href: '/samples/it/camt.053-it.xml',   size: '~3 KB · XML' }],
+  '5.1': [{
+    label: 'fatturapa-1.2.xml',
+    href: '/samples/it/fatturapa-1.2.xml',
+    size: '~2 KB · XML',
+    source: { label: 'Agenzia delle Entrate — Specifiche Tecniche FatturaPA v1.2', url: 'https://www.fatturapa.gov.it/it/norme-e-regole/documentazione-fatturapa/' },
+  }],
+  '5.2': [{
+    label: 'cbi-bonifica.xml',
+    href: '/samples/it/cbi-bonifica.xml',
+    size: '~2 KB · XML',
+    source: { label: 'CBI Globe — Tracciati e Standard', url: 'https://www.cbi-org.eu/Standards/Tracciati' },
+  }],
+  '5.3': [{
+    label: 'riba.txt',
+    href: '/samples/it/riba.txt',
+    size: '~1 KB · Flat-File',
+    source: { label: 'ABI — Standard Tracciato Riba', url: 'https://www.abi.it/' },
+  }],
+  '5.4': [{
+    label: 'camt.053-it.xml',
+    href: '/samples/it/camt.053-it.xml',
+    size: '~3 KB · XML',
+    source: { label: 'ISO 20022 — camt.053.001.08 Message Definition', url: 'https://www.iso20022.org/iso-20022-message-definitions' },
+  }],
   // China-Sektionen (Block 6)
-  '6.1': [{ label: 'cips-pacs.008-cn.xml', href: '/samples/cn/cips-pacs.008-cn.xml', size: '~3 KB · XML' }],
-  '6.2': [{ label: 'cnaps-hvps.txt',       href: '/samples/cn/cnaps-hvps.txt',       size: '~1 KB · Flat-File' }],
-  '6.3': [{ label: 'fapiao.xml',           href: '/samples/cn/fapiao.xml',           size: '~2 KB · XML' }],
-  '6.4': [{ label: 'camt.053-cn.xml',      href: '/samples/cn/camt.053-cn.xml',      size: '~3 KB · XML' }],
+  '6.1': [{
+    label: 'cips-pacs.008-cn.xml',
+    href: '/samples/cn/cips-pacs.008-cn.xml',
+    size: '~3 KB · XML',
+    source: { label: 'CIPS — Business Specification', url: 'https://www.cips.com.cn/en/business_management/business_specification/index.html' },
+  }],
+  '6.2': [{
+    label: 'cnaps-hvps.txt',
+    href: '/samples/cn/cnaps-hvps.txt',
+    size: '~1 KB · Flat-File',
+    source: { label: 'People\'s Bank of China — CNAPS Documentation', url: 'http://www.pbc.gov.cn/' },
+  }],
+  '6.3': [{
+    label: 'fapiao.xml',
+    href: '/samples/cn/fapiao.xml',
+    size: '~2 KB · XML',
+    source: { label: 'State Tax Administration — Quan Mian Shu Zi Hua Fapiao Pilot', url: 'http://www.chinatax.gov.cn/' },
+  }],
+  '6.4': [{
+    label: 'camt.053-cn.xml',
+    href: '/samples/cn/camt.053-cn.xml',
+    size: '~3 KB · XML',
+    source: { label: 'ISO 20022 — camt.053.001.08 Message Definition', url: 'https://www.iso20022.org/iso-20022-message-definitions' },
+  }],
 };
 const STD_SAMPLES: Sample[] = [
-  { label: 'pain.001.001.03.xml', href: '/samples/formate/pain.001.001.03.xml', size: 'SEPA SCT · XML' },
+  {
+    label: 'pain.001.001.03.xml',
+    href: '/samples/formate/pain.001.001.03.xml',
+    size: 'SEPA SCT · XML',
+    source: { label: 'EPC — SEPA Credit Transfer Scheme Customer-to-Bank Implementation Guidelines', url: 'https://www.europeanpaymentscouncil.eu/document-library' },
+  },
 ];
 
 function SampleList({ samples, label = 'Beispiel-Datei' }: { samples: Sample[]; label?: string }) {
@@ -161,22 +211,37 @@ function SampleList({ samples, label = 'Beispiel-Datei' }: { samples: Sample[]; 
       <div className="mb-1.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
         {label}
       </div>
-      <ul className="space-y-1.5">
+      <ul className="space-y-2">
         {samples.map((s) => (
-          <li key={s.href} className="flex items-center justify-between gap-3 text-sm">
-            <a
-              href={s.href}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1.5 font-mono font-medium text-primary hover:underline"
-            >
-              <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M3 2h7l3 3v9a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z" />
-                <path d="M10 2v3h3" />
-              </svg>
-              {s.label}
-            </a>
-            <span className="text-xs text-muted-foreground">{s.size}</span>
+          <li key={s.href} className="space-y-1">
+            <div className="flex items-center justify-between gap-3 text-sm">
+              <a
+                href={s.href}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 font-mono font-medium text-primary hover:underline"
+              >
+                <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M3 2h7l3 3v9a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z" />
+                  <path d="M10 2v3h3" />
+                </svg>
+                {s.label}
+              </a>
+              <span className="text-xs text-muted-foreground">{s.size}</span>
+            </div>
+            {s.source && (
+              <div className="pl-5 text-xs text-muted-foreground">
+                Quelle:{' '}
+                <a
+                  href={s.source.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-primary/80 hover:text-primary hover:underline"
+                >
+                  {s.source.label}
+                </a>
+              </div>
+            )}
           </li>
         ))}
       </ul>

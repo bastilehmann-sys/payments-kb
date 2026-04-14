@@ -7,6 +7,7 @@ import { RegulatorikItPanel } from '@/components/laender/regulatorik-it-panel';
 import { ClearingItPanel } from '@/components/laender/clearing-it-panel';
 import { SapItPanel } from '@/components/laender/sap-it-panel';
 import { FormateItPanel } from '@/components/laender/formate-it-panel';
+import { CountrySummaryGrid } from '@/components/browse/country-summary-grid';
 import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
@@ -98,6 +99,15 @@ export default async function LaenderPage() {
       local_specifics: c.local_specifics ?? '',
       sap_effort: c.sap_effort ?? '',
       key_note: c.key_note ?? '',
+      central_bank: c.central_bank ?? '',
+      iso20022_status: c.iso20022_status ?? '',
+      instant_payments: c.instant_payments ?? '',
+      intercompany_netting: c.intercompany_netting ?? '',
+      cash_pooling_external: c.cash_pooling_external ?? '',
+      pobo: c.pobo ?? '',
+      pino_routing: c.pino_routing ?? '',
+      special_format_requirements: c.special_format_requirements ?? '',
+      special_regulatory_requirements: c.special_regulatory_requirements ?? '',
       document_id: c.document_id ?? '',
       document_md: c.document?.content_md ?? '',
       // IHB-Merge
@@ -123,6 +133,7 @@ export default async function LaenderPage() {
         items={items as unknown as Record<string, unknown>[]}
         columns={COLUMNS}
         countryBlocksMap={countryBlocksMap}
+        renderSummary={(c) => <CountrySummaryGrid country={c} />}
       />
     </Suspense>
   );

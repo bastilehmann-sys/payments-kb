@@ -251,4 +251,14 @@ export const countries = pgTable('countries', {
   local_specifics: text('local_specifics'),
   sap_effort: text('sap_effort'),
   key_note: text('key_note'),
+  // Structured Management Summary (Länder detail)
+  central_bank: text('central_bank'),
+  iso20022_status: text('iso20022_status'),
+  instant_payments: text('instant_payments'),
+  intercompany_netting: text('intercompany_netting'),
+  cash_pooling_external: text('cash_pooling_external'),
+  pobo: text('pobo'),
+  pino_routing: text('pino_routing'),
+  special_format_requirements: text('special_format_requirements'),
+  special_regulatory_requirements: text('special_regulatory_requirements'),
 });

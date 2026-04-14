@@ -86,6 +86,8 @@ export type SplitViewProps<T extends Record<string, unknown>> = {
     /** If set, clicking keeps the user on this page and renders this in the detail pane. */
     content?: React.ReactNode;
   }[];
+  /** If set, completely replaces the default section/tab detail with custom JSX per item. */
+  renderDetail?: (item: T) => React.ReactNode;
 };
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
@@ -757,6 +759,7 @@ export function SplitView<T extends Record<string, unknown>>({
   detailTabsPlan,
   relatedPanel,
   pinnedLinks,
+  renderDetail,
 }: SplitViewProps<T>) {
   const router = useRouter();
   const pathname = usePathname();
@@ -944,6 +947,8 @@ export function SplitView<T extends Record<string, unknown>>({
 
   const detail = activePinnedEntry ? (
     <div className="h-full overflow-hidden">{activePinnedEntry.content}</div>
+  ) : renderDetail && selectedItem ? (
+    <div className="h-full overflow-y-auto px-4 py-6 md:px-10">{renderDetail(selectedItem)}</div>
   ) : (
     <DetailPanel
       item={selectedItem}

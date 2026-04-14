@@ -63,6 +63,15 @@ export type CountryRow = {
   local_specifics: string | null;
   sap_effort: string | null;
   key_note: string | null;
+  central_bank: string | null;
+  iso20022_status: string | null;
+  instant_payments: string | null;
+  intercompany_netting: string | null;
+  cash_pooling_external: string | null;
+  pobo: string | null;
+  pino_routing: string | null;
+  special_format_requirements: string | null;
+  special_regulatory_requirements: string | null;
 };
 
 export type CountryWithDocument = CountryRow & {
@@ -85,6 +94,15 @@ export async function listCountries(): Promise<CountryRow[]> {
       local_specifics: countries.local_specifics,
       sap_effort: countries.sap_effort,
       key_note: countries.key_note,
+      central_bank: countries.central_bank,
+      iso20022_status: countries.iso20022_status,
+      instant_payments: countries.instant_payments,
+      intercompany_netting: countries.intercompany_netting,
+      cash_pooling_external: countries.cash_pooling_external,
+      pobo: countries.pobo,
+      pino_routing: countries.pino_routing,
+      special_format_requirements: countries.special_format_requirements,
+      special_regulatory_requirements: countries.special_regulatory_requirements,
     })
     .from(countries)
     .orderBy(
@@ -197,6 +215,15 @@ export async function getCountry(code: string): Promise<CountryWithDocument | nu
       local_specifics: countries.local_specifics,
       sap_effort: countries.sap_effort,
       key_note: countries.key_note,
+      central_bank: countries.central_bank,
+      iso20022_status: countries.iso20022_status,
+      instant_payments: countries.instant_payments,
+      intercompany_netting: countries.intercompany_netting,
+      cash_pooling_external: countries.cash_pooling_external,
+      pobo: countries.pobo,
+      pino_routing: countries.pino_routing,
+      special_format_requirements: countries.special_format_requirements,
+      special_regulatory_requirements: countries.special_regulatory_requirements,
     })
     .from(countries)
     .where(eq(countries.code, code.toUpperCase()))

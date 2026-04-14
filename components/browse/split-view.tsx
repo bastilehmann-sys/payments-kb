@@ -46,6 +46,12 @@ export type SplitViewProps<T extends Record<string, unknown>> = {
   documentField?: keyof T;
   /** Field to use as Management Summary callout at top of detail */
   summaryField?: keyof T;
+  /**
+   * Optional custom renderer for the Management Summary callout. When provided,
+   * replaces the default markdown rendering of `summaryField` with a bespoke
+   * structured view (e.g. the key/value block used on Länder).
+   */
+  renderSummary?: (item: T) => React.ReactNode;
   /** Optional extra content rendered between Management Summary and Einsteiger/Experte toggle */
   extraDetailHeader?: (item: T) => React.ReactNode;
   /** Table name for edit button (e.g. 'regulatorik_entries') */
@@ -350,6 +356,7 @@ function DetailPanel<T extends Record<string, unknown>>({
   complexityField,
   documentField,
   summaryField,
+  renderSummary,
   extraDetailHeader,
   editTable,
   itemId,
@@ -365,6 +372,7 @@ function DetailPanel<T extends Record<string, unknown>>({
   complexityField?: keyof T;
   documentField?: keyof T;
   summaryField?: keyof T;
+  renderSummary?: (item: T) => React.ReactNode;
   extraDetailHeader?: (item: T) => React.ReactNode;
   editTable?: string;
   itemId?: string;
@@ -516,15 +524,24 @@ function DetailPanel<T extends Record<string, unknown>>({
       <div className="flex-1 overflow-y-auto px-4 py-6 md:px-10">
 
         {/* Management Summary callout */}
-        {summaryVal && (
-          <ManagementSummaryCallout
-            initialValue={summaryVal}
-            editTable={editTable}
-            itemId={itemId}
-            fieldKey={summaryField ? String(summaryField) : undefined}
-          >
-            {renderFieldValue(summaryVal)}
-          </ManagementSummaryCallout>
+        {renderSummary && item ? (
+          <div className="mb-8 rounded-xl border border-primary/30 bg-primary/5 p-5">
+            <div className="mb-3 text-base font-semibold uppercase tracking-wider text-primary">
+              Management Summary
+            </div>
+            {renderSummary(item)}
+          </div>
+        ) : (
+          summaryVal && (
+            <ManagementSummaryCallout
+              initialValue={summaryVal}
+              editTable={editTable}
+              itemId={itemId}
+              fieldKey={summaryField ? String(summaryField) : undefined}
+            >
+              {renderFieldValue(summaryVal)}
+            </ManagementSummaryCallout>
+          )
         )}
 
         {/* Extra detail header (e.g. sample file card) */}
@@ -733,6 +750,7 @@ export function SplitView<T extends Record<string, unknown>>({
   complexityField,
   documentField,
   summaryField,
+  renderSummary,
   extraDetailHeader,
   editTable,
   countryBlocksMap,
@@ -936,6 +954,7 @@ export function SplitView<T extends Record<string, unknown>>({
       complexityField={complexityField}
       documentField={documentField}
       summaryField={summaryField}
+      renderSummary={renderSummary}
       extraDetailHeader={extraDetailHeader}
       editTable={editTable}
       itemId={selectedId ?? undefined}

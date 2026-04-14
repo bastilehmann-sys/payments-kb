@@ -105,10 +105,7 @@ export async function listCountries(): Promise<CountryRow[]> {
       special_regulatory_requirements: countries.special_regulatory_requirements,
     })
     .from(countries)
-    .orderBy(
-      sql`CASE ${countries.complexity} WHEN 'high' THEN 0 WHEN 'medium' THEN 1 WHEN 'low' THEN 2 ELSE 3 END`,
-      asc(countries.name)
-    );
+    .orderBy(asc(countries.name));
 }
 
 /**

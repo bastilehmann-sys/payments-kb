@@ -626,8 +626,16 @@ function ListItem<T extends Record<string, unknown>>({
   const complexity = complexityField ? str(item[complexityField]) : '';
   const complexityColor = complexity ? (COMPLEXITY_COLOR[complexity] ?? '#7d87a0') : '';
 
+  const ref = React.useRef<HTMLButtonElement>(null);
+  React.useEffect(() => {
+    if (isSelected && ref.current) {
+      ref.current.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    }
+  }, [isSelected]);
+
   return (
     <button
+      ref={ref}
       onClick={onClick}
       className={cn(
         'relative w-full text-left px-3 py-3 rounded-md transition-all duration-100 border',

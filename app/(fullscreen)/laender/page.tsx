@@ -48,7 +48,7 @@ export default async function LaenderPage() {
   type BlockGroup = Awaited<ReturnType<typeof getCountryBlocks>>[number];
   const countryBlocksMap: Record<string, BlockGroup[]> = {};
 
-  function buildCountryBlocks(rawBlocks: BlockGroup[], landName: string): BlockGroup[] {
+  function buildCountryBlocks(rawBlocks: BlockGroup[], landName: string, countryLabel: string): BlockGroup[] {
     if (rawBlocks.length === 0) return [];
     // Quick-Reference-Block ausblenden (war in IT block 6)
     const filtered = rawBlocks.filter((b) => !/quick reference/i.test(b.blockTitle ?? ''));
@@ -56,7 +56,7 @@ export default async function LaenderPage() {
     const enriched = filtered.map((b) => {
       const t = (b.blockTitle ?? '').toLowerCase();
       if (/regulatorik/i.test(t))               return { ...b, customContent: <RegulatorikItPanel rows={b.rows} /> };
-      if (/clearing|banken/i.test(t))           return { ...b, customContent: <ClearingItPanel rows={b.rows} /> };
+      if (/clearing|banken/i.test(t))           return { ...b, customContent: <ClearingItPanel rows={b.rows} countryLabel={countryLabel} /> };
       if (/sap[- ]/i.test(t))                   return { ...b, customContent: <SapItPanel rows={b.rows} /> };
       if (/format|instrument/i.test(t))         return { ...b, customContent: <FormateItPanel rows={b.rows} /> };
       return b;
@@ -88,13 +88,13 @@ export default async function LaenderPage() {
     return [...enriched, ...ihbTab].sort((a, b) => a.blockNo - b.blockNo);
   }
 
-  const itOrdered = buildCountryBlocks(itBlocks, 'italien');
+  const itOrdered = buildCountryBlocks(itBlocks, 'italien', 'Italien');
   if (itOrdered.length > 0) countryBlocksMap['IT'] = itOrdered;
 
-  const cnOrdered = buildCountryBlocks(cnBlocks, 'china');
+  const cnOrdered = buildCountryBlocks(cnBlocks, 'china', 'China');
   if (cnOrdered.length > 0) countryBlocksMap['CN'] = cnOrdered;
 
-  const rsOrdered = buildCountryBlocks(rsBlocks, 'serbien');
+  const rsOrdered = buildCountryBlocks(rsBlocks, 'serbien', 'Serbien');
   if (rsOrdered.length > 0) countryBlocksMap['RS'] = rsOrdered;
 
   const items = countriesWithDocs.map((c) => {

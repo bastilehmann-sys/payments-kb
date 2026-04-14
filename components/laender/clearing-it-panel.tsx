@@ -6,6 +6,8 @@ import type { CountryBlockRow } from '@/lib/queries/documents';
 
 interface Props {
   rows: CountryBlockRow[];
+  /** Country label used in section headers (e.g. "Italien", "Serbien"). Defaults to "Italien". */
+  countryLabel?: string;
 }
 
 // ─── Categorization ───────────────────────────────────────────────────────────
@@ -194,8 +196,12 @@ function shorten(text: string, max = 320): string {
 
 // ─── Panel ────────────────────────────────────────────────────────────────────
 
-export function ClearingItPanel({ rows }: Props) {
-  const grouped = GROUPS.map((g) => ({ ...g, rows: rows.filter((r) => groupOf(r.feld) === g.id) }));
+export function ClearingItPanel({ rows, countryLabel = 'Italien' }: Props) {
+  const grouped = GROUPS.map((g) => ({
+    ...g,
+    label: g.id === 'banks' ? `Hauptbanken ${countryLabel}` : g.label,
+    rows: rows.filter((r) => groupOf(r.feld) === g.id),
+  }));
 
   return (
     <div className="space-y-8">

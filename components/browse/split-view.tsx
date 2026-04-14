@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import Link from 'next/link';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { DocumentDetail } from '@/components/browse/document-detail';
@@ -51,6 +52,11 @@ export type SplitViewProps<T extends Record<string, unknown>> = {
    * below all tabs/sections content. Useful for cross-link panels.
    */
   relatedPanel?: (item: T) => React.ReactNode;
+  /**
+   * Optional links pinned above the filtered list in the sidebar.
+   * Use e.g. for overview / matrix pages that live outside the item list.
+   */
+  pinnedLinks?: { label: string; sublabel?: string; href: string }[];
 };
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
@@ -690,6 +696,7 @@ export function SplitView<T extends Record<string, unknown>>({
   editTable,
   countryBlocksMap,
   relatedPanel,
+  pinnedLinks,
 }: SplitViewProps<T>) {
   const router = useRouter();
   const pathname = usePathname();
@@ -798,6 +805,28 @@ export function SplitView<T extends Record<string, unknown>>({
   // ── List ────────────────────────────────────────────────────────────────────
   const list = (
     <div className="flex-1 overflow-y-auto px-2 py-2 space-y-0.5">
+      {pinnedLinks && pinnedLinks.length > 0 && (
+        <div className="mb-2 space-y-0.5">
+          {pinnedLinks.map((pl) => (
+            <Link
+              key={pl.href}
+              href={pl.href}
+              className="block rounded-md border border-[#86bc25]/40 bg-[#86bc25]/5 px-3 py-3 transition-all duration-100 hover:bg-[#86bc25]/10"
+            >
+              <div className="flex items-center justify-between gap-2">
+                <div className="min-w-0">
+                  <div className="text-sm font-semibold">{pl.label}</div>
+                  {pl.sublabel && (
+                    <div className="text-xs text-muted-foreground/70 truncate">{pl.sublabel}</div>
+                  )}
+                </div>
+                <span className="text-muted-foreground/60">→</span>
+              </div>
+            </Link>
+          ))}
+          <div className="border-b border-border/60 pt-2" />
+        </div>
+      )}
       {filtered.length === 0 ? (
         <p className="py-8 text-center text-base text-muted-foreground/60">{emptyLabel}</p>
       ) : (

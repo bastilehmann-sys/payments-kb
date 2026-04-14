@@ -53,7 +53,7 @@ export async function getRegulatorikEntries(): Promise<RegulatorikEntry[]> {
       created_at: regulatorikEntries.created_at,
     })
     .from(regulatorikEntries)
-    .orderBy(asc(regulatorikEntries.source_row));
+    .orderBy(asc(regulatorikEntries.kuerzel));
 }
 
 export async function getFormatEntries(): Promise<FormatEntry[]> {

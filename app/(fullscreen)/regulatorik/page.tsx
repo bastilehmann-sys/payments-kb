@@ -65,6 +65,9 @@ export default async function RegulatorikPage() {
         filterLabel="Alle Typen"
         summaryField="beschreibung_einsteiger"
         editTable="regulatorik_entries"
+        pinnedLinks={[
+          { label: 'SAP-Matrix', sublabel: 'Alle 34 Regelungen im Überblick', href: '/regulatorik/sap-matrix' },
+        ]}
       />
     </Suspense>
   );

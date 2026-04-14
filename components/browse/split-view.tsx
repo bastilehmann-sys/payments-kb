@@ -56,7 +56,14 @@ export type SplitViewProps<T extends Record<string, unknown>> = {
    * Optional links pinned above the filtered list in the sidebar.
    * Use e.g. for overview / matrix pages that live outside the item list.
    */
-  pinnedLinks?: { label: string; sublabel?: string; href: string }[];
+  pinnedLinks?: {
+    label: string;
+    sublabel?: string;
+    /** If set, clicking navigates to this route (external). */
+    href?: string;
+    /** If set, clicking keeps the user on this page and renders this in the detail pane. */
+    content?: React.ReactNode;
+  }[];
 };
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
@@ -708,6 +715,7 @@ export function SplitView<T extends Record<string, unknown>>({
   const [search, setSearch] = React.useState('');
   const [filterValue, setFilterValue] = React.useState('');
   const [showDetail, setShowDetail] = React.useState(false); // mobile toggle
+  const [activePinned, setActivePinned] = React.useState<string | null>(null);
 
   const getIdOf = React.useCallback((item: T) => getItemId(item, idField), [idField]);
 
@@ -807,12 +815,15 @@ export function SplitView<T extends Record<string, unknown>>({
     <div className="flex-1 overflow-y-auto px-2 py-2 space-y-0.5">
       {pinnedLinks && pinnedLinks.length > 0 && (
         <div className="mb-2 space-y-0.5">
-          {pinnedLinks.map((pl) => (
-            <Link
-              key={pl.href}
-              href={pl.href}
-              className="block rounded-md border border-[#86bc25]/40 bg-[#86bc25]/5 px-3 py-3 transition-all duration-100 hover:bg-[#86bc25]/10"
-            >
+          {pinnedLinks.map((pl) => {
+            const isActive = activePinned === pl.label;
+            const cls = cn(
+              'block w-full rounded-md border px-3 py-3 text-left transition-all duration-100',
+              isActive
+                ? 'border-[#86bc25]/60 bg-[#86bc25]/15 shadow-sm'
+                : 'border-[#86bc25]/40 bg-[#86bc25]/5 hover:bg-[#86bc25]/10',
+            );
+            const inner = (
               <div className="flex items-center justify-between gap-2">
                 <div className="min-w-0">
                   <div className="text-sm font-semibold">{pl.label}</div>
@@ -822,8 +833,25 @@ export function SplitView<T extends Record<string, unknown>>({
                 </div>
                 <span className="text-muted-foreground/60">→</span>
               </div>
-            </Link>
-          ))}
+            );
+            if (pl.content !== undefined) {
+              return (
+                <button
+                  key={pl.label}
+                  type="button"
+                  onClick={() => { setActivePinned(pl.label); setShowDetail(true); }}
+                  className={cls}
+                >
+                  {inner}
+                </button>
+              );
+            }
+            return (
+              <Link key={pl.label} href={pl.href ?? '#'} className={cls}>
+                {inner}
+              </Link>
+            );
+          })}
           <div className="border-b border-border/60 pt-2" />
         </div>
       )}
@@ -841,7 +869,7 @@ export function SplitView<T extends Record<string, unknown>>({
               secondaryField={secondaryField}
               tertiaryField={tertiaryField}
               complexityField={complexityField}
-              onClick={() => setSelected(id)}
+              onClick={() => { setSelected(id); setActivePinned(null); }}
             />
           );
         })
@@ -857,7 +885,13 @@ export function SplitView<T extends Record<string, unknown>>({
     return countryBlocksMap[keyVal] ?? undefined;
   }, [countryBlocksMap, selectedItem, idField]);
 
-  const detail = (
+  const activePinnedEntry = activePinned
+    ? pinnedLinks?.find((pl) => pl.label === activePinned && pl.content !== undefined)
+    : undefined;
+
+  const detail = activePinnedEntry ? (
+    <div className="h-full overflow-hidden">{activePinnedEntry.content}</div>
+  ) : (
     <DetailPanel
       item={selectedItem}
       columns={columns}

@@ -1,5 +1,6 @@
 import { getRegulatorikEntries } from '@/lib/queries/entries';
 import { SplitView, type Column } from '@/components/browse/split-view';
+import { RegulatorikSapMatrix } from '@/components/regulatorik/sap-matrix';
 import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
@@ -66,7 +67,11 @@ export default async function RegulatorikPage() {
         summaryField="beschreibung_einsteiger"
         editTable="regulatorik_entries"
         pinnedLinks={[
-          { label: 'SAP-Matrix', sublabel: 'Alle 34 Regelungen im Überblick', href: '/regulatorik/sap-matrix' },
+          {
+            label: 'SAP-Matrix',
+            sublabel: 'Alle 34 Regelungen im Überblick',
+            content: <RegulatorikSapMatrix items={data as unknown as Record<string, unknown>[]} />,
+          },
         ]}
       />
     </Suspense>

@@ -1,16 +1,18 @@
 'use client';
 
+import '@/content/formats/all';
+
 import { SplitView, type Column } from '@/components/browse/split-view';
-import { FormatSampleCard } from '@/components/browse/formate-sample-card';
-import type { FormatVersion } from '@/lib/queries/entries';
+import { VersionDetailPanel } from '@/components/formate/version-detail-panel';
+import { getFormat } from '@/lib/formats/registry';
 
 interface FormateClientProps {
   items: Record<string, unknown>[];
   columns: Column[];
-  versions?: FormatVersion[];
+  versions?: Record<string, unknown>[];
 }
 
-export function FormateClient({ items, columns, versions }: FormateClientProps) {
+export function FormateClient({ items, columns }: FormateClientProps) {
   return (
     <SplitView
       items={items}
@@ -24,16 +26,20 @@ export function FormateClient({ items, columns, versions }: FormateClientProps) 
       filterLabel="Alle Familien"
       summaryField="beschreibung_einsteiger"
       editTable="format_entries"
-      extraDetailHeader={(item) => (
-        <FormatSampleCard
-          formatName={String(item['format_name'] ?? '')}
-          selectedVersion={String(item['aktuelle_version'] ?? '')}
-          selectedSampleFile={String(item['version_sample_file'] ?? '')}
-          selectedIsCurrentVersion={Boolean(item['version_is_current'])}
-          selectedVersionNotes={String(item['version_notes'] ?? '')}
-          versions={versions}
-        />
-      )}
+      renderDetail={(item) => {
+        const formatName = String(item['format_name'] ?? '');
+        const allVersions = items.filter(
+          (i) => String(i['format_name'] ?? '') === formatName,
+        );
+        return (
+          <VersionDetailPanel
+            base={item as Record<string, string | null>}
+            version={item as Record<string, string | null | boolean>}
+            allVersions={allVersions as Record<string, string | null | boolean>[]}
+            content={getFormat(formatName)}
+          />
+        );
+      }}
     />
   );
 }

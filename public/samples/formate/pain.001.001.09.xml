@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Hand-curated sample. Official XSD not available for this version. -->
 <!-- pain.001.001.09 — CustomerCreditTransferInitiation (ISO 20022 / CGI-MP 2019) -->
 <!-- MAJOR version: structured PostalAddress24 (StrtNm, BldgNb, BldgNm, Flr,      -->
 <!-- PstBx, Room, PstCd, TwnNm, TwnLctnNm, DstrctNm, CtrySubDvsn, Ctry),          -->

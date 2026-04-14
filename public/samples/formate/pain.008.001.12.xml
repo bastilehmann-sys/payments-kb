@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated from official ISO 20022 XSD: pain.008.001.12 -->
+<!-- Source: urn:iso:std:iso:20022:tech:xsd:pain.008.001.12 -->
+<!-- Generated: 2026-04-13 | ISO 20022 Payments Initiation 2025/2026 -->
+<!-- Message: CustomerDirectDebitInitiation — SEPA Direct Debit (RCUR B2B)    -->
+<!-- Covers: GroupHeader118 (MsgId, CreDtTm, NbOfTxs, InitgPty mandatory),    -->
+<!-- PaymentInstruction50 (PmtInfId, PmtMtd=DD, ReqdColltnDt, Cdtr, CdtrAcct,-->
+<!-- CdtrAgt, DrctDbtTxInf mandatory), DirectDebitTransactionInformation34    -->
+<!-- (PmtId, InstdAmt, DbtrAgt, Dbtr, DbtrAcct mandatory)                     -->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.008.001.12"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.008.001.12 pain.008.001.12.xsd">
+  <CstmrDrctDbtInitn>
+
+    <!-- ═══ GroupHeader118: MsgId, CreDtTm, NbOfTxs, InitgPty mandatory ═══ -->
+    <GrpHdr>
+      <MsgId>DDMSG-20260413-P008-12-001</MsgId>
+      <CreDtTm>2026-04-13T10:00:00</CreDtTm>
+      <NbOfTxs>2</NbOfTxs>
+      <CtrlSum>1234.56</CtrlSum>
+      <!-- InitgPty: mandatory in GroupHeader118 (unlike pain.002 where it is optional) -->
+      <InitgPty>
+        <Nm>Muster Handels AG</Nm>
+        <PstlAdr>
+          <StrtNm>Empfängerstraße</StrtNm>
+          <BldgNb>5</BldgNb>
+          <PstCd>10115</PstCd>
+          <TwnNm>Berlin</TwnNm>
+          <CtrySubDvsn>Berlin</CtrySubDvsn>
+          <Ctry>DE</Ctry>
+        </PstlAdr>
+        <Id>
+          <OrgId>
+            <LEI>7654321ABCDEFG1234512</LEI>
+          </OrgId>
+        </Id>
+      </InitgPty>
+    </GrpHdr>
+
+    <!-- ═══ PaymentInstruction50: PmtInfId, PmtMtd=DD, ReqdColltnDt, ═══ -->
+    <!-- ═══ Cdtr, CdtrAcct, CdtrAgt, DrctDbtTxInf all mandatory         ═══ -->
+    <PmtInf>
+      <PmtInfId>DDPMTINF-20260413-001</PmtInfId>
+      <!-- PmtMtd: only valid value is DD for direct debit -->
+      <PmtMtd>DD</PmtMtd>
+      <BtchBookg>true</BtchBookg>
+      <NbOfTxs>2</NbOfTxs>
+      <CtrlSum>1234.56</CtrlSum>
+      <PmtTpInf>
+        <SvcLvl>
+          <Cd>SEPA</Cd>
+        </SvcLvl>
+        <LclInstrm>
+          <!-- B2B: SEPA Direct Debit Business-to-Business scheme -->
+          <Cd>B2B</Cd>
+        </LclInstrm>
+        <SeqTp>RCUR</SeqTp>
+        <CtgyPurp>
+          <Cd>SUPP</Cd>
+        </CtgyPurp>
+      </PmtTpInf>
+      <!-- ReqdColltnDt: mandatory in PaymentInstruction50 (differs from pain.001 ReqdExctnDt) -->
+      <ReqdColltnDt>2026-04-14</ReqdColltnDt>
+      <!-- Cdtr: mandatory (creditor = the party collecting the money) -->
+      <Cdtr>
+        <Nm>Muster Handels AG</Nm>
+        <PstlAdr>
+          <StrtNm>Empfängerstraße</StrtNm>
+          <BldgNb>5</BldgNb>
+          <PstCd>10115</PstCd>
+          <TwnNm>Berlin</TwnNm>
+          <CtrySubDvsn>Berlin</CtrySubDvsn>
+          <Ctry>DE</Ctry>
+        </PstlAdr>
+        <Id>
+          <OrgId>
+            <LEI>7654321ABCDEFG1234512</LEI>
+          </OrgId>
+        </Id>
+      </Cdtr>
+      <!-- CdtrAcct: mandatory -->
+      <CdtrAcct>
+        <Id>
+          <IBAN>DE75512108001245126199</IBAN>
+        </Id>
+        <Ccy>EUR</Ccy>
+        <Nm>DD-Einzugskonto Creditor</Nm>
+      </CdtrAcct>
+      <!-- CdtrAgt: mandatory, BIC routing -->
+      <CdtrAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+          <Nm>Deutsche Bank AG</Nm>
+          <PstlAdr>
+            <StrtNm>Taunusanlage</StrtNm>
+            <BldgNb>12</BldgNb>
+            <PstCd>60325</PstCd>
+            <TwnNm>Frankfurt am Main</TwnNm>
+            <CtrySubDvsn>Hessen</CtrySubDvsn>
+            <Ctry>DE</Ctry>
+          </PstlAdr>
+        </FinInstnId>
+      </CdtrAgt>
+      <UltmtCdtr>
+        <Nm>Ultimate Creditor Parent AG</Nm>
+        <Id>
+          <OrgId>
+            <LEI>8765432ZYXWVUT9876554</LEI>
+          </OrgId>
+        </Id>
+      </UltmtCdtr>
+      <ChrgBr>SLEV</ChrgBr>
+      <!-- CdtrSchmeId: optional but conventionally included for SEPA DD identification -->
+      <CdtrSchmeId>
+        <Id>
+          <PrvtId>
+            <Othr>
+              <Id>DE98ZZZ09999999999</Id>
+              <SchmeNm>
+                <Prtry>SEPA</Prtry>
+              </SchmeNm>
+            </Othr>
+          </PrvtId>
+        </Id>
+      </CdtrSchmeId>
+
+      <!-- ═══ DirectDebitTransactionInformation34 #1: PmtId, InstdAmt, DbtrAgt, Dbtr, DbtrAcct mandatory ═══ -->
+      <DrctDbtTxInf>
+        <PmtId>
+          <InstrId>DDINSTRID-12-001</InstrId>
+          <EndToEndId>DDE2EID-20260413-001</EndToEndId>
+          <UETR>a3b4c5d6-e7f8-4a1b-9c2d-3e4f5a6b7c8d</UETR>
+        </PmtId>
+        <PmtTpInf>
+          <SvcLvl>
+            <Cd>SEPA</Cd>
+          </SvcLvl>
+          <LclInstrm>
+            <Cd>B2B</Cd>
+          </LclInstrm>
+          <SeqTp>RCUR</SeqTp>
+        </PmtTpInf>
+        <!-- InstdAmt: mandatory in DirectDebitTransactionInformation34 -->
+        <InstdAmt Ccy="EUR">1234.56</InstdAmt>
+        <ChrgBr>SLEV</ChrgBr>
+        <!-- DrctDbtTx: optional, MandateRelatedInformation16 -->
+        <DrctDbtTx>
+          <MndtRltdInf>
+            <MndtId>MANDATE-2024-001</MndtId>
+            <DtOfSgntr>2024-01-15</DtOfSgntr>
+            <AmdmntInd>false</AmdmntInd>
+            <ElctrncSgntr>BASE64ENCODEDMANDATESIGNATURE==</ElctrncSgntr>
+          </MndtRltdInf>
+          <CdtrSchmeId>
+            <Id>
+              <PrvtId>
+                <Othr>
+                  <Id>DE98ZZZ09999999999</Id>
+                  <SchmeNm>
+                    <Prtry>SEPA</Prtry>
+                  </SchmeNm>
+                </Othr>
+              </PrvtId>
+            </Id>
+          </CdtrSchmeId>
+        </DrctDbtTx>
+        <UltmtCdtr>
+          <Nm>Ultimate Creditor Parent AG</Nm>
+        </UltmtCdtr>
+        <!-- DbtrAgt: mandatory -->
+        <DbtrAgt>
+          <FinInstnId>
+            <BICFI>COBADEFFXXX</BICFI>
+            <Nm>Commerzbank AG</Nm>
+            <PstlAdr>
+              <StrtNm>Kaiserplatz</StrtNm>
+              <BldgNb>1</BldgNb>
+              <PstCd>60311</PstCd>
+              <TwnNm>Frankfurt am Main</TwnNm>
+              <CtrySubDvsn>Hessen</CtrySubDvsn>
+              <Ctry>DE</Ctry>
+            </PstlAdr>
+          </FinInstnId>
+        </DbtrAgt>
+        <!-- Dbtr: mandatory -->
+        <Dbtr>
+          <Nm>Test Corporation GmbH</Nm>
+          <PstlAdr>
+            <StrtNm>Teststraße</StrtNm>
+            <BldgNb>1</BldgNb>
+            <PstCd>90401</PstCd>
+            <TwnNm>Nürnberg</TwnNm>
+            <CtrySubDvsn>Bayern</CtrySubDvsn>
+            <Ctry>DE</Ctry>
+          </PstlAdr>
+          <Id>
+            <OrgId>
+              <LEI>5493001KJTIIGC8Y1R12</LEI>
+            </OrgId>
+          </Id>
+        </Dbtr>
+        <!-- DbtrAcct: mandatory -->
+        <DbtrAcct>
+          <Id>
+            <IBAN>DE89370400440532013000</IBAN>
+          </Id>
+          <Ccy>EUR</Ccy>
+          <Nm>Einzugskonto Debtor</Nm>
+        </DbtrAcct>
+        <UltmtDbtr>
+          <Nm>Ultimate Debtor Tochter GmbH</Nm>
+          <Id>
+            <OrgId>
+              <Othr>
+                <Id>HRB-654321-N</Id>
+              </Othr>
+            </OrgId>
+          </Id>
+        </UltmtDbtr>
+        <Purp>
+          <Cd>SUPP</Cd>
+        </Purp>
+        <RgltryRptg>
+          <DbtCdtRptgInd>DEBT</DbtCdtRptgInd>
+          <Dtls>
+            <Tp>DEBT</Tp>
+            <Dt>2026-04-13</Dt>
+            <Ctry>DE</Ctry>
+            <Cd>150</Cd>
+            <Inf>SEPA B2B Lastschrift — Dauerauftrag</Inf>
+          </Dtls>
+        </RgltryRptg>
+        <!-- RmtInf: structured remittance with creditor reference -->
+        <RmtInf>
+          <Strd>
+            <CdtrRefInf>
+              <Tp>
+                <CdOrPrtry>
+                  <Cd>SCOR</Cd>
+                </CdOrPrtry>
+              </Tp>
+              <Ref>DD-INV-2026-001</Ref>
+            </CdtrRefInf>
+            <RfrdDocInf>
+              <Tp>
+                <CdOrPrtry>
+                  <Cd>CINV</Cd>
+                </CdOrPrtry>
+              </Tp>
+              <Nb>DD-RE-2026-001</Nb>
+              <RltdDt>
+                <Dt>2026-04-01</Dt>
+              </RltdDt>
+            </RfrdDocInf>
+            <RfrdDocAmt>
+              <DuePyblAmt Ccy="EUR">1234.56</DuePyblAmt>
+            </RfrdDocAmt>
+            <AddtlRmtInf>SEPA B2B DD Lastschrift Q2/2026 — Mandat MANDATE-2024-001</AddtlRmtInf>
+          </Strd>
+        </RmtInf>
+      </DrctDbtTxInf>
+
+      <!-- ═══ DirectDebitTransactionInformation34 #2: OOFF (one-off) mandate ═══ -->
+      <DrctDbtTxInf>
+        <PmtId>
+          <InstrId>DDINSTRID-12-002</InstrId>
+          <EndToEndId>DDE2EID-20260413-002</EndToEndId>
+          <UETR>c5d6e7f8-a9b0-4c3d-1e2f-3a4b5c6d7e8f</UETR>
+        </PmtId>
+        <PmtTpInf>
+          <SvcLvl>
+            <Cd>SEPA</Cd>
+          </SvcLvl>
+          <LclInstrm>
+            <Cd>CORE</Cd>
+          </LclInstrm>
+          <SeqTp>OOFF</SeqTp>
+        </PmtTpInf>
+        <InstdAmt Ccy="EUR">500.00</InstdAmt>
+        <ChrgBr>SLEV</ChrgBr>
+        <DrctDbtTx>
+          <MndtRltdInf>
+            <MndtId>MANDATE-2026-OOFF-001</MndtId>
+            <DtOfSgntr>2026-04-01</DtOfSgntr>
+            <AmdmntInd>false</AmdmntInd>
+          </MndtRltdInf>
+          <CdtrSchmeId>
+            <Id>
+              <PrvtId>
+                <Othr>
+                  <Id>DE98ZZZ09999999999</Id>
+                  <SchmeNm>
+                    <Prtry>SEPA</Prtry>
+                  </SchmeNm>
+                </Othr>
+              </PrvtId>
+            </Id>
+          </CdtrSchmeId>
+        </DrctDbtTx>
+        <DbtrAgt>
+          <FinInstnId>
+            <BICFI>SSKMDEMMXXX</BICFI>
+            <Nm>Stadtsparkasse München</Nm>
+            <PstlAdr>
+              <StrtNm>Sparkassenstraße</StrtNm>
+              <BldgNb>2</BldgNb>
+              <PstCd>80333</PstCd>
+              <TwnNm>München</TwnNm>
+              <Ctry>DE</Ctry>
+            </PstlAdr>
+          </FinInstnId>
+        </DbtrAgt>
+        <Dbtr>
+          <Nm>Zweiter Debtor GmbH</Nm>
+          <PstlAdr>
+            <StrtNm>Schuldnerweg</StrtNm>
+            <BldgNb>7</BldgNb>
+            <PstCd>80335</PstCd>
+            <TwnNm>München</TwnNm>
+            <CtrySubDvsn>Bayern</CtrySubDvsn>
+            <Ctry>DE</Ctry>
+          </PstlAdr>
+        </Dbtr>
+        <DbtrAcct>
+          <Id>
+            <IBAN>DE02200505501015871393</IBAN>
+          </Id>
+          <Ccy>EUR</Ccy>
+        </DbtrAcct>
+        <Purp>
+          <Cd>OTHR</Cd>
+        </Purp>
+        <RmtInf>
+          <Ustrd>Einmalzahlung April 2026 — Sonderrechnung SR-2026-001</Ustrd>
+        </RmtInf>
+      </DrctDbtTxInf>
+
+    </PmtInf>
+
+  </CstmrDrctDbtInitn>
+</Document>

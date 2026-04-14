@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Hand-curated sample. Official XSD not available for this version. -->
 <!-- pain.002.001.05 — CustomerPaymentStatusReport (ISO 20022 / EPC SEPA 2013)   -->
 <!-- Corresponds to pain.001.001.05. Shows RJCT (rejected) scenario with reason   -->
 <!-- code AC01 (IncorrectAccountNumber) for educational purposes. FwdgAgt present. -->

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Hand-curated sample. Official XSD not available for this version. -->
 <!-- pain.001.001.04 — CustomerCreditTransferInitiation (ISO 20022, 2010)       -->
 <!-- Minor revision over .03. Key changes: Othr replaces BICOrBEI in OrgId,     -->
 <!-- InstrId added to PmtId, ChrgBr moved to CdtTrfTxInf level. BIC still used  -->

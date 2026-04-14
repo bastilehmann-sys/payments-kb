@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Hand-curated sample. Official XSD not available for this version. -->
 <!-- pain.008.001.07 — CustomerDirectDebitInitiation (ISO 20022, 2019)             -->
 <!-- Last BIC-era version before BICFI transition. SplmtryData block supported.   -->
 <!-- RCUR example with full mandate amendment details (account change).            -->

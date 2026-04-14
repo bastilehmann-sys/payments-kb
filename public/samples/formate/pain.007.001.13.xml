@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated from official ISO 20022 XSD: pain.007.001.13 -->
+<!-- Source: urn:iso:std:iso:20022:tech:xsd:pain.007.001.13 -->
+<!-- Generated: 2026-04-13 | ISO 20022 Payments Initiation 2025/2026 -->
+<!-- Message: CustomerPaymentReversal — reversal of credit transfer            -->
+<!-- Covers: GroupHeader124 (MsgId, CreDtTm, NbOfTxs mandatory),               -->
+<!-- OriginalGroupHeader20 (OrgnlMsgId, OrgnlMsgNmId mandatory),               -->
+<!-- OriginalPaymentInstruction53 (OrgnlPmtInfId mandatory)                    -->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.007.001.13"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.007.001.13 pain.007.001.13.xsd">
+  <CstmrPmtRvsl>
+
+    <!-- ═══ GroupHeader124: MsgId, CreDtTm, NbOfTxs mandatory ═══ -->
+    <!-- GrpRvsl: true = full group reversal; false = selective transaction reversal -->
+    <GrpHdr>
+      <MsgId>RVSL-20260413-P007-13-001</MsgId>
+      <CreDtTm>2026-04-13T10:00:00</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>1234.56</CtrlSum>
+      <GrpRvsl>false</GrpRvsl>
+      <InitgPty>
+        <Nm>Test Corporation GmbH</Nm>
+        <PstlAdr>
+          <StrtNm>Teststraße</StrtNm>
+          <BldgNb>1</BldgNb>
+          <PstCd>90401</PstCd>
+          <TwnNm>Nürnberg</TwnNm>
+          <CtrySubDvsn>Bayern</CtrySubDvsn>
+          <Ctry>DE</Ctry>
+        </PstlAdr>
+        <Id>
+          <OrgId>
+            <LEI>5493001KJTIIGC8Y1R12</LEI>
+          </OrgId>
+        </Id>
+      </InitgPty>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>COBADEFFXXX</BICFI>
+          <Nm>Commerzbank AG</Nm>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtrAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+          <Nm>Deutsche Bank AG</Nm>
+        </FinInstnId>
+      </CdtrAgt>
+    </GrpHdr>
+
+    <!-- ═══ OriginalGroupHeader20: OrgnlMsgId, OrgnlMsgNmId mandatory ═══ -->
+    <OrgnlGrpInf>
+      <OrgnlMsgId>MSG-20260413-P001-13-001</OrgnlMsgId>
+      <OrgnlMsgNmId>pain.001.001.13</OrgnlMsgNmId>
+      <OrgnlCreDtTm>2026-04-13T10:00:00</OrgnlCreDtTm>
+      <!-- RvslRsnInf: optional, reversal reason at group level -->
+      <RvslRsnInf>
+        <Orgtr>
+          <Nm>Test Corporation GmbH</Nm>
+          <Id>
+            <OrgId>
+              <LEI>5493001KJTIIGC8Y1R12</LEI>
+            </OrgId>
+          </Id>
+        </Orgtr>
+        <Rsn>
+          <Cd>DUPL</Cd>
+        </Rsn>
+        <AddtlInf>Doppelte Zahlung storniert — Originalzahlung war Fehler</AddtlInf>
+      </RvslRsnInf>
+    </OrgnlGrpInf>
+
+    <!-- ═══ OriginalPaymentInstruction53: OrgnlPmtInfId mandatory ═══ -->
+    <OrgnlPmtInfAndRvsl>
+      <RvslPmtInfId>RVSL-PMTINF-20260413-001</RvslPmtInfId>
+      <OrgnlPmtInfId>PMTINF-20260413-001</OrgnlPmtInfId>
+      <OrgnlNbOfTxs>1</OrgnlNbOfTxs>
+      <OrgnlCtrlSum>1234.56</OrgnlCtrlSum>
+      <BtchBookg>false</BtchBookg>
+      <PmtInfRvsl>false</PmtInfRvsl>
+      <RvslRsnInf>
+        <Orgtr>
+          <Nm>Test Corporation GmbH</Nm>
+        </Orgtr>
+        <Rsn>
+          <Cd>DUPL</Cd>
+        </Rsn>
+        <AddtlInf>Storno der Zahlung PMTINF-20260413-001 wegen Doppelbuchung</AddtlInf>
+      </RvslRsnInf>
+
+      <!-- ═══ PaymentTransaction174: individual transaction reversal ═══ -->
+      <TxInf>
+        <RvslId>TXRVSL-20260413-001</RvslId>
+        <OrgnlInstrId>INSTRID-13-001</OrgnlInstrId>
+        <OrgnlEndToEndId>E2EID-20260413-001</OrgnlEndToEndId>
+        <OrgnlUETR>a3b4c5d6-e7f8-4a1b-9c2d-3e4f5a6b7c8d</OrgnlUETR>
+        <OrgnlClrSysRef>COBADE-REF-20260413-001</OrgnlClrSysRef>
+        <OrgnlIntrBkSttlmAmt Ccy="EUR">1234.56</OrgnlIntrBkSttlmAmt>
+        <RvslRsnInf>
+          <Orgtr>
+            <Nm>Test Corporation GmbH</Nm>
+            <Id>
+              <OrgId>
+                <LEI>5493001KJTIIGC8Y1R12</LEI>
+              </OrgId>
+            </Id>
+          </Orgtr>
+          <Rsn>
+            <Cd>DUPL</Cd>
+          </Rsn>
+          <AddtlInf>Transaktion INSTRID-13-001 storniert — Doppelte Ausführung</AddtlInf>
+        </RvslRsnInf>
+        <OrgnlTxRef>
+          <Amt>
+            <InstdAmt Ccy="EUR">1234.56</InstdAmt>
+          </Amt>
+          <ReqdExctnDt>
+            <Dt>2026-04-14</Dt>
+          </ReqdExctnDt>
+          <PmtTpInf>
+            <InstrPrty>NORM</InstrPrty>
+            <SvcLvl>
+              <Cd>SEPA</Cd>
+            </SvcLvl>
+            <CtgyPurp>
+              <Cd>SUPP</Cd>
+            </CtgyPurp>
+          </PmtTpInf>
+          <PmtMtd>TRF</PmtMtd>
+          <RmtInf>
+            <Strd>
+              <CdtrRefInf>
+                <Tp>
+                  <CdOrPrtry>
+                    <Cd>SCOR</Cd>
+                  </CdOrPrtry>
+                </Tp>
+                <Ref>INV-2026-001</Ref>
+              </CdtrRefInf>
+              <AddtlRmtInf>Zahlung gemaess Rechnung RE-2026-001</AddtlRmtInf>
+            </Strd>
+          </RmtInf>
+          <Dbtr>
+            <Pty>
+              <Nm>Test Corporation GmbH</Nm>
+              <PstlAdr>
+                <StrtNm>Teststraße</StrtNm>
+                <BldgNb>1</BldgNb>
+                <PstCd>90401</PstCd>
+                <TwnNm>Nürnberg</TwnNm>
+                <Ctry>DE</Ctry>
+              </PstlAdr>
+              <Id>
+                <OrgId>
+                  <LEI>5493001KJTIIGC8Y1R12</LEI>
+                </OrgId>
+              </Id>
+            </Pty>
+          </Dbtr>
+          <DbtrAcct>
+            <Id>
+              <IBAN>DE89370400440532013000</IBAN>
+            </Id>
+            <Ccy>EUR</Ccy>
+          </DbtrAcct>
+          <DbtrAgt>
+            <FinInstnId>
+              <BICFI>COBADEFFXXX</BICFI>
+              <Nm>Commerzbank AG</Nm>
+              <PstlAdr>
+                <StrtNm>Kaiserplatz</StrtNm>
+                <BldgNb>1</BldgNb>
+                <PstCd>60311</PstCd>
+                <TwnNm>Frankfurt am Main</TwnNm>
+                <Ctry>DE</Ctry>
+              </PstlAdr>
+            </FinInstnId>
+          </DbtrAgt>
+          <CdtrAgt>
+            <FinInstnId>
+              <BICFI>DEUTDEFFXXX</BICFI>
+              <Nm>Deutsche Bank AG</Nm>
+              <PstlAdr>
+                <StrtNm>Taunusanlage</StrtNm>
+                <BldgNb>12</BldgNb>
+                <PstCd>60325</PstCd>
+                <TwnNm>Frankfurt am Main</TwnNm>
+                <Ctry>DE</Ctry>
+              </PstlAdr>
+            </FinInstnId>
+          </CdtrAgt>
+          <Cdtr>
+            <Pty>
+              <Nm>Muster Handels AG</Nm>
+              <PstlAdr>
+                <StrtNm>Empfängerstraße</StrtNm>
+                <BldgNb>5</BldgNb>
+                <PstCd>10115</PstCd>
+                <TwnNm>Berlin</TwnNm>
+                <Ctry>DE</Ctry>
+              </PstlAdr>
+              <Id>
+                <OrgId>
+                  <LEI>7654321ABCDEFG1234512</LEI>
+                </OrgId>
+              </Id>
+            </Pty>
+          </Cdtr>
+          <CdtrAcct>
+            <Id>
+              <IBAN>DE75512108001245126199</IBAN>
+            </Id>
+          </CdtrAcct>
+        </OrgnlTxRef>
+      </TxInf>
+
+    </OrgnlPmtInfAndRvsl>
+
+  </CstmrPmtRvsl>
+</Document>

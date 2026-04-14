@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Hand-curated sample. Official XSD not available for this version. -->
 <!-- pain.008.001.10 — CustomerDirectDebitInitiation (ISO 20022, 2023)             -->
 <!-- AddtlRmtInf in Strd block. Full structured address, BICFI, LEI, Proxy.        -->
 <!-- B2B example — no unconditional refund right, shorter pre-notification period. -->

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated from official ISO 20022 XSD: pain.002.001.15 -->
+<!-- Source: urn:iso:std:iso:20022:tech:xsd:pain.002.001.15 -->
+<!-- Generated: 2026-04-13 | ISO 20022 Payments Initiation 2025/2026 -->
+<!-- Covers: GroupHeader128 (MsgId, CreDtTm mandatory), OriginalGroupHeader22 -->
+<!-- (OrgnlMsgId, OrgnlMsgNmId mandatory), representative TxInfAndSts         -->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.002.001.15"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.002.001.15 pain.002.001.15.xsd">
+  <CstmrPmtStsRpt>
+
+    <!-- ═══ GroupHeader128: MsgId, CreDtTm mandatory ═══ -->
+    <!-- InitgPty, FwdgAgt, DbtrAgt, CdtrAgt all optional -->
+    <GrpHdr>
+      <MsgId>STSRPT-20260413-P002-15-001</MsgId>
+      <CreDtTm>2026-04-13T10:00:00</CreDtTm>
+      <InitgPty>
+        <Nm>Commerzbank AG</Nm>
+        <PstlAdr>
+          <StrtNm>Kaiserplatz</StrtNm>
+          <BldgNb>1</BldgNb>
+          <PstCd>60311</PstCd>
+          <TwnNm>Frankfurt am Main</TwnNm>
+          <CtrySubDvsn>Hessen</CtrySubDvsn>
+          <Ctry>DE</Ctry>
+        </PstlAdr>
+        <Id>
+          <OrgId>
+            <LEI>529900T8BM49AURSDO55</LEI>
+          </OrgId>
+        </Id>
+      </InitgPty>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>COBADEFFXXX</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtrAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </CdtrAgt>
+    </GrpHdr>
+
+    <!-- ═══ OriginalGroupHeader22: OrgnlMsgId, OrgnlMsgNmId mandatory ═══ -->
+    <OrgnlGrpInfAndSts>
+      <OrgnlMsgId>MSG-20260413-P001-13-001</OrgnlMsgId>
+      <OrgnlMsgNmId>pain.001.001.13</OrgnlMsgNmId>
+      <OrgnlCreDtTm>2026-04-13T10:00:00</OrgnlCreDtTm>
+      <OrgnlNbOfTxs>2</OrgnlNbOfTxs>
+      <OrgnlCtrlSum>1234.56</OrgnlCtrlSum>
+      <!-- GrpSts: ExternalPaymentGroupStatus1Code — ACCP = Accepted Customer Profile -->
+      <GrpSts>ACCP</GrpSts>
+      <StsRsnInf>
+        <Orgtr>
+          <Nm>Commerzbank AG</Nm>
+          <Id>
+            <OrgId>
+              <LEI>529900T8BM49AURSDO55</LEI>
+            </OrgId>
+          </Id>
+        </Orgtr>
+        <Rsn>
+          <Cd>AC01</Cd>
+        </Rsn>
+        <AddtlInf>Zahlung akzeptiert — alle Prüfungen bestanden</AddtlInf>
+      </StsRsnInf>
+      <NbOfTxsPerSts>
+        <DtldNbOfTxs>2</DtldNbOfTxs>
+        <DtldSts>ACCP</DtldSts>
+        <DtldCtrlSum>1234.56</DtldCtrlSum>
+      </NbOfTxsPerSts>
+    </OrgnlGrpInfAndSts>
+
+    <!-- ═══ OriginalPaymentInstruction56 (optional, representative) ═══ -->
+    <OrgnlPmtInfAndSts>
+      <OrgnlPmtInfId>PMTINF-20260413-001</OrgnlPmtInfId>
+      <OrgnlNbOfTxs>2</OrgnlNbOfTxs>
+      <OrgnlCtrlSum>1234.56</OrgnlCtrlSum>
+      <PmtInfSts>ACCP</PmtInfSts>
+      <StsRsnInf>
+        <Orgtr>
+          <Nm>Commerzbank AG</Nm>
+        </Orgtr>
+        <Rsn>
+          <Cd>AC01</Cd>
+        </Rsn>
+        <AddtlInf>PmtInf akzeptiert</AddtlInf>
+      </StsRsnInf>
+
+      <!-- ═══ PaymentTransaction178 #1: ACCP status ═══ -->
+      <TxInfAndSts>
+        <StsId>STSID-001</StsId>
+        <OrgnlInstrId>INSTRID-13-001</OrgnlInstrId>
+        <OrgnlEndToEndId>E2EID-20260413-001</OrgnlEndToEndId>
+        <OrgnlUETR>a3b4c5d6-e7f8-4a1b-9c2d-3e4f5a6b7c8d</OrgnlUETR>
+        <TxSts>ACCP</TxSts>
+        <StsRsnInf>
+          <Orgtr>
+            <Nm>Commerzbank AG</Nm>
+          </Orgtr>
+          <Rsn>
+            <Cd>AC01</Cd>
+          </Rsn>
+          <AddtlInf>Transaktion akzeptiert und in Verarbeitung</AddtlInf>
+        </StsRsnInf>
+        <AccptncDtTm>2026-04-13T10:00:00</AccptncDtTm>
+        <AcctSvcrRef>COBADE-REF-20260413-001</AcctSvcrRef>
+        <!-- OrgnlTxRef: optional, OriginalTransactionReference47 -->
+        <OrgnlTxRef>
+          <Amt>
+            <InstdAmt Ccy="EUR">1234.56</InstdAmt>
+          </Amt>
+          <ReqdExctnDt>
+            <Dt>2026-04-14</Dt>
+          </ReqdExctnDt>
+          <PmtTpInf>
+            <InstrPrty>NORM</InstrPrty>
+            <SvcLvl>
+              <Cd>SEPA</Cd>
+            </SvcLvl>
+          </PmtTpInf>
+          <PmtMtd>TRF</PmtMtd>
+          <RmtInf>
+            <Ustrd>Zahlung gemaess Rechnung RE-2026-001</Ustrd>
+          </RmtInf>
+          <Dbtr>
+            <Pty>
+              <Nm>Test Corporation GmbH</Nm>
+              <PstlAdr>
+                <StrtNm>Teststraße</StrtNm>
+                <BldgNb>1</BldgNb>
+                <PstCd>90401</PstCd>
+                <TwnNm>Nürnberg</TwnNm>
+                <Ctry>DE</Ctry>
+              </PstlAdr>
+            </Pty>
+          </Dbtr>
+          <DbtrAcct>
+            <Id>
+              <IBAN>DE89370400440532013000</IBAN>
+            </Id>
+          </DbtrAcct>
+          <DbtrAgt>
+            <FinInstnId>
+              <BICFI>COBADEFFXXX</BICFI>
+            </FinInstnId>
+          </DbtrAgt>
+          <CdtrAgt>
+            <FinInstnId>
+              <BICFI>DEUTDEFFXXX</BICFI>
+            </FinInstnId>
+          </CdtrAgt>
+          <Cdtr>
+            <Pty>
+              <Nm>Muster Handels AG</Nm>
+              <PstlAdr>
+                <StrtNm>Empfängerstraße</StrtNm>
+                <BldgNb>5</BldgNb>
+                <PstCd>10115</PstCd>
+                <TwnNm>Berlin</TwnNm>
+                <Ctry>DE</Ctry>
+              </PstlAdr>
+            </Pty>
+          </Cdtr>
+          <CdtrAcct>
+            <Id>
+              <IBAN>DE75512108001245126199</IBAN>
+            </Id>
+          </CdtrAcct>
+        </OrgnlTxRef>
+      </TxInfAndSts>
+
+      <!-- ═══ PaymentTransaction178 #2: RJCT (rejection) example ═══ -->
+      <TxInfAndSts>
+        <StsId>STSID-002</StsId>
+        <OrgnlInstrId>INSTRID-13-002</OrgnlInstrId>
+        <OrgnlEndToEndId>E2EID-20260413-002</OrgnlEndToEndId>
+        <OrgnlUETR>b4c5d6e7-f8a9-4b2c-0d3e-4f5a6b7c8d9e</OrgnlUETR>
+        <TxSts>RJCT</TxSts>
+        <StsRsnInf>
+          <Orgtr>
+            <Nm>Deutsche Bank AG</Nm>
+            <Id>
+              <OrgId>
+                <LEI>7LTWFZYICNSX8D621K86</LEI>
+              </OrgId>
+            </Id>
+          </Orgtr>
+          <Rsn>
+            <Cd>AC04</Cd>
+          </Rsn>
+          <AddtlInf>Konto geschlossen — Empfängerkonto ungültig</AddtlInf>
+        </StsRsnInf>
+        <ChrgsInf>
+          <Amt Ccy="EUR">5.00</Amt>
+          <Agt>
+            <FinInstnId>
+              <BICFI>DEUTDEFFXXX</BICFI>
+            </FinInstnId>
+          </Agt>
+        </ChrgsInf>
+      </TxInfAndSts>
+
+    </OrgnlPmtInfAndSts>
+
+  </CstmrPmtStsRpt>
+</Document>

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Hand-curated sample. Official XSD not available for this version. -->
 <!-- pain.001.001.05 — CustomerCreditTransferInitiation (ISO 20022 / EPC SEPA SCT 2013) -->
 <!-- EPC SEPA Credit Transfer v6.0 implementors' guide. Key changes vs .04:              -->
 <!-- LclInstrm added for payment type differentiation, Strd remittance info improved,    -->

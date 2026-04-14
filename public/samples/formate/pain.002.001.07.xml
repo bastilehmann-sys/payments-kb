@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Hand-curated sample. Official XSD not available for this version. -->
 <!-- pain.002.001.07 — CustomerPaymentStatusReport (ISO 20022, 2017)              -->
 <!-- Corresponds to pain.001.001.07 (first version with UETR). Shows ACSC         -->
 <!-- (AcceptedSettlementCompleted) with OrgnlUETR reference. BIC not BICFI.        -->

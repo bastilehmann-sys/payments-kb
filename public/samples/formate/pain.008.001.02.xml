@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Hand-curated sample. Official XSD not available for this version. -->
 <!-- pain.008.001.02 — CustomerDirectDebitInitiation (ISO 20022 / EPC SEPA SDD 2009) -->
 <!-- First widely deployed SEPA Direct Debit version. Key schema elements:             -->
 <!-- GrpHdr, PmtInf with PmtMtd=DD, PmtTpInf with SvcLvl/LclInstrm/SeqTp,           -->

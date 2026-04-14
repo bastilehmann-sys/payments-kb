@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Hand-curated sample. Official XSD not available for this version. -->
 <!-- pain.008.001.08 — CustomerDirectDebitInitiation (ISO 20022, 2021)             -->
 <!-- BICFI introduced for direct debit. Structured PostalAddress24 available.      -->
 <!-- LEI for OrgId. RCUR example with structured remittance and SplmtryData.       -->

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Hand-curated sample. Official XSD not available for this version. -->
 <!-- pain.002.001.04 — CustomerPaymentStatusReport (ISO 20022, 2010)              -->
 <!-- Status report after pain.001.001.04. Key additions vs .03: FwdgAgt on        -->
 <!-- GrpHdr, OrgnlTxRef echoes original payment data, StsRsnInf with reason codes.-->

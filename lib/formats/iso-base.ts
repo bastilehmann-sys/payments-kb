@@ -26,6 +26,22 @@ export const SWIFT_MT_NAK_CODES: RejectCode[] = [
   { code: 'D49', name: 'DuplicateMessage', meaning: 'Identische MT bereits gesendet.', remediation: 'Reference (Tag 20) eindeutig vergeben.', group: 'Misc' },
 ];
 
+export const NACHA_RETURN_CODES: RejectCode[] = [
+  { code: 'R01', name: 'InsufficientFunds', meaning: 'Verfügbares Guthaben des Receivers reicht nicht.', remediation: 'Re-Present max. 2× innerhalb 180 Tagen (NACHA Rule).', group: 'NACHA' },
+  { code: 'R02', name: 'AccountClosed', meaning: 'Empfängerkonto wurde geschlossen.', remediation: 'Lieferanten-/Payroll-Stamm aktualisieren, keine Re-Presentation.', group: 'NACHA' },
+  { code: 'R03', name: 'NoAccountUnableToLocate', meaning: 'Kontonummer existiert nicht am angegebenen RDFI.', remediation: 'Kontonummer & Routing Number prüfen (ABA MOD-10).', group: 'NACHA' },
+  { code: 'R04', name: 'InvalidAccountNumber', meaning: 'Kontonummer-Struktur ungültig beim RDFI.', remediation: 'Account Number Feld (17 char) korrigieren.', group: 'NACHA' },
+  { code: 'R05', name: 'UnauthorizedDebitConsumer', meaning: 'Consumer-Lastschrift auf Consumer-Konto ohne gültige Autorisierung (CCD/CTX statt PPD).', remediation: 'SEC Code korrigieren oder PPD-Authorization einholen.', group: 'NACHA' },
+  { code: 'R06', name: 'ReturnedPerODFIRequest', meaning: 'ODFI hat Rückruf angefordert (ODFI Request for Return).', remediation: 'Bilateral mit ODFI klären.', group: 'NACHA' },
+  { code: 'R07', name: 'AuthorizationRevokedByCustomer', meaning: 'Consumer hat Autorisierung schriftlich widerrufen.', remediation: 'Mandate im Debitor-Stamm deaktivieren.', group: 'NACHA' },
+  { code: 'R08', name: 'PaymentStopped', meaning: 'Stop Payment Order vom Receiver erteilt.', remediation: 'Mit Receiver klären, ggf. alternative Zahlungsart.', group: 'NACHA' },
+  { code: 'R09', name: 'UncollectedFunds', meaning: 'Guthaben vorhanden, aber noch nicht verfügbar (Uncollected).', remediation: 'Re-Present nach 1-2 Banking Days.', group: 'NACHA' },
+  { code: 'R10', name: 'CustomerAdvisesNotAuthorized', meaning: 'Receiver bestreitet Autorisierung (Unauthorized).', remediation: 'Return-Frist 60 Tage für Consumer; NACHA-Rule-Verstoß bei fehlender Autorisierung.', group: 'NACHA' },
+  { code: 'R16', name: 'AccountFrozen', meaning: 'Konto gesperrt (OFAC-Block, Pfändung, Rechtsstreit).', remediation: 'Kein Re-Submit; OFAC-Screening prüfen.', group: 'NACHA' },
+  { code: 'R20', name: 'NonTransactionAccount', meaning: 'Konto erlaubt keine ACH-Transaktionen (z. B. Savings-Account mit Reg-D-Limit überschritten).', remediation: 'Alternativen Account-Typ verwenden.', group: 'NACHA' },
+  { code: 'R29', name: 'CorporateCustomerAdvisesNotAuthorized', meaning: 'Corporate Receiver (CCD/CTX) bestreitet Autorisierung.', remediation: 'Return-Frist 2 Banking Days; Corporate-Agreement prüfen.', group: 'NACHA' },
+];
+
 export const SEPA_LATIN_CHARSET = {
   allowed: 'a-z A-Z 0-9 / - ? : ( ) . , \' + Leerzeichen',
   examples: [

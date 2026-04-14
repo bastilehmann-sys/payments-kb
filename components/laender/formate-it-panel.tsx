@@ -6,6 +6,8 @@ import type { CountryBlockRow } from '@/lib/queries/documents';
 
 interface Props {
   rows: CountryBlockRow[];
+  /** Optional extra content rendered at the bottom of the panel (e.g. country-specific detail block). */
+  extraDetails?: React.ReactNode;
 }
 
 // ─── Sectionizer: split rows into intro + named sections ─────────────────────
@@ -251,13 +253,15 @@ function SampleList({ samples, label = 'Beispiel-Datei' }: { samples: Sample[]; 
 
 // ─── Panel ────────────────────────────────────────────────────────────────────
 
-export function FormateItPanel({ rows }: Props) {
+export function FormateItPanel({ rows, extraDetails }: Props) {
   const { intro, sections } = sectionize(rows);
   const [activeIdx, setActiveIdx] = React.useState(0);
   const activeSection = sections[activeIdx];
 
   // Intro: show the most relevant intro row (e.g. pain.001.001.03 row) as a callout
   const introRow = intro.find((r) => /pain\.001/.test(r.feld));
+  // Remaining intro rows (non-section, non-callout) render as flat card grid below
+  const flatIntroRows = intro.filter((r) => r !== introRow);
 
   return (
     <div className="space-y-5">
@@ -319,6 +323,17 @@ export function FormateItPanel({ rows }: Props) {
           )}
         </>
       )}
+
+      {/* Fallback: if there are no section headers, render the remaining intro rows as a flat grid */}
+      {sections.length === 0 && flatIntroRows.length > 0 && (
+        <div className="grid items-stretch gap-3 md:grid-cols-2">
+          {flatIntroRows.map((r, i) => (
+            <FieldCard key={i} row={r} />
+          ))}
+        </div>
+      )}
+
+      {extraDetails}
     </div>
   );
 }

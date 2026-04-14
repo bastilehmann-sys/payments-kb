@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Beispiel: Serbische Domestic-Zahlung via NBS RTGS/Clearing mit NBS Payment Code
+  Zahler:     Norival d.o.o. Beograd (Banca Intesa, BIC DBDBRSBG, Bankcode 160)
+  Empfänger:  Balkan Trade d.o.o. Novi Sad (Raiffeisen, BIC RZBSRSBG, Bankcode 265)
+  Betrag:     RSD 250.000
+  NBS-Code:   221 (Waren/Dienstleistungen — Endverbrauch, unbar)
+  Referenz:   Poziv na broj, Model 97
+  Quelle:     Serbia_NBS_Payment_Codes_DeepDive.docx (Appendix zur Country Analysis)
+-->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>NORIVAL-20260413-001</MsgId>
+      <CreDtTm>2026-04-13T09:30:00</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>250000.00</CtrlSum>
+      <InitgPty>
+        <Nm>NORIVAL DOO BEOGRAD</Nm>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>20123456</Id>
+            </Othr>
+          </OrgId>
+        </Id>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <PmtInfId>NORIVAL-PMT-001</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <BtchBookg>false</BtchBookg>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>250000.00</CtrlSum>
+      <PmtTpInf>
+        <SvcLvl>
+          <Cd>NURG</Cd>
+        </SvcLvl>
+      </PmtTpInf>
+      <ReqdExctnDt>
+        <Dt>2026-04-13</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>NORIVAL DOO BEOGRAD</Nm>
+        <PstlAdr>
+          <StrtNm>Knez Mihailova 10</StrtNm>
+          <PstCd>11000</PstCd>
+          <TwnNm>Beograd</TwnNm>
+          <Ctry>RS</Ctry>
+        </PstlAdr>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <Othr>
+            <Id>160-0000123456789-12</Id>
+          </Othr>
+        </Id>
+        <Ccy>RSD</Ccy>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>DBDBRSBG</BICFI>
+          <Othr>
+            <Id>160</Id>
+          </Othr>
+        </FinInstnId>
+      </DbtrAgt>
+      <ChrgBr>SLEV</ChrgBr>
+      <CdtTrfTxInf>
+        <PmtId>
+          <InstrId>NORIVAL-INSTR-001</InstrId>
+          <EndToEndId>INV-2026-00478</EndToEndId>
+        </PmtId>
+        <Amt>
+          <InstdAmt Ccy="RSD">250000.00</InstdAmt>
+        </Amt>
+        <CdtrAgt>
+          <FinInstnId>
+            <BICFI>RZBSRSBG</BICFI>
+            <Othr>
+              <Id>265</Id>
+            </Othr>
+          </FinInstnId>
+        </CdtrAgt>
+        <Cdtr>
+          <Nm>BALKAN TRADE DOO NOVI SAD</Nm>
+          <PstlAdr>
+            <StrtNm>Bulevar Oslobodjenja 25</StrtNm>
+            <PstCd>21000</PstCd>
+            <TwnNm>Novi Sad</TwnNm>
+            <Ctry>RS</Ctry>
+          </PstlAdr>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <Othr>
+              <Id>265-0000987654321-45</Id>
+            </Othr>
+          </Id>
+          <Ccy>RSD</Ccy>
+        </CdtrAcct>
+        <!-- ===== NBS PAYMENT CODE (sifra placanja) ===== -->
+        <!-- Immer 3-stellig, immer in <Prtry>, NICHT in <Cd> -->
+        <Purp>
+          <Prtry>221</Prtry>
+        </Purp>
+        <!-- ============================================= -->
+        <RmtInf>
+          <Strd>
+            <CdtrRefInf>
+              <Tp>
+                <CdOrPrtry>
+                  <Cd>SCOR</Cd>
+                </CdOrPrtry>
+              </Tp>
+              <!-- Poziv na broj, Model 97 (Prüfziffer + Referenz) -->
+              <Ref>97 13 2026 00478</Ref>
+            </CdtrRefInf>
+          </Strd>
+          <Ustrd>Plaćanje fakture INV-2026-00478</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>

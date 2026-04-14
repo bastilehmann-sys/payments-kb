@@ -1,5 +1,3 @@
-import type { ReactNode } from 'react';
-
 export type Cardinality = '1' | '0..1' | '1..N' | '0..N';
 
 export type StructureNode = {
@@ -66,6 +64,3 @@ export type FormatContent = {
   /** Geltungs-Region (für Banner) */
   region?: string;
 };
-
-// Suppress unused import warning — ReactNode used for JSX in components that import these types
-type _ReactNode = ReactNode;

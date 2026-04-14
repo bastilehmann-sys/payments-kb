@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  camt.053.001.08 — Bank-to-Customer Statement, CN-spezifische Variante.
+  Beispiel-Auszug einer chinesischen Hausbank (ICBC) mit:
+    - Proprietäre BkTxCd-Codes (Prtry-Knoten statt ISO Domain/Family)
+    - CIPS-Eingang einer Cross-Border-CNY-Zahlung
+    - Fapiao-Referenz im RmtInf
+    - VAT-Refund-Buchung
+-->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.053.001.08">
+  <BkToCstmrStmt>
+    <GrpHdr>
+      <MsgId>ICBC-STMT-2026-0414-001</MsgId>
+      <CreDtTm>2026-04-14T23:00:00+08:00</CreDtTm>
+      <MsgRcpt>
+        <Nm>BEISPIEL CHINA TRADING (SHANGHAI) CO LTD</Nm>
+      </MsgRcpt>
+    </GrpHdr>
+    <Stmt>
+      <Id>STMT-CN-ICBC-2026-04-14</Id>
+      <CreDtTm>2026-04-14T23:00:00+08:00</CreDtTm>
+      <Acct>
+        <Id>
+          <Othr><Id>0200001234567890123</Id></Othr>
+        </Id>
+        <Ccy>CNY</Ccy>
+        <Ownr>
+          <Nm>BEISPIEL CHINA TRADING (SHANGHAI) CO LTD</Nm>
+          <Id>
+            <OrgId>
+              <Othr><Id>91310000MA9876YH54</Id><SchmeNm><Cd>USCI</Cd></SchmeNm></Othr>
+            </OrgId>
+          </Id>
+        </Ownr>
+        <Svcr>
+          <FinInstnId>
+            <BICFI>ICBKCNBJSHA</BICFI>
+            <Nm>Industrial and Commercial Bank of China (Shanghai Branch)</Nm>
+          </FinInstnId>
+        </Svcr>
+      </Acct>
+      <Bal>
+        <Tp><CdOrPrtry><Cd>OPBD</Cd></CdOrPrtry></Tp>
+        <Amt Ccy="CNY">2500000.00</Amt>
+        <CdtDbtInd>CRDT</CdtDbtInd>
+        <Dt><Dt>2026-04-14</Dt></Dt>
+      </Bal>
+      <Bal>
+        <Tp><CdOrPrtry><Cd>CLBD</Cd></CdOrPrtry></Tp>
+        <Amt Ccy="CNY">2611000.53</Amt>
+        <CdtDbtInd>CRDT</CdtDbtInd>
+        <Dt><Dt>2026-04-14</Dt></Dt>
+      </Bal>
+      <Ntry>
+        <Amt Ccy="CNY">125000.00</Amt>
+        <CdtDbtInd>CRDT</CdtDbtInd>
+        <Sts><Cd>BOOK</Cd></Sts>
+        <BookgDt><Dt>2026-04-14</Dt></BookgDt>
+        <ValDt><Dt>2026-04-14</Dt></ValDt>
+        <BkTxCd>
+          <Domn>
+            <Cd>PMNT</Cd>
+            <Fmly><Cd>RCDT</Cd><SubFmlyCd>XBCT</SubFmlyCd></Fmly>
+          </Domn>
+          <Prtry>
+            <Cd>CIPS-IN-XB</Cd>
+            <Issr>ICBC</Issr>
+          </Prtry>
+        </BkTxCd>
+        <NtryDtls>
+          <TxDtls>
+            <Refs>
+              <EndToEndId>SAFE-121010-20260414-0001</EndToEndId>
+              <UETR>26041420-1234-5678-90ab-cdef12345678</UETR>
+            </Refs>
+            <RltdPties>
+              <Dbtr>
+                <Pty><Nm>BEISPIEL DEUTSCHLAND GMBH</Nm></Pty>
+              </Dbtr>
+            </RltdPties>
+            <RmtInf>
+              <Strd>
+                <RfrdDocInf>
+                  <Tp><CdOrPrtry><Cd>CINV</Cd></CdOrPrtry></Tp>
+                  <Nb>20260411310000000001</Nb>
+                </RfrdDocInf>
+                <AddtlRmtInf>Goods Trade — Mechanical components — SAFE 121010 — Fapiao 20260411310000000001</AddtlRmtInf>
+              </Strd>
+            </RmtInf>
+          </TxDtls>
+        </NtryDtls>
+      </Ntry>
+      <Ntry>
+        <Amt Ccy="CNY">14380.53</Amt>
+        <CdtDbtInd>CRDT</CdtDbtInd>
+        <Sts><Cd>BOOK</Cd></Sts>
+        <BookgDt><Dt>2026-04-14</Dt></BookgDt>
+        <BkTxCd>
+          <Prtry>
+            <Cd>VAT-REFUND</Cd>
+            <Issr>STA</Issr>
+          </Prtry>
+        </BkTxCd>
+        <AddtlNtryInf>VAT-Refund Q1/2026 — STA Shanghai Pudong</AddtlNtryInf>
+      </Ntry>
+      <Ntry>
+        <Amt Ccy="CNY">28380.00</Amt>
+        <CdtDbtInd>DBIT</CdtDbtInd>
+        <Sts><Cd>BOOK</Cd></Sts>
+        <BookgDt><Dt>2026-04-14</Dt></BookgDt>
+        <BkTxCd>
+          <Prtry>
+            <Cd>CNAPS-OUT-HVPS</Cd>
+            <Issr>ICBC</Issr>
+          </Prtry>
+        </BkTxCd>
+        <AddtlNtryInf>CNAPS HVPS Outgoing — Lieferantenzahlung Suzhou Tech Co Ltd</AddtlNtryInf>
+      </Ntry>
+    </Stmt>
+  </BkToCstmrStmt>
+</Document>

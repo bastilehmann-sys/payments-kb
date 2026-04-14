@@ -1,0 +1,56 @@
+CNAPS HVPS — Hochbetrags-Zahlungsdatei (proprietäres CN-Format)
+================================================================
+
+Hinweis: CNAPS HVPS ist KEIN ISO-20022-Format. Spezifikation wird von
+der People's Bank of China veröffentlicht und ist Banken-intern.
+Corporate-Treasury sieht typischerweise nur das vom Bank-Webportal /
+Bank-H2H-Format akzeptierte INPUT-File — die folgende vereinfachte
+Darstellung zeigt die Kernfelder, NICHT die exakte Wire-Spezifikation.
+
+Datei-Header (1 Zeile)
+----------------------
+HDR|CNAPS|HVPS|20260414|105930|001|ICBC-SH-PUDONG-001234
+
+Pro Zahlung — Datensatz P (Payment)
+-----------------------------------
+P|0001|20260414|10593201|125000.00|CNY|URGT|
+  DBTR|BEISPIEL DEUTSCHLAND GMBH|DE89370400440532013000|DEUTDEFFXXX|
+  CDTR|SHANGHAI XIANGYING TRADING|0200001234567890123|ICBKCNBJSHA|
+  USCI|91310000MA1FL3KW9X|
+  PURP|121010|TRADE-GOODS-2026-04-INV-0042|
+  REMARK|Mechanical components Q2/2026
+
+Footer (1 Zeile)
+----------------
+TRL|001|125000.00|
+
+Felder-Erklärung (Auszug)
+-------------------------
+HDR        : Header-Marker
+CNAPS HVPS : System + Kanal
+20260414   : Sendedatum
+105930     : Sendezeit (HH:MM:SS, CST)
+001        : Batch-Nr
+ICBC-...   : Sender-CNAPS-Code (11-stellig erweitert)
+
+P          : Payment-Datensatz
+0001       : Lfd. Nr in Batch
+URGT       : Service-Level (URGT = Same-Day-Settlement)
+DBTR/CDTR  : Schuldner / Begünstigter (Name + Konto + BIC)
+USCI       : 18-stellige Pflicht-ID des Begünstigten
+PURP       : SAFE Purpose Code + freier Verwendungszweck
+REMARK     : zusätzlicher Verwendungszweck
+
+TRL        : Trailer mit Anzahl Sätze + Kontroll-Summe
+
+WICHTIG für SAP
+---------------
+- Standard-DMEEX-Trees decken CNAPS HVPS NICHT ab.
+- Realistische Optionen:
+  1) Bank-Webportal manuell befüllen (für <50 Zahlungen/Monat)
+  2) Custom DMEEX-Tree pro Hausbank (ICBC, CMB, BoC) für H2H
+  3) SAP Multi-Bank Connectivity (nur HSBC China / Citi China / StanChart China)
+  4) Drittanbieter-TMS (Kyriba, FIS Quantum)
+
+Encoding: GB18030 (CN-Standard) ODER UTF-8 — pro Bank prüfen!
+Dateiname-Konvention: <Hausbank-spezifisch>, oft YYYYMMDD-HHMMSS-USCI.txt

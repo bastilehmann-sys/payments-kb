@@ -139,18 +139,16 @@ function Section({ label, body }: { label: string; body: string }) {
 
 type Sample = { label: string; href: string; size: string };
 const SAMPLES: Record<string, Sample[]> = {
-  '5.1': [
-    { label: 'fatturapa-1.2.xml', href: '/samples/it/fatturapa-1.2.xml', size: '~2 KB · XML' },
-  ],
-  '5.2': [
-    { label: 'cbi-bonifica.xml', href: '/samples/it/cbi-bonifica.xml', size: '~2 KB · XML' },
-  ],
-  '5.3': [
-    { label: 'riba.txt', href: '/samples/it/riba.txt', size: '~1 KB · Flat-File' },
-  ],
-  '5.4': [
-    { label: 'camt.053-it.xml', href: '/samples/it/camt.053-it.xml', size: '~3 KB · XML' },
-  ],
+  // Italien-Sektionen (Block 5)
+  '5.1': [{ label: 'fatturapa-1.2.xml', href: '/samples/it/fatturapa-1.2.xml', size: '~2 KB · XML' }],
+  '5.2': [{ label: 'cbi-bonifica.xml',  href: '/samples/it/cbi-bonifica.xml',  size: '~2 KB · XML' }],
+  '5.3': [{ label: 'riba.txt',          href: '/samples/it/riba.txt',          size: '~1 KB · Flat-File' }],
+  '5.4': [{ label: 'camt.053-it.xml',   href: '/samples/it/camt.053-it.xml',   size: '~3 KB · XML' }],
+  // China-Sektionen (Block 6)
+  '6.1': [{ label: 'cips-pacs.008-cn.xml', href: '/samples/cn/cips-pacs.008-cn.xml', size: '~3 KB · XML' }],
+  '6.2': [{ label: 'cnaps-hvps.txt',       href: '/samples/cn/cnaps-hvps.txt',       size: '~1 KB · Flat-File' }],
+  '6.3': [{ label: 'fapiao.xml',           href: '/samples/cn/fapiao.xml',           size: '~2 KB · XML' }],
+  '6.4': [{ label: 'camt.053-cn.xml',      href: '/samples/cn/camt.053-cn.xml',      size: '~3 KB · XML' }],
 };
 const STD_SAMPLES: Sample[] = [
   { label: 'pain.001.001.03.xml', href: '/samples/formate/pain.001.001.03.xml', size: 'SEPA SCT · XML' },

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Quan Mian Shu Zi Hua Dian Zi Fa Piao (vollständig digitale Fapiao)
+  Format-Version: STA 2024-Pilot, Provinz-Plattform Shanghai
+  Pflicht-Übertragung über Provinz-Plattform an State Tax Administration (STA)
+  Validierungs-API: https://api.chinatax.gov.cn/fapiao/verify
+-->
+<Fapiao xmlns="http://api.chinatax.gov.cn/fapiao/v2" version="2.0">
+  <FapiaoBasicInfo>
+    <FapiaoCode>20260411310000000001</FapiaoCode>
+    <FapiaoNumber>00000001</FapiaoNumber>
+    <FapiaoType>QuanMianShuZiHua</FapiaoType>
+    <IssueDate>2026-04-14</IssueDate>
+    <IssueProvince>310000</IssueProvince>
+    <Currency>CNY</Currency>
+  </FapiaoBasicInfo>
+
+  <Seller>
+    <Name>SHANGHAI XIANGYING TRADING CO LTD</Name>
+    <USCI>91310000MA1FL3KW9X</USCI>
+    <Address>Lujiazui Ring Road 168, Pudong, Shanghai 200120</Address>
+    <Phone>021-58881234</Phone>
+    <BankAccount>
+      <BankName>Industrial and Commercial Bank of China (Pudong Branch)</BankName>
+      <AccountNumber>0200001234567890123</AccountNumber>
+    </BankAccount>
+  </Seller>
+
+  <Buyer>
+    <Name>BEISPIEL CHINA TRADING (SHANGHAI) CO LTD</Name>
+    <USCI>91310000MA9876YH54</USCI>
+    <Address>Nanjing Road West 1000, Jing'an, Shanghai 200040</Address>
+  </Buyer>
+
+  <Items>
+    <Item>
+      <Sequence>1</Sequence>
+      <Description>Mechanical Component Type-A (PN 4711-A)</Description>
+      <Specification>50mm x 200mm steel</Specification>
+      <Unit>piece</Unit>
+      <Quantity>500</Quantity>
+      <UnitPrice>250.00</UnitPrice>
+      <Amount>125000.00</Amount>
+      <TaxRate>0.13</TaxRate>
+      <TaxAmount>14380.53</TaxAmount>
+    </Item>
+  </Items>
+
+  <Totals>
+    <TotalAmount>125000.00</TotalAmount>
+    <TotalTaxAmount>14380.53</TotalTaxAmount>
+    <TotalAmountWithTax>139380.53</TotalAmountWithTax>
+    <AmountInWords>Renminbi One Hundred Thirty-Nine Thousand Three Hundred Eighty Yuan and Fifty-Three Fen</AmountInWords>
+  </Totals>
+
+  <Remarks>
+    Contract: 2026-CN-PROCURE-0042
+    Order: PO-2026-04-001
+    Goods Trade — SAFE Purpose Code 121010
+  </Remarks>
+
+  <Issuer>
+    <Name>WANG XIAOMING</Name>
+    <ID>310***********1234</ID>
+  </Issuer>
+
+  <STAVerification>
+    <VerificationCode>A1B2C3D4E5F6G7H8I9J0</VerificationCode>
+    <QRCodeURL>https://api.chinatax.gov.cn/fapiao/qr?fphm=00000001&amp;kprq=20260414</QRCodeURL>
+    <Status>VALID</Status>
+    <VerificationTimestamp>2026-04-14T11:02:33Z</VerificationTimestamp>
+  </STAVerification>
+</Fapiao>

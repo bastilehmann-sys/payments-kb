@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  CIPS pacs.008-CN — Cross-Border Interbank Payment System
+  CNY-Settlement Cross-Border über CIPS (ISO 20022 nativ).
+  CN-Spezifika gegenüber CBPR+:
+    - USCI (18-stellig) zwingend in Dbtr/Cdtr Tax-IDs
+    - SAFE Purpose Code (z.B. 121010 = Goods Trade) als CtgyPurp
+    - CIPS-Teilnehmer-ID statt nur SWIFT-BIC
+-->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08">
+  <FIToFICstmrCdtTrf>
+    <GrpHdr>
+      <MsgId>CIPS-2026-0414-0001</MsgId>
+      <CreDtTm>2026-04-14T10:30:00Z</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <SttlmInf>
+        <SttlmMtd>CLRG</SttlmMtd>
+        <ClrSys>
+          <Cd>CIPS</Cd>
+        </ClrSys>
+      </SttlmInf>
+      <InstgAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+          <ClrSysMmbId>
+            <ClrSysId><Cd>CIPS</Cd></ClrSysId>
+            <MmbId>EUR0123456</MmbId>
+          </ClrSysMmbId>
+        </FinInstnId>
+      </InstgAgt>
+      <InstdAgt>
+        <FinInstnId>
+          <BICFI>ICBKCNBJXXX</BICFI>
+          <ClrSysMmbId>
+            <ClrSysId><Cd>CIPS</Cd></ClrSysId>
+            <MmbId>CIPS001234</MmbId>
+          </ClrSysMmbId>
+        </FinInstnId>
+      </InstdAgt>
+    </GrpHdr>
+    <CdtTrfTxInf>
+      <PmtId>
+        <InstrId>INS-CN-0001</InstrId>
+        <EndToEndId>SAFE-121010-20260414-0001</EndToEndId>
+        <UETR>26041420-1234-5678-90ab-cdef12345678</UETR>
+      </PmtId>
+      <PmtTpInf>
+        <SvcLvl><Cd>SDVA</Cd></SvcLvl>
+        <CtgyPurp>
+          <Prtry>SAFE-121010</Prtry>
+        </CtgyPurp>
+      </PmtTpInf>
+      <IntrBkSttlmAmt Ccy="CNY">125000.00</IntrBkSttlmAmt>
+      <IntrBkSttlmDt>2026-04-15</IntrBkSttlmDt>
+      <ChrgBr>SHAR</ChrgBr>
+      <Dbtr>
+        <Nm>BEISPIEL DEUTSCHLAND GMBH</Nm>
+        <PstlAdr>
+          <StrtNm>Königsallee 100</StrtNm>
+          <PstCd>40212</PstCd>
+          <TwnNm>Düsseldorf</TwnNm>
+          <Ctry>DE</Ctry>
+        </PstlAdr>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>DE123456789</Id>
+              <SchmeNm><Cd>TXID</Cd></SchmeNm>
+            </Othr>
+          </OrgId>
+        </Id>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <Othr><Id>DE89370400440532013000</Id></Othr>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId><BICFI>DEUTDEFFXXX</BICFI></FinInstnId>
+      </DbtrAgt>
+      <CdtrAgt>
+        <FinInstnId><BICFI>ICBKCNBJXXX</BICFI></FinInstnId>
+      </CdtrAgt>
+      <Cdtr>
+        <Nm>SHANGHAI XIANGYING TRADING CO LTD</Nm>
+        <PstlAdr>
+          <StrtNm>Lujiazui Ring Road 168</StrtNm>
+          <PstCd>200120</PstCd>
+          <TwnNm>Shanghai</TwnNm>
+          <Ctry>CN</Ctry>
+        </PstlAdr>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>91310000MA1FL3KW9X</Id>
+              <SchmeNm><Cd>USCI</Cd></SchmeNm>
+            </Othr>
+          </OrgId>
+        </Id>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <Othr><Id>0200001234567890123</Id></Othr>
+        </Id>
+      </CdtrAcct>
+      <Tax>
+        <Cdtr>
+          <TaxId>91310000MA1FL3KW9X</TaxId>
+        </Cdtr>
+      </Tax>
+      <RmtInf>
+        <Strd>
+          <RfrdDocInf>
+            <Tp>
+              <CdOrPrtry><Cd>CINV</Cd></CdOrPrtry>
+            </Tp>
+            <Nb>2026-04-INV-0042</Nb>
+            <RltdDt>2026-04-10</RltdDt>
+          </RfrdDocInf>
+          <AddtlRmtInf>Goods Trade — Mechanical components Q2/2026 — SAFE Purpose 121010</AddtlRmtInf>
+        </Strd>
+      </RmtInf>
+    </CdtTrfTxInf>
+  </FIToFICstmrCdtTrf>
+</Document>

@@ -7,7 +7,6 @@ import { RegulatorikItPanel } from '@/components/laender/regulatorik-it-panel';
 import { ClearingItPanel } from '@/components/laender/clearing-it-panel';
 import { SapItPanel } from '@/components/laender/sap-it-panel';
 import { FormateItPanel } from '@/components/laender/formate-it-panel';
-import { CountrySummaryGrid } from '@/components/browse/country-summary-grid';
 import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
@@ -133,7 +132,6 @@ export default async function LaenderPage() {
         items={items as unknown as Record<string, unknown>[]}
         columns={COLUMNS}
         countryBlocksMap={countryBlocksMap}
-        renderSummary={(c) => <CountrySummaryGrid country={c} />}
       />
     </Suspense>
   );

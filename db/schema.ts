@@ -223,6 +223,18 @@ export const countryBlocks = pgTable('country_blocks', {
   created_at: timestamp('created_at', { withTimezone: true }).defaultNow(),
 });
 
+// ============================================================
+// zahlungsart_clearing cross-link table
+// ============================================================
+
+export const zahlungsartClearing = pgTable('zahlungsart_clearing', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  zahlungsart_id: uuid('zahlungsart_id').notNull().references(() => zahlungsartEntries.id, { onDelete: 'cascade' }),
+  clearing_id: uuid('clearing_id').notNull().references(() => clearingEntries.id, { onDelete: 'cascade' }),
+  note: text('note'),
+  is_primary: boolean('is_primary').default(false),
+});
+
 export const countries = pgTable('countries', {
   id: uuid('id').primaryKey().defaultRandom(),
   code: text('code').unique().notNull(),

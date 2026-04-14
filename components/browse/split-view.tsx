@@ -46,6 +46,11 @@ export type SplitViewProps<T extends Record<string, unknown>> = {
    * INSTEAD of the document markdown.
    */
   countryBlocksMap?: Record<string, CountryBlockGroup[]>;
+  /**
+   * Optional panel rendered at the very bottom of the detail view,
+   * below all tabs/sections content. Useful for cross-link panels.
+   */
+  relatedPanel?: (item: T) => React.ReactNode;
 };
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
@@ -320,6 +325,7 @@ function DetailPanel<T extends Record<string, unknown>>({
   editTable,
   itemId,
   countryBlocks,
+  relatedPanel,
 }: {
   item: T | null;
   columns: Column[];
@@ -333,6 +339,7 @@ function DetailPanel<T extends Record<string, unknown>>({
   editTable?: string;
   itemId?: string;
   countryBlocks?: CountryBlockGroup[];
+  relatedPanel?: (item: T) => React.ReactNode;
 }) {
   const [mode, setMode] = React.useState<Mode>('einsteiger');
   const [activeTab, setActiveTab] = React.useState<string>('');
@@ -586,6 +593,9 @@ function DetailPanel<T extends Record<string, unknown>>({
             )}
           </>
         )}
+
+        {/* Related cross-link panel — always shown at the very bottom */}
+        {item && relatedPanel && relatedPanel(item)}
       </div>
     </div>
   );
@@ -671,6 +681,7 @@ export function SplitView<T extends Record<string, unknown>>({
   extraDetailHeader,
   editTable,
   countryBlocksMap,
+  relatedPanel,
 }: SplitViewProps<T>) {
   const router = useRouter();
   const pathname = usePathname();
@@ -823,6 +834,7 @@ export function SplitView<T extends Record<string, unknown>>({
       editTable={editTable}
       itemId={selectedId ?? undefined}
       countryBlocks={selectedCountryBlocks}
+      relatedPanel={relatedPanel}
     />
   );
 

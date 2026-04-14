@@ -1,5 +1,6 @@
-import { getZahlungsartEntries } from '@/lib/queries/entries';
+import { getZahlungsartEntries, getClearingForZahlungsart, type ClearingWithLink } from '@/lib/queries/entries';
 import { SplitView, type Column } from '@/components/browse/split-view';
+import { RelatedItemsPanel } from '@/components/browse/related-items-panel';
 import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
@@ -45,10 +46,24 @@ export default async function ZahlungsartenPage() {
 
   const data = await getZahlungsartEntries();
 
+  // Fetch related clearing systems for every Zahlungsart in parallel
+  const relatedMap = Object.fromEntries(
+    await Promise.all(
+      data.map(async (z) => [z.id, await getClearingForZahlungsart(z.id)])
+    )
+  );
+
+  type ZahlungsartItem = typeof data[number] & { relatedClearing?: typeof relatedMap[string] };
+
+  const enriched: ZahlungsartItem[] = data.map((z) => ({
+    ...z,
+    relatedClearing: relatedMap[z.id] ?? [],
+  }));
+
   return (
     <Suspense>
       <SplitView
-        items={data as unknown as Record<string, unknown>[]}
+        items={enriched as unknown as Record<string, unknown>[]}
         columns={COLUMNS}
         primaryField="name"
         secondaryField="instrument_typ"
@@ -57,6 +72,23 @@ export default async function ZahlungsartenPage() {
         filterLabel="Alle Typen"
         summaryField="beschreibung_einsteiger"
         editTable="zahlungsart_entries"
+        relatedPanel={(item) => {
+          const typed = item as ZahlungsartItem;
+          const clearings: ClearingWithLink[] = (typed.relatedClearing as ClearingWithLink[]) ?? [];
+          return (
+            <RelatedItemsPanel
+              title="Clearing-Systeme"
+              items={clearings.map((c: ClearingWithLink) => ({
+                id: c.id,
+                label: c.name,
+                abkuerzung: c.abkuerzung,
+                note: c.note,
+                primary: c.is_primary,
+              }))}
+              targetPath="/clearing"
+            />
+          );
+        }}
       />
     </Suspense>
   );

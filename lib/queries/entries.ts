@@ -9,6 +9,7 @@ import {
   zahlungsartEntries,
   ihbEntries,
   formatVersions,
+  zahlungsartClearing,
 } from '@/db/schema';
 import { asc, eq } from 'drizzle-orm';
 
@@ -96,4 +97,87 @@ export async function getFormatVersionsByName(formatName: string): Promise<Forma
     .from(formatVersions)
     .where(eq(formatVersions.format_name, formatName))
     .orderBy(asc(formatVersions.version));
+}
+
+// ============================================================
+// Cross-link queries: zahlungsart ↔ clearing
+// ============================================================
+
+export type ClearingWithLink = ClearingEntry & { note: string | null; is_primary: boolean | null };
+export type ZahlungsartWithLink = ZahlungsartEntry & { note: string | null; is_primary: boolean | null };
+
+export async function getClearingForZahlungsart(zahlungsartId: string): Promise<ClearingWithLink[]> {
+  const rows = await db
+    .select({
+      // All clearing_entries columns
+      id: clearingEntries.id,
+      name: clearingEntries.name,
+      abkuerzung: clearingEntries.abkuerzung,
+      typ: clearingEntries.typ,
+      region: clearingEntries.region,
+      betreiber: clearingEntries.betreiber,
+      beschreibung_experte: clearingEntries.beschreibung_experte,
+      beschreibung_einsteiger: clearingEntries.beschreibung_einsteiger,
+      nachrichtenformat: clearingEntries.nachrichtenformat,
+      settlement_modell: clearingEntries.settlement_modell,
+      cut_off: clearingEntries.cut_off,
+      teilnehmer: clearingEntries.teilnehmer,
+      relevanz_experte: clearingEntries.relevanz_experte,
+      relevanz_einsteiger: clearingEntries.relevanz_einsteiger,
+      corporate_zugang_experte: clearingEntries.corporate_zugang_experte,
+      corporate_zugang_einsteiger: clearingEntries.corporate_zugang_einsteiger,
+      status: clearingEntries.status,
+      source_row: clearingEntries.source_row,
+      created_at: clearingEntries.created_at,
+      // Link fields
+      note: zahlungsartClearing.note,
+      is_primary: zahlungsartClearing.is_primary,
+    })
+    .from(zahlungsartClearing)
+    .innerJoin(clearingEntries, eq(zahlungsartClearing.clearing_id, clearingEntries.id))
+    .where(eq(zahlungsartClearing.zahlungsart_id, zahlungsartId))
+    .orderBy(asc(zahlungsartClearing.is_primary));
+
+  // Sort: primary first
+  return rows.sort((a, b) => (b.is_primary ? 1 : 0) - (a.is_primary ? 1 : 0));
+}
+
+export async function getZahlungsartenForClearing(clearingId: string): Promise<ZahlungsartWithLink[]> {
+  const rows = await db
+    .select({
+      // All zahlungsart_entries columns
+      id: zahlungsartEntries.id,
+      name: zahlungsartEntries.name,
+      kuerzel: zahlungsartEntries.kuerzel,
+      instrument_typ: zahlungsartEntries.instrument_typ,
+      geltungsbereich_waehrung: zahlungsartEntries.geltungsbereich_waehrung,
+      clearing_system: zahlungsartEntries.clearing_system,
+      nachrichtenformat: zahlungsartEntries.nachrichtenformat,
+      beschreibung_experte: zahlungsartEntries.beschreibung_experte,
+      beschreibung_einsteiger: zahlungsartEntries.beschreibung_einsteiger,
+      cut_off: zahlungsartEntries.cut_off,
+      value_date_auftraggeber: zahlungsartEntries.value_date_auftraggeber,
+      value_date_empfaenger: zahlungsartEntries.value_date_empfaenger,
+      fristen_vorlaufzeiten: zahlungsartEntries.fristen_vorlaufzeiten,
+      kosten: zahlungsartEntries.kosten,
+      limits: zahlungsartEntries.limits,
+      corporate_relevanz_experte: zahlungsartEntries.corporate_relevanz_experte,
+      corporate_relevanz_einsteiger: zahlungsartEntries.corporate_relevanz_einsteiger,
+      risiken_experte: zahlungsartEntries.risiken_experte,
+      risiken_einsteiger: zahlungsartEntries.risiken_einsteiger,
+      laenderverfuegbarkeit: zahlungsartEntries.laenderverfuegbarkeit,
+      laender_einschraenkungen: zahlungsartEntries.laender_einschraenkungen,
+      source_row: zahlungsartEntries.source_row,
+      created_at: zahlungsartEntries.created_at,
+      // Link fields
+      note: zahlungsartClearing.note,
+      is_primary: zahlungsartClearing.is_primary,
+    })
+    .from(zahlungsartClearing)
+    .innerJoin(zahlungsartEntries, eq(zahlungsartClearing.zahlungsart_id, zahlungsartEntries.id))
+    .where(eq(zahlungsartClearing.clearing_id, clearingId))
+    .orderBy(asc(zahlungsartClearing.is_primary));
+
+  // Sort: primary first
+  return rows.sort((a, b) => (b.is_primary ? 1 : 0) - (a.is_primary ? 1 : 0));
 }

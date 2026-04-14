@@ -1,5 +1,6 @@
-import { getClearingEntries } from '@/lib/queries/entries';
+import { getClearingEntries, getZahlungsartenForClearing, type ZahlungsartWithLink } from '@/lib/queries/entries';
 import { SplitView, type Column } from '@/components/browse/split-view';
+import { RelatedItemsPanel } from '@/components/browse/related-items-panel';
 import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
@@ -39,10 +40,24 @@ export default async function ClearingPage() {
 
   const data = await getClearingEntries();
 
+  // Fetch related Zahlungsarten for every clearing entry in parallel
+  const relatedMap = Object.fromEntries(
+    await Promise.all(
+      data.map(async (c) => [c.id, await getZahlungsartenForClearing(c.id)])
+    )
+  );
+
+  type ClearingItem = typeof data[number] & { relatedZahlungsarten?: typeof relatedMap[string] };
+
+  const enriched: ClearingItem[] = data.map((c) => ({
+    ...c,
+    relatedZahlungsarten: relatedMap[c.id] ?? [],
+  }));
+
   return (
     <Suspense>
       <SplitView
-        items={data as unknown as Record<string, unknown>[]}
+        items={enriched as unknown as Record<string, unknown>[]}
         columns={COLUMNS}
         primaryField="name"
         secondaryField="region"
@@ -52,6 +67,23 @@ export default async function ClearingPage() {
         headerBadgeField="abkuerzung"
         summaryField="beschreibung_einsteiger"
         editTable="clearing_entries"
+        relatedPanel={(item) => {
+          const typed = item as ClearingItem;
+          const zahlungsarten: ZahlungsartWithLink[] = (typed.relatedZahlungsarten as ZahlungsartWithLink[]) ?? [];
+          return (
+            <RelatedItemsPanel
+              title="Zahlungsarten über dieses System"
+              items={zahlungsarten.map((z: ZahlungsartWithLink) => ({
+                id: z.id,
+                label: z.name,
+                abkuerzung: z.kuerzel,
+                note: z.note,
+                primary: z.is_primary,
+              }))}
+              targetPath="/zahlungsarten"
+            />
+          );
+        }}
       />
     </Suspense>
   );

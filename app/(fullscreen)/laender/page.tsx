@@ -11,14 +11,6 @@ export const metadata: Metadata = {
 };
 
 const COLUMNS: Column[] = [
-  // Übersicht
-  { key: 'code',       label: 'ISO-Code',  section: 'Übersicht' },
-  { key: 'name',       label: 'Land',      section: 'Übersicht' },
-  { key: 'complexity', label: 'Komplexität',section: 'Übersicht' },
-  { key: 'currency',   label: 'Währung',   section: 'Übersicht' },
-  { key: 'summary',    label: 'Zusammenfassung', section: 'Übersicht' },
-  // Payment-Infrastruktur
-  { key: 'payment_infra', label: 'Payment-Infrastruktur', section: 'Payment-Infrastruktur' },
   // IHB / POBO / COBO — Zusammenfassung + strukturierte Felder
   { key: 'ihb_pobo_cobo',   label: 'Zusammenfassung',        section: 'IHB / POBO / COBO' },
   { key: 'ihb_bewertung',   label: 'IHB-Bewertung',          section: 'IHB / POBO / COBO' },
@@ -34,12 +26,6 @@ const COLUMNS: Column[] = [
   { key: 'ihb_sap_config_experte',   label: 'SAP-Konfiguration (Experte)',   section: 'IHB / POBO / COBO' },
   { key: 'ihb_sap_config_einsteiger',label: 'SAP-Konfiguration (Einsteiger)',section: 'IHB / POBO / COBO' },
   { key: 'ihb_handlungsempfehlung',  label: 'Handlungsempfehlung',           section: 'IHB / POBO / COBO' },
-  // Regulatorik
-  { key: 'regulatorik', label: 'Regulatorik', section: 'Regulatorik' },
-  // Lokale Besonderheiten
-  { key: 'local_specifics', label: 'Lokale Besonderheiten', section: 'Lokale Besonderheiten' },
-  // SAP-Aufwand
-  { key: 'sap_effort', label: 'SAP-Aufwand', section: 'SAP-Aufwand' },
   // Wichtigster Hinweis
   { key: 'key_note', label: 'Wichtigster Hinweis', section: 'Wichtigster Hinweis' },
 ];
@@ -66,9 +52,11 @@ export default async function LaenderPage() {
   }
 
   // Build blocks map: country code → block groups
+  // Quick-Reference-Block (#6) ausblenden
+  const filteredItBlocks = itBlocks.filter((b) => !/quick reference/i.test(b.blockTitle ?? ''));
   const countryBlocksMap: Record<string, Awaited<ReturnType<typeof getCountryBlocks>>> = {};
-  if (itBlocks.length > 0) {
-    countryBlocksMap['IT'] = itBlocks;
+  if (filteredItBlocks.length > 0) {
+    countryBlocksMap['IT'] = filteredItBlocks;
   }
 
   const items = countriesWithDocs.map((c) => {

@@ -29,9 +29,10 @@ export default async function LaenderPage() {
   const session = await auth();
   if (!session) redirect('/login');
 
-  const [countriesWithDocs, itBlocks, ihbEntries] = await Promise.all([
+  const [countriesWithDocs, itBlocks, cnBlocks, ihbEntries] = await Promise.all([
     listCountriesWithDocuments(),
     getCountryBlocks('IT'),
+    getCountryBlocks('CN'),
     getIhbEntries(),
   ]);
 
@@ -43,13 +44,25 @@ export default async function LaenderPage() {
   }
 
   // Build blocks map: country code → block groups
-  // Quick-Reference-Block (#6) ausblenden
-  const filteredItBlocks = itBlocks.filter((b) => !/quick reference/i.test(b.blockTitle ?? ''));
-  const countryBlocksMap: Record<string, Awaited<ReturnType<typeof getCountryBlocks>>> = {};
-  if (filteredItBlocks.length > 0) {
-    // Synthetischen IHB / POBO / COBO-Tab als zweiten einfügen (nach „Allgemein")
-    const italyIhb = ihbByLand.get('italien');
-    const ihbTab = italyIhb
+  type BlockGroup = Awaited<ReturnType<typeof getCountryBlocks>>[number];
+  const countryBlocksMap: Record<string, BlockGroup[]> = {};
+
+  function buildCountryBlocks(rawBlocks: BlockGroup[], landName: string): BlockGroup[] {
+    if (rawBlocks.length === 0) return [];
+    // Quick-Reference-Block ausblenden (war in IT block 6)
+    const filtered = rawBlocks.filter((b) => !/quick reference/i.test(b.blockTitle ?? ''));
+    // Inhaltliche Panels nach blockTitle-Pattern
+    const enriched = filtered.map((b) => {
+      const t = (b.blockTitle ?? '').toLowerCase();
+      if (/regulatorik/i.test(t))               return { ...b, customContent: <RegulatorikItPanel rows={b.rows} /> };
+      if (/clearing|banken/i.test(t))           return { ...b, customContent: <ClearingItPanel rows={b.rows} /> };
+      if (/sap[- ]/i.test(t))                   return { ...b, customContent: <SapItPanel rows={b.rows} /> };
+      if (/format|instrument/i.test(t))         return { ...b, customContent: <FormateItPanel rows={b.rows} /> };
+      return b;
+    });
+    // IHB / POBO / COBO synthetisch als zweiter Tab
+    const ihb = ihbByLand.get(landName.toLowerCase());
+    const ihbTab: BlockGroup[] = ihb
       ? [{
           blockNo: 1.5,
           blockTitle: 'IHB / POBO / COBO',
@@ -57,31 +70,28 @@ export default async function LaenderPage() {
           customContent: (
             <IhbPanel
               data={{
-                ihb_bewertung: italyIhb.ihb_bewertung,
-                pobo_status: italyIhb.pobo_status,
-                cobo_status: italyIhb.cobo_status,
-                netting_erlaubt: italyIhb.netting_erlaubt,
-                lokales_konto: italyIhb.lokales_konto,
-                einschraenkungen_experte: italyIhb.einschraenkungen_experte,
-                einschraenkungen_einsteiger: italyIhb.einschraenkungen_einsteiger,
-                rechtsgrundlage: italyIhb.rechtsgrundlage,
-                handlungsempfehlung: italyIhb.handlungsempfehlung,
+                ihb_bewertung: ihb.ihb_bewertung,
+                pobo_status: ihb.pobo_status,
+                cobo_status: ihb.cobo_status,
+                netting_erlaubt: ihb.netting_erlaubt,
+                lokales_konto: ihb.lokales_konto,
+                einschraenkungen_experte: ihb.einschraenkungen_experte,
+                einschraenkungen_einsteiger: ihb.einschraenkungen_einsteiger,
+                rechtsgrundlage: ihb.rechtsgrundlage,
+                handlungsempfehlung: ihb.handlungsempfehlung,
               }}
             />
           ),
         }]
       : [];
-    // Regulatorik (#2) und Clearing (#3) durch Card-Panels ersetzen
-    const enrichedBlocks = filteredItBlocks.map((b) => {
-      if (b.blockNo === 2) return { ...b, customContent: <RegulatorikItPanel rows={b.rows} /> };
-      if (b.blockNo === 3) return { ...b, customContent: <ClearingItPanel rows={b.rows} /> };
-      if (b.blockNo === 4) return { ...b, customContent: <SapItPanel rows={b.rows} /> };
-      if (b.blockNo === 5) return { ...b, customContent: <FormateItPanel rows={b.rows} /> };
-      return b;
-    });
-    const ordered = [...enrichedBlocks, ...ihbTab].sort((a, b) => a.blockNo - b.blockNo);
-    countryBlocksMap['IT'] = ordered;
+    return [...enriched, ...ihbTab].sort((a, b) => a.blockNo - b.blockNo);
   }
+
+  const itOrdered = buildCountryBlocks(itBlocks, 'italien');
+  if (itOrdered.length > 0) countryBlocksMap['IT'] = itOrdered;
+
+  const cnOrdered = buildCountryBlocks(cnBlocks, 'china');
+  if (cnOrdered.length > 0) countryBlocksMap['CN'] = cnOrdered;
 
   const items = countriesWithDocs.map((c) => {
     const ihb = ihbByLand.get(normalizeLand(c.name));

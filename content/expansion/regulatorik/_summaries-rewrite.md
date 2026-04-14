@@ -1,51 +1,91 @@
 ## PSD2
 
-PSD2 ist die zweite EU-Zahlungsdiensterichtlinie (2015/2366) und verpflichtet Banken, ihre Kontosysteme über standardisierte Schnittstellen (APIs) für lizenzierte Drittanbieter zu öffnen. Für Ihr Unternehmen ist das die rechtliche Grundlage dafür, dass Ihre Treasury- oder ERP-Software Kontostände automatisch abrufen und Zahlungen direkt anstoßen kann, ohne manuelles Bank-Login. Konkret schreibt PSD2 eine starke Kundenauthentifizierung vor, kurz SCA (Zwei-Faktor-Freigabe aus Wissen, Besitz und Inhärenz), die bei Firmenkunden jedoch per schriftlicher Vereinbarung mit der Bank eingeschränkt werden kann. Treasury-Teams sollten diese B2B-Ausnahme aktiv mit ihren Banken abstimmen, um reibungslose Massenzahlungen sicherzustellen.
+- **Was:** Zweite EU-Zahlungsdiensterichtlinie (2015/2366) — öffnet Banken-APIs für lizenzierte Drittanbieter (TPP)
+- **Für Sie:** Treasury- oder ERP-Software kann Kontostände automatisch abrufen und Zahlungen anstoßen, ohne manuelles Bank-Login
+- **Pflicht:** Starke Kundenauthentifizierung SCA (Zwei-Faktor aus Wissen, Besitz, Inhärenz) bei jeder Online-Freigabe
+- **Achtung:** B2B-Ausnahme von SCA muss schriftlich mit jeder Hausbank vereinbart werden, sonst scheitern Massenzahlungen
 
 ## PSD3
 
-PSD3 ist der geplante Nachfolger von PSD2 (Entwurf 2023/0209) und soll voraussichtlich 2026/2027 in Kraft treten — erstmals als Verordnung, das heißt unmittelbar in allen EU-Staaten gültig, ohne nationale Umsetzung. Die wichtigste Neuerung für Corporates ist der verpflichtende IBAN-Name-Check (Confirmation of Payee): Vor jeder Überweisung prüft die Bank, ob der angegebene Empfängername zur IBAN passt, und warnt bei Abweichungen. Das schützt vor Rechnungsbetrug und CEO-Fraud, setzt aber saubere Lieferantenstammdaten in Ihrem ERP voraus — abweichende Schreibweisen oder Konzernstrukturen können zu Warnmeldungen und Zahlungsverzögerungen führen. Zusätzlich wird die SCA-Regelung reformiert und die Haftungsverteilung zwischen Bank und Kunde bei Betrugsfällen neu austariert.
+- **Was:** Geplanter Nachfolger von PSD2 (Entwurf 2023/0209) — erstmals als Verordnung, unmittelbar in allen EU-Staaten gültig
+- **Frist:** Voraussichtliches Inkrafttreten 2026/2027, ohne nationale Umsetzung
+- **Pflicht:** Verpflichtender IBAN-Name-Check (Confirmation of Payee) vor jeder Überweisung, Bank warnt bei Abweichung
+- **Achtung:** Saubere Lieferantenstammdaten zwingend — abweichende Schreibweisen oder Konzernstrukturen führen zu Zahlungsverzögerungen
+- **Wichtig:** SCA wird reformiert und Haftungsverteilung bei Betrugsfällen zwischen Bank und Kunde neu austariert
 
 ## SEPA-VO
 
-Die SEPA-Verordnung (EU 260/2012) hat den innereuropäischen Euro-Zahlungsverkehr vereinheitlicht: Eine Überweisung nach Italien oder Spanien ist technisch identisch zu einer Inlandsüberweisung und folgt dem XML-Standard ISO 20022. Für Ihr Unternehmen bedeutet das, dass Sie in der gesamten Eurozone ausschließlich mit IBAN arbeiten können und SAP oder Ihr Zahlungstool nur noch ein einziges Datenformat erzeugen muss. Wenn Sie Forderungen per Lastschrift einziehen möchten, benötigen Sie von jedem Kunden ein gültiges SEPA-Lastschriftmandat mit eindeutiger Mandatsreferenz, das revisionssicher archiviert werden muss. Fehlt das Mandat oder ist es nicht prüfbar, kann der Kunde die Lastschrift bis zu acht Wochen ohne Angabe von Gründen zurückgeben.
+- **Was:** SEPA-Verordnung (EU 260/2012) vereinheitlicht den innereuropäischen Euro-Zahlungsverkehr im XML-Standard ISO 20022
+- **Für Sie:** In der gesamten Eurozone nur noch IBAN nötig, SAP erzeugt ein einziges Datenformat für Inland und Ausland
+- **Pflicht:** Für Lastschriften gültiges SEPA-Mandat mit eindeutiger Mandatsreferenz, revisionssicher archiviert
+- **Achtung:** Fehlt oder ist das Mandat unprüfbar, kann der Kunde die Lastschrift bis zu acht Wochen ohne Begründung zurückgeben
 
 ## SEPA-Instant-VO
 
-Die SEPA-Instant-Verordnung (EU 2024/886) verpflichtet alle Zahlungsdienstleister in der Eurozone, Echtzeit-Überweisungen (SCT Inst) rund um die Uhr zu senden und zu empfangen — Gutschrift beim Empfänger in unter zehn Sekunden, auch an Wochenenden und Feiertagen. Entscheidend für Corporates: Banken dürfen für Instant Payments keine höheren Gebühren verlangen als für normale SEPA-Überweisungen, was den Business Case für Echtzeitzahlungen im Working-Capital-Management deutlich verbessert. Gleichzeitig verpflichtet die Verordnung zum IBAN-Name-Check vor jeder Instant-Zahlung, um Fehlüberweisungen vorzubeugen. Beachten Sie: Instant Payments sind unwiderruflich — eine Rückholung wie bei klassischen SEPA-Überweisungen gibt es nicht, daher sind saubere Freigabeprozesse und Dual-Control im ERP entscheidend.
+- **Was:** EU 2024/886 verpflichtet alle Zahlungsdienstleister in der Eurozone zu 24/7-Echtzeitüberweisungen (SCT Inst) in unter 10 Sekunden
+- **Für Sie:** Banken dürfen für Instant Payments keine höheren Gebühren verlangen als für normale SEPA-Überweisungen
+- **Pflicht:** IBAN-Name-Check vor jeder Instant-Zahlung zur Vermeidung von Fehlüberweisungen
+- **Achtung:** Instant Payments sind unwiderruflich — keine Rückholung möglich, saubere Freigabeprozesse und Dual-Control im ERP entscheidend
 
 ## AMLR
 
-Die EU-Geldwäsche-Verordnung (EU 2024/1624, anwendbar ab 2027) vereinheitlicht die bisher national zersplitterten Geldwäschegesetze und schafft mit der EU-Behörde AMLA erstmals eine direkte EU-Aufsicht. Für Ihr Unternehmen bedeutet das: Banken werden Sie nach einheitlichen Standards durchleuchten und regelmäßig aktualisierte KYC-Unterlagen (Know-your-Customer) anfordern — von Handelsregisterauszug bis Nachweis der wirtschaftlich Berechtigten. Alle juristischen Personen müssen ihre Eigentümerstruktur im Transparenzregister offenlegen, und zwar mit allen natürlichen Personen, die mehr als 25 Prozent halten oder kontrollieren. Unvollständige oder veraltete Einträge führen zu Bußgeldern und können dazu führen, dass Ihre Bank Zahlungen blockiert oder die Geschäftsbeziehung kündigt.
+- **Was:** EU-Geldwäsche-Verordnung (EU 2024/1624) vereinheitlicht nationale AML-Gesetze und schafft mit AMLA erstmals direkte EU-Aufsicht
+- **Frist:** Anwendbar ab 2027, Banken bereiten Prozesse bereits heute vor
+- **Pflicht:** Einheitliche KYC-Anforderungen (Handelsregister, wirtschaftlich Berechtigte) und Transparenzregister-Einträge ab 25 % Anteil
+- **Strafe:** Unvollständige Einträge führen zu Bußgeldern, Zahlungsblockaden oder Kündigung der Bankverbindung
 
 ## ISO 20022
 
-ISO 20022 ist der globale Nachrichtenstandard für Finanztransaktionen und beschreibt in XML-Format, wie Zahlungen, Kontoauszüge und Meldungen technisch aufgebaut sein müssen. In der Praxis begegnen Sie vor allem pain.001 (Überweisungs­auftrag von Ihnen an die Bank) und camt.053 (elektronischer Kontoauszug zurück ans ERP) — beides Grundlage jeder automatisierten Bankkommunikation im Treasury. Mit dem Ende der SWIFT-Migration im November 2025 wurde das alte MT-Format endgültig abgeschaltet, sodass nun auch internationale Zahlungen ausschließlich im strukturierten MX-Format (ISO 20022) laufen. Für Corporates ergeben sich dadurch deutlich bessere Datenqualität im Reconcilement, ein einheitlicher Remittance-Info-Block und die Möglichkeit, Zahlungsreferenzen automatisiert zu verarbeiten statt aus Freitextfeldern zu parsen.
+- **Was:** Globaler XML-Nachrichtenstandard für Zahlungen, Kontoauszüge und Meldungen
+- **Für Sie:** In der Praxis pain.001 (Überweisungsauftrag an Bank) und camt.053 (elektronischer Kontoauszug zurück ans ERP)
+- **Status:** SWIFT-Migration abgeschlossen November 2025 — altes MT-Format abgeschaltet, auch international nur noch MX
+- **Wichtig:** Bessere Reconcilement-Datenqualität, einheitlicher Remittance-Block, automatisierte Referenzverarbeitung statt Freitext-Parsing
 
 ## FATF-Empf.
 
-Die Financial Action Task Force (FATF) ist eine internationale Organisation, die mit ihren 40 Empfehlungen die weltweiten Mindeststandards zur Bekämpfung von Geldwäsche und Terrorismusfinanzierung definiert — sämtliche nationalen AML-Gesetze, auch die EU-Regeln, basieren darauf. Besonders relevant für Corporates sind die regelmäßig aktualisierten FATF-Listen hochriskanter und unkooperativer Länder: Zahlungen in oder aus diesen Jurisdiktionen werden von Ihrer Bank verzögert, intensiv geprüft oder ganz blockiert. Ein Sonderfall sind US-Dollar-Zahlungen: Da jede USD-Transaktion weltweit über eine US-Korrespondenzbank läuft, greifen hier zusätzlich strenge OFAC- und FinCEN-Kontrollen, die im Zweifel härter filtern als europäische Banken. Treasury-Teams sollten die FATF-Updates in ihre Länder-Risikomatrix einpflegen und Vertragspartner in sensiblen Jurisdiktionen frühzeitig mit der Hausbank abstimmen.
+- **Was:** Internationale Organisation, deren 40 Empfehlungen die weltweiten Mindeststandards gegen Geldwäsche und Terrorfinanzierung setzen
+- **Für Sie:** Sämtliche nationalen AML-Gesetze (auch EU-Regeln) basieren darauf, Relevanz über Länder-Risikomatrix
+- **Achtung:** Zahlungen in FATF-Hochrisiko-Jurisdiktionen werden verzögert, intensiv geprüft oder blockiert
+- **Wichtig:** USD-Zahlungen laufen über US-Korrespondenzbanken, daher zusätzlich OFAC- und FinCEN-Filter, oft härter als EU-Banken
 
 ## EMIR
 
-Die European Market Infrastructure Regulation (EU 648/2012, inklusive EMIR 3.0) regelt den Handel mit OTC-Derivaten — also außerbörslichen Finanzinstrumenten wie Devisentermingeschäften, Zins-Swaps oder Commodity-Hedges, die Industrieunternehmen zur Absicherung gegen Kurs- und Preisschwankungen nutzen. Auch wenn Sie Derivate ausschließlich zu Sicherungszwecken einsetzen, sind Sie meldepflichtig: Jeder Abschluss, jede Änderung und jede Beendigung muss binnen eines Handelstages an ein zugelassenes Transaktionsregister übermittelt werden. Voraussetzung ist ein gültiger LEI (Legal Entity Identifier, eine weltweit eindeutige Unternehmens-ID) — ohne aktiven LEI wird keine Bank mehr ein neues Absicherungsgeschäft mit Ihnen abschließen. Überschreiten Sie zudem die Clearing-Schwellenwerte je Derivate-Klasse, greift zusätzlich die zentrale Clearing-Pflicht mit deutlich höheren Margin-Anforderungen.
+- **Was:** European Market Infrastructure Regulation (EU 648/2012, inkl. EMIR 3.0) regelt OTC-Derivate wie FX-Termine, Zins-Swaps, Commodity-Hedges
+- **Pflicht:** Jeder Abschluss, jede Änderung und Beendigung binnen eines Handelstages an zugelassenes Transaktionsregister melden — auch bei reinen Sicherungsgeschäften
+- **Achtung:** Ohne aktiven LEI (Legal Entity Identifier) schließt keine Bank mehr neue Absicherungsgeschäfte mit Ihnen ab
+- **Wichtig:** Bei Überschreiten der Clearing-Schwellen greift zentrale Clearing-Pflicht mit deutlich höheren Margin-Anforderungen
 
 ## DORA
 
-Der Digital Operational Resilience Act (EU 2022/2554) gilt seit dem 17. Januar 2025 und verpflichtet alle Finanzunternehmen, ihre IT-Landschaft systematisch gegen Cyberangriffe und Ausfälle zu härten. Für Industrieunternehmen ist DORA formal nicht direkt bindend, indirekt aber sehr relevant: Ihre Banken, Zahlungsdienstleister und Treasury-Softwareanbieter werden DORA-Anforderungen vertraglich an Sie weitergeben, insbesondere wenn Sie als kritischer Drittdienstleister eingestuft werden. Kern der Verordnung ist ein dreistufiger Meldeprozess für IKT-Vorfälle: Erstmeldung binnen 4 Stunden, Zwischenbericht nach 72 Stunden, Abschlussbericht nach einem Monat an die zuständige Aufsicht. Zusätzlich müssen alle IT-Dienstleistungsverträge überarbeitet werden — mit verpflichtenden Klauseln zu Audit-Rechten, Exit-Strategien, Sub-Auftragsvergabe und klar definierten Verfügbarkeitszielen.
+- **Was:** Digital Operational Resilience Act (EU 2022/2554) härtet Finanz-IT gegen Cyberangriffe und Ausfälle
+- **Status:** Gilt seit 17. Januar 2025 für Finanzunternehmen — Industrie indirekt via vertragliche Weitergabe durch Banken und Softwareanbieter
+- **Pflicht:** Dreistufige Meldekette für IKT-Vorfälle — Erstmeldung in 4 h, Zwischenbericht nach 72 h, Abschluss nach 1 Monat
+- **Achtung:** IT-Verträge überarbeiten — Pflichtklauseln zu Audit-Rechten, Exit-Strategien, Sub-Auftragsvergabe und Verfügbarkeitszielen
 
 ## EPC-SEPA-2025
 
-Das European Payments Council (EPC) gibt die technischen Regelwerke für alle SEPA-Zahlverfahren heraus — also SCT (Überweisung), SCT Inst (Echtzeitüberweisung) und SDD (Lastschrift). Die aktuelle Fassung der Rulebooks gilt seit November 2024 und bringt für Corporates spürbare Änderungen: erweiterter UTF-8-Zeichensatz (auch Umlaute und Sonderzeichen im Verwendungszweck), präzisere Rückgabecodes (R-Messages) und neue Vorgaben für die Datenfelder in Instant Payments. Wenn Sie eigene Zahlungsdateien erzeugen oder über ein Multi-Bank-Tool (z. B. SAP Payment Factory) arbeiten, müssen die XML-Schemata und Validierungsregeln auf die neuen Rulebook-Versionen aktualisiert werden. Veraltete Schemata führen zu bankseitigen Ablehnungen, und fehlerhafte R-Message-Verarbeitung blockiert automatisierte Reconciliation-Prozesse im ERP.
+- **Was:** European Payments Council gibt die technischen Rulebooks für SCT, SCT Inst und SDD heraus
+- **Status:** Aktuelle Fassung gilt seit November 2024 mit erweitertem UTF-8-Zeichensatz, präziseren R-Messages und neuen Instant-Payments-Feldern
+- **Pflicht:** XML-Schemata und Validierungsregeln in Zahlungsdatei-Erzeugung oder Payment Factory auf neue Rulebook-Version aktualisieren
+- **Achtung:** Veraltete Schemata führen zu bankseitigen Ablehnungen, fehlerhafte R-Message-Verarbeitung blockiert automatisiertes Reconcilement
 
 ## DSGVO-ZV
 
-Die DSGVO (EU 2016/679) gilt uneingeschränkt auch im Zahlungsverkehr, denn IBAN, Verwendungszweck und Betrag sind personenbezogene Daten, sobald sie natürlichen Personen zugeordnet werden können — das betrifft alle B2C-Zahlungen und auch Einzelunternehmer als Lieferanten. Für Treasury und Accounting entsteht ein Spannungsfeld: Das Handels- und Steuerrecht verlangt eine zehnjährige Aufbewahrung von Zahlungsbelegen, gleichzeitig fordert die DSGVO Löschung, sobald der Zweck entfallen ist. Die Lösung liegt in einem abgestuften Löschkonzept mit getrennten Aufbewahrungsfristen je Datenkategorie und klar dokumentierten Rechtsgrundlagen. Gehen Zahlungsdaten zudem in Drittländer (z. B. an US-basierte SaaS-Anbieter oder über SWIFT-Korrespondenzbanken), benötigen Sie geeignete Garantien wie EU-Standardvertragsklauseln und ein Transfer Impact Assessment.
+- **Was:** DSGVO (EU 2016/679) gilt auch im Zahlungsverkehr — IBAN, Verwendungszweck und Betrag sind personenbezogen, sobald natürlichen Personen zuordenbar
+- **Geltung:** Betrifft alle B2C-Zahlungen sowie Einzelunternehmer als Lieferanten
+- **Pflicht:** Abgestuftes Löschkonzept mit getrennten Fristen je Datenkategorie — Spannungsfeld 10 Jahre HGB/AO vs. DSGVO-Löschpflicht
+- **Achtung:** Bei Drittlandstransfer (US-SaaS, SWIFT-Korrespondenten) EU-Standardvertragsklauseln und Transfer Impact Assessment erforderlich
 
 ## MiCA
 
-Die Markets in Crypto-Assets Regulation (EU 2023/1114) schafft erstmals einen einheitlichen EU-Rechtsrahmen für Krypto-Assets und legt fest, wer Coins oder Token herausgeben und wer gewerblich mit Krypto handeln, verwahren oder beraten darf. Jeder Krypto-Dienstleister (CASP — Crypto-Asset Service Provider) benötigt eine behördliche Zulassung, und Emittenten von Stablecoins (Coins, die an den Euro oder den US-Dollar gekoppelt sind) müssen strenge Reserve- und Transparenzanforderungen erfüllen. Für Industrieunternehmen wird MiCA dort relevant, wo tokenisierte Zahlungen, digitale Handelsfinanzierung oder ein möglicher digitaler Euro ins Treasury-Setup eingebunden werden sollen. Bereits heute sinnvoll: prüfen, ob eingesetzte Krypto-Dienstleister MiCA-lizenziert sind, denn ohne Lizenz ab 2025/2026 dürfen sie ihre Dienste in der EU nicht mehr anbieten.
+- **Was:** Markets in Crypto-Assets Regulation (EU 2023/1114) — erster einheitlicher EU-Rechtsrahmen für Krypto-Assets und Stablecoins
+- **Pflicht:** Krypto-Dienstleister (CASP) brauchen behördliche Zulassung, Stablecoin-Emittenten müssen Reserve- und Transparenzanforderungen erfüllen
+- **Für Sie:** Relevant bei tokenisierten Zahlungen, digitaler Handelsfinanzierung oder Einbindung eines digitalen Euro ins Treasury
+- **Achtung:** Ab 2025/2026 dürfen nicht-lizenzierte CASPs ihre Dienste in der EU nicht mehr anbieten — Dienstleister-Status heute prüfen
 
 ## TFR
 
-Die Transfer of Funds Regulation (EU 2023/1113), oft Travel Rule genannt, verlangt, dass bei jeder Überweisung vollständige Daten zu Absender und Empfänger mitgesendet werden — Name, Adresse oder Geburtsdatum sowie Kontonummer beziehungsweise Wallet-Adresse. Für klassische SEPA- und SWIFT-Zahlungen ist das seit Jahren Standard, neu ist seit Ende 2024 die vollständige Anwendung auf Kryptowährungen: Auch bei Bitcoin-, Stablecoin- oder sonstigen Token-Transfers zwischen regulierten Anbietern müssen Absender- und Empfängerinformationen übermittelt werden. Für Corporates heißt das: Unvollständig adressierte Zahlungen werden von der empfangenden Bank zurückgewiesen oder bis zur Klärung eingefroren, was besonders bei Auslandszahlungen zu Liquiditätsengpässen führen kann. Stellen Sie sicher, dass Ihre Lieferanten- und Kundenstammdaten vollständig sind und Ihr ERP alle Pflichtfelder sauber in die pain.001 übergibt.
+- **Was:** Transfer of Funds Regulation (EU 2023/1113, „Travel Rule") — vollständige Absender- und Empfängerdaten bei jeder Überweisung
+- **Geltung:** Seit Ende 2024 auch für Krypto-Transfers (Bitcoin, Stablecoins, Token) zwischen regulierten Anbietern
+- **Achtung:** Unvollständig adressierte Zahlungen werden zurückgewiesen oder bis zur Klärung eingefroren — Liquiditätsrisiko im Ausland
+- **Pflicht:** Lieferanten- und Kundenstammdaten vollständig pflegen, ERP muss alle Pflichtfelder sauber in pain.001 übergeben

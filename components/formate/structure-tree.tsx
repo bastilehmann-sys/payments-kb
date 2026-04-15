@@ -13,7 +13,14 @@ const CARD_STYLE: Record<Cardinality, string> = {
 function FieldNode({ node, depth = 0, currentVersion }: { node: StructureNode; depth?: number; currentVersion?: string }) {
   const [open, setOpen] = React.useState(depth < 1);
   const hasChildren = node.children && node.children.length > 0;
-  const isVersionNew = node.versionFlag && currentVersion && node.versionFlag === currentVersion;
+  // Highlight wenn versionFlag zur currentVersion passt (z.B. Flag 'v.09' zu Version '001.001.09')
+  const isVersionNew = Boolean(
+    node.versionFlag &&
+    currentVersion &&
+    (node.versionFlag === currentVersion ||
+      currentVersion.endsWith(node.versionFlag.replace(/^v\./i, '')) ||
+      currentVersion.endsWith(node.versionFlag)),
+  );
   return (
     <div className={cn('border-l border-border/60 pl-4', depth === 0 && 'border-l-0 pl-0')}>
       <div className="flex items-start gap-2 py-1.5">

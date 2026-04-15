@@ -352,14 +352,21 @@ export function VersionDetailPanel({ base, version, allVersions, content }: Prop
             </div>
           )}
 
-          {/* Migration Diffs from content */}
-          {content?.migrations && content.migrations.length > 0 && (
-            <div className="space-y-4">
-              {content.migrations.map((m) => (
-                <MigrationDiff key={m.label} migration={m} />
-              ))}
-            </div>
-          )}
+          {/* Migration Diffs — nur wenn Migration AUF die aktuelle Version zielt */}
+          {(() => {
+            const currentVersion = String(version.version ?? '');
+            const matching = (content?.migrations ?? []).filter((m) =>
+              currentVersion && m.toVersion === currentVersion,
+            );
+            if (matching.length === 0) return null;
+            return (
+              <div className="space-y-4">
+                {matching.map((m) => (
+                  <MigrationDiff key={m.label} migration={m} />
+                ))}
+              </div>
+            );
+          })()}
 
           {/* Version notes */}
           {version.notes && (

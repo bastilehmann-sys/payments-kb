@@ -4,7 +4,7 @@ import '@/content/formats/all';
 
 import { SplitView, type Column } from '@/components/browse/split-view';
 import { VersionDetailPanel } from '@/components/formate/version-detail-panel';
-import { getFormat } from '@/lib/formats/registry';
+import { getFormat, formatContentFromDb } from '@/lib/formats/registry';
 
 interface FormateClientProps {
   items: Record<string, unknown>[];
@@ -28,6 +28,9 @@ export function FormateClient({ items, columns }: FormateClientProps) {
       editTable="format_entries"
       renderDetail={(item) => {
         const formatName = String(item['format_name'] ?? '');
+        const dbContent = formatContentFromDb(item as Record<string, unknown>);
+        const registryContent = getFormat(formatName);
+        const content = dbContent ?? registryContent;
         const allVersions = items.filter(
           (i) => String(i['format_name'] ?? '') === formatName,
         );
@@ -36,7 +39,7 @@ export function FormateClient({ items, columns }: FormateClientProps) {
             base={item as Record<string, string | null>}
             version={item as Record<string, string | null | boolean>}
             allVersions={allVersions as Record<string, string | null | boolean>[]}
-            content={getFormat(formatName)}
+            content={content}
           />
         );
       }}

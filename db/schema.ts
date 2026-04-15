@@ -99,6 +99,15 @@ export const formatEntries = pgTable('format_entries', {
   status: text('status'),
   source_row: integer('source_row'),
   created_at: timestamp('created_at', { withTimezone: true }).defaultNow(),
+  structure: jsonb('structure'),
+  migrations: jsonb('migrations'),
+  feature_defs: jsonb('feature_defs'),
+  character_set: text('character_set'),
+  reject_code_group: text('reject_code_group'),
+  schema_uri_pattern: text('schema_uri_pattern'),
+  region: text('region'),
+  source_refs: jsonb('source_refs'),
+  content_status: text('content_status'),
 });
 
 export const clearingEntries = pgTable('clearing_entries', {

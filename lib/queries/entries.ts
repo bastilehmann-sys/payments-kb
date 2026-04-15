@@ -56,6 +56,8 @@ export async function getRegulatorikEntries(): Promise<RegulatorikEntry[]> {
     .orderBy(asc(regulatorikEntries.kuerzel));
 }
 
+// v3: select() returns all columns including structure, migrations, feature_defs,
+// character_set, reject_code_group, schema_uri_pattern, region, source_refs, content_status
 export async function getFormatEntries(): Promise<FormatEntry[]> {
   return db
     .select()

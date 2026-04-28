@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  CBPR+ pacs.008.001.09 — Cross-Border EU→GB Payment (Post-Brexit)
+  Since 01.01.2021: GB is no longer SEPA — all EU↔GB payments via SWIFT.
+  GB-Specifics:
+    - Sort Code in CdtrAgt/ClrSysMmbId (GBDSC)
+    - Account Number (8-digit) in CdtrAcct (BBAN scheme)
+    - IBAN also accepted but Sort Code+AccNr is domestic standard
+    - ChrgBr SHAR standard
+    - Confirmation of Payee (CoP) check at receiving bank
+-->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.09">
+  <FIToFICstmrCdtTrf>
+    <GrpHdr>
+      <MsgId>CBPR-GB-2026-0421-0001</MsgId>
+      <CreDtTm>2026-04-21T09:30:00Z</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <SttlmInf>
+        <SttlmMtd>INDA</SttlmMtd>
+      </SttlmInf>
+      <InstgAgt>
+        <FinInstnId><BICFI>COBADEFFXXX</BICFI></FinInstnId>
+      </InstgAgt>
+      <InstdAgt>
+        <FinInstnId><BICFI>BARCGB22XXX</BICFI></FinInstnId>
+      </InstdAgt>
+    </GrpHdr>
+    <CdtTrfTxInf>
+      <PmtId>
+        <InstrId>INS-CBPR-GB-0001</InstrId>
+        <EndToEndId>RE-2026-04-0055</EndToEndId>
+        <UETR>c3d4e5f6-a7b8-9012-cdef-123456789012</UETR>
+      </PmtId>
+      <IntrBkSttlmAmt Ccy="GBP">28500.00</IntrBkSttlmAmt>
+      <IntrBkSttlmDt>2026-04-22</IntrBkSttlmDt>
+      <ChrgBr>SHAR</ChrgBr>
+      <Dbtr>
+        <Nm>BEISPIEL GMBH</Nm>
+        <PstlAdr>
+          <StrtNm>Industriestrasse 42</StrtNm>
+          <PstCd>90402</PstCd>
+          <TwnNm>Nuernberg</TwnNm>
+          <Ctry>DE</Ctry>
+        </PstlAdr>
+      </Dbtr>
+      <DbtrAcct>
+        <Id><IBAN>DE89370400440532013000</IBAN></Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId><BICFI>COBADEFFXXX</BICFI></FinInstnId>
+      </DbtrAgt>
+      <CdtrAgt>
+        <FinInstnId>
+          <BICFI>BARCGB22XXX</BICFI>
+          <ClrSysMmbId>
+            <ClrSysId><Cd>GBDSC</Cd></ClrSysId>
+            <MmbId>201613</MmbId>
+          </ClrSysMmbId>
+        </FinInstnId>
+      </CdtrAgt>
+      <Cdtr>
+        <Nm>SMITH ENGINEERING PLC</Nm>
+        <PstlAdr>
+          <StrtNm>7 Victoria Road</StrtNm>
+          <PstCd>M1 2BE</PstCd>
+          <TwnNm>Manchester</TwnNm>
+          <Ctry>GB</Ctry>
+        </PstlAdr>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <IBAN>GB29BARC20161331926819</IBAN>
+        </Id>
+      </CdtrAcct>
+      <Purp>
+        <Cd>SUPP</Cd>
+      </Purp>
+      <RmtInf>
+        <Strd>
+          <RfrdDocInf>
+            <Tp><CdOrPrtry><Cd>CINV</Cd></CdOrPrtry></Tp>
+            <Nb>RE-2026-04-0055</Nb>
+            <RltdDt>2026-04-10</RltdDt>
+          </RfrdDocInf>
+          <RfrdDocAmt>
+            <DuePyblAmt Ccy="GBP">28500.00</DuePyblAmt>
+          </RfrdDocAmt>
+        </Strd>
+      </RmtInf>
+    </CdtTrfTxInf>
+  </FIToFICstmrCdtTrf>
+</Document>

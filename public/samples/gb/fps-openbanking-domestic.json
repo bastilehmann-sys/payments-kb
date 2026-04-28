@@ -1,0 +1,41 @@
+{
+  "_comment": "UK Faster Payments — Open Banking Domestic Payment Initiation (v3.1). FPS uses ISO 8583 internally (proprietary, not publicly available). This is the Open Banking API representation used by TPPs to initiate FPS payments. NPA/FPNG migration to ISO 20022 pacs.008 planned 2026-2027.",
+  "Data": {
+    "ConsentId": "OBDP-2026-0421-0001",
+    "Initiation": {
+      "InstructionIdentification": "INS-FPS-0001",
+      "EndToEndIdentification": "RE-2026-04-0042",
+      "LocalInstrument": "UK.OBIE.FPS",
+      "InstructedAmount": {
+        "Amount": "8500.00",
+        "Currency": "GBP"
+      },
+      "DebtorAccount": {
+        "SchemeName": "UK.OBIE.SortCodeAccountNumber",
+        "Identification": "60161331926819",
+        "Name": "BEISPIEL UK LTD"
+      },
+      "CreditorAccount": {
+        "SchemeName": "UK.OBIE.SortCodeAccountNumber",
+        "Identification": "40000044890123",
+        "Name": "SMITH ENGINEERING PLC"
+      },
+      "RemittanceInformation": {
+        "Reference": "RE-2026-04-0042",
+        "Unstructured": "Invoice RE-2026-04-0042 Machine Parts Q2/2026"
+      }
+    }
+  },
+  "Risk": {
+    "PaymentContextCode": "EcommerceGoods",
+    "MerchantCategoryCode": "5065",
+    "DeliveryAddress": {
+      "AddressLine": ["7 Victoria Road"],
+      "StreetName": "Victoria Road",
+      "BuildingNumber": "7",
+      "PostCode": "M1 2BE",
+      "TownName": "Manchester",
+      "Country": "GB"
+    }
+  }
+}

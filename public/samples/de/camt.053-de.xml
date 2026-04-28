@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  camt.053.001.08 — Bank-to-Customer Statement (Tagesauszug)
+  DE-Kontext: Via EBICS Auftragsart C53 empfangen.
+  Ersetzt MT940.
+-->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.053.001.08">
+  <BkToCstmrStmt>
+    <GrpHdr>
+      <MsgId>CAMT053-DE-2026-0421</MsgId>
+      <CreDtTm>2026-04-21T18:00:00Z</CreDtTm>
+    </GrpHdr>
+    <Stmt>
+      <Id>STMT-DE-20260421</Id>
+      <ElctrncSeqNb>42</ElctrncSeqNb>
+      <CreDtTm>2026-04-21T18:00:00Z</CreDtTm>
+      <Acct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+        <Ccy>EUR</Ccy>
+        <Svcr>
+          <FinInstnId><BICFI>COBADEFFXXX</BICFI></FinInstnId>
+        </Svcr>
+      </Acct>
+      <Bal>
+        <Tp><CdOrPrtry><Cd>OPBD</Cd></CdOrPrtry></Tp>
+        <Amt Ccy="EUR">125430.50</Amt>
+        <CdtDbtInd>CRDT</CdtDbtInd>
+        <Dt><Dt>2026-04-21</Dt></Dt>
+      </Bal>
+      <Bal>
+        <Tp><CdOrPrtry><Cd>CLBD</Cd></CdOrPrtry></Tp>
+        <Amt Ccy="EUR">109680.50</Amt>
+        <CdtDbtInd>CRDT</CdtDbtInd>
+        <Dt><Dt>2026-04-21</Dt></Dt>
+      </Bal>
+      <Ntry>
+        <Amt Ccy="EUR">15750.00</Amt>
+        <CdtDbtInd>DBIT</CdtDbtInd>
+        <Sts><Cd>BOOK</Cd></Sts>
+        <BookgDt><Dt>2026-04-21</Dt></BookgDt>
+        <ValDt><Dt>2026-04-22</Dt></ValDt>
+        <BkTxCd>
+          <Domn>
+            <Cd>PMNT</Cd>
+            <Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly>
+          </Domn>
+        </BkTxCd>
+        <NtryDtls>
+          <TxDtls>
+            <Refs>
+              <EndToEndId>RE-2026-04-0042</EndToEndId>
+            </Refs>
+            <RltdPties>
+              <Cdtr><Nm>MÜLLER MASCHINENBAU GMBH</Nm></Cdtr>
+              <CdtrAcct><Id><IBAN>DE27100777770209299700</IBAN></Id></CdtrAcct>
+            </RltdPties>
+            <RmtInf>
+              <Ustrd>Rechnung RE-2026-04-0042 vom 15.04.2026</Ustrd>
+            </RmtInf>
+          </TxDtls>
+        </NtryDtls>
+      </Ntry>
+    </Stmt>
+  </BkToCstmrStmt>
+</Document>

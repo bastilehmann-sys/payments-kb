@@ -1,0 +1,59 @@
+{
+  "Version": "1.1",
+  "TranDtls": {
+    "TaxSch": "GST",
+    "SupTyp": "B2B",
+    "RegRev": "N",
+    "IgstOnIntra": "N"
+  },
+  "DocDtls": {
+    "Typ": "INV",
+    "No": "INV-2026-0042",
+    "Dt": "21/04/2026"
+  },
+  "SellerDtls": {
+    "Gstin": "27AAACR1234F1ZV",
+    "LglNm": "BEISPIEL INDIA PVT LTD",
+    "TrdNm": "Beispiel India",
+    "Addr1": "42 Industrial Estate",
+    "Loc": "Pune",
+    "Pin": 411001,
+    "Stcd": "27",
+    "Em": "accounts@beispielindia.com"
+  },
+  "BuyerDtls": {
+    "Gstin": "29AABCM9876F1Z5",
+    "LglNm": "MUELLER INDIA PVT LTD",
+    "TrdNm": "Mueller India",
+    "Addr1": "7 Tech Park",
+    "Loc": "Bangalore",
+    "Pin": 560001,
+    "Stcd": "29",
+    "Pos": "29"
+  },
+  "ItemList": [
+    {
+      "SlNo": "1",
+      "PrdDesc": "CNC Machine Parts — Edelstahl",
+      "IsServc": "N",
+      "HsnCd": "8466",
+      "Qty": 25.0,
+      "Unit": "NOS",
+      "UnitPrice": 35000.00,
+      "TotAmt": 875000.00,
+      "AssAmt": 875000.00,
+      "GstRt": 18.00,
+      "IgstAmt": 157500.00,
+      "CgstAmt": 0,
+      "SgstAmt": 0,
+      "TotItemVal": 1032500.00
+    }
+  ],
+  "ValDtls": {
+    "AssVal": 875000.00,
+    "IgstVal": 157500.00,
+    "CgstVal": 0,
+    "SgstVal": 0,
+    "TotInvVal": 1032500.00
+  }
+}

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  CH-pain.001.001.09.ch.03 — SIX Swiss Payment Standards
+  CHF-Inlandszahlung über SIC (Type 1).
+  CH-Spezifika vs. EPC:
+    - Strukturierte Adresse Pflicht (StrtNm + BldgNb + PstCd + TwnNm)
+    - BC-Nr. (Bankenclearing) in CdtrAgt/ClrSysMmbId statt BIC
+    - QR-Referenz in RmtInf/Strd/CdtrRefInf (Tp=QRR)
+    - CH-IBAN 21-stellig
+-->
+<Document xmlns="http://www.six-interbank-clearing.com/de/pain.001.001.09.ch.03"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://www.six-interbank-clearing.com/de/pain.001.001.09.ch.03 pain.001.001.09.ch.03.xsd">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>CH-SIC-2026-0421-0001</MsgId>
+      <CreDtTm>2026-04-21T10:00:00+02:00</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>8750.00</CtrlSum>
+      <InitgPty>
+        <Nm>Beispiel Schweiz AG</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <PmtInfId>PMT-CH-CHF-0001</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <BtchBookg>true</BtchBookg>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>8750.00</CtrlSum>
+      <PmtTpInf>
+        <LclInstrm>
+          <!-- Type 1 = CH-Inlandszahlung -->
+          <Prtry>CH01</Prtry>
+        </LclInstrm>
+      </PmtTpInf>
+      <ReqdExctnDt>
+        <Dt>2026-04-22</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>Beispiel Schweiz AG</Nm>
+        <PstlAdr>
+          <StrtNm>Bahnhofstrasse</StrtNm>
+          <BldgNb>42</BldgNb>
+          <PstCd>8001</PstCd>
+          <TwnNm>Zürich</TwnNm>
+          <Ctry>CH</Ctry>
+        </PstlAdr>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>CH9300762011623852957</IBAN>
+        </Id>
+        <Ccy>CHF</Ccy>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <ClrSysMmbId>
+            <ClrSysId><Cd>CHBCC</Cd></ClrSysId>
+            <MmbId>00762</MmbId>
+          </ClrSysMmbId>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtTrfTxInf>
+        <PmtId>
+          <InstrId>INS-CH-0001</InstrId>
+          <EndToEndId>RE-2026-0042</EndToEndId>
+        </PmtId>
+        <Amt>
+          <InstdAmt Ccy="CHF">8750.00</InstdAmt>
+        </Amt>
+        <CdtrAgt>
+          <FinInstnId>
+            <ClrSysMmbId>
+              <ClrSysId><Cd>CHBCC</Cd></ClrSysId>
+              <MmbId>00230</MmbId>
+            </ClrSysMmbId>
+          </FinInstnId>
+        </CdtrAgt>
+        <Cdtr>
+          <Nm>Müller Präzisionstechnik GmbH</Nm>
+          <PstlAdr>
+            <StrtNm>Industrieweg</StrtNm>
+            <BldgNb>15</BldgNb>
+            <PstCd>3000</PstCd>
+            <TwnNm>Bern</TwnNm>
+            <Ctry>CH</Ctry>
+          </PstlAdr>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>CH4800230023099999999</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Strd>
+            <CdtrRefInf>
+              <Tp>
+                <CdOrPrtry>
+                  <Prtry>QRR</Prtry>
+                </CdOrPrtry>
+              </Tp>
+              <Ref>210000000003139471430009017</Ref>
+            </CdtrRefInf>
+          </Strd>
+        </RmtInf>
+      </CdtTrfTxInf>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>

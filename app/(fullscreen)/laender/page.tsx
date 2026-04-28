@@ -30,11 +30,16 @@ export default async function LaenderPage() {
   const session = await auth();
   if (!session) redirect('/login');
 
-  const [countriesWithDocs, itBlocks, cnBlocks, rsBlocks, ihbEntries] = await Promise.all([
+  const [countriesWithDocs, itBlocks, cnBlocks, rsBlocks, deBlocks, usBlocks, chBlocks, gbBlocks, inBlocks, ihbEntries] = await Promise.all([
     listCountriesWithDocuments(),
     getCountryBlocks('IT'),
     getCountryBlocks('CN'),
     getCountryBlocks('RS'),
+    getCountryBlocks('DE'),
+    getCountryBlocks('US'),
+    getCountryBlocks('CH'),
+    getCountryBlocks('GB'),
+    getCountryBlocks('IN'),
     getIhbEntries(),
   ]);
 
@@ -97,6 +102,21 @@ export default async function LaenderPage() {
 
   const rsOrdered = buildCountryBlocks(rsBlocks, 'serbien', 'Serbien', 'RS');
   if (rsOrdered.length > 0) countryBlocksMap['RS'] = rsOrdered;
+
+  const deOrdered = buildCountryBlocks(deBlocks, 'deutschland', 'Deutschland', 'DE');
+  if (deOrdered.length > 0) countryBlocksMap['DE'] = deOrdered;
+
+  const usOrdered = buildCountryBlocks(usBlocks, 'usa', 'USA', 'US');
+  if (usOrdered.length > 0) countryBlocksMap['US'] = usOrdered;
+
+  const chOrdered = buildCountryBlocks(chBlocks, 'schweiz', 'Schweiz', 'CH');
+  if (chOrdered.length > 0) countryBlocksMap['CH'] = chOrdered;
+
+  const gbOrdered = buildCountryBlocks(gbBlocks, 'großbritannien', 'Großbritannien', 'GB');
+  if (gbOrdered.length > 0) countryBlocksMap['GB'] = gbOrdered;
+
+  const inOrdered = buildCountryBlocks(inBlocks, 'indien', 'Indien', 'IN');
+  if (inOrdered.length > 0) countryBlocksMap['IN'] = inOrdered;
 
   const items = countriesWithDocs.map((c) => {
     const ihb = ihbByLand.get(normalizeLand(c.name));

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  camt.053.001.08 — Bank-to-Customer Statement (UK / GBP)
+  UK banks deliver camt.053 alongside legacy MT940.
+  Sort Code in BkTxCd context for domestic Bacs/FPS transactions.
+-->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.053.001.08">
+  <BkToCstmrStmt>
+    <GrpHdr>
+      <MsgId>CAMT053-GB-2026-0421</MsgId>
+      <CreDtTm>2026-04-21T18:00:00Z</CreDtTm>
+    </GrpHdr>
+    <Stmt>
+      <Id>STMT-GB-20260421</Id>
+      <ElctrncSeqNb>156</ElctrncSeqNb>
+      <CreDtTm>2026-04-21T18:00:00Z</CreDtTm>
+      <Acct>
+        <Id>
+          <IBAN>GB29NWBK60161331926819</IBAN>
+        </Id>
+        <Ccy>GBP</Ccy>
+        <Svcr>
+          <FinInstnId>
+            <BICFI>BARCGB22XXX</BICFI>
+            <Nm>Barclays Bank PLC</Nm>
+          </FinInstnId>
+        </Svcr>
+      </Acct>
+      <Bal>
+        <Tp><CdOrPrtry><Cd>OPBD</Cd></CdOrPrtry></Tp>
+        <Amt Ccy="GBP">524180.25</Amt>
+        <CdtDbtInd>CRDT</CdtDbtInd>
+        <Dt><Dt>2026-04-21</Dt></Dt>
+      </Bal>
+      <Bal>
+        <Tp><CdOrPrtry><Cd>CLBD</Cd></CdOrPrtry></Tp>
+        <Amt Ccy="GBP">174180.25</Amt>
+        <CdtDbtInd>CRDT</CdtDbtInd>
+        <Dt><Dt>2026-04-21</Dt></Dt>
+      </Bal>
+      <Ntry>
+        <Amt Ccy="GBP">350000.00</Amt>
+        <CdtDbtInd>DBIT</CdtDbtInd>
+        <Sts><Cd>BOOK</Cd></Sts>
+        <BookgDt><Dt>2026-04-21</Dt></BookgDt>
+        <ValDt><Dt>2026-04-21</Dt></ValDt>
+        <BkTxCd>
+          <Domn>
+            <Cd>PMNT</Cd>
+            <Fmly><Cd>ICDT</Cd><SubFmlyCd>XBCT</SubFmlyCd></Fmly>
+          </Domn>
+          <Prtry>
+            <Cd>CHAPS</Cd>
+          </Prtry>
+        </BkTxCd>
+        <NtryDtls>
+          <TxDtls>
+            <Refs>
+              <EndToEndId>RE-2026-04-0042</EndToEndId>
+            </Refs>
+            <RltdPties>
+              <Cdtr><Nm>SMITH ENGINEERING PLC</Nm></Cdtr>
+            </RltdPties>
+            <RmtInf>
+              <Ustrd>Invoice RE-2026-04-0042 Machine Parts Q2/2026</Ustrd>
+            </RmtInf>
+          </TxDtls>
+        </NtryDtls>
+      </Ntry>
+    </Stmt>
+  </BkToCstmrStmt>
+</Document>

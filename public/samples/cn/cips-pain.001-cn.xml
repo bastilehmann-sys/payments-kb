@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  CIPS pain.001-CN — Customer Credit Transfer Initiation
+  Cross-Border CNY via CIPS (Customer-to-Bank, ISO 20022).
+  CN-Spezifika:
+    - USCI (18-stellig) zwingend beim chinesischen Cdtr (SchmeNm/Prtry="USCI")
+    - SAFE BOP-Code (z.B. 121000 = General Merchandise) in RmtInf/Strd/AddtlRmtInf
+      mit Präfix "/BOP/" ODER in Purp/Prtry — mit Hausbank abstimmen
+    - Tax Clearance Reference (税务备案表编号) ab USD 50k bei Services/Royalties
+-->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.03">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>CIPS-PAIN-2026-0414-0001</MsgId>
+      <CreDtTm>2026-04-14T10:30:00Z</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>125000.00</CtrlSum>
+      <InitgPty>
+        <Nm>BEISPIEL DEUTSCHLAND GMBH</Nm>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>DE123456789</Id>
+              <SchmeNm><Cd>TXID</Cd></SchmeNm>
+            </Othr>
+          </OrgId>
+        </Id>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <PmtInfId>PMT-CN-0001</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <BtchBookg>false</BtchBookg>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>125000.00</CtrlSum>
+      <PmtTpInf>
+        <SvcLvl><Cd>NURG</Cd></SvcLvl>
+      </PmtTpInf>
+      <ReqdExctnDt>2026-04-15</ReqdExctnDt>
+      <Dbtr>
+        <Nm>BEISPIEL DEUTSCHLAND GMBH</Nm>
+        <PstlAdr>
+          <StrtNm>Königsallee 100</StrtNm>
+          <PstCd>40212</PstCd>
+          <TwnNm>Düsseldorf</TwnNm>
+          <Ctry>DE</Ctry>
+        </PstlAdr>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+        <Ccy>EUR</Ccy>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId><BICFI>DEUTDEFFXXX</BICFI></FinInstnId>
+      </DbtrAgt>
+      <ChrgBr>SHAR</ChrgBr>
+      <CdtTrfTxInf>
+        <PmtId>
+          <InstrId>INS-CN-0001</InstrId>
+          <EndToEndId>SAFE-121000-20260414-0001</EndToEndId>
+        </PmtId>
+        <PmtTpInf>
+          <CtgyPurp>
+            <Prtry>BOP/121000</Prtry>
+          </CtgyPurp>
+        </PmtTpInf>
+        <Amt>
+          <InstdAmt Ccy="CNY">125000.00</InstdAmt>
+        </Amt>
+        <XchgRateInf>
+          <RateTp>AGRD</RateTp>
+        </XchgRateInf>
+        <CdtrAgt>
+          <FinInstnId>
+            <BICFI>ICBKCNBJXXX</BICFI>
+            <ClrSysMmbId>
+              <ClrSysId><Cd>CIPS</Cd></ClrSysId>
+              <MmbId>CIPS001234</MmbId>
+            </ClrSysMmbId>
+          </FinInstnId>
+        </CdtrAgt>
+        <Cdtr>
+          <Nm>SHANGHAI XIANGYING TRADING CO LTD</Nm>
+          <PstlAdr>
+            <StrtNm>Lujiazui Ring Road 168</StrtNm>
+            <PstCd>200120</PstCd>
+            <TwnNm>Shanghai</TwnNm>
+            <Ctry>CN</Ctry>
+          </PstlAdr>
+          <Id>
+            <OrgId>
+              <Othr>
+                <Id>91310000MA1FL3KW9X</Id>
+                <SchmeNm><Prtry>USCI</Prtry></SchmeNm>
+              </Othr>
+            </OrgId>
+          </Id>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <Othr><Id>0200001234567890123</Id></Othr>
+          </Id>
+        </CdtrAcct>
+        <Purp>
+          <Prtry>BOP/121000</Prtry>
+        </Purp>
+        <RmtInf>
+          <Strd>
+            <RfrdDocInf>
+              <Tp>
+                <CdOrPrtry><Cd>CINV</Cd></CdOrPrtry>
+              </Tp>
+              <Nb>2026-04-INV-0042</Nb>
+              <RltdDt>2026-04-10</RltdDt>
+            </RfrdDocInf>
+            <AddtlRmtInf>/BOP/121000/General Merchandise — Mechanical components Q2/2026 — Contract 2026-CT-007</AddtlRmtInf>
+          </Strd>
+        </RmtInf>
+      </CdtTrfTxInf>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>

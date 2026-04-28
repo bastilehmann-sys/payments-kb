@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SEPA SCT — pain.001.001.09 (Customer Credit Transfer Initiation)
+  Standardfall: Deutsche Firma überweist an deutschen Lieferanten via EBICS.
+  DE-Spezifika:
+    - IBAN 22-stellig (DE + 2 Prüfziffern + 8 BLZ + 10 KtNr)
+    - BIC optional innerhalb SEPA, aber empfohlen
+    - SvcLvl SEPA für Standard, URGP für Express via T2
+    - Encoding UTF-8, Umlaute erlaubt in pain.001
+-->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>SEPA-SCT-2026-0421-0001</MsgId>
+      <CreDtTm>2026-04-21T09:00:00Z</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>15750.00</CtrlSum>
+      <InitgPty>
+        <Nm>BEISPIEL GMBH</Nm>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>DE123456789</Id>
+              <SchmeNm><Cd>TXID</Cd></SchmeNm>
+            </Othr>
+          </OrgId>
+        </Id>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <PmtInfId>PMT-DE-SCT-0001</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <BtchBookg>true</BtchBookg>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>15750.00</CtrlSum>
+      <PmtTpInf>
+        <SvcLvl><Cd>SEPA</Cd></SvcLvl>
+      </PmtTpInf>
+      <ReqdExctnDt>
+        <Dt>2026-04-22</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>BEISPIEL GMBH</Nm>
+        <PstlAdr>
+          <StrtNm>Industriestraße 42</StrtNm>
+          <PstCd>90402</PstCd>
+          <TwnNm>Nürnberg</TwnNm>
+          <Ctry>DE</Ctry>
+        </PstlAdr>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+        <Ccy>EUR</Ccy>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId><BICFI>COBADEFFXXX</BICFI></FinInstnId>
+      </DbtrAgt>
+      <ChrgBr>SLEV</ChrgBr>
+      <CdtTrfTxInf>
+        <PmtId>
+          <InstrId>INS-DE-0001</InstrId>
+          <EndToEndId>RE-2026-04-0042</EndToEndId>
+        </PmtId>
+        <Amt>
+          <InstdAmt Ccy="EUR">15750.00</InstdAmt>
+        </Amt>
+        <CdtrAgt>
+          <FinInstnId><BICFI>DEUTDEFFXXX</BICFI></FinInstnId>
+        </CdtrAgt>
+        <Cdtr>
+          <Nm>MÜLLER MASCHINENBAU GMBH</Nm>
+          <PstlAdr>
+            <StrtNm>Werksweg 7</StrtNm>
+            <PstCd>70173</PstCd>
+            <TwnNm>Stuttgart</TwnNm>
+            <Ctry>DE</Ctry>
+          </PstlAdr>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>DE27100777770209299700</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>Rechnung RE-2026-04-0042 vom 15.04.2026 — Maschinenteile Q2</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  CHAPS — pacs.008.001.09 (FI-to-FI Customer Credit Transfer)
+  UK RTGS operated by Bank of England. Fully ISO 20022 since June 2023.
+  GB-Specifics:
+    - Sort Code in CdtrAgt/ClrSysMmbId (GBDSC = GB Domestic Sort Code)
+    - Account Number (8-digit) in CdtrAcct
+    - IBAN optional for domestic, mandatory for cross-border
+    - No SEPA — this is a purely UK domestic RTGS payment
+-->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.09">
+  <FIToFICstmrCdtTrf>
+    <GrpHdr>
+      <MsgId>CHAPS-2026-0421-0001</MsgId>
+      <CreDtTm>2026-04-21T10:30:00Z</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <SttlmInf>
+        <SttlmMtd>CLRG</SttlmMtd>
+        <ClrSys>
+          <Cd>GBP</Cd>
+        </ClrSys>
+      </SttlmInf>
+      <InstgAgt>
+        <FinInstnId>
+          <BICFI>BARCGB22XXX</BICFI>
+        </FinInstnId>
+      </InstgAgt>
+      <InstdAgt>
+        <FinInstnId>
+          <BICFI>NWBKGB2LXXX</BICFI>
+        </FinInstnId>
+      </InstdAgt>
+    </GrpHdr>
+    <CdtTrfTxInf>
+      <PmtId>
+        <InstrId>INS-CHAPS-0001</InstrId>
+        <EndToEndId>RE-2026-04-0042</EndToEndId>
+        <UETR>b2c3d4e5-f6a7-8901-bcde-f12345678901</UETR>
+      </PmtId>
+      <PmtTpInf>
+        <SvcLvl><Prtry>CHAPS</Prtry></SvcLvl>
+      </PmtTpInf>
+      <IntrBkSttlmAmt Ccy="GBP">350000.00</IntrBkSttlmAmt>
+      <IntrBkSttlmDt>2026-04-21</IntrBkSttlmDt>
+      <ChrgBr>SLEV</ChrgBr>
+      <Dbtr>
+        <Nm>BEISPIEL UK LTD</Nm>
+        <PstlAdr>
+          <StrtNm>42 King Street</StrtNm>
+          <PstCd>EC2V 8AH</PstCd>
+          <TwnNm>London</TwnNm>
+          <Ctry>GB</Ctry>
+        </PstlAdr>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <Othr>
+            <Id>31926819</Id>
+            <SchmeNm><Cd>BBAN</Cd></SchmeNm>
+          </Othr>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>BARCGB22XXX</BICFI>
+          <ClrSysMmbId>
+            <ClrSysId><Cd>GBDSC</Cd></ClrSysId>
+            <MmbId>601613</MmbId>
+          </ClrSysMmbId>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtrAgt>
+        <FinInstnId>
+          <BICFI>NWBKGB2LXXX</BICFI>
+          <ClrSysMmbId>
+            <ClrSysId><Cd>GBDSC</Cd></ClrSysId>
+            <MmbId>400000</MmbId>
+          </ClrSysMmbId>
+        </FinInstnId>
+      </CdtrAgt>
+      <Cdtr>
+        <Nm>SMITH ENGINEERING PLC</Nm>
+        <PstlAdr>
+          <StrtNm>7 Victoria Road</StrtNm>
+          <PstCd>M1 2BE</PstCd>
+          <TwnNm>Manchester</TwnNm>
+          <Ctry>GB</Ctry>
+        </PstlAdr>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <Othr>
+            <Id>44890123</Id>
+            <SchmeNm><Cd>BBAN</Cd></SchmeNm>
+          </Othr>
+        </Id>
+      </CdtrAcct>
+      <RmtInf>
+        <Ustrd>Invoice RE-2026-04-0042 Machine Parts Q2/2026</Ustrd>
+      </RmtInf>
+    </CdtTrfTxInf>
+  </FIToFICstmrCdtTrf>
+</Document>

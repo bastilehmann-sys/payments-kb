@@ -1,0 +1,4 @@
+Transaction Type,Beneficiary Name,IFSC Code,Account Number,Amount (INR),Narration,Purpose Code,Email
+NEFT,MUELLER INDIA PVT LTD,SBIN0001234,50100123456789,875000.00,Invoice INV-2026-0042 Machine Parts Q2,P0103,accounts@muellerindia.com
+NEFT,BANGALORE SOFTWARE SERVICES LLP,HDFC0000123,12340987654321,1250000.00,IT Services April 2026 Contract CT-007,P0802,finance@bangaloresoft.in
+RTGS,TATA MOTORS LIMITED,UTIB0000456,918010012345678,5000000.00,Auto Components PO-2026-089,P0103,treasury@tatamotors.com

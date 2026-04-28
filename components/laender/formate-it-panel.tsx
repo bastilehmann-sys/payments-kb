@@ -172,12 +172,20 @@ const SAMPLES: Record<string, Sample[]> = {
     source: { label: 'ISO 20022 — camt.053.001.08 Message Definition', url: 'https://www.iso20022.org/iso-20022-message-definitions' },
   }],
   // China-Sektionen (Block 6)
-  '6.1': [{
-    label: 'cips-pacs.008-cn.xml',
-    href: '/samples/cn/cips-pacs.008-cn.xml',
-    size: '~3 KB · XML',
-    source: { label: 'CIPS — Business Specification', url: 'https://www.cips.com.cn/en/business_management/business_specification/index.html' },
-  }],
+  '6.1': [
+    {
+      label: 'cips-pain.001-cn.xml',
+      href: '/samples/cn/cips-pain.001-cn.xml',
+      size: '~3 KB · XML',
+      source: { label: 'CIPS — Business Specification (Customer Credit Transfer)', url: 'https://www.cips.com.cn/en/business_management/business_specification/index.html' },
+    },
+    {
+      label: 'cips-pacs.008-cn.xml',
+      href: '/samples/cn/cips-pacs.008-cn.xml',
+      size: '~3 KB · XML',
+      source: { label: 'CIPS — Business Specification (FI-to-FI)', url: 'https://www.cips.com.cn/en/business_management/business_specification/index.html' },
+    },
+  ],
   '6.2': [{
     label: 'cnaps-hvps.txt',
     href: '/samples/cn/cnaps-hvps.txt',
@@ -195,6 +203,149 @@ const SAMPLES: Record<string, Sample[]> = {
     href: '/samples/cn/camt.053-cn.xml',
     size: '~3 KB · XML',
     source: { label: 'ISO 20022 — camt.053.001.08 Message Definition', url: 'https://www.iso20022.org/iso-20022-message-definitions' },
+  }],
+  // Deutschland-Sektionen (Block 5, Sections 7.x)
+  '7.1': [{
+    label: 'sepa-sct-pain.001.xml',
+    href: '/samples/de/sepa-sct-pain.001.xml',
+    size: '~3 KB · XML',
+    source: { label: 'EPC — SEPA Credit Transfer Scheme Rulebook', url: 'https://www.europeanpaymentscouncil.eu/document-library' },
+  }],
+  '7.2': [{
+    label: 'sepa-sdd-pain.008.xml',
+    href: '/samples/de/sepa-sdd-pain.008.xml',
+    size: '~2 KB · XML',
+    source: { label: 'EPC — SEPA Direct Debit Scheme Rulebook', url: 'https://www.europeanpaymentscouncil.eu/document-library' },
+  }],
+  '7.4': [{
+    label: 'camt.053-de.xml',
+    href: '/samples/de/camt.053-de.xml',
+    size: '~3 KB · XML',
+    source: { label: 'ISO 20022 — camt.053.001.08 Message Definition', url: 'https://www.iso20022.org/iso-20022-message-definitions' },
+  }],
+  '7.5': [{
+    label: 'xrechnung-ubl.xml',
+    href: '/samples/de/xrechnung-ubl.xml',
+    size: '~4 KB · UBL 2.1 XML',
+    source: { label: 'KoSIT — XRechnung Standard', url: 'https://xeinkauf.de/xrechnung/' },
+  }],
+  // USA-Sektionen (Block 5, Sections 8.x)
+  '8.1': [{
+    label: 'nacha-ach-ccd.txt',
+    href: '/samples/us/nacha-ach-ccd.txt',
+    size: '~1 KB · Flat-File (94-Char)',
+    source: { label: 'NACHA — ACH Operating Rules & Guidelines', url: 'https://www.nacha.org/rules' },
+  }],
+  '8.2': [{
+    label: 'fedwire-sample.txt',
+    href: '/samples/us/fedwire-sample.txt',
+    size: '~1 KB · Tag-Value',
+    source: { label: 'Federal Reserve — Fedwire Funds Service Format Reference', url: 'https://www.frbservices.org/financial-services/wires' },
+  }],
+  '8.3': [{
+    label: 'fednow-pacs.008.xml',
+    href: '/samples/us/fednow-pacs.008.xml',
+    size: '~3 KB · XML',
+    source: { label: 'Federal Reserve — FedNow Service ISO 20022 Message Specification', url: 'https://www.frbservices.org/financial-services/fednow' },
+  }],
+  '8.4': [{
+    label: 'edi-x12-820.txt',
+    href: '/samples/us/edi-x12-820.txt',
+    size: '~1 KB · EDI',
+    source: { label: 'ANSI ASC X12 — Transaction Set 820 Payment Order/Remittance Advice', url: 'https://x12.org/' },
+  }],
+  '8.5': [{
+    label: 'positive-pay.csv',
+    href: '/samples/us/positive-pay.csv',
+    size: '~1 KB · CSV',
+    source: { label: 'Bank-spezifisch — Positive Pay File Format (Beispiel JPMorgan)', url: 'https://www.jpmorgan.com/' },
+  }],
+  '8.6': [{
+    label: 'cbpr-pacs.008-us.xml',
+    href: '/samples/us/cbpr-pacs.008-us.xml',
+    size: '~3 KB · XML',
+    source: { label: 'SWIFT — CBPR+ pacs.008 Usage Guidelines', url: 'https://www.swift.com/standards/iso-20022/iso-20022-programme/universal-confirmations' },
+  }],
+  // Schweiz-Sektionen (Block 5, Sections 9.x)
+  '9.1': [{
+    label: 'ch-pain.001.xml',
+    href: '/samples/ch/ch-pain.001.xml',
+    size: '~3 KB · XML',
+    source: { label: 'SIX — Swiss Payment Standards Implementation Guidelines', url: 'https://www.six-group.com/en/products-services/banking-services/payment-standardization/standards/swiss-payment-standards.html' },
+  }],
+  '9.3': [{
+    label: 'qr-rechnung-payload.txt',
+    href: '/samples/ch/qr-rechnung-payload.txt',
+    size: '~1 KB · SPC Text',
+    source: { label: 'SIX — Swiss QR Bill Specification', url: 'https://www.six-group.com/en/products-services/banking-services/payment-standardization/standards/qr-bill.html' },
+  }],
+  '9.4': [{
+    label: 'ch-lsv-pain.008.xml',
+    href: '/samples/ch/ch-lsv-pain.008.xml',
+    size: '~2 KB · XML',
+    source: { label: 'SIX — Swiss Direct Debit Implementation Guidelines', url: 'https://www.six-group.com/en/products-services/banking-services/payment-standardization/standards/swiss-payment-standards.html' },
+  }],
+  '9.5': [{
+    label: 'camt.053-ch.xml',
+    href: '/samples/ch/camt.053-ch.xml',
+    size: '~3 KB · XML',
+    source: { label: 'SIX — Swiss camt Message Implementation Guidelines', url: 'https://www.six-group.com/en/products-services/banking-services/payment-standardization/standards/swiss-payment-standards.html' },
+  }],
+  // UK-Sektionen (Block 5, Sections 10.x)
+  '10.1': [{
+    label: 'bacs-std18.txt',
+    href: '/samples/gb/bacs-std18.txt',
+    size: '~1 KB · Fixed-Length',
+    source: { label: 'Pay.UK — Bacs Standard 18 File Format Specification', url: 'https://www.bacs.co.uk/' },
+  }],
+  '10.2': [{
+    label: 'fps-openbanking-domestic.json',
+    href: '/samples/gb/fps-openbanking-domestic.json',
+    size: '~2 KB · JSON',
+    source: { label: 'Open Banking UK — Domestic Payment Message Formats v3.1', url: 'https://openbankinguk.github.io/read-write-api-site3/v3.1.5/references/domestic-payment-message-formats.html' },
+  }],
+  '10.3': [{
+    label: 'chaps-pacs.008.xml',
+    href: '/samples/gb/chaps-pacs.008.xml',
+    size: '~3 KB · XML',
+    source: { label: 'Bank of England — CHAPS ISO 20022 Message Specification', url: 'https://www.bankofengland.co.uk/payment-and-settlement/chaps' },
+  }],
+  '10.4': [{
+    label: 'swift-pacs.008-gb.xml',
+    href: '/samples/gb/swift-pacs.008-gb.xml',
+    size: '~3 KB · XML',
+    source: { label: 'SWIFT — CBPR+ pacs.008 Usage Guidelines (EU↔GB Post-Brexit)', url: 'https://www.swift.com/standards/iso-20022' },
+  }],
+  '10.5': [{
+    label: 'camt.053-gb.xml',
+    href: '/samples/gb/camt.053-gb.xml',
+    size: '~2 KB · XML',
+    source: { label: 'ISO 20022 — camt.053.001.08 Message Definition', url: 'https://www.iso20022.org/iso-20022-message-definitions' },
+  }],
+  // Indien-Sektionen (Block 5, Sections 11.x)
+  '11.1': [{
+    label: 'neft-rtgs-sample.csv',
+    href: '/samples/in/neft-rtgs-sample.csv',
+    size: '~1 KB · CSV',
+    source: { label: 'Bankspezifisch — NEFT/RTGS H2H File Format (Beispiel)', url: 'https://rbi.org.in/' },
+  }],
+  '11.2': [{
+    label: 'swift-pacs.008-in.xml',
+    href: '/samples/in/swift-pacs.008-in.xml',
+    size: '~3 KB · XML',
+    source: { label: 'SWIFT — CBPR+ pacs.008 with RBI Purpose Code + IFSC + PAN', url: 'https://www.swift.com/standards/iso-20022' },
+  }],
+  '11.3': [{
+    label: 'gst-einvoice-sample.json',
+    href: '/samples/in/gst-einvoice-sample.json',
+    size: '~2 KB · JSON',
+    source: { label: 'GST Council — e-Invoice Schema v1.1', url: 'https://einvoice1.gst.gov.in/' },
+  }],
+  '11.4': [{
+    label: 'mt940-in-sample.txt',
+    href: '/samples/in/mt940-in-sample.txt',
+    size: '~1 KB · SWIFT MT940',
+    source: { label: 'SWIFT — MT940 Customer Statement Message', url: 'https://www.swift.com/' },
   }],
 };
 const STD_SAMPLES: Sample[] = [
@@ -219,8 +370,7 @@ function SampleList({ samples, label = 'Beispiel-Datei' }: { samples: Sample[]; 
             <div className="flex items-center justify-between gap-3 text-sm">
               <a
                 href={s.href}
-                target="_blank"
-                rel="noreferrer"
+                download={s.label}
                 className="inline-flex items-center gap-1.5 font-mono font-medium text-primary hover:underline"
               >
                 <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.5">

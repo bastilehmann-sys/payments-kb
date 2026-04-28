@@ -1,0 +1,24 @@
+SPC
+0200
+1
+CH4800230023099999999
+S
+Müller Präzisionstechnik GmbH
+Industrieweg
+15
+3000
+Bern
+CH
+8750.00
+CHF
+S
+Beispiel Schweiz AG
+Bahnhofstrasse
+42
+8001
+Zürich
+CH
+QRR
+210000000003139471430009017
+Rechnung RE-2026-0042 Maschinenteile Q2/2026
+EPD

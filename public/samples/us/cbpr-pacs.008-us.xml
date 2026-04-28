@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  CBPR+ pacs.008.001.09 — Cross-Border USD Payment
+  EU→US via SWIFT (post November 2025 migration).
+  US-Specifics:
+    - ABA Routing Number in CdtrAgt/ClrSysMmbId (USABA)
+    - Account Number (no IBAN) in CdtrAcct
+    - OFAC screening applies to all USD transactions worldwide
+    - ChrgBr SHAR standard for cross-border
+-->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.09">
+  <FIToFICstmrCdtTrf>
+    <GrpHdr>
+      <MsgId>CBPR-US-2026-0421-0001</MsgId>
+      <CreDtTm>2026-04-21T09:00:00Z</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <SttlmInf>
+        <SttlmMtd>INDA</SttlmMtd>
+      </SttlmInf>
+      <InstgAgt>
+        <FinInstnId><BICFI>COBADEFFXXX</BICFI></FinInstnId>
+      </InstgAgt>
+      <InstdAgt>
+        <FinInstnId><BICFI>CHABORINBB</BICFI></FinInstnId>
+      </InstdAgt>
+    </GrpHdr>
+    <CdtTrfTxInf>
+      <PmtId>
+        <InstrId>INS-CBPR-US-0001</InstrId>
+        <EndToEndId>RE-2026-04-0042</EndToEndId>
+        <UETR>a1b2c3d4-e5f6-7890-abcd-ef1234567890</UETR>
+      </PmtId>
+      <IntrBkSttlmAmt Ccy="USD">45000.00</IntrBkSttlmAmt>
+      <IntrBkSttlmDt>2026-04-22</IntrBkSttlmDt>
+      <ChrgBr>SHAR</ChrgBr>
+      <InstdAmt Ccy="USD">45000.00</InstdAmt>
+      <Dbtr>
+        <Nm>BEISPIEL GMBH</Nm>
+        <PstlAdr>
+          <StrtNm>Industriestrasse 42</StrtNm>
+          <PstCd>90402</PstCd>
+          <TwnNm>Nuernberg</TwnNm>
+          <Ctry>DE</Ctry>
+        </PstlAdr>
+      </Dbtr>
+      <DbtrAcct>
+        <Id><IBAN>DE89370400440532013000</IBAN></Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId><BICFI>COBADEFFXXX</BICFI></FinInstnId>
+      </DbtrAgt>
+      <IntrmyAgt1>
+        <FinInstnId>
+          <BICFI>CHABORINBB</BICFI>
+          <ClrSysMmbId>
+            <ClrSysId><Cd>USABA</Cd></ClrSysId>
+            <MmbId>021000021</MmbId>
+          </ClrSysMmbId>
+        </FinInstnId>
+      </IntrmyAgt1>
+      <CdtrAgt>
+        <FinInstnId>
+          <BICFI>BOFAUS3NXXX</BICFI>
+          <ClrSysMmbId>
+            <ClrSysId><Cd>USABA</Cd></ClrSysId>
+            <MmbId>026009593</MmbId>
+          </ClrSysMmbId>
+        </FinInstnId>
+      </CdtrAgt>
+      <Cdtr>
+        <Nm>MUELLER MACHINERY INC</Nm>
+        <PstlAdr>
+          <StrtNm>7 Works Lane</StrtNm>
+          <PstCd>77001</PstCd>
+          <TwnNm>Houston</TwnNm>
+          <CtrySubDvsn>TX</CtrySubDvsn>
+          <Ctry>US</Ctry>
+        </PstlAdr>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <Othr>
+            <Id>9876543210987</Id>
+            <SchmeNm><Cd>BBAN</Cd></SchmeNm>
+          </Othr>
+        </Id>
+      </CdtrAcct>
+      <RmtInf>
+        <Strd>
+          <RfrdDocInf>
+            <Tp><CdOrPrtry><Cd>CINV</Cd></CdOrPrtry></Tp>
+            <Nb>RE-2026-04-0042</Nb>
+            <RltdDt>2026-04-15</RltdDt>
+          </RfrdDocInf>
+          <RfrdDocAmt>
+            <DuePyblAmt Ccy="USD">45000.00</DuePyblAmt>
+          </RfrdDocAmt>
+        </Strd>
+      </RmtInf>
+    </CdtTrfTxInf>
+  </FIToFICstmrCdtTrf>
+</Document>

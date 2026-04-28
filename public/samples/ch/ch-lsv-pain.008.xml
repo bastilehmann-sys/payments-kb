@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  CH-pain.008 — LSV+ (Lastschriftverfahren Plus)
+  CH-Lastschrift über SIC. Eigenes Mandat (nicht SEPA).
+  Widerspruchsfrist: 30 Tage.
+-->
+<Document xmlns="http://www.six-interbank-clearing.com/de/pain.008.001.01.ch.03"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <CstmrDrctDbtInitn>
+    <GrpHdr>
+      <MsgId>CH-LSV-2026-0421-0001</MsgId>
+      <CreDtTm>2026-04-21T08:00:00+02:00</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>299.00</CtrlSum>
+      <InitgPty>
+        <Nm>Beispiel Schweiz AG</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <PmtInfId>PMT-CH-LSV-0001</PmtInfId>
+      <PmtMtd>DD</PmtMtd>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>299.00</CtrlSum>
+      <PmtTpInf>
+        <LclInstrm>
+          <Prtry>LSV+</Prtry>
+        </LclInstrm>
+        <SeqTp>RCUR</SeqTp>
+      </PmtTpInf>
+      <ReqdColltnDt>2026-04-28</ReqdColltnDt>
+      <Cdtr>
+        <Nm>Beispiel Schweiz AG</Nm>
+        <PstlAdr>
+          <StrtNm>Bahnhofstrasse</StrtNm>
+          <BldgNb>42</BldgNb>
+          <PstCd>8001</PstCd>
+          <TwnNm>Zürich</TwnNm>
+          <Ctry>CH</Ctry>
+        </PstlAdr>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <IBAN>CH9300762011623852957</IBAN>
+        </Id>
+      </CdtrAcct>
+      <CdtrAgt>
+        <FinInstnId>
+          <ClrSysMmbId>
+            <ClrSysId><Cd>CHBCC</Cd></ClrSysId>
+            <MmbId>00762</MmbId>
+          </ClrSysMmbId>
+        </FinInstnId>
+      </CdtrAgt>
+      <CdtrSchmeId>
+        <Id>
+          <PrvtId>
+            <Othr>
+              <Id>CH-LSV-001234</Id>
+              <SchmeNm><Prtry>CHLS</Prtry></SchmeNm>
+            </Othr>
+          </PrvtId>
+        </Id>
+      </CdtrSchmeId>
+      <DrctDbtTxInf>
+        <PmtId>
+          <EndToEndId>ABO-2026-04-MUELLER</EndToEndId>
+        </PmtId>
+        <InstdAmt Ccy="CHF">299.00</InstdAmt>
+        <DrctDbtTx>
+          <MndtRltdInf>
+            <MndtId>LSV-MNDT-2024-MUELLER</MndtId>
+            <DtOfSgntr>2024-06-15</DtOfSgntr>
+          </MndtRltdInf>
+        </DrctDbtTx>
+        <DbtrAgt>
+          <FinInstnId>
+            <ClrSysMmbId>
+              <ClrSysId><Cd>CHBCC</Cd></ClrSysId>
+              <MmbId>00230</MmbId>
+            </ClrSysMmbId>
+          </FinInstnId>
+        </DbtrAgt>
+        <Dbtr>
+          <Nm>Hans Müller</Nm>
+          <PstlAdr>
+            <StrtNm>Kramgasse</StrtNm>
+            <BldgNb>7</BldgNb>
+            <PstCd>3011</PstCd>
+            <TwnNm>Bern</TwnNm>
+            <Ctry>CH</Ctry>
+          </PstlAdr>
+        </Dbtr>
+        <DbtrAcct>
+          <Id>
+            <IBAN>CH4800230023099999999</IBAN>
+          </Id>
+        </DbtrAcct>
+        <RmtInf>
+          <Ustrd>Monatsabo April 2026 — Kundennr. K-4711</Ustrd>
+        </RmtInf>
+      </DrctDbtTxInf>
+    </PmtInf>
+  </CstmrDrctDbtInitn>
+</Document>

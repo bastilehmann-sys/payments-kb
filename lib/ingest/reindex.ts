@@ -61,7 +61,8 @@ function filenameToSection(filename: string): string | null {
   const m = filename.match(/^gpdb_(\d{2}_[^.]+)\.md$/);
   if (!m) return null;
   const key = m[1];
-  return SECTION_MAP[key] ?? null;
+  // Known sections from map; files 08+ are new country files → 'laender'
+  return SECTION_MAP[key] ?? 'laender';
 }
 
 function extractTitle(md: string, fallback: string): string {

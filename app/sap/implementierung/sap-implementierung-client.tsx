@@ -5,7 +5,6 @@ import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { cn } from '@/lib/utils';
-import { extractSection } from '@/lib/technik/parse-md';
 import type { SapImplementationPhase } from '@/lib/queries/sap';
 
 const COLOR_STYLES: Record<string, { bg: string; border: string; label: string; active: string }> = {
@@ -18,14 +17,14 @@ const COLOR_STYLES: Record<string, { bg: string; border: string; label: string; 
 
 interface Props {
   phases: SapImplementationPhase[];
-  mdContent: string;
+  sectionMap: Record<string, string>;
 }
 
-export function SapImplementierungClient({ phases, mdContent }: Props) {
+export function SapImplementierungClient({ phases, sectionMap }: Props) {
   const [activePhase, setActivePhase] = useState<number | null>(null);
   const selectedPhase = phases.find(p => p.phase_nr === activePhase);
   const articleMd = selectedPhase?.md_anchor
-    ? extractSection(mdContent, selectedPhase.md_anchor) ?? ''
+    ? sectionMap[selectedPhase.md_anchor] ?? ''
     : '';
 
   return (

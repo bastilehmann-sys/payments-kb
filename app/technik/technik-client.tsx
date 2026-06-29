@@ -61,6 +61,10 @@ export function TechnikClient({ entries }: Props) {
         ))}
       </div>
 
+      {filtered.length === 0 && (
+        <p className="py-8 text-center text-muted-foreground">Keine Einträge für diesen Filter.</p>
+      )}
+
       {/* Card grid */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map(entry => (

@@ -90,7 +90,7 @@ export function TechnikDetailClient({ entry, articleMd }: Props) {
           <h2 className="mb-4 border-b border-border pb-2 font-heading text-lg font-semibold text-foreground">
             Artikel
           </h2>
-          <div className="space-y-2 text-sm text-foreground leading-relaxed whitespace-pre-wrap">
+          <div className="space-y-2 text-sm text-foreground leading-relaxed">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{articleMd}</ReactMarkdown>
           </div>
         </div>

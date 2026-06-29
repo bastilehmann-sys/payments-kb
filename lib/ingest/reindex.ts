@@ -31,6 +31,8 @@ const SECTION_MAP: Record<string, string> = {
   '03_clearing_zahlungsarten': 'clearing',
   '04_ihb_komplexitaet': 'ihb',
   '05_italien': 'laender',
+  '06_technik': 'technik',
+  '07_sap': 'sap',
 };
 
 const SLUG_MAP: Record<string, string> = {
@@ -39,6 +41,8 @@ const SLUG_MAP: Record<string, string> = {
   clearing: 'clearing',
   ihb: 'ihb',
   laender: 'italien',
+  technik: 'technik',
+  sap: 'sap',
 };
 
 // Excel-derived MD files: filename → { section, slug }

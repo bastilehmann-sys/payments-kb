@@ -271,3 +271,55 @@ export const countries = pgTable('countries', {
   special_format_requirements: text('special_format_requirements'),
   special_regulatory_requirements: text('special_regulatory_requirements'),
 });
+
+// ============================================================
+// technik_entries — Verbindungsprotokoll-Steckbriefe
+// ============================================================
+
+export const technikEntries = pgTable('technik_entries', {
+  id: text('id').primaryKey(), // slug, z.B. "ebics"
+  name: text('name').notNull(),
+  subtitle: text('subtitle'),
+  category: text('category').notNull(), // 'bank' | 'sap' | 'swift'
+  badges: jsonb('badges').$type<string[]>().default([]),
+  einsatzgebiet: text('einsatzgebiet'),
+  sicherheit: text('sicherheit'),
+  verbreitung: text('verbreitung'),
+  sap_integration: text('sap_integration'),
+  version_aktuell: text('version_aktuell'),
+  formate: text('formate').array().default([]),
+  alternativen: text('alternativen').array().default([]),
+  komplexitaet: integer('komplexitaet'), // 1–5
+  tags: text('tags').array().default([]),
+  created_at: timestamp('created_at', { withTimezone: true }).defaultNow(),
+  updated_at: timestamp('updated_at', { withTimezone: true }).defaultNow(),
+});
+
+// ============================================================
+// sap_roadmap_items — SAP Produktroadmap Einträge
+// ============================================================
+
+export const sapRoadmapItems = pgTable('sap_roadmap_items', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  title: text('title').notNull(),
+  description: text('description'),
+  release_date: text('release_date'), // "Q4 2025", "2027+"
+  status: text('status').notNull().default('planned'), // 'available' | 'announced' | 'planned'
+  tags: text('tags').array().default([]),
+  sort_order: integer('sort_order').notNull().default(0),
+  created_at: timestamp('created_at', { withTimezone: true }).defaultNow(),
+});
+
+// ============================================================
+// sap_implementation_phases — Implementierungspfad Phasen
+// ============================================================
+
+export const sapImplementationPhases = pgTable('sap_implementation_phases', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  phase_nr: integer('phase_nr').notNull(),
+  title: text('title').notNull(),
+  description: text('description'),
+  color: text('color').notNull(), // 'blue' | 'green' | 'yellow' | 'orange' | 'purple'
+  md_anchor: text('md_anchor'),
+  created_at: timestamp('created_at', { withTimezone: true }).defaultNow(),
+});

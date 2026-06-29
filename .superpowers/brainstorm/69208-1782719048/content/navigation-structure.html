@@ -1,0 +1,45 @@
+<h2>Wie soll die Navigation strukturiert sein?</h2>
+<p class="subtitle">Drei Wissens-Säulen — wie soll der Nutzer zwischen ihnen navigieren?</p>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Top-Level Tabs</h3>
+      <p>Drei gleichwertige Bereiche als Haupt-Tabs in der Navbar: <strong>Regulatorik · Technik · SAP</strong>. Jeder Bereich hat seine eigene Unternavigation. Der KI-Chat ist global (immer erreichbar).</p>
+      <div style="margin-top:12px;background:#f4f4f5;border-radius:8px;padding:10px 14px;font-size:12px;font-family:monospace;color:#444">
+        [ Regulatorik ] [ Technik ] [ SAP ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [Chat ✦]
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Sidebar mit Sektionen</h3>
+      <p>Linke Sidebar mit drei aufklappbaren Gruppen. Flachere Struktur, alle Unterpunkte sofort sichtbar. Gut für viele Unterpunkte pro Bereich.</p>
+      <div style="margin-top:12px;background:#f4f4f5;border-radius:8px;padding:10px 14px;font-size:12px;font-family:monospace;color:#444">
+        ▾ Regulatorik<br/>
+        &nbsp;&nbsp;Länder · Formate · Clearing<br/>
+        ▾ Technik<br/>
+        &nbsp;&nbsp;EBICS · H2H · SWIFT · MBC<br/>
+        ▾ SAP<br/>
+        &nbsp;&nbsp;Roadmap · Module
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Hub-Dashboard</h3>
+      <p>Startseite als zentrales Dashboard mit drei Kacheln. Jede Kachel führt in einen Bereich mit eigener Navigation. Klares "Wo bin ich?" Gefühl.</p>
+      <div style="margin-top:12px;background:#f4f4f5;border-radius:8px;padding:10px 14px;font-size:12px;font-family:monospace;color:#444">
+        ┌──────────┐ ┌──────────┐ ┌──────────┐<br/>
+        │Regulatorik│ │  Technik  │ │    SAP   │<br/>
+        │ 30 Länder │ │EBICS·SWIFT│ │ Roadmap  │<br/>
+        └──────────┘ └──────────┘ └──────────┘
+      </div>
+    </div>
+  </div>
+</div>

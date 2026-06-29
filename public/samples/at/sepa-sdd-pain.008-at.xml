@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SEPA SDD Core — pain.008.001.02 (Customer Direct Debit Initiation)
+  AT-Spezifika:
+    - Gläubiger-ID (CI) Format: AT + 2 IBAN-Prüf + ZZZ + 11 nationale ID
+    - STUZZA-Implementierungsrichtlinien folgen EPC-Standard
+  Quelle: STUZZA, EPC SDD Core Rulebook, OeNB
+-->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.008.001.02">
+  <CstmrDrctDbtInitn>
+    <GrpHdr>
+      <MsgId>SEPA-SDD-AT-2026-0421-0001</MsgId>
+      <CreDtTm>2026-04-21T08:00:00Z</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>79.90</CtrlSum>
+      <InitgPty>
+        <Nm>BEISPIEL GMBH</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <PmtInfId>PMT-AT-SDD-0001</PmtInfId>
+      <PmtMtd>DD</PmtMtd>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>79.90</CtrlSum>
+      <PmtTpInf>
+        <SvcLvl><Cd>SEPA</Cd></SvcLvl>
+        <LclInstrm><Cd>CORE</Cd></LclInstrm>
+        <SeqTp>RCUR</SeqTp>
+      </PmtTpInf>
+      <ReqdColltnDt>2026-04-28</ReqdColltnDt>
+      <Cdtr>
+        <Nm>BEISPIEL GMBH</Nm>
+        <PstlAdr>
+          <Ctry>AT</Ctry>
+        </PstlAdr>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <IBAN>AT611904300234573201</IBAN>
+        </Id>
+      </CdtrAcct>
+      <CdtrAgt>
+        <FinInstnId><BICFI>GIBAATWWXXX</BICFI></FinInstnId>
+      </CdtrAgt>
+      <CdtrSchmeId>
+        <Id>
+          <PrvtId>
+            <Othr>
+              <Id>AT22ZZZ12345678901</Id>
+              <SchmeNm><Prtry>SEPA</Prtry></SchmeNm>
+            </Othr>
+          </PrvtId>
+        </Id>
+      </CdtrSchmeId>
+      <DrctDbtTxInf>
+        <PmtId>
+          <EndToEndId>ABO-2026-04-HUBER</EndToEndId>
+        </PmtId>
+        <InstdAmt Ccy="EUR">79.90</InstdAmt>
+        <DrctDbtTx>
+          <MndtRltdInf>
+            <MndtId>MNDT-AT-2024-HUBER-001</MndtId>
+            <DtOfSgntr>2024-10-08</DtOfSgntr>
+          </MndtRltdInf>
+        </DrctDbtTx>
+        <DbtrAgt>
+          <FinInstnId><BICFI>BKAUATWWXXX</BICFI></FinInstnId>
+        </DbtrAgt>
+        <Dbtr>
+          <Nm>FRANZ HUBER</Nm>
+          <PstlAdr>
+            <Ctry>AT</Ctry>
+          </PstlAdr>
+        </Dbtr>
+        <DbtrAcct>
+          <Id>
+            <IBAN>AT021100000987654321</IBAN>
+          </Id>
+        </DbtrAcct>
+        <RmtInf>
+          <Ustrd>Monatsabo April 2026 — Kundennr. K-2891</Ustrd>
+        </RmtInf>
+      </DrctDbtTxInf>
+    </PmtInf>
+  </CstmrDrctDbtInitn>
+</Document>

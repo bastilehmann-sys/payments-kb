@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  camt.053.001.08 — Bank-to-Customer Statement (Tagesauszug)
+  ES-Kontext: Via EBICS Auftragsart C53 von CaixaBank empfangen.
+  Ersetzt Cuaderno 43 (AEB-Legacy-Format).
+-->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.053.001.08">
+  <BkToCstmrStmt>
+    <GrpHdr>
+      <MsgId>CAMT053-ES-2026-0421</MsgId>
+      <CreDtTm>2026-04-21T18:00:00Z</CreDtTm>
+    </GrpHdr>
+    <Stmt>
+      <Id>STMT-ES-20260421</Id>
+      <ElctrncSeqNb>87</ElctrncSeqNb>
+      <CreDtTm>2026-04-21T18:00:00Z</CreDtTm>
+      <Acct>
+        <Id>
+          <IBAN>ES9121000418450200051332</IBAN>
+        </Id>
+        <Ccy>EUR</Ccy>
+        <Svcr>
+          <FinInstnId><BICFI>CAIXESBBXXX</BICFI></FinInstnId>
+        </Svcr>
+      </Acct>
+      <Bal>
+        <Tp><CdOrPrtry><Cd>OPBD</Cd></CdOrPrtry></Tp>
+        <Amt Ccy="EUR">156890.00</Amt>
+        <CdtDbtInd>CRDT</CdtDbtInd>
+        <Dt><Dt>2026-04-21</Dt></Dt>
+      </Bal>
+      <Bal>
+        <Tp><CdOrPrtry><Cd>CLBD</Cd></CdOrPrtry></Tp>
+        <Amt Ccy="EUR">147970.00</Amt>
+        <CdtDbtInd>CRDT</CdtDbtInd>
+        <Dt><Dt>2026-04-21</Dt></Dt>
+      </Bal>
+      <Ntry>
+        <Amt Ccy="EUR">8920.00</Amt>
+        <CdtDbtInd>DBIT</CdtDbtInd>
+        <Sts><Cd>BOOK</Cd></Sts>
+        <BookgDt><Dt>2026-04-21</Dt></BookgDt>
+        <ValDt><Dt>2026-04-22</Dt></ValDt>
+        <BkTxCd>
+          <Domn>
+            <Cd>PMNT</Cd>
+            <Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly>
+          </Domn>
+        </BkTxCd>
+        <NtryDtls>
+          <TxDtls>
+            <Refs>
+              <EndToEndId>FACT-2026-04-0307</EndToEndId>
+            </Refs>
+            <RltdPties>
+              <Cdtr><Nm>SUMINISTROS GARCÍA SL</Nm></Cdtr>
+              <CdtrAcct><Id><IBAN>ES7901824567890987654321</IBAN></Id></CdtrAcct>
+            </RltdPties>
+            <RmtInf>
+              <Ustrd>Factura FACT-2026-04-0307 — Material industrial Q2</Ustrd>
+            </RmtInf>
+          </TxDtls>
+        </NtryDtls>
+      </Ntry>
+    </Stmt>
+  </BkToCstmrStmt>
+</Document>

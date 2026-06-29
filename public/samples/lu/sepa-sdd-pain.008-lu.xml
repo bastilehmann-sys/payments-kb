@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SEPA SDD Core — pain.008.001.02 (Customer Direct Debit Initiation)
+  LU-Spezifika:
+    - Gläubiger-ID (CI) Format: LU + 2 IBAN-Prüf + ZZZ + 11 nationale ID
+  Quelle: EPC SDD Core Rulebook, BCL
+-->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.008.001.02">
+  <CstmrDrctDbtInitn>
+    <GrpHdr>
+      <MsgId>SEPA-SDD-LU-2026-0421-0001</MsgId>
+      <CreDtTm>2026-04-21T08:00:00Z</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>189.00</CtrlSum>
+      <InitgPty>
+        <Nm>EXEMPLE HOLDING SARL</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <PmtInfId>PMT-LU-SDD-0001</PmtInfId>
+      <PmtMtd>DD</PmtMtd>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>189.00</CtrlSum>
+      <PmtTpInf>
+        <SvcLvl><Cd>SEPA</Cd></SvcLvl>
+        <LclInstrm><Cd>CORE</Cd></LclInstrm>
+        <SeqTp>RCUR</SeqTp>
+      </PmtTpInf>
+      <ReqdColltnDt>2026-04-28</ReqdColltnDt>
+      <Cdtr>
+        <Nm>EXEMPLE HOLDING SARL</Nm>
+        <PstlAdr>
+          <Ctry>LU</Ctry>
+        </PstlAdr>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <IBAN>LU280019400644750000</IBAN>
+        </Id>
+      </CdtrAcct>
+      <CdtrAgt>
+        <FinInstnId><BICFI>BGLLLULLXXX</BICFI></FinInstnId>
+      </CdtrAgt>
+      <CdtrSchmeId>
+        <Id>
+          <PrvtId>
+            <Othr>
+              <Id>LU13ZZZ12345678901</Id>
+              <SchmeNm><Prtry>SEPA</Prtry></SchmeNm>
+            </Othr>
+          </PrvtId>
+        </Id>
+      </CdtrSchmeId>
+      <DrctDbtTxInf>
+        <PmtId>
+          <EndToEndId>ABO-2026-04-WEBER</EndToEndId>
+        </PmtId>
+        <InstdAmt Ccy="EUR">189.00</InstdAmt>
+        <DrctDbtTx>
+          <MndtRltdInf>
+            <MndtId>MNDT-LU-2024-WEBER-001</MndtId>
+            <DtOfSgntr>2024-09-15</DtOfSgntr>
+          </MndtRltdInf>
+        </DrctDbtTx>
+        <DbtrAgt>
+          <FinInstnId><BICFI>BCEELULLXXX</BICFI></FinInstnId>
+        </DbtrAgt>
+        <Dbtr>
+          <Nm>MARCO WEBER</Nm>
+          <PstlAdr>
+            <Ctry>LU</Ctry>
+          </PstlAdr>
+        </Dbtr>
+        <DbtrAcct>
+          <Id>
+            <IBAN>LU910030412345678901</IBAN>
+          </Id>
+        </DbtrAcct>
+        <RmtInf>
+          <Ustrd>Abonnement avril 2026 — Réf. client C-4521</Ustrd>
+        </RmtInf>
+      </DrctDbtTxInf>
+    </PmtInf>
+  </CstmrDrctDbtInitn>
+</Document>

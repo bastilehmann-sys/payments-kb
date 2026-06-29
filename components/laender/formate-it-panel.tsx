@@ -347,6 +347,210 @@ const SAMPLES: Record<string, Sample[]> = {
     size: '~1 KB · SWIFT MT940',
     source: { label: 'SWIFT — MT940 Customer Statement Message', url: 'https://www.swift.com/' },
   }],
+  // Belgien-Sektionen (Block 5, Sections 12.x)
+  '12.1': [{
+    label: 'sepa-sct-pain.001-be.xml',
+    href: '/samples/be/sepa-sct-pain.001-be.xml',
+    size: '~3 KB · XML',
+    source: { label: 'EPC — SEPA Credit Transfer Scheme Customer-to-Bank IG', url: 'https://www.europeanpaymentscouncil.eu/document-library' },
+  }],
+  '12.2': [{
+    label: 'sepa-sdd-pain.008-be.xml',
+    href: '/samples/be/sepa-sdd-pain.008-be.xml',
+    size: '~2 KB · XML',
+    source: { label: 'EPC — SEPA Direct Debit Core Rulebook', url: 'https://www.europeanpaymentscouncil.eu/document-library' },
+  }],
+  '12.3': [{
+    label: 'coda-2.6-sample.txt',
+    href: '/samples/be/coda-2.6-sample.txt',
+    size: '~2 KB · Flat-File (128-Char)',
+    source: { label: 'Febelfin — CODA 2.6 Implementation Guidelines', url: 'https://www.febelfin.be' },
+  }],
+  '12.4': [{
+    label: 'bancontact-payconiq-info.md',
+    href: '/samples/be/bancontact-payconiq-info.md',
+    size: 'Info',
+    source: { label: 'Bancontact Company — Standards & Specifications', url: 'https://www.bancontact.com' },
+  }],
+  '12.5': [{
+    label: 'isabel-ponto-info.md',
+    href: '/samples/be/isabel-ponto-info.md',
+    size: 'Info',
+    source: { label: 'Isabel Group — Ponto API Documentation', url: 'https://myponto.com' },
+  }],
+  '12.6': [{
+    label: 'camt.053-be.xml',
+    href: '/samples/be/camt.053-be.xml',
+    size: '~3 KB · XML',
+    source: { label: 'ISO 20022 — camt.053.001.08 Message Definition', url: 'https://www.iso20022.org/iso-20022-message-definitions' },
+  }],
+  '12.7': [{
+    label: 'peppol-bis-3.0-be.xml',
+    href: '/samples/be/peppol-bis-3.0-be.xml',
+    size: '~4 KB · UBL 2.1',
+    source: { label: 'OpenPeppol — PEPPOL BIS Billing 3.0', url: 'https://docs.peppol.eu/poacc/billing/3.0/' },
+  }],
+  // Spanien-Sektionen (Block 5, Sections 13.x)
+  '13.1': [{
+    label: 'sepa-sct-pain.001-es.xml',
+    href: '/samples/es/sepa-sct-pain.001-es.xml',
+    size: '~3 KB · XML',
+    source: { label: 'EPC — SEPA Credit Transfer Scheme Customer-to-Bank IG', url: 'https://www.europeanpaymentscouncil.eu/document-library' },
+  }],
+  '13.2': [{
+    label: 'sepa-sdd-pain.008-es.xml',
+    href: '/samples/es/sepa-sdd-pain.008-es.xml',
+    size: '~2 KB · XML',
+    source: { label: 'EPC — SEPA Direct Debit Core Rulebook', url: 'https://www.europeanpaymentscouncil.eu/document-library' },
+  }],
+  '13.3': [{
+    label: 'facturae-3.2.2-sample.xml',
+    href: '/samples/es/facturae-3.2.2-sample.xml',
+    size: '~5 KB · XAdES-XML',
+    source: { label: 'AEAT — Facturae 3.2.2 Schema Specification', url: 'https://www.facturae.gob.es' },
+  }],
+  '13.4': [{
+    label: 'bizum-empresas-info.md',
+    href: '/samples/es/bizum-empresas-info.md',
+    size: 'Info',
+    source: { label: 'Bizum S.L. — Bizum Empresas Specification', url: 'https://bizum.es' },
+  }],
+  '13.5': [{
+    label: 'confirming-process-info.md',
+    href: '/samples/es/confirming-process-info.md',
+    size: 'Info',
+    source: { label: 'AEB — Asociación Española de Banca / Confirming', url: 'https://www.aebanca.es' },
+  }],
+  '13.6': [{
+    label: 'camt.053-es.xml',
+    href: '/samples/es/camt.053-es.xml',
+    size: '~3 KB · XML',
+    source: { label: 'ISO 20022 — camt.053.001.08 Message Definition', url: 'https://www.iso20022.org/iso-20022-message-definitions' },
+  }],
+  // Frankreich-Sektionen (Block 5, Sections 14.x)
+  '14.1': [{
+    label: 'sepa-sct-pain.001-fr.xml',
+    href: '/samples/fr/sepa-sct-pain.001-fr.xml',
+    size: '~3 KB · XML',
+    source: { label: 'EPC — SEPA Credit Transfer Scheme Customer-to-Bank IG', url: 'https://www.europeanpaymentscouncil.eu/document-library' },
+  }],
+  '14.2': [{
+    label: 'sepa-sdd-pain.008-fr.xml',
+    href: '/samples/fr/sepa-sdd-pain.008-fr.xml',
+    size: '~2 KB · XML',
+    source: { label: 'EPC — SEPA Direct Debit Core Rulebook', url: 'https://www.europeanpaymentscouncil.eu/document-library' },
+  }],
+  '14.3': [{
+    label: 'cfonb-lcr-sample.txt',
+    href: '/samples/fr/cfonb-lcr-sample.txt',
+    size: '~1 KB · 80-Char Flat-File',
+    source: { label: 'CFONB — Comité Français d\'Organisation et de Normalisation Bancaires', url: 'https://www.cfonb.org' },
+  }],
+  '14.4': [{
+    label: 'cheque-eic-info.md',
+    href: '/samples/fr/cheque-eic-info.md',
+    size: 'Info',
+    source: { label: 'Banque de France — Échange Image Chèques (EIC)', url: 'https://www.banque-france.fr' },
+  }],
+  '14.5': [{
+    label: 'factur-x-en16931-info.md',
+    href: '/samples/fr/factur-x-en16931-info.md',
+    size: 'Info + Embedded XML',
+    source: { label: 'FNFE-MPE — Factur-X Specification', url: 'https://fnfe-mpe.org' },
+  }],
+  '14.6': [{
+    label: 'camt.053-fr.xml',
+    href: '/samples/fr/camt.053-fr.xml',
+    size: '~3 KB · XML',
+    source: { label: 'ISO 20022 — camt.053.001.08 Message Definition', url: 'https://www.iso20022.org/iso-20022-message-definitions' },
+  }],
+  // Niederlande-Sektionen (Block 5, Sections 15.x)
+  '15.1': [{
+    label: 'sepa-sct-pain.001-nl.xml',
+    href: '/samples/nl/sepa-sct-pain.001-nl.xml',
+    size: '~3 KB · XML',
+    source: { label: 'EPC — SEPA Credit Transfer Scheme Customer-to-Bank IG', url: 'https://www.europeanpaymentscouncil.eu/document-library' },
+  }],
+  '15.2': [{
+    label: 'sepa-sdd-pain.008-nl.xml',
+    href: '/samples/nl/sepa-sdd-pain.008-nl.xml',
+    size: '~2 KB · XML',
+    source: { label: 'EPC — SEPA Direct Debit Core Rulebook', url: 'https://www.europeanpaymentscouncil.eu/document-library' },
+  }],
+  '15.3': [{
+    label: 'ideal-2.0-api-info.md',
+    href: '/samples/nl/ideal-2.0-api-info.md',
+    size: 'Info',
+    source: { label: 'Currence iDEAL — iDEAL 2.0 API Documentation', url: 'https://www.ideal.nl' },
+  }],
+  '15.4': [{
+    label: 'peppol-bis-3.0-nl.xml',
+    href: '/samples/nl/peppol-bis-3.0-nl.xml',
+    size: '~4 KB · UBL 2.1',
+    source: { label: 'OpenPeppol — PEPPOL BIS Billing 3.0', url: 'https://docs.peppol.eu/poacc/billing/3.0/' },
+  }],
+  '15.5': [{
+    label: 'camt.053-nl.xml',
+    href: '/samples/nl/camt.053-nl.xml',
+    size: '~3 KB · XML',
+    source: { label: 'ISO 20022 — camt.053.001.08 Message Definition', url: 'https://www.iso20022.org/iso-20022-message-definitions' },
+  }],
+  // Österreich-Sektionen (Block 5, Sections 16.x)
+  '16.1': [{
+    label: 'sepa-sct-pain.001-at.xml',
+    href: '/samples/at/sepa-sct-pain.001-at.xml',
+    size: '~3 KB · XML',
+    source: { label: 'STUZZA — Implementierungsrichtlinien SEPA Credit Transfer', url: 'https://www.stuzza.at' },
+  }],
+  '16.2': [{
+    label: 'sepa-sdd-pain.008-at.xml',
+    href: '/samples/at/sepa-sdd-pain.008-at.xml',
+    size: '~2 KB · XML',
+    source: { label: 'STUZZA / EPC — SEPA Direct Debit Implementation', url: 'https://www.stuzza.at' },
+  }],
+  '16.3': [{
+    label: 'ebinterface-6.1-sample.xml',
+    href: '/samples/at/ebinterface-6.1-sample.xml',
+    size: '~4 KB · XML',
+    source: { label: 'WKO / STUZZA — ebInterface 6.1 Specification', url: 'https://www.ebinterface.at' },
+  }],
+  '16.4': [{
+    label: 'camt.053-at.xml',
+    href: '/samples/at/camt.053-at.xml',
+    size: '~3 KB · XML',
+    source: { label: 'ISO 20022 — camt.053.001.08 Message Definition', url: 'https://www.iso20022.org/iso-20022-message-definitions' },
+  }],
+  // Luxemburg-Sektionen (Block 5, Sections 17.x)
+  '17.1': [{
+    label: 'sepa-sct-pain.001-lu.xml',
+    href: '/samples/lu/sepa-sct-pain.001-lu.xml',
+    size: '~3 KB · XML',
+    source: { label: 'EPC — SEPA Credit Transfer Scheme Customer-to-Bank IG', url: 'https://www.europeanpaymentscouncil.eu/document-library' },
+  }],
+  '17.2': [{
+    label: 'sepa-sdd-pain.008-lu.xml',
+    href: '/samples/lu/sepa-sdd-pain.008-lu.xml',
+    size: '~2 KB · XML',
+    source: { label: 'EPC — SEPA Direct Debit Core Rulebook', url: 'https://www.europeanpaymentscouncil.eu/document-library' },
+  }],
+  '17.3': [{
+    label: 'peppol-bis-3.0-lu.xml',
+    href: '/samples/lu/peppol-bis-3.0-lu.xml',
+    size: '~4 KB · UBL 2.1',
+    source: { label: 'OpenPeppol — PEPPOL BIS Billing 3.0 / efacture.public.lu', url: 'https://efacture.public.lu' },
+  }],
+  '17.4': [{
+    label: 'camt.053-lu.xml',
+    href: '/samples/lu/camt.053-lu.xml',
+    size: '~3 KB · XML',
+    source: { label: 'ISO 20022 — camt.053.001.08 Message Definition', url: 'https://www.iso20022.org/iso-20022-message-definitions' },
+  }],
+  '17.5': [{
+    label: 'cbpr-pacs.008-lu.xml',
+    href: '/samples/lu/cbpr-pacs.008-lu.xml',
+    size: '~3 KB · XML',
+    source: { label: 'SWIFT — CBPR+ pacs.008 Usage Guidelines', url: 'https://www.swift.com/standards/iso-20022' },
+  }],
 };
 const STD_SAMPLES: Sample[] = [
   {

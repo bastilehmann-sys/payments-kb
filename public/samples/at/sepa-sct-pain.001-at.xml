@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SEPA SCT — pain.001.001.09 (Customer Credit Transfer Initiation)
+  Beispiel: Österreichische Firma überweist an AT-Lieferanten via EBICS (Erste Bank).
+  AT-Spezifika:
+    - IBAN 20-stellig (AT + 2 IBAN-Prüf + 5 BLZ + 11 KtNr)
+    - UID = ATU + 8 (EU-USt-ID)
+    - StNr 9-stellig
+  Quelle: STUZZA Implementierungsrichtlinien, EPC SCT IG, OeNB
+-->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>SEPA-SCT-AT-2026-0421-0001</MsgId>
+      <CreDtTm>2026-04-21T09:00:00Z</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>3450.00</CtrlSum>
+      <InitgPty>
+        <Nm>BEISPIEL GMBH</Nm>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>ATU12345678</Id>
+              <SchmeNm><Cd>BANK</Cd></SchmeNm>
+            </Othr>
+          </OrgId>
+        </Id>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <PmtInfId>PMT-AT-SCT-0001</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <BtchBookg>true</BtchBookg>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>3450.00</CtrlSum>
+      <PmtTpInf>
+        <SvcLvl><Cd>SEPA</Cd></SvcLvl>
+      </PmtTpInf>
+      <ReqdExctnDt>
+        <Dt>2026-04-22</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>BEISPIEL GMBH</Nm>
+        <PstlAdr>
+          <StrtNm>Mariahilfer Straße 50</StrtNm>
+          <PstCd>1070</PstCd>
+          <TwnNm>Wien</TwnNm>
+          <Ctry>AT</Ctry>
+        </PstlAdr>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>ATU12345678</Id>
+              <SchmeNm><Cd>BANK</Cd></SchmeNm>
+            </Othr>
+          </OrgId>
+        </Id>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>AT611904300234573201</IBAN>
+        </Id>
+        <Ccy>EUR</Ccy>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId><BICFI>GIBAATWWXXX</BICFI></FinInstnId>
+      </DbtrAgt>
+      <ChrgBr>SLEV</ChrgBr>
+      <CdtTrfTxInf>
+        <PmtId>
+          <InstrId>INS-AT-0001</InstrId>
+          <EndToEndId>RE-2026-04-0184</EndToEndId>
+        </PmtId>
+        <Amt>
+          <InstdAmt Ccy="EUR">3450.00</InstdAmt>
+        </Amt>
+        <CdtrAgt>
+          <FinInstnId><BICFI>BKAUATWWXXX</BICFI></FinInstnId>
+        </CdtrAgt>
+        <Cdtr>
+          <Nm>HOFER MASCHINENBAU GMBH</Nm>
+          <PstlAdr>
+            <StrtNm>Hauptstraße 12</StrtNm>
+            <PstCd>4020</PstCd>
+            <TwnNm>Linz</TwnNm>
+            <Ctry>AT</Ctry>
+          </PstlAdr>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>AT021100000123456789</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>Rechnung RE-2026-04-0184 vom 14.04.2026 — Maschinenteile</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>

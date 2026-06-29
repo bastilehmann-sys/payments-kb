@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SEPA SCT — pain.001.001.09 (Customer Credit Transfer Initiation)
+  Beispiel: Luxemburgische Holding (SOPARFI) überweist via EBICS (BGL BNP Paribas).
+  LU-Spezifika:
+    - IBAN 20-stellig (LU + 2 IBAN-Prüf + 3 Bankcode + 13 KtNr)
+    - TVA = LU + 8 (EU-USt-ID)
+    - Matricule 11-13-stellig (Steuer-ID)
+    - RCS-Nummer = B + 6 (Handelsregister)
+  Quelle: EPC SCT Customer-to-Bank IG, BCL
+-->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>SEPA-SCT-LU-2026-0421-0001</MsgId>
+      <CreDtTm>2026-04-21T09:00:00Z</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>14250.00</CtrlSum>
+      <InitgPty>
+        <Nm>EXEMPLE HOLDING SARL</Nm>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>LU12345678</Id>
+              <SchmeNm><Cd>BANK</Cd></SchmeNm>
+            </Othr>
+          </OrgId>
+        </Id>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <PmtInfId>PMT-LU-SCT-0001</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <BtchBookg>true</BtchBookg>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>14250.00</CtrlSum>
+      <PmtTpInf>
+        <SvcLvl><Cd>SEPA</Cd></SvcLvl>
+      </PmtTpInf>
+      <ReqdExctnDt>
+        <Dt>2026-04-22</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>EXEMPLE HOLDING SARL</Nm>
+        <PstlAdr>
+          <StrtNm>2 boulevard Royal</StrtNm>
+          <PstCd>L-2449</PstCd>
+          <TwnNm>Luxembourg</TwnNm>
+          <Ctry>LU</Ctry>
+        </PstlAdr>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>LU12345678</Id>
+              <SchmeNm><Cd>BANK</Cd></SchmeNm>
+            </Othr>
+          </OrgId>
+        </Id>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>LU280019400644750000</IBAN>
+        </Id>
+        <Ccy>EUR</Ccy>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId><BICFI>BGLLLULLXXX</BICFI></FinInstnId>
+      </DbtrAgt>
+      <ChrgBr>SLEV</ChrgBr>
+      <CdtTrfTxInf>
+        <PmtId>
+          <InstrId>INS-LU-0001</InstrId>
+          <EndToEndId>FACT-LU-2026-04-0067</EndToEndId>
+        </PmtId>
+        <Amt>
+          <InstdAmt Ccy="EUR">14250.00</InstdAmt>
+        </Amt>
+        <CdtrAgt>
+          <FinInstnId><BICFI>BCEELULLXXX</BICFI></FinInstnId>
+        </CdtrAgt>
+        <Cdtr>
+          <Nm>FOURNISSEUR LUX SARL</Nm>
+          <PstlAdr>
+            <StrtNm>15 rue de la Gare</StrtNm>
+            <PstCd>L-4761</PstCd>
+            <TwnNm>Pétange</TwnNm>
+            <Ctry>LU</Ctry>
+          </PstlAdr>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>LU910030412345678901</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Strd>
+            <CdtrRefInf>
+              <Tp><CdOrPrtry><Cd>SCOR</Cd></CdOrPrtry></Tp>
+              <Ref>RF182026040067</Ref>
+            </CdtrRefInf>
+          </Strd>
+        </RmtInf>
+      </CdtTrfTxInf>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SEPA SCT — pain.001.001.09 (Customer Credit Transfer Initiation)
+  Beispiel: Französische Firma überweist an FR-Lieferanten via EBICS (BNP Paribas).
+  FR-Spezifika:
+    - IBAN 27-stellig (FR + 2 IBAN-Prüf + 5 Bankcode + 5 Filialcode + 11 KtNr + 2 Clé RIB)
+    - SIREN (9-stellig) + SIRET (14-stellig: SIREN + 5 NIC)
+    - TVA = FR + 2 + SIREN
+  Quelle: EPC SCT Customer-to-Bank IG, Banque de France
+-->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>SEPA-SCT-FR-2026-0421-0001</MsgId>
+      <CreDtTm>2026-04-21T09:00:00Z</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>12300.00</CtrlSum>
+      <InitgPty>
+        <Nm>EXEMPLE SARL</Nm>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>552120222</Id>
+              <SchmeNm><Cd>BANK</Cd></SchmeNm>
+            </Othr>
+          </OrgId>
+        </Id>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <PmtInfId>PMT-FR-SCT-0001</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <BtchBookg>true</BtchBookg>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>12300.00</CtrlSum>
+      <PmtTpInf>
+        <SvcLvl><Cd>SEPA</Cd></SvcLvl>
+      </PmtTpInf>
+      <ReqdExctnDt>
+        <Dt>2026-04-22</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>EXEMPLE SARL</Nm>
+        <PstlAdr>
+          <StrtNm>15 Avenue des Champs-Élysées</StrtNm>
+          <PstCd>75008</PstCd>
+          <TwnNm>Paris</TwnNm>
+          <Ctry>FR</Ctry>
+        </PstlAdr>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>55212022200012</Id>
+              <SchmeNm><Cd>BANK</Cd></SchmeNm>
+            </Othr>
+          </OrgId>
+        </Id>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>FR1420041010050500013M02606</IBAN>
+        </Id>
+        <Ccy>EUR</Ccy>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId><BICFI>BNPAFRPPXXX</BICFI></FinInstnId>
+      </DbtrAgt>
+      <ChrgBr>SLEV</ChrgBr>
+      <CdtTrfTxInf>
+        <PmtId>
+          <InstrId>INS-FR-0001</InstrId>
+          <EndToEndId>FACT-2026-04-0089</EndToEndId>
+        </PmtId>
+        <Amt>
+          <InstdAmt Ccy="EUR">12300.00</InstdAmt>
+        </Amt>
+        <CdtrAgt>
+          <FinInstnId><BICFI>SOGEFRPPXXX</BICFI></FinInstnId>
+        </CdtrAgt>
+        <Cdtr>
+          <Nm>FOURNISSEUR INDUSTRIE SAS</Nm>
+          <PstlAdr>
+            <StrtNm>42 Rue de la République</StrtNm>
+            <PstCd>69002</PstCd>
+            <TwnNm>Lyon</TwnNm>
+            <Ctry>FR</Ctry>
+          </PstlAdr>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>FR7630003035400002030500049</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Strd>
+            <CdtrRefInf>
+              <Tp><CdOrPrtry><Cd>SCOR</Cd></CdOrPrtry></Tp>
+              <Ref>RF182026040089</Ref>
+            </CdtrRefInf>
+          </Strd>
+        </RmtInf>
+      </CdtTrfTxInf>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SEPA SDD Core — pain.008.001.02 (Customer Direct Debit Initiation)
+  BE-Spezifika:
+    - Gläubiger-ID (CI) Format: BE + 2 Prüf + ZZZ + 11 nationale ID
+    - SeqTp: FRST (D-5), RCUR (D-2), OOFF, FNAL
+  Quelle: EPC SDD Core Rulebook, NBB
+-->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.008.001.02">
+  <CstmrDrctDbtInitn>
+    <GrpHdr>
+      <MsgId>SEPA-SDD-BE-2026-0421-0001</MsgId>
+      <CreDtTm>2026-04-21T08:00:00Z</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>49.95</CtrlSum>
+      <InitgPty>
+        <Nm>VOORBEELD NV</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <PmtInfId>PMT-BE-SDD-0001</PmtInfId>
+      <PmtMtd>DD</PmtMtd>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>49.95</CtrlSum>
+      <PmtTpInf>
+        <SvcLvl><Cd>SEPA</Cd></SvcLvl>
+        <LclInstrm><Cd>CORE</Cd></LclInstrm>
+        <SeqTp>RCUR</SeqTp>
+      </PmtTpInf>
+      <ReqdColltnDt>2026-04-28</ReqdColltnDt>
+      <Cdtr>
+        <Nm>VOORBEELD NV</Nm>
+        <PstlAdr>
+          <Ctry>BE</Ctry>
+        </PstlAdr>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <IBAN>BE68539007547034</IBAN>
+        </Id>
+      </CdtrAcct>
+      <CdtrAgt>
+        <FinInstnId><BICFI>GEBABEBB</BICFI></FinInstnId>
+      </CdtrAgt>
+      <CdtrSchmeId>
+        <Id>
+          <PrvtId>
+            <Othr>
+              <Id>BE68ZZZ01234567890</Id>
+              <SchmeNm><Prtry>SEPA</Prtry></SchmeNm>
+            </Othr>
+          </PrvtId>
+        </Id>
+      </CdtrSchmeId>
+      <DrctDbtTxInf>
+        <PmtId>
+          <EndToEndId>ABO-2026-04-DUPONT</EndToEndId>
+        </PmtId>
+        <InstdAmt Ccy="EUR">49.95</InstdAmt>
+        <DrctDbtTx>
+          <MndtRltdInf>
+            <MndtId>MNDT-BE-2024-DUPONT-001</MndtId>
+            <DtOfSgntr>2024-09-01</DtOfSgntr>
+          </MndtRltdInf>
+        </DrctDbtTx>
+        <DbtrAgt>
+          <FinInstnId><BICFI>BBRUBEBB</BICFI></FinInstnId>
+        </DbtrAgt>
+        <Dbtr>
+          <Nm>JEAN DUPONT</Nm>
+          <PstlAdr>
+            <Ctry>BE</Ctry>
+          </PstlAdr>
+        </Dbtr>
+        <DbtrAcct>
+          <Id>
+            <IBAN>BE43099900090309</IBAN>
+          </Id>
+        </DbtrAcct>
+        <RmtInf>
+          <Ustrd>Abonnement avril 2026 — Client K-2042</Ustrd>
+        </RmtInf>
+      </DrctDbtTxInf>
+    </PmtInf>
+  </CstmrDrctDbtInitn>
+</Document>

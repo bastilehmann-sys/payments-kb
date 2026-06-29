@@ -1,0 +1,10 @@
+{"type":"server-started","port":49171,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:49171","screen_dir":"/Users/sebastianlehmann/payments-kb/.superpowers/brainstorm/69208-1782719048/content","state_dir":"/Users/sebastianlehmann/payments-kb/.superpowers/brainstorm/69208-1782719048/state"}
+{"type":"screen-added","file":"/Users/sebastianlehmann/payments-kb/.superpowers/brainstorm/69208-1782719048/content/navigation-structure.html"}
+{"source":"user-event","type":"click","text":"A\n    \n      Top-Level Tabs\n      Drei gleichwertige Bereiche als Haupt-Tabs in der Navbar: Regulatorik · Technik · SAP. Jeder Bereich hat seine eigene Unternavigation. Der KI-Chat ist global (immer erreichbar).\n      \n        [ Regulatorik ] [ Technik ] [ SAP ]          [Chat ✦]","choice":"a","id":null,"timestamp":1782719092974}
+{"source":"user-event","type":"click","text":"A\n    \n      Top-Level Tabs\n      Drei gleichwertige Bereiche als Haupt-Tabs in der Navbar: Regulatorik · Technik · SAP. Jeder Bereich hat seine eigene Unternavigation. Der KI-Chat ist global (immer erreichbar).\n      \n        [ Regulatorik ] [ Technik ] [ SAP ]          [Chat ✦]","choice":"a","id":null,"timestamp":1782719099705}
+{"type":"screen-added","file":"/Users/sebastianlehmann/payments-kb/.superpowers/brainstorm/69208-1782719048/content/waiting-1.html"}
+{"type":"screen-added","file":"/Users/sebastianlehmann/payments-kb/.superpowers/brainstorm/69208-1782719048/content/ia-overview.html"}
+{"type":"screen-added","file":"/Users/sebastianlehmann/payments-kb/.superpowers/brainstorm/69208-1782719048/content/technik-detail.html"}
+{"type":"screen-added","file":"/Users/sebastianlehmann/payments-kb/.superpowers/brainstorm/69208-1782719048/content/sap-section.html"}
+{"type":"screen-added","file":"/Users/sebastianlehmann/payments-kb/.superpowers/brainstorm/69208-1782719048/content/technik-overview.html"}
+{"type":"server-stopped","reason":"idle timeout"}

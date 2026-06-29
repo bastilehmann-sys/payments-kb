@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SEPA SCT — pain.001.001.09 (Customer Credit Transfer Initiation)
+  Beispiel: Belgische Firma überweist an belgischen Lieferanten via EBICS (BNP Paribas Fortis).
+  BE-Spezifika:
+    - IBAN 16-stellig (BE + 2 IBAN-Prüf + 3 Bankcode + 7 KtNr + 2 nat. Prüf)
+    - KBO/BCE-Nummer (10-stellig) als TXID
+    - SvcLvl SEPA für Standard, INST für SCT Inst, URGP für Express via T2
+    - Encoding UTF-8, NL/FR/DE Sonderzeichen erlaubt
+  Quelle: EPC SCT Customer-to-Bank IG, Febelfin
+-->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>SEPA-SCT-BE-2026-0421-0001</MsgId>
+      <CreDtTm>2026-04-21T09:00:00Z</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>4250.00</CtrlSum>
+      <InitgPty>
+        <Nm>VOORBEELD NV</Nm>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>0123456789</Id>
+              <SchmeNm><Cd>BANK</Cd></SchmeNm>
+            </Othr>
+          </OrgId>
+        </Id>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <PmtInfId>PMT-BE-SCT-0001</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <BtchBookg>true</BtchBookg>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>4250.00</CtrlSum>
+      <PmtTpInf>
+        <SvcLvl><Cd>SEPA</Cd></SvcLvl>
+      </PmtTpInf>
+      <ReqdExctnDt>
+        <Dt>2026-04-22</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>VOORBEELD NV</Nm>
+        <PstlAdr>
+          <StrtNm>Koningsstraat 1</StrtNm>
+          <PstCd>1000</PstCd>
+          <TwnNm>Brussel</TwnNm>
+          <Ctry>BE</Ctry>
+        </PstlAdr>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>BE0123456789</Id>
+              <SchmeNm><Cd>BANK</Cd></SchmeNm>
+            </Othr>
+          </OrgId>
+        </Id>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>BE68539007547034</IBAN>
+        </Id>
+        <Ccy>EUR</Ccy>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId><BICFI>GEBABEBB</BICFI></FinInstnId>
+      </DbtrAgt>
+      <ChrgBr>SLEV</ChrgBr>
+      <CdtTrfTxInf>
+        <PmtId>
+          <InstrId>INS-BE-0001</InstrId>
+          <EndToEndId>FACT-2026-0042</EndToEndId>
+        </PmtId>
+        <Amt>
+          <InstdAmt Ccy="EUR">4250.00</InstdAmt>
+        </Amt>
+        <CdtrAgt>
+          <FinInstnId><BICFI>KREDBEBB</BICFI></FinInstnId>
+        </CdtrAgt>
+        <Cdtr>
+          <Nm>FOURNISSEUR SPRL</Nm>
+          <PstlAdr>
+            <StrtNm>Rue de la Loi 16</StrtNm>
+            <PstCd>4000</PstCd>
+            <TwnNm>Liège</TwnNm>
+            <Ctry>BE</Ctry>
+          </PstlAdr>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>BE71096123456769</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Strd>
+            <CdtrRefInf>
+              <Tp><CdOrPrtry><Cd>SCOR</Cd></CdOrPrtry></Tp>
+              <Ref>RF18539007547034</Ref>
+            </CdtrRefInf>
+          </Strd>
+        </RmtInf>
+      </CdtTrfTxInf>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>

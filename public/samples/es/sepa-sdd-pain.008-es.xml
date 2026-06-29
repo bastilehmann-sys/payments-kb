@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SEPA SDD Core — pain.008.001.02 (Customer Direct Debit Initiation)
+  ES-Spezifika:
+    - Gläubiger-ID (CI) Format: ES + 2 Prüf + ZZZ + 11 nationale ID
+    - NIF (Schuldner) optional als zusätzliche Identifikation
+  Quelle: EPC SDD Core Rulebook, Banco de España
+-->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.008.001.02">
+  <CstmrDrctDbtInitn>
+    <GrpHdr>
+      <MsgId>SEPA-SDD-ES-2026-0421-0001</MsgId>
+      <CreDtTm>2026-04-21T08:00:00Z</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>89.95</CtrlSum>
+      <InitgPty>
+        <Nm>EJEMPLO SA</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <PmtInfId>PMT-ES-SDD-0001</PmtInfId>
+      <PmtMtd>DD</PmtMtd>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>89.95</CtrlSum>
+      <PmtTpInf>
+        <SvcLvl><Cd>SEPA</Cd></SvcLvl>
+        <LclInstrm><Cd>CORE</Cd></LclInstrm>
+        <SeqTp>RCUR</SeqTp>
+      </PmtTpInf>
+      <ReqdColltnDt>2026-04-28</ReqdColltnDt>
+      <Cdtr>
+        <Nm>EJEMPLO SA</Nm>
+        <PstlAdr>
+          <Ctry>ES</Ctry>
+        </PstlAdr>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <IBAN>ES9121000418450200051332</IBAN>
+        </Id>
+      </CdtrAcct>
+      <CdtrAgt>
+        <FinInstnId><BICFI>CAIXESBBXXX</BICFI></FinInstnId>
+      </CdtrAgt>
+      <CdtrSchmeId>
+        <Id>
+          <PrvtId>
+            <Othr>
+              <Id>ES65ZZZA12345674</Id>
+              <SchmeNm><Prtry>SEPA</Prtry></SchmeNm>
+            </Othr>
+          </PrvtId>
+        </Id>
+      </CdtrSchmeId>
+      <DrctDbtTxInf>
+        <PmtId>
+          <EndToEndId>SUSC-2026-04-MARTINEZ</EndToEndId>
+        </PmtId>
+        <InstdAmt Ccy="EUR">89.95</InstdAmt>
+        <DrctDbtTx>
+          <MndtRltdInf>
+            <MndtId>MNDT-ES-2024-MARTINEZ-001</MndtId>
+            <DtOfSgntr>2024-08-12</DtOfSgntr>
+          </MndtRltdInf>
+        </DrctDbtTx>
+        <DbtrAgt>
+          <FinInstnId><BICFI>BSCHESMMXXX</BICFI></FinInstnId>
+        </DbtrAgt>
+        <Dbtr>
+          <Nm>JUAN MARTÍNEZ LÓPEZ</Nm>
+          <PstlAdr>
+            <Ctry>ES</Ctry>
+          </PstlAdr>
+        </Dbtr>
+        <DbtrAcct>
+          <Id>
+            <IBAN>ES7301829876543210987654</IBAN>
+          </Id>
+        </DbtrAcct>
+        <RmtInf>
+          <Ustrd>Suscripción abril 2026 — Cliente C-3142</Ustrd>
+        </RmtInf>
+      </DrctDbtTxInf>
+    </PmtInf>
+  </CstmrDrctDbtInitn>
+</Document>

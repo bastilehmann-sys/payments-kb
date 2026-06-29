@@ -1,0 +1,26 @@
+0000021042620002        00012345VOORBEELD NV              GEBABEBBXXX 12345                                              2
+12039        BE68539007547034EUR0000000087320453210421VOORBEELD NV                       BNP PARIBAS FORTIS              042 0
+2100010000OL44120422000000000425000042504210000FACT-2026-0042                                                          0 0
+2200010000                                                                          GEBABEBBXXX                            0 1
+2300010000BE71096123456769                  FOURNISSEUR SPRL                                                            0 1
+3100010000004001                                              FACT-2026-0042   RF18539007547034                          0 0
+8039        BE68539007547034EUR0000000083070453210421VOORBEELD NV                       BNP PARIBAS FORTIS              042 0
+9               000001000000000004250000000000000000                                                                      2
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CODA 2.6 — Coded Statement of Account (Belgisches Legacy-Kontoauszugformat)
+# Quelle: Febelfin CODA 2.6 Implementation Guidelines, https://www.febelfin.be
+#
+# Satzartstruktur (Position 0, fixe Länge 128 Zeichen):
+#   0 = Header (Datum, Kontoinhaber, BIC)
+#   1 = Eröffnungsbilanz
+#   2 = Bewegung (Datenzeile, mehrere möglich pro Buchung: 21, 22, 23, 31)
+#   3 = Detailsatz Bewegung
+#   4 = Freier Text
+#   8 = Schlussbilanz
+#   9 = Trailer (Anzahl Sätze, Summen)
+#
+# Achtung: CODA wird durch camt.053 abgelöst, läuft aber bei vielen BE-Banken
+# (BNP Paribas Fortis, ING Belgium, KBC, Belfius) noch parallel als Standard.
+# SAP Standard: CODA-Importer (FF.5 mit Custom-Erweiterung) oder Add-On.
+# ─────────────────────────────────────────────────────────────────────────────

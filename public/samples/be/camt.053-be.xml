@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  camt.053.001.08 — Bank-to-Customer Statement (Tagesauszug)
+  BE-Kontext: Via EBICS Auftragsart C53 von BNP Paribas Fortis empfangen.
+  Ersetzt CODA (Coded Statement of Account, Febelfin-Legacy).
+-->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.053.001.08">
+  <BkToCstmrStmt>
+    <GrpHdr>
+      <MsgId>CAMT053-BE-2026-0421</MsgId>
+      <CreDtTm>2026-04-21T18:00:00Z</CreDtTm>
+    </GrpHdr>
+    <Stmt>
+      <Id>STMT-BE-20260421</Id>
+      <ElctrncSeqNb>112</ElctrncSeqNb>
+      <CreDtTm>2026-04-21T18:00:00Z</CreDtTm>
+      <Acct>
+        <Id>
+          <IBAN>BE68539007547034</IBAN>
+        </Id>
+        <Ccy>EUR</Ccy>
+        <Svcr>
+          <FinInstnId><BICFI>GEBABEBB</BICFI></FinInstnId>
+        </Svcr>
+      </Acct>
+      <Bal>
+        <Tp><CdOrPrtry><Cd>OPBD</Cd></CdOrPrtry></Tp>
+        <Amt Ccy="EUR">87320.45</Amt>
+        <CdtDbtInd>CRDT</CdtDbtInd>
+        <Dt><Dt>2026-04-21</Dt></Dt>
+      </Bal>
+      <Bal>
+        <Tp><CdOrPrtry><Cd>CLBD</Cd></CdOrPrtry></Tp>
+        <Amt Ccy="EUR">83070.45</Amt>
+        <CdtDbtInd>CRDT</CdtDbtInd>
+        <Dt><Dt>2026-04-21</Dt></Dt>
+      </Bal>
+      <Ntry>
+        <Amt Ccy="EUR">4250.00</Amt>
+        <CdtDbtInd>DBIT</CdtDbtInd>
+        <Sts><Cd>BOOK</Cd></Sts>
+        <BookgDt><Dt>2026-04-21</Dt></BookgDt>
+        <ValDt><Dt>2026-04-22</Dt></ValDt>
+        <BkTxCd>
+          <Domn>
+            <Cd>PMNT</Cd>
+            <Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly>
+          </Domn>
+        </BkTxCd>
+        <NtryDtls>
+          <TxDtls>
+            <Refs>
+              <EndToEndId>FACT-2026-0042</EndToEndId>
+            </Refs>
+            <RltdPties>
+              <Cdtr><Nm>FOURNISSEUR SPRL</Nm></Cdtr>
+              <CdtrAcct><Id><IBAN>BE71096123456769</IBAN></Id></CdtrAcct>
+            </RltdPties>
+            <RmtInf>
+              <Strd>
+                <CdtrRefInf>
+                  <Ref>RF18539007547034</Ref>
+                </CdtrRefInf>
+              </Strd>
+            </RmtInf>
+          </TxDtls>
+        </NtryDtls>
+      </Ntry>
+    </Stmt>
+  </BkToCstmrStmt>
+</Document>

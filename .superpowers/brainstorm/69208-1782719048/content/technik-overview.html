@@ -1,0 +1,117 @@
+<h2>Technik — Übersichtsseite</h2>
+<p class="subtitle">Alle Protokolle auf einen Blick, klickbar zur Detailseite</p>
+
+<div class="mockup">
+  <div class="mockup-header">Technik</div>
+  <div class="mockup-body" style="padding:20px 24px;">
+
+    <!-- Filter bar -->
+    <div style="display:flex;gap:6px;margin-bottom:20px;align-items:center;">
+      <span style="font-size:11px;font-weight:700;text-transform:uppercase;color:#71717a;margin-right:4px;">Filter:</span>
+      <div style="padding:4px 12px;background:#18181b;border-radius:99px;color:#fff;font-size:12px;font-weight:600;">Alle</div>
+      <div style="padding:4px 12px;background:#f4f4f5;border-radius:99px;color:#52525b;font-size:12px;">Bank-seitig</div>
+      <div style="padding:4px 12px;background:#f4f4f5;border-radius:99px;color:#52525b;font-size:12px;">SAP-nativ</div>
+      <div style="padding:4px 12px;background:#f4f4f5;border-radius:99px;color:#52525b;font-size:12px;">SWIFT</div>
+    </div>
+
+    <!-- Protocol cards grid -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+
+      <!-- EBICS -->
+      <div style="background:#fff;border:1px solid #e4e4e7;border-radius:10px;padding:16px;cursor:pointer;transition:box-shadow 0.2s;" onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow='none'">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+          <div style="font-size:16px;font-weight:700;color:#18181b;">EBICS</div>
+          <span style="background:#dcfce7;color:#16a34a;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;">DACH Standard</span>
+        </div>
+        <div style="font-size:12px;color:#52525b;margin-bottom:12px;line-height:1.5;">Sicherer Bankkommunikationsstandard für Massenzahlungen und Kontoauszüge</div>
+        <div style="display:flex;gap:4px;flex-wrap:wrap;">
+          <span style="background:#f4f4f5;color:#52525b;font-size:10px;padding:2px 7px;border-radius:4px;">Bank-seitig</span>
+          <span style="background:#f4f4f5;color:#52525b;font-size:10px;padding:2px 7px;border-radius:4px;">pain.001</span>
+          <span style="background:#f4f4f5;color:#52525b;font-size:10px;padding:2px 7px;border-radius:4px;">camt.053</span>
+        </div>
+      </div>
+
+      <!-- H2H -->
+      <div style="background:#fff;border:1px solid #e4e4e7;border-radius:10px;padding:16px;cursor:pointer;" onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow='none'">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+          <div style="font-size:16px;font-weight:700;color:#18181b;">H2H</div>
+          <span style="background:#dbeafe;color:#2563eb;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;">Direktverbindung</span>
+        </div>
+        <div style="font-size:12px;color:#52525b;margin-bottom:12px;line-height:1.5;">Host-to-Host Verbindung direkt zwischen ERP und Banksystem via SFTP/AS2</div>
+        <div style="display:flex;gap:4px;flex-wrap:wrap;">
+          <span style="background:#f4f4f5;color:#52525b;font-size:10px;padding:2px 7px;border-radius:4px;">SFTP</span>
+          <span style="background:#f4f4f5;color:#52525b;font-size:10px;padding:2px 7px;border-radius:4px;">AS2</span>
+          <span style="background:#f4f4f5;color:#52525b;font-size:10px;padding:2px 7px;border-radius:4px;">Bank-seitig</span>
+        </div>
+      </div>
+
+      <!-- SAP MBC -->
+      <div style="background:#fff;border:1px solid #e4e4e7;border-radius:10px;padding:16px;cursor:pointer;" onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow='none'">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+          <div style="font-size:16px;font-weight:700;color:#18181b;">SAP MBC</div>
+          <span style="background:#fef9c3;color:#a16207;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;">SAP-nativ</span>
+        </div>
+        <div style="font-size:12px;color:#52525b;margin-bottom:12px;line-height:1.5;">Multi-Bank Connectivity — zentrales SAP-Netzwerk für Bankkommunikation ohne Middleware</div>
+        <div style="display:flex;gap:4px;flex-wrap:wrap;">
+          <span style="background:#f4f4f5;color:#52525b;font-size:10px;padding:2px 7px;border-radius:4px;">SAP-nativ</span>
+          <span style="background:#f4f4f5;color:#52525b;font-size:10px;padding:2px 7px;border-radius:4px;">Cloud</span>
+          <span style="background:#f4f4f5;color:#52525b;font-size:10px;padding:2px 7px;border-radius:4px;">S/4HANA</span>
+        </div>
+      </div>
+
+      <!-- SWIFT -->
+      <div style="background:#fff;border:1px solid #e4e4e7;border-radius:10px;padding:16px;cursor:pointer;" onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow='none'">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+          <div style="font-size:16px;font-weight:700;color:#18181b;">SWIFT</div>
+          <span style="background:#fdf4ff;color:#9333ea;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;">Global</span>
+        </div>
+        <div style="font-size:12px;color:#52525b;margin-bottom:12px;line-height:1.5;">Weltweites Interbanken-Netzwerk für internationale Zahlungen (MT + MX/gpi)</div>
+        <div style="display:flex;gap:4px;flex-wrap:wrap;">
+          <span style="background:#f4f4f5;color:#52525b;font-size:10px;padding:2px 7px;border-radius:4px;">MT101</span>
+          <span style="background:#f4f4f5;color:#52525b;font-size:10px;padding:2px 7px;border-radius:4px;">gpi</span>
+          <span style="background:#f4f4f5;color:#52525b;font-size:10px;padding:2px 7px;border-radius:4px;">MX</span>
+        </div>
+      </div>
+
+      <!-- SWIFT Service Bureau -->
+      <div style="background:#fff;border:1px solid #e4e4e7;border-radius:10px;padding:16px;cursor:pointer;" onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow='none'">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+          <div style="font-size:16px;font-weight:700;color:#18181b;">SWIFT Service Bureau</div>
+          <span style="background:#fdf4ff;color:#9333ea;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;">Global</span>
+        </div>
+        <div style="font-size:12px;color:#52525b;margin-bottom:12px;line-height:1.5;">Managed SWIFT-Zugang über Drittanbieter — Alternative zur eigenen SWIFT-Mitgliedschaft</div>
+        <div style="display:flex;gap:4px;flex-wrap:wrap;">
+          <span style="background:#f4f4f5;color:#52525b;font-size:10px;padding:2px 7px;border-radius:4px;">Outsourcing</span>
+          <span style="background:#f4f4f5;color:#52525b;font-size:10px;padding:2px 7px;border-radius:4px;">SWIFT</span>
+          <span style="background:#f4f4f5;color:#52525b;font-size:10px;padding:2px 7px;border-radius:4px;">Konnektivität</span>
+        </div>
+      </div>
+
+      <!-- Add new -->
+      <div style="background:#fafafa;border:1px dashed #d4d4d8;border-radius:10px;padding:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+        <div style="text-align:center;">
+          <div style="font-size:20px;color:#d4d4d8;margin-bottom:4px;">+</div>
+          <div style="font-size:12px;color:#a1a1aa;">Protokoll hinzufügen</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="options" style="margin-top:16px;">
+  <div class="option" data-choice="ok" onclick="toggleSelect(this)">
+    <div class="letter">✓</div>
+    <div class="content">
+      <h3>Alles passt — Design abgeschlossen</h3>
+      <p>Spec-Dokument schreiben und Implementierungsplan erstellen</p>
+    </div>
+  </div>
+  <div class="option" data-choice="change" onclick="toggleSelect(this)">
+    <div class="letter">↩</div>
+    <div class="content">
+      <h3>Etwas anpassen</h3>
+      <p>Sag mir was im Terminal</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,34 @@
+06002030035400002030500049000000000000123000000260422FACT-2026-040089       FOURNISSEUR INDUSTRIE SAS         42 RUE DE LA REPUBLIQUE     69002 LYON                    FR55212022200012BNPAFRPPXXX                            260415RF182026040089           1
+06002030035400002030500049000000000000089500000260428FACT-2026-040093       AUTRE FOURNISSEUR SAS             18 BOULEVARD HAUSSMANN     75009 PARIS                    FR98765432100023SOGEFRPPXXX                            260418RF182026040093           1
+06002030035400002030500049000000000000275000000260505FACT-2026-040101       MATERIAUX BTP SA                  9 RUE DU FAUBOURG ST DENIS75010 PARIS                    FR12345678900045CRLYFRPPXXX                            260420RF182026040101           1
+07002030035400002030500049000000000000487500000003LCR EXEMPLE SARL FR55212022200012                                                                                                                                          0
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CFONB LCR — Lettre de Change Relevé (Französisches Wechseleinzugsformat)
+# Quelle: CFONB (Comité Français d'Organisation et de Normalisation Bancaires)
+#         https://www.cfonb.org
+#
+# Format: 80-Zeichen Flat-File pro Zeile (hier: 240 Zeichen für Lesbarkeit erweitert)
+# Satzarten:
+#   06 = LCR-Einzugsauftrag (eine Zeile pro LCR)
+#   07 = Sammelposten / Trailer (Summe der vorigen 06-Sätze)
+#
+# Felder Satz 06 (Position):
+#   1-2:    Satzart (06)
+#   3-7:    BLZ Hausbank (5-stellig)
+#   8-12:   Filialcode (5-stellig)
+#   13-23:  Kontonummer (11-stellig)
+#   24-39:  Betrag in Centimes (16-stellig, ohne Komma)
+#   40-45:  Fälligkeitsdatum (JJMMTT)
+#   46-65:  Referenz (20 Zeichen, alphanumerisch)
+#   66-100: Empfänger Name (35 Zeichen)
+#   101-135:Empfänger Adresse (35 Zeichen)
+#   136-150:PLZ + Stadt (15 Zeichen)
+#   151-164:SIRET Empfänger (14-stellig)
+#   165-175:BIC Empfänger-Bank (11 Zeichen)
+#   ...     weitere Felder je nach CFONB-Version
+#
+# Achtung: CFONB LCR ist proprietär — kein SAP-Standard-DMEE.
+# Add-Ons: Serrala FS² FR-Modul, Hanse Orga FR-LCR, Esker.
+# Einreichung über CORE-FR (STET) mit Cut-off D-1 (Tag vor Fälligkeit).
+# ─────────────────────────────────────────────────────────────────────────────

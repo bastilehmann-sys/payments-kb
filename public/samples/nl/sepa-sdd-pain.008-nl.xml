@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SEPA SDD Core — pain.008.001.02 (Customer Direct Debit Initiation / Incasso)
+  NL-Spezifika:
+    - Gläubiger-ID (CI) Format: NL + 2 IBAN-Prüf + ZZZ + 11 nationale ID
+    - "Storneren" = NL-Begriff für Stornierung/Rückgabe
+  Quelle: EPC SDD Core Rulebook, DNB
+-->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.008.001.02">
+  <CstmrDrctDbtInitn>
+    <GrpHdr>
+      <MsgId>SEPA-SDD-NL-2026-0421-0001</MsgId>
+      <CreDtTm>2026-04-21T08:00:00Z</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>59.99</CtrlSum>
+      <InitgPty>
+        <Nm>VOORBEELD BV</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <PmtInfId>PMT-NL-SDD-0001</PmtInfId>
+      <PmtMtd>DD</PmtMtd>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>59.99</CtrlSum>
+      <PmtTpInf>
+        <SvcLvl><Cd>SEPA</Cd></SvcLvl>
+        <LclInstrm><Cd>CORE</Cd></LclInstrm>
+        <SeqTp>RCUR</SeqTp>
+      </PmtTpInf>
+      <ReqdColltnDt>2026-04-28</ReqdColltnDt>
+      <Cdtr>
+        <Nm>VOORBEELD BV</Nm>
+        <PstlAdr>
+          <Ctry>NL</Ctry>
+        </PstlAdr>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <IBAN>NL91INGB0417164300</IBAN>
+        </Id>
+      </CdtrAcct>
+      <CdtrAgt>
+        <FinInstnId><BICFI>INGBNL2AXXX</BICFI></FinInstnId>
+      </CdtrAgt>
+      <CdtrSchmeId>
+        <Id>
+          <PrvtId>
+            <Othr>
+              <Id>NL12ZZZ123456789012</Id>
+              <SchmeNm><Prtry>SEPA</Prtry></SchmeNm>
+            </Othr>
+          </PrvtId>
+        </Id>
+      </CdtrSchmeId>
+      <DrctDbtTxInf>
+        <PmtId>
+          <EndToEndId>ABO-2026-04-VANDIJK</EndToEndId>
+        </PmtId>
+        <InstdAmt Ccy="EUR">59.99</InstdAmt>
+        <DrctDbtTx>
+          <MndtRltdInf>
+            <MndtId>MNDT-NL-2024-VANDIJK-001</MndtId>
+            <DtOfSgntr>2024-07-22</DtOfSgntr>
+          </MndtRltdInf>
+        </DrctDbtTx>
+        <DbtrAgt>
+          <FinInstnId><BICFI>ABNANL2AXXX</BICFI></FinInstnId>
+        </DbtrAgt>
+        <Dbtr>
+          <Nm>JAN VAN DIJK</Nm>
+          <PstlAdr>
+            <Ctry>NL</Ctry>
+          </PstlAdr>
+        </Dbtr>
+        <DbtrAcct>
+          <Id>
+            <IBAN>NL52ABNA0541234567</IBAN>
+          </Id>
+        </DbtrAcct>
+        <RmtInf>
+          <Ustrd>Maandelijks abonnement april 2026 — Klant K-7321</Ustrd>
+        </RmtInf>
+      </DrctDbtTxInf>
+    </PmtInf>
+  </CstmrDrctDbtInitn>
+</Document>

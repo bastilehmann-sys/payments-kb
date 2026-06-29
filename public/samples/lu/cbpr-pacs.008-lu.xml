@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  pacs.008.001.08 — FI to FI Customer Credit Transfer (CBPR+ Profile)
+  LU-Kontext: Cross-Border-Zahlung über SWIFT FileAct, häufig bei IHB-Strukturen.
+  CBPR+ = Cross-Border Payments and Reporting Plus — SWIFT-Initiative seit November 2025
+  als Nachfolger für MT103.
+  Quelle: SWIFT CBPR+ Usage Guidelines, https://www.swift.com/standards/iso-20022
+-->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08">
+  <FIToFICstmrCdtTrf>
+    <GrpHdr>
+      <MsgId>CBPR-LU-2026-0421-9931</MsgId>
+      <CreDtTm>2026-04-21T09:30:00+02:00</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <SttlmInf>
+        <SttlmMtd>INDA</SttlmMtd>
+      </SttlmInf>
+    </GrpHdr>
+    <CdtTrfTxInf>
+      <PmtId>
+        <InstrId>BGLLLULLAXXX2026042100012345</InstrId>
+        <EndToEndId>IHB-FUNDING-2026-04-21</EndToEndId>
+        <UETR>e8a2b6f7-1234-4abc-89de-fedcba012345</UETR>
+      </PmtId>
+      <IntrBkSttlmAmt Ccy="USD">250000.00</IntrBkSttlmAmt>
+      <IntrBkSttlmDt>2026-04-22</IntrBkSttlmDt>
+      <ChrgBr>SHAR</ChrgBr>
+      <Dbtr>
+        <Nm>EXEMPLE HOLDING SARL</Nm>
+        <PstlAdr>
+          <StrtNm>2 boulevard Royal</StrtNm>
+          <PstCd>L-2449</PstCd>
+          <TwnNm>Luxembourg</TwnNm>
+          <Ctry>LU</Ctry>
+        </PstlAdr>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>LU280019400644750000</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>BGLLLULLXXX</BICFI>
+          <Nm>BGL BNP PARIBAS</Nm>
+          <PstlAdr>
+            <Ctry>LU</Ctry>
+          </PstlAdr>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtrAgt>
+        <FinInstnId>
+          <BICFI>JPMSUS33</BICFI>
+          <Nm>JPMORGAN CHASE BANK NA</Nm>
+          <PstlAdr>
+            <Ctry>US</Ctry>
+          </PstlAdr>
+        </FinInstnId>
+      </CdtrAgt>
+      <Cdtr>
+        <Nm>EXAMPLE HOLDING US INC</Nm>
+        <PstlAdr>
+          <StrtNm>200 Park Avenue</StrtNm>
+          <PstCd>10166</PstCd>
+          <TwnNm>New York</TwnNm>
+          <CtrySubDvsn>NY</CtrySubDvsn>
+          <Ctry>US</Ctry>
+        </PstlAdr>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <Othr>
+            <Id>1234567890</Id>
+          </Othr>
+        </Id>
+      </CdtrAcct>
+      <Purp>
+        <Cd>INTC</Cd>
+      </Purp>
+      <RmtInf>
+        <Ustrd>Intercompany funding April 2026 — Q2 working capital</Ustrd>
+      </RmtInf>
+    </CdtTrfTxInf>
+  </FIToFICstmrCdtTrf>
+</Document>

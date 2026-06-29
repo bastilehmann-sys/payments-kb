@@ -1,0 +1,82 @@
+<h2>Informationsarchitektur — Gesamtstruktur</h2>
+<p class="subtitle">Drei Säulen, ein globaler Chat. Klicke einen Bereich um Details zu sehen.</p>
+
+<div style="margin: 24px 0;">
+  <!-- Nav Bar Mockup -->
+  <div style="background:#18181b;border-radius:10px 10px 0 0;padding:0 24px;display:flex;align-items:center;gap:0;height:52px;">
+    <span style="color:#a1e45a;font-weight:700;font-size:15px;margin-right:32px;letter-spacing:-0.3px;">Payments KB</span>
+    <div style="display:flex;gap:2px;flex:1;">
+      <div style="padding:6px 16px;background:#27272a;border-radius:6px;color:#fff;font-size:13px;font-weight:500;">Regulatorik</div>
+      <div style="padding:6px 16px;background:#a1e45a;border-radius:6px;color:#18181b;font-size:13px;font-weight:600;">Technik</div>
+      <div style="padding:6px 16px;background:#27272a;border-radius:6px;color:#fff;font-size:13px;font-weight:500;">SAP</div>
+    </div>
+    <div style="padding:6px 14px;background:#27272a;border-radius:6px;color:#a1e45a;font-size:13px;font-weight:500;">✦ Chat</div>
+  </div>
+
+  <!-- Three columns -->
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border:1px solid #e4e4e7;border-top:none;border-radius:0 0 10px 10px;overflow:hidden;">
+
+    <!-- Regulatorik -->
+    <div style="padding:20px;border-right:1px solid #e4e4e7;background:#fafafa;">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#71717a;margin-bottom:12px;letter-spacing:0.5px;">Regulatorik (bestehend)</div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <div style="background:#fff;border:1px solid #e4e4e7;border-radius:6px;padding:8px 12px;font-size:13px;color:#18181b;">🌍 Länderprofile (30)</div>
+        <div style="background:#fff;border:1px solid #e4e4e7;border-radius:6px;padding:8px 12px;font-size:13px;color:#18181b;">📄 Formate (ISO 20022)</div>
+        <div style="background:#fff;border:1px solid #e4e4e7;border-radius:6px;padding:8px 12px;font-size:13px;color:#18181b;">🔄 Clearing / Zahlungsarten</div>
+        <div style="background:#fff;border:1px solid #e4e4e7;border-radius:6px;padding:8px 12px;font-size:13px;color:#18181b;">📊 IHB / POBO</div>
+        <div style="background:#f4f4f5;border:1px solid #e4e4e7;border-radius:6px;padding:8px 12px;font-size:12px;color:#71717a;font-style:italic;">→ bleibt unverändert</div>
+      </div>
+    </div>
+
+    <!-- Technik -->
+    <div style="padding:20px;border-right:1px solid #e4e4e7;background:#f0fdf4;">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#16a34a;margin-bottom:12px;letter-spacing:0.5px;">Technik (neu)</div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <div style="background:#fff;border:1px solid #bbf7d0;border-radius:6px;padding:8px 12px;font-size:13px;color:#18181b;">⚡ EBICS</div>
+        <div style="background:#fff;border:1px solid #bbf7d0;border-radius:6px;padding:8px 12px;font-size:13px;color:#18181b;">🔗 H2H (Host-to-Host)</div>
+        <div style="background:#fff;border:1px solid #bbf7d0;border-radius:6px;padding:8px 12px;font-size:13px;color:#18181b;">🏦 SAP Multi-Bank Connectivity</div>
+        <div style="background:#fff;border:1px solid #bbf7d0;border-radius:6px;padding:8px 12px;font-size:13px;color:#18181b;">🌐 SWIFT (gpi, MT, MX)</div>
+        <div style="background:#fff;border:1px solid #bbf7d0;border-radius:6px;padding:8px 12px;font-size:13px;color:#18181b;">🏢 SWIFT Service Bureau</div>
+      </div>
+      <div style="margin-top:10px;background:#dcfce7;border-radius:6px;padding:8px 12px;font-size:12px;color:#16a34a;">
+        Jedes Protokoll: Steckbrief + Artikel
+      </div>
+    </div>
+
+    <!-- SAP -->
+    <div style="padding:20px;background:#eff6ff;">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#2563eb;margin-bottom:12px;letter-spacing:0.5px;">SAP (neu)</div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <div style="background:#fff;border:1px solid #bfdbfe;border-radius:6px;padding:8px 12px;font-size:13px;color:#18181b;">🗓 Produktroadmap SAP</div>
+        <div style="background:#fff;border:1px solid #bfdbfe;border-radius:6px;padding:8px 12px;font-size:13px;color:#18181b;">🛤 Implementierungspfade</div>
+      </div>
+      <div style="margin-top:10px;background:#dbeafe;border-radius:6px;padding:8px 12px;font-size:12px;color:#2563eb;">
+        Timeline-View + Phase-Übersicht
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Chat bar -->
+  <div style="margin-top:12px;background:#18181b;border-radius:10px;padding:14px 20px;display:flex;align-items:center;gap:12px;">
+    <span style="color:#a1e45a;font-size:14px;font-weight:600;">✦ KI-Chat</span>
+    <span style="color:#71717a;font-size:13px;">Durchsucht alle drei Bereiche — Regulatorik, Technik und SAP gleichzeitig</span>
+  </div>
+</div>
+
+<div class="options" style="margin-top:8px;">
+  <div class="option" data-choice="ok" onclick="toggleSelect(this)">
+    <div class="letter">✓</div>
+    <div class="content">
+      <h3>Struktur sieht gut aus</h3>
+      <p>Weiter zum nächsten Schritt: Technik-Detailseite</p>
+    </div>
+  </div>
+  <div class="option" data-choice="change" onclick="toggleSelect(this)">
+    <div class="letter">↩</div>
+    <div class="content">
+      <h3>Ich möchte etwas ändern</h3>
+      <p>Sag mir im Terminal was angepasst werden soll</p>
+    </div>
+  </div>
+</div>

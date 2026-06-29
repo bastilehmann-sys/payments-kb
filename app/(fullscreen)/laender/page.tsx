@@ -30,7 +30,7 @@ export default async function LaenderPage() {
   const session = await auth();
   if (!session) redirect('/login');
 
-  const [countriesWithDocs, itBlocks, cnBlocks, rsBlocks, deBlocks, usBlocks, chBlocks, gbBlocks, inBlocks, ihbEntries] = await Promise.all([
+  const [countriesWithDocs, itBlocks, cnBlocks, rsBlocks, deBlocks, usBlocks, chBlocks, gbBlocks, inBlocks, beBlocks, esBlocks, frBlocks, nlBlocks, atBlocks, luBlocks, ihbEntries] = await Promise.all([
     listCountriesWithDocuments(),
     getCountryBlocks('IT'),
     getCountryBlocks('CN'),
@@ -40,6 +40,12 @@ export default async function LaenderPage() {
     getCountryBlocks('CH'),
     getCountryBlocks('GB'),
     getCountryBlocks('IN'),
+    getCountryBlocks('BE'),
+    getCountryBlocks('ES'),
+    getCountryBlocks('FR'),
+    getCountryBlocks('NL'),
+    getCountryBlocks('AT'),
+    getCountryBlocks('LU'),
     getIhbEntries(),
   ]);
 
@@ -117,6 +123,24 @@ export default async function LaenderPage() {
 
   const inOrdered = buildCountryBlocks(inBlocks, 'indien', 'Indien', 'IN');
   if (inOrdered.length > 0) countryBlocksMap['IN'] = inOrdered;
+
+  const beOrdered = buildCountryBlocks(beBlocks, 'belgien', 'Belgien', 'BE');
+  if (beOrdered.length > 0) countryBlocksMap['BE'] = beOrdered;
+
+  const esOrdered = buildCountryBlocks(esBlocks, 'spanien', 'Spanien', 'ES');
+  if (esOrdered.length > 0) countryBlocksMap['ES'] = esOrdered;
+
+  const frOrdered = buildCountryBlocks(frBlocks, 'frankreich', 'Frankreich', 'FR');
+  if (frOrdered.length > 0) countryBlocksMap['FR'] = frOrdered;
+
+  const nlOrdered = buildCountryBlocks(nlBlocks, 'niederlande', 'Niederlande', 'NL');
+  if (nlOrdered.length > 0) countryBlocksMap['NL'] = nlOrdered;
+
+  const atOrdered = buildCountryBlocks(atBlocks, 'österreich', 'Österreich', 'AT');
+  if (atOrdered.length > 0) countryBlocksMap['AT'] = atOrdered;
+
+  const luOrdered = buildCountryBlocks(luBlocks, 'luxemburg', 'Luxemburg', 'LU');
+  if (luOrdered.length > 0) countryBlocksMap['LU'] = luOrdered;
 
   const items = countriesWithDocs.map((c) => {
     const ihb = ihbByLand.get(normalizeLand(c.name));

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SEPA SCT — pain.001.001.09 (Customer Credit Transfer Initiation)
+  Beispiel: Spanische Firma überweist an spanischen Lieferanten via EBICS (CaixaBank).
+  ES-Spezifika:
+    - IBAN 24-stellig (ES + 2 IBAN-Prüf + 4 Bankcode + 4 Filialcode + 2 CCC-Prüf + 10 KtNr)
+    - NIF (9-stellig: 1 Buchstabe Rechtsform + 7 Ziffern + 1 Prüfbuchstabe)
+    - NIF-IVA = ES + NIF (EU-USt-ID)
+  Quelle: EPC SCT Customer-to-Bank IG, Banco de España
+-->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>SEPA-SCT-ES-2026-0421-0001</MsgId>
+      <CreDtTm>2026-04-21T09:00:00Z</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>8920.00</CtrlSum>
+      <InitgPty>
+        <Nm>EJEMPLO SA</Nm>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>A12345674</Id>
+              <SchmeNm><Cd>BANK</Cd></SchmeNm>
+            </Othr>
+          </OrgId>
+        </Id>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <PmtInfId>PMT-ES-SCT-0001</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <BtchBookg>true</BtchBookg>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>8920.00</CtrlSum>
+      <PmtTpInf>
+        <SvcLvl><Cd>SEPA</Cd></SvcLvl>
+      </PmtTpInf>
+      <ReqdExctnDt>
+        <Dt>2026-04-22</Dt>
+      </ReqdExctnDt>
+      <Dbtr>
+        <Nm>EJEMPLO SA</Nm>
+        <PstlAdr>
+          <StrtNm>Calle Gran Vía 28</StrtNm>
+          <PstCd>28013</PstCd>
+          <TwnNm>Madrid</TwnNm>
+          <Ctry>ES</Ctry>
+        </PstlAdr>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>A12345674</Id>
+              <SchmeNm><Cd>BANK</Cd></SchmeNm>
+            </Othr>
+          </OrgId>
+        </Id>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>ES9121000418450200051332</IBAN>
+        </Id>
+        <Ccy>EUR</Ccy>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId><BICFI>CAIXESBBXXX</BICFI></FinInstnId>
+      </DbtrAgt>
+      <ChrgBr>SLEV</ChrgBr>
+      <CdtTrfTxInf>
+        <PmtId>
+          <InstrId>INS-ES-0001</InstrId>
+          <EndToEndId>FACT-2026-04-0307</EndToEndId>
+        </PmtId>
+        <Amt>
+          <InstdAmt Ccy="EUR">8920.00</InstdAmt>
+        </Amt>
+        <CdtrAgt>
+          <FinInstnId><BICFI>BBVAESMMXXX</BICFI></FinInstnId>
+        </CdtrAgt>
+        <Cdtr>
+          <Nm>SUMINISTROS GARCÍA SL</Nm>
+          <PstlAdr>
+            <StrtNm>Avinguda Diagonal 640</StrtNm>
+            <PstCd>08017</PstCd>
+            <TwnNm>Barcelona</TwnNm>
+            <Ctry>ES</Ctry>
+          </PstlAdr>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>ES7901824567890987654321</IBAN>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>Factura FACT-2026-04-0307 — Material industrial Q2</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>

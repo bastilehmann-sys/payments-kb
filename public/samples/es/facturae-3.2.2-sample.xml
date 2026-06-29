@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Facturae v3.2.2 — Spanisches XML-E-Rechnungsformat
+  Pflicht: B2G via FACe seit 2015 (Ley 25/2013), B2B via Crea y Crece (Ley 18/2022) in Phasen 2025-2027.
+  Format basiert auf XAdES (XML Advanced Electronic Signatures) — digitale Signatur erforderlich
+  für Produktivnutzung (FNMT- oder Camerfirma-Zertifikat).
+  Quelle: https://www.facturae.gob.es / Schema: http://www.facturae.es/Facturae/2014/v3.2.2/Facturae
+-->
+<fe:Facturae xmlns:fe="http://www.facturae.es/Facturae/2014/v3.2.2/Facturae"
+             xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+  <FileHeader>
+    <SchemaVersion>3.2.2</SchemaVersion>
+    <Modality>I</Modality>
+    <InvoiceIssuerType>EM</InvoiceIssuerType>
+    <Batch>
+      <BatchIdentifier>EJEMPLO-2026-04-0307</BatchIdentifier>
+      <InvoicesCount>1</InvoicesCount>
+      <TotalInvoicesAmount>
+        <TotalAmount>8920.00</TotalAmount>
+      </TotalInvoicesAmount>
+      <TotalOutstandingAmount>
+        <TotalAmount>8920.00</TotalAmount>
+      </TotalOutstandingAmount>
+      <TotalExecutableAmount>
+        <TotalAmount>8920.00</TotalAmount>
+      </TotalExecutableAmount>
+      <InvoiceCurrencyCode>EUR</InvoiceCurrencyCode>
+    </Batch>
+  </FileHeader>
+  <Parties>
+    <SellerParty>
+      <TaxIdentification>
+        <PersonTypeCode>J</PersonTypeCode>
+        <ResidenceTypeCode>R</ResidenceTypeCode>
+        <TaxIdentificationNumber>A12345674</TaxIdentificationNumber>
+      </TaxIdentification>
+      <LegalEntity>
+        <CorporateName>EJEMPLO SA</CorporateName>
+        <AddressInSpain>
+          <Address>Calle Gran Vía 28</Address>
+          <PostCode>28013</PostCode>
+          <Town>Madrid</Town>
+          <Province>Madrid</Province>
+          <CountryCode>ESP</CountryCode>
+        </AddressInSpain>
+      </LegalEntity>
+    </SellerParty>
+    <BuyerParty>
+      <TaxIdentification>
+        <PersonTypeCode>J</PersonTypeCode>
+        <ResidenceTypeCode>R</ResidenceTypeCode>
+        <TaxIdentificationNumber>B98765432</TaxIdentificationNumber>
+      </TaxIdentification>
+      <LegalEntity>
+        <CorporateName>SUMINISTROS GARCÍA SL</CorporateName>
+        <AddressInSpain>
+          <Address>Avinguda Diagonal 640</Address>
+          <PostCode>08017</PostCode>
+          <Town>Barcelona</Town>
+          <Province>Barcelona</Province>
+          <CountryCode>ESP</CountryCode>
+        </AddressInSpain>
+      </LegalEntity>
+    </BuyerParty>
+  </Parties>
+  <Invoices>
+    <Invoice>
+      <InvoiceHeader>
+        <InvoiceNumber>FACT-2026-04-0307</InvoiceNumber>
+        <InvoiceDocumentType>FC</InvoiceDocumentType>
+        <InvoiceClass>OO</InvoiceClass>
+      </InvoiceHeader>
+      <InvoiceIssueData>
+        <IssueDate>2026-04-15</IssueDate>
+        <InvoiceCurrencyCode>EUR</InvoiceCurrencyCode>
+        <TaxCurrencyCode>EUR</TaxCurrencyCode>
+        <LanguageName>es</LanguageName>
+      </InvoiceIssueData>
+      <TaxesOutputs>
+        <Tax>
+          <TaxTypeCode>01</TaxTypeCode>
+          <TaxRate>21.00</TaxRate>
+          <TaxableBase>
+            <TotalAmount>7371.90</TotalAmount>
+          </TaxableBase>
+          <TaxAmount>
+            <TotalAmount>1548.10</TotalAmount>
+          </TaxAmount>
+        </Tax>
+      </TaxesOutputs>
+      <InvoiceTotals>
+        <TotalGrossAmount>7371.90</TotalGrossAmount>
+        <TotalGrossAmountBeforeTaxes>7371.90</TotalGrossAmountBeforeTaxes>
+        <TotalTaxOutputs>1548.10</TotalTaxOutputs>
+        <TotalTaxesWithheld>0.00</TotalTaxesWithheld>
+        <InvoiceTotal>8920.00</InvoiceTotal>
+        <TotalOutstandingAmount>8920.00</TotalOutstandingAmount>
+        <TotalExecutableAmount>8920.00</TotalExecutableAmount>
+      </InvoiceTotals>
+      <Items>
+        <InvoiceLine>
+          <ItemDescription>Material industrial Q2/2026 — Suministros</ItemDescription>
+          <Quantity>1.000000</Quantity>
+          <UnitOfMeasure>01</UnitOfMeasure>
+          <UnitPriceWithoutTax>7371.900000</UnitPriceWithoutTax>
+          <TotalCost>7371.90</TotalCost>
+          <GrossAmount>7371.90</GrossAmount>
+          <TaxesOutputs>
+            <Tax>
+              <TaxTypeCode>01</TaxTypeCode>
+              <TaxRate>21.00</TaxRate>
+              <TaxableBase><TotalAmount>7371.90</TotalAmount></TaxableBase>
+              <TaxAmount><TotalAmount>1548.10</TotalAmount></TaxAmount>
+            </Tax>
+          </TaxesOutputs>
+        </InvoiceLine>
+      </Items>
+      <PaymentDetails>
+        <Installment>
+          <InstallmentDueDate>2026-05-15</InstallmentDueDate>
+          <InstallmentAmount>8920.00</InstallmentAmount>
+          <PaymentMeans>04</PaymentMeans>
+          <AccountToBeCredited>
+            <IBAN>ES7901824567890987654321</IBAN>
+          </AccountToBeCredited>
+        </Installment>
+      </PaymentDetails>
+    </Invoice>
+  </Invoices>
+  <!-- Hier folgt in Produktion die XAdES-Signatur (ds:Signature) — entfernt für Lesbarkeit -->
+</fe:Facturae>

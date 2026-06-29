@@ -444,6 +444,7 @@ export function ScopeClient({ kbData, initialSaved }: Props) {
           {/* Heimatland */}
           <div className="space-y-1">
             <div className="text-xs font-semibold text-muted-foreground">Heimatland / SAP-Standort</div>
+            <div className="text-xs text-muted-foreground/60">Wo steht das SAP-System?</div>
             <select
               value={heimatland}
               onChange={e => setHeimatland(e.target.value)}

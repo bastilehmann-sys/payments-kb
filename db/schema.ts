@@ -350,3 +350,19 @@ export const proposalItems = pgTable('proposal_items', {
   revised_at: timestamp('revised_at', { withTimezone: true }),
   executed_at: timestamp('executed_at', { withTimezone: true }),
 });
+
+// ============================================================
+// scope_analyses — Projekt-Scope-Analyse Eingabeparameter
+// ============================================================
+
+export const scopeAnalyses = pgTable('scope_analyses', {
+  id:               uuid('id').primaryKey().defaultRandom(),
+  name:             text('name'),
+  heimatland:       text('heimatland').notNull(),
+  ops_laender:      text('ops_laender').array().notNull().default([]),
+  hausbank_laender: text('hausbank_laender').array().notNull().default([]),
+  flag_konzern:     boolean('flag_konzern').notNull().default(false),
+  flag_s4hana:      boolean('flag_s4hana').notNull().default(false),
+  flag_dringend:    boolean('flag_dringend').notNull().default(false),
+  created_at:       timestamp('created_at', { withTimezone: true }).defaultNow(),
+});

@@ -29,9 +29,11 @@ export async function sendProposalNotification({
     .map(item => `<li><strong>${item.topic}</strong><br>${item.reasoning}</li>`)
     .join('\n');
 
+  const recipients = (process.env.NOTIFICATION_EMAIL ?? '').split(',').map(s => s.trim()).filter(Boolean);
+
   await resend.emails.send({
     from: 'GPDB Agent <agent@norinit.de>',
-    to: process.env.NOTIFICATION_EMAIL!,
+    to: recipients,
     subject: `GPDB KW ${kw}: ${items.length} neue Themen zur Review`,
     html: `
       <h2>GPDB Update-Agent — KW ${kw}</h2>

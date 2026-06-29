@@ -6,7 +6,8 @@ export function extractSection(md: string, slug: string): string | null {
   if (!md.trim()) return null;
 
   const lines = md.split('\n');
-  const headerPattern = new RegExp(`^##\\s+${slug}\\s*$`, 'i');
+  const escaped = slug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const headerPattern = new RegExp(`^##\\s+${escaped}\\s*$`, 'i');
 
   let inSection = false;
   const sectionLines: string[] = [];

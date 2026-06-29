@@ -509,6 +509,8 @@ Neue Bank-Konnektoren für weitere europäische Banken. SWIFT gpi Integration f�
 
 Vollständige ISO 20022 Migration aller Zahlungsformate. ERP Payments Harmonisierung zwischen S/4HANA und ECC-Nachfolger. Vereinfachte BCM-Konfiguration durch geführte Einrichtungsassistenten.
 
+**Note:** Die Phasendetails sind in `content/gpdb_07_sap.md` als dedizierte H2-Sektionen strukturiert (`## phase-1-blueprint` bis `## phase-5-go-live`), nicht als H3-Subsektionen. Dies ermöglicht `extractSection()` die direkte Suche nach `md_anchor`-Werten.
+
 ## implementierung
 
 ### Phase 1: Blueprint

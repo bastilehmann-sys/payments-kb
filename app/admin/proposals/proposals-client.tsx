@@ -31,38 +31,52 @@ export function ProposalsClient({ initialProposals }: Props) {
 
   async function requestRevision(proposal: ProposalWithItems) {
     setLoading(l => ({ ...l, [`revise-${proposal.id}`]: true }));
-    await saveComments(proposal);
-    await fetch(`/api/admin/proposals/${proposal.id}/revise`, { method: 'POST' });
-    const res = await fetch('/api/admin/proposals');
-    setProposals(await res.json());
-    setLoading(l => ({ ...l, [`revise-${proposal.id}`]: false }));
+    try {
+      await saveComments(proposal);
+      await fetch(`/api/admin/proposals/${proposal.id}/revise`, { method: 'POST' });
+      const res = await fetch('/api/admin/proposals');
+      setProposals(await res.json());
+    } finally {
+      setLoading(l => ({ ...l, [`revise-${proposal.id}`]: false }));
+    }
   }
 
   async function executeApproved(proposal: ProposalWithItems) {
     setLoading(l => ({ ...l, [`execute-${proposal.id}`]: true }));
-    await fetch(`/api/admin/proposals/${proposal.id}/execute`, { method: 'POST' });
-    const res = await fetch('/api/admin/proposals');
-    setProposals(await res.json());
-    setLoading(l => ({ ...l, [`execute-${proposal.id}`]: false }));
+    try {
+      await fetch(`/api/admin/proposals/${proposal.id}/execute`, { method: 'POST' });
+      const res = await fetch('/api/admin/proposals');
+      setProposals(await res.json());
+    } finally {
+      setLoading(l => ({ ...l, [`execute-${proposal.id}`]: false }));
+    }
   }
 
   async function confirmItem(proposal: ProposalWithItems, itemId: string) {
     setLoading(l => ({ ...l, [`confirm-${itemId}`]: true }));
-    await fetch(`/api/admin/proposals/${proposal.id}/confirm`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ item_ids: [itemId] }),
-    });
-    const res = await fetch('/api/admin/proposals');
-    setProposals(await res.json());
-    setLoading(l => ({ ...l, [`confirm-${itemId}`]: false }));
+    try {
+      await fetch(`/api/admin/proposals/${proposal.id}/confirm`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ item_ids: [itemId] }),
+      });
+      const res = await fetch('/api/admin/proposals');
+      setProposals(await res.json());
+    } finally {
+      setLoading(l => ({ ...l, [`confirm-${itemId}`]: false }));
+    }
   }
 
   async function toggleStatus(proposal: ProposalWithItems, item: ProposalItem, status: 'approved' | 'rejected' | 'pending') {
-    const next = item.status === status ? 'pending' : status;
-    await patchItem(proposal.id, item.id, { status: next });
-    const res = await fetch('/api/admin/proposals');
-    setProposals(await res.json());
+    setLoading(l => ({ ...l, [`toggle-${item.id}`]: true }));
+    try {
+      const next = item.status === status ? 'pending' : status;
+      await patchItem(proposal.id, item.id, { status: next });
+      const res = await fetch('/api/admin/proposals');
+      setProposals(await res.json());
+    } finally {
+      setLoading(l => ({ ...l, [`toggle-${item.id}`]: false }));
+    }
   }
 
   if (proposals.length === 0) {
@@ -77,8 +91,9 @@ export function ProposalsClient({ initialProposals }: Props) {
     <div className="space-y-12">
       {proposals.map(proposal => {
         const hasComments = proposal.items.some(item => comments[item.id] || item.comment);
-        const hasApproved = proposal.items.some(item => item.status === 'approved');
-        const hasGenerated = proposal.items.some(item => item.generated_content && item.status === 'approved');
+        const hasApproved = proposal.items.some(
+          item => item.status === 'approved' && !item.generated_content
+        );
 
         return (
           <div key={proposal.id} className="border border-border rounded-lg overflow-hidden">
@@ -100,7 +115,7 @@ export function ProposalsClient({ initialProposals }: Props) {
                     {loading[`revise-${proposal.id}`] ? 'Überarbeite…' : 'Revision anfragen'}
                   </button>
                 )}
-                {hasApproved && !hasGenerated && (
+                {hasApproved && (
                   <button
                     onClick={() => executeApproved(proposal)}
                     disabled={loading[`execute-${proposal.id}`]}

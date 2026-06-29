@@ -72,7 +72,7 @@ function CountrySelect({ label, hint, value, onChange, countries, chipClass }: C
         {value.map(code => (
           <span key={code} className={cn('inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 text-xs font-medium', chipClass, !isKb(code) && 'opacity-60')}>
             {code}
-            <button type="button" onClick={(e) => { e.stopPropagation(); remove(code); }} className="ml-0.5 hover:opacity-70 leading-none">×</button>
+            <button type="button" onClick={(e) => { e.stopPropagation(); remove(code); }} className="ml-0.5 hover:opacity-70 leading-none" aria-label={`${code} entfernen`}>×</button>
           </span>
         ))}
         <div className="relative flex-1 min-w-[80px]">
@@ -320,6 +320,7 @@ export function ScopeClient({ kbData, initialSaved }: Props) {
   const [saveOpen, setSaveOpen] = useState(false);
   const [projectName, setProjectName] = useState('');
   const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState('');
 
   const countryOptions = kbData.countries.map(c => ({ code: c.code, name: c.name }));
 
@@ -373,6 +374,9 @@ export function ScopeClient({ kbData, initialSaved }: Props) {
         setSavedList(prev => [saved, ...prev].slice(0, 10));
         setSaveOpen(false);
         setProjectName('');
+        setSaveError('');
+      } else {
+        setSaveError('Speichern fehlgeschlagen. Bitte erneut versuchen.');
       }
     } finally {
       setSaving(false);
@@ -380,8 +384,14 @@ export function ScopeClient({ kbData, initialSaved }: Props) {
   }
 
   async function handleDelete(id: string) {
-    await fetch(`/api/scope/${id}`, { method: 'DELETE' });
-    setSavedList(prev => prev.filter(a => a.id !== id));
+    try {
+      const res = await fetch(`/api/scope/${id}`, { method: 'DELETE' });
+      if (res.ok || res.status === 404) {
+        setSavedList(prev => prev.filter(a => a.id !== id));
+      }
+    } catch {
+      // network error — leave list unchanged
+    }
   }
 
   function formatSavedLabel(a: ScopeAnalysis): string {
@@ -516,7 +526,7 @@ export function ScopeClient({ kbData, initialSaved }: Props) {
           <div className="flex justify-end">
             <button
               type="button"
-              onClick={() => setSaveOpen(true)}
+              onClick={() => { setSaveOpen(true); setSaveError(''); }}
               className="rounded-md border border-border bg-card px-4 py-2 text-sm font-medium hover:bg-muted transition-colors"
             >
               Analyse speichern
@@ -528,8 +538,8 @@ export function ScopeClient({ kbData, initialSaved }: Props) {
       {/* Save Modal */}
       {saveOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-          <div className="w-full max-w-sm rounded-xl border border-border bg-card p-6 shadow-xl mx-4">
-            <h2 className="font-heading text-lg font-semibold mb-4">Analyse speichern</h2>
+          <div className="w-full max-w-sm rounded-xl border border-border bg-card p-6 shadow-xl mx-4" role="dialog" aria-modal="true" aria-labelledby="save-modal-title">
+            <h2 id="save-modal-title" className="font-heading text-lg font-semibold mb-4">Analyse speichern</h2>
             <input
               type="text"
               placeholder="Projektname (optional)"
@@ -539,6 +549,9 @@ export function ScopeClient({ kbData, initialSaved }: Props) {
               autoFocus
               className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary mb-4"
             />
+            {saveError && (
+              <p className="text-xs text-destructive mb-3">{saveError}</p>
+            )}
             <div className="flex justify-end gap-3">
               <button
                 type="button"

@@ -33,6 +33,10 @@ export async function POST(
     let existingSection = '';
     if (item.target_file !== 'new') {
       const filePath = path.join(contentDir, item.target_file);
+      if (!path.resolve(filePath).startsWith(path.resolve(contentDir) + path.sep)) {
+        console.warn('[security] rejected out-of-bounds target_file:', item.target_file);
+        continue;
+      }
       if (fs.existsSync(filePath)) {
         const fileContent = fs.readFileSync(filePath, 'utf-8');
         existingSection = item.target_section

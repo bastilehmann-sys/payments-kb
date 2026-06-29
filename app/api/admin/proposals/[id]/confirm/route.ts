@@ -41,6 +41,10 @@ export async function POST(
       fs.writeFileSync(path.join(contentDir, filename), item.generated_content!, 'utf-8');
     } else {
       const filePath = path.join(contentDir, item.target_file);
+      if (!path.resolve(filePath).startsWith(path.resolve(contentDir) + path.sep)) {
+        console.warn('[security] rejected out-of-bounds target_file:', item.target_file);
+        continue;
+      }
       const existing = fs.existsSync(filePath)
         ? fs.readFileSync(filePath, 'utf-8')
         : '';
@@ -56,6 +60,10 @@ export async function POST(
       .update(proposalItems)
       .set({ status: 'executed', executed_at: new Date() })
       .where(eq(proposalItems.id, item.id));
+  }
+
+  if (toConfirm.length === 0) {
+    return Response.json({ confirmed: 0 });
   }
 
   // Reindex all changed content into DB chunks + FTS

@@ -95,6 +95,7 @@ export interface ReportData {
   ihb: IhbEntryLean[];
   laender: CountryLean[];
   fremdlaender: string[];
+  dringend: boolean;
 }
 
 // ─── Geography sets ───────────────────────────────────────────────────────────
@@ -133,7 +134,12 @@ function buildKeywords(codes: string[]): string[] {
 function matchText(text: string | null | undefined, keywords: string[]): boolean {
   if (!text) return false;
   const lower = text.toLowerCase();
-  return keywords.some(kw => lower.includes(kw));
+  return keywords.some(kw => {
+    if (kw.length <= 2) {
+      return new RegExp(`\\b${kw}\\b`).test(lower);
+    }
+    return lower.includes(kw);
+  });
 }
 
 function matchIhb(land: string, codes: string[], countryList: CountryLean[]): boolean {
@@ -168,8 +174,10 @@ export function runEngine(params: ScopeParams, kbData: KbData): ReportData {
     !e.region || e.region.toLowerCase() === 'global' || matchText(e.region, keywords)
   );
 
-  // Clearing: match region text
-  const clearing = kbData.clearing.filter(e => matchText(e.region, keywords));
+  // Clearing: entries with no region or 'global' = always include (consistent with formate)
+  const clearing = kbData.clearing.filter(e =>
+    !e.region || e.region.toLowerCase() === 'global' || matchText(e.region, keywords)
+  );
 
   // IHB: exact land match, only when flagKonzern
   const ihb = params.flagKonzern
@@ -238,5 +246,6 @@ export function runEngine(params: ScopeParams, kbData: KbData): ReportData {
     ihb,
     laender,
     fremdlaender,
+    dringend: params.flagDringend,
   };
 }

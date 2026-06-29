@@ -323,3 +323,30 @@ export const sapImplementationPhases = pgTable('sap_implementation_phases', {
   md_anchor: text('md_anchor'),
   created_at: timestamp('created_at', { withTimezone: true }).defaultNow(),
 });
+
+// ============================================================
+// proposals and proposal_items — KB Auto-Update Agent
+// ============================================================
+
+export const proposals = pgTable('proposals', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  week_date: text('week_date').notNull(),
+  status: text('status').notNull().default('draft'),
+  created_at: timestamp('created_at', { withTimezone: true }).defaultNow(),
+});
+
+export const proposalItems = pgTable('proposal_items', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  proposal_id: uuid('proposal_id').references(() => proposals.id, { onDelete: 'cascade' }),
+  topic: text('topic').notNull(),
+  target_file: text('target_file').notNull(),
+  target_section: text('target_section'),
+  reasoning: text('reasoning').notNull(),
+  sources: jsonb('sources').notNull(),
+  content_outline: text('content_outline').notNull(),
+  comment: text('comment'),
+  generated_content: text('generated_content'),
+  status: text('status').notNull().default('pending'),
+  revised_at: timestamp('revised_at', { withTimezone: true }),
+  executed_at: timestamp('executed_at', { withTimezone: true }),
+});

@@ -97,9 +97,12 @@ function buildFileList(contentDir: string): IndexableFile[] {
   // gpdb_*.md files in content/
   const gpdbFiles = fs.readdirSync(contentDir).filter(f => /^gpdb_.*\.md$/.test(f));
   for (const filename of gpdbFiles) {
-    const section = filenameToSection(filename);
-    if (!section) continue;
-    const slug = SLUG_MAP[section] ?? slugify(filename);
+    const m = filename.match(/^gpdb_(\d{2}_[^.]+)\.md$/);
+    if (!m) continue;
+    const key = m[1];
+    const section = SECTION_MAP[key] ?? 'laender';
+    // Known files use SLUG_MAP; new country files (not in SECTION_MAP) get filename-based slugs
+    const slug = key in SECTION_MAP ? (SLUG_MAP[section] ?? slugify(filename)) : slugify(filename.replace(/\.md$/, ''));
     files.push({ filename, filePath: path.join(contentDir, filename), section, slug });
   }
 

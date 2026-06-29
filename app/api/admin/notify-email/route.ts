@@ -12,11 +12,16 @@ export async function POST(request: Request) {
     items: Array<{ topic: string; reasoning: string }>;
   };
 
-  await sendProposalNotification({
-    proposalId: body.proposal_id,
-    weekDate: body.week_date,
-    items: body.items,
-  });
+  try {
+    await sendProposalNotification({
+      proposalId: body.proposal_id,
+      weekDate: body.week_date,
+      items: body.items,
+    });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    return Response.json({ error: message }, { status: 500 });
+  }
 
   return Response.json({ ok: true });
 }

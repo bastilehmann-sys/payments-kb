@@ -30,6 +30,7 @@ export async function sendProposalNotification({
     .join('\n');
 
   const recipients = (process.env.NOTIFICATION_EMAIL ?? '').split(',').map(s => s.trim()).filter(Boolean);
+  if (recipients.length === 0) throw new Error('NOTIFICATION_EMAIL not configured');
 
   await resend.emails.send({
     from: 'GPDB Agent <agent@norinit.de>',

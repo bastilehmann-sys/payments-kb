@@ -32,7 +32,6 @@ export async function POST(
   }
 
   const client = new Anthropic();
-  let revisedCount = 0;
 
   for (const item of toRevise) {
     const message = await client.messages.create({
@@ -41,18 +40,19 @@ export async function POST(
       messages: [
         {
           role: 'user',
-          content: `You are a payments knowledge-base agent. Revise the following proposal item based on the user's feedback.
+          content: `Du bist ein Payments-Wissens-Agent. Überarbeite diesen Proposal basierend auf dem Feedback.
 
-Current proposal item:
-topic: ${item.topic}
-target_file: ${item.target_file}${item.target_section ? `\ntarget_section: ${item.target_section}` : ''}
-reasoning: ${item.reasoning}
-content_outline: ${item.content_outline}
-sources: ${JSON.stringify(item.sources)}
+Aktueller Proposal:
+Thema: ${item.topic}
+Ziel-Datei: ${item.target_file}${item.target_section ? ` / ${item.target_section}` : ''}
+Begründung: ${item.reasoning}
+Content-Outline: ${item.content_outline}
+Quellen: ${JSON.stringify(item.sources)}
 
-User feedback: ${item.comment}
+Feedback: ${item.comment}
 
-Return only a raw JSON object with these exact keys: topic, target_file, target_section, reasoning, content_outline. No markdown fences, no commentary, no explanation — just the JSON object.`,
+Antworte nur mit einem JSON-Objekt (kein Markdown, kein Kommentar):
+{"topic":"...","target_file":"...","target_section":"...","reasoning":"...","content_outline":"..."}`,
         },
       ],
     });
@@ -77,8 +77,6 @@ Return only a raw JSON object with these exact keys: topic, target_file, target_
         revised_at: new Date(),
       })
       .where(eq(proposalItems.id, item.id));
-
-    revisedCount++;
   }
 
   await db
@@ -86,5 +84,5 @@ Return only a raw JSON object with these exact keys: topic, target_file, target_
     .set({ status: 'draft' })
     .where(eq(proposals.id, id));
 
-  return Response.json({ revised: revisedCount });
+  return Response.json({ revised: toRevise.length });
 }

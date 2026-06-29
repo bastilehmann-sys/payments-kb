@@ -448,7 +448,7 @@ export function ScopeClient({ kbData, initialSaved }: Props) {
             <select
               value={heimatland}
               onChange={e => setHeimatland(e.target.value)}
-              className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+              className="w-full min-h-[38px] rounded-md border border-input bg-background px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
             >
               <option value="">— Bitte wählen —</option>
               {countryOptions.map(c => (

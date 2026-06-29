@@ -98,7 +98,7 @@ export function Topbar({ className }: TopbarProps) {
               key={item.href}
               href={item.href}
               className={cn(
-                "rounded-md px-3 py-1.5 text-base font-medium transition-colors",
+                "whitespace-nowrap rounded-md px-3 py-1.5 text-base font-medium transition-colors",
                 active
                   ? "bg-primary/10 text-primary"
                   : "text-muted-foreground hover:bg-accent/10 hover:text-foreground"

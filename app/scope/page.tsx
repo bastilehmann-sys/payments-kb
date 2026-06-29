@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default async function ScopePage() {
   const session = await auth();
-  if (!session) redirect('/api/auth/signin');
+  if (!session) redirect('/login');
 
   const [
     regulatorik,

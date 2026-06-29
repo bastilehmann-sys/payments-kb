@@ -20,6 +20,7 @@
     "db:import:italien-blocks": "DOTENV_CONFIG_PATH=.env.local tsx scripts/import-italien-blocks.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.106.0",
     "@auth/drizzle-adapter": "^1.11.1",
     "@base-ui/react": "^1.4.0",
     "@neondatabase/serverless": "^1.0.2",

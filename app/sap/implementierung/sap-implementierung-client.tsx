@@ -87,9 +87,20 @@ export function SapImplementierungClient({ phases, sectionMap }: Props) {
             Phase {selectedPhase.phase_nr}: {selectedPhase.title}
           </h3>
           {articleMd ? (
-            <div className="space-y-2 text-sm text-foreground leading-relaxed">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>{articleMd}</ReactMarkdown>
-            </div>
+            <>
+              <div className="space-y-2 text-sm text-foreground leading-relaxed">
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>{articleMd}</ReactMarkdown>
+              </div>
+              <div className="mt-5 flex items-center gap-1.5 border-t border-border pt-3 text-xs text-muted-foreground">
+                <svg className="h-3.5 w-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <span>Quelle:</span>
+                <code className="rounded bg-muted px-1.5 py-0.5 font-mono">content/gpdb_07_sap.md</code>
+                <span className="text-muted-foreground/50">›</span>
+                <code className="rounded bg-muted px-1.5 py-0.5 font-mono">## {selectedPhase.md_anchor}</code>
+              </div>
+            </>
           ) : (
             <p className="text-sm text-muted-foreground">
               Kein Artikel für diese Phase vorhanden.

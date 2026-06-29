@@ -15,6 +15,13 @@
       "when": 1751194200000,
       "tag": "0014_technik_sap_tables",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1751280600000,
+      "tag": "0015_fix_badges_phase_uniqueness",
+      "breakpoints": true
     }
   ]
 }

@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS "technik_entries" (
   "created_at" timestamp with time zone DEFAULT now(),
   "updated_at" timestamp with time zone DEFAULT now()
 );
-
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "sap_roadmap_items" (
   "id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   "title" text NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS "sap_roadmap_items" (
   "sort_order" integer DEFAULT 0 NOT NULL,
   "created_at" timestamp with time zone DEFAULT now()
 );
-
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "sap_implementation_phases" (
   "id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   "phase_nr" integer NOT NULL,

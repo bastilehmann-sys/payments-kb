@@ -281,7 +281,7 @@ export const technikEntries = pgTable('technik_entries', {
   name: text('name').notNull(),
   subtitle: text('subtitle'),
   category: text('category').notNull(), // 'bank' | 'sap' | 'swift'
-  badges: jsonb('badges').$type<string[]>().default([]),
+  badges: text('badges').array().default([]),
   einsatzgebiet: text('einsatzgebiet'),
   sicherheit: text('sicherheit'),
   verbreitung: text('verbreitung'),
@@ -316,7 +316,7 @@ export const sapRoadmapItems = pgTable('sap_roadmap_items', {
 
 export const sapImplementationPhases = pgTable('sap_implementation_phases', {
   id: uuid('id').primaryKey().defaultRandom(),
-  phase_nr: integer('phase_nr').notNull(),
+  phase_nr: integer('phase_nr').notNull().unique(),
   title: text('title').notNull(),
   description: text('description'),
   color: text('color').notNull(), // 'blue' | 'green' | 'yellow' | 'orange' | 'purple'

@@ -11,6 +11,12 @@ export async function DELETE(
   if (!session) return Response.json({ error: 'Unauthorized' }, { status: 401 });
 
   const { id } = await params;
-  await db.delete(scopeAnalyses).where(eq(scopeAnalyses.id, id));
-  return new Response(null, { status: 204 });
+
+  try {
+    await db.delete(scopeAnalyses).where(eq(scopeAnalyses.id, id));
+    return new Response(null, { status: 204 });
+  } catch (err) {
+    console.error('[scope] DELETE error:', err);
+    return Response.json({ error: 'Datenbankfehler' }, { status: 500 });
+  }
 }

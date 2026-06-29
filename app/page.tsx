@@ -106,6 +106,24 @@ export default async function HomePage() {
         <HubSearchButton />
       </div>
 
+      {/* ── Scope-Analyse CTA ─────────────────────────────────────────────── */}
+      <Link
+        href="/scope"
+        className="group flex items-center justify-between gap-4 rounded-xl border border-primary/30 bg-gradient-to-r from-primary/10 to-primary/5 px-6 py-4 transition-all hover:border-primary/60 hover:shadow-md"
+      >
+        <div>
+          <h2 className="font-heading text-base font-semibold text-foreground group-hover:text-primary transition-colors">
+            Projekt analysieren →
+          </h2>
+          <p className="text-sm text-muted-foreground">
+            Wähle Länder und erhalte alle relevanten KB-Inhalte für dein Projekt
+          </p>
+        </div>
+        <svg className="h-6 w-6 shrink-0 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
+        </svg>
+      </Link>
+
       {/* ── Deadlines strip ─────────────────────────────────────────────── */}
       <section className="space-y-3">
         <h2 className="font-heading text-base font-semibold text-foreground">

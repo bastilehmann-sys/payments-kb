@@ -103,7 +103,7 @@ await reindex();
 console.log('[reindex] done');
 
 // Mark proposals as executed where all items are done
-const proposalIds = [...new Set(toWrite.map(i => i.proposal_id))];
+const proposalIds = [...new Set(toWrite.map(i => i.proposal_id))].filter((pid): pid is string => pid !== null);
 for (const pid of proposalIds) {
   const all = await db.select().from(proposalItems).where(eq(proposalItems.proposal_id, pid));
   const allDone = all.every(i => i.status === 'executed' || i.status === 'rejected');
